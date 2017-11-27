@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="server.hibernate.GoodsEntity" table="GOODS" schema="PIS">
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
+        </id>
+        <property name="keyname">
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="keymodel">
+            <column name="KEYMODEL" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="num">
+            <column name="NUM" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="inprice">
+            <column name="INPRICE" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="outprice">
+            <column name="OUTPRICE" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="receprice">
+            <column name="RECEPRICE" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="receoutprice">
+        <column name="RECEOUTPRICE" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="keybatch">
+            <column name="KEYBATCH" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="batchno">
+            <column name="BATCHNO" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="dat">
+            <column name="DAT" sql-type="date" />
+        </property>
+        <property name="kinds">
+            <column name="KINDS" sql-type="varchar2(20)" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

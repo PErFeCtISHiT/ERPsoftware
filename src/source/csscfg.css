@@ -1,0 +1,40 @@
+.root{
+    -fx-background-color: #782676;
+}
+.label{
+    -fx-font-size:50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: lightcoral;
+    -fx-font-family: fantasy;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1);
+}
+.button{
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1);
+}
+.button:hover{
+    -fx-background-color: #86C1B9;
+}
+.button:pressed {
+    -fx-background-color: #A1B56C;
+}
+.tree{
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1);
+}
+.tree-view{
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1);
+}
