@@ -27,7 +27,7 @@ public class stockGlanceController implements stockGlance {
         List<String> billNo = link.getRemoteHelper().getLog().logstockGlance(from,to);
         for(int i = 0;i < billNo.size();i++){
             String s = billNo.get(i);
-            bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
+            //bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
         }
         List ret = new ArrayList();
         ret.add(withBase);
