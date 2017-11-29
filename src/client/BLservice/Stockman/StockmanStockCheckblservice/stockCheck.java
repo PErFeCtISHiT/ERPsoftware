@@ -1,7 +1,5 @@
 package client.BLservice.Stockman.StockmanStockCheckblservice;
 
-import client.Vo.goodsVO;
-
 import java.util.List;
 
 /**
@@ -10,5 +8,5 @@ import java.util.List;
  * @date: create in 15:23 2017/11/26
  */
 public interface stockCheck {
-    List<goodsVO> stockCheck();
+    List stockCheck();
 }

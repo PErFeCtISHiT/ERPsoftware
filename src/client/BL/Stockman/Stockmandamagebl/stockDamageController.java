@@ -2,6 +2,7 @@ package client.BL.Stockman.Stockmandamagebl;
 
 import client.BLservice.Manager.ManagerExamineblservice.ManagerExamine;
 import client.BLservice.Stockman.Stockmandamageblservice.stockDamage;
+import client.RMI.link;
 import client.Vo.goodsVO;
 import client.Vo.stockexceptionVO;
 import shared.ResultMessage;
@@ -31,6 +32,7 @@ public class stockDamageController implements stockDamage {
         stockDamage.setOper(operator);
         stockDamage.setKeyno(no);
         ManagerExamine.acceptBill(stockDamage);
-        return null;
+        return link.getRemoteHelper().getStockDamageBill().addObject(stockDamage,7);
+
     }
 }

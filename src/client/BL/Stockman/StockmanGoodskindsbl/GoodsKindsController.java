@@ -15,17 +15,17 @@ import java.util.List;
 public class GoodsKindsController implements GoodsKindsListInterface {
     @Override
     public ResultMessage addgoodskinds(goodskindsVO kind) {
-        return null;
+        return link.getRemoteHelper().getGoodsKinds().addObject(kind,1);
     }
 
     @Override
     public ResultMessage deletegoodskinds(goodskindsVO kind) {
-        return null;
+        return link.getRemoteHelper().getGoodsKinds().deleteObject(kind,1);
     }
 
     @Override
     public ResultMessage modify(goodskindsVO kind) {
-        return null;
+        return link.getRemoteHelper().getGoodsKinds().modifyObject(kind,1);
     }
     /**
     *@author:pis

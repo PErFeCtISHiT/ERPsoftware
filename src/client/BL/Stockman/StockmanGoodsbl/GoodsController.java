@@ -7,7 +7,9 @@ package client.BL.Stockman.StockmanGoodsbl;
 import client.BLservice.Stockman.StockmanGoodsblservice.GoodsListInterface;
 import client.RMI.link;
 import client.Vo.goodsVO;
+import server.Po.goodsPO;
 import shared.ResultMessage;
+import shared.copyclass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,9 @@ public class GoodsController implements GoodsListInterface {
     */
     @Override
     public ResultMessage addGoods(goodsVO goods) {
-        return null;
+        goodsPO g = new goodsPO();
+        copyclass.copy(goods,g);
+        return link.getRemoteHelper().getGoods().addObject(g,0);
     }
     /**
     *@author:pis
@@ -29,7 +33,9 @@ public class GoodsController implements GoodsListInterface {
     */
     @Override
     public ResultMessage deleteGoods(goodsVO goods) {
-        return null;
+        goodsPO g = new goodsPO();
+        copyclass.copy(goods,g);
+        return link.getRemoteHelper().getGoods().deleteObject(g,0);
     }
     /**
     *@author:pis
@@ -38,16 +44,18 @@ public class GoodsController implements GoodsListInterface {
     */
     @Override
     public ResultMessage modifyGoods(goodsVO goods) {
-        return null;
+        goodsPO g = new goodsPO();
+        copyclass.copy(goods,g);
+        return link.getRemoteHelper().getGoods().modifyObject(g,0);
     }
     /**
     *@author:pis
-    *@description:
+    *@description: 通过关键词查找商品
     *@date: 19:49 2017/11/23
     */
     @Override
     public List findGoods(String keyword) {
-        return null;
+        return link.getRemoteHelper().getGoods().goodsfindGoods(keyword);
     }
     /**
     *@author:pis
@@ -57,7 +65,7 @@ public class GoodsController implements GoodsListInterface {
     @Override
     public List findByKind(String kind) {
 
-        return (List<goodsVO>) link.getRemoteHelper().getGoods().goodsfindByKind(kind);
+        return  link.getRemoteHelper().getGoods().goodsfindByKind(kind);
     }
 
     /**
@@ -67,6 +75,6 @@ public class GoodsController implements GoodsListInterface {
     */
     @Override
     public List findAll() {
-        return null;
+        return link.getRemoteHelper().getGoods().goodsfindAll();
     }
 }

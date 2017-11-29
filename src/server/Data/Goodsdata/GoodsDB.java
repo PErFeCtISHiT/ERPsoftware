@@ -14,6 +14,8 @@ import java.util.List;
 
 public class GoodsDB extends publicDB implements Goods{
 
+
+
     @Override
     public List goodsfindGoods(String keyword) {
         hibtools.session = hibtools.sessionFactory.openSession();

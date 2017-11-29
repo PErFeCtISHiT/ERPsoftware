@@ -125,17 +125,17 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     }
 
     @Override
-    public ResultMessage addObject(Object object) {
-        return pub.addObject(object);
+    public ResultMessage addObject(Object object,int type) {
+        return pub.addObject(object,type);
     }
 
     @Override
-    public ResultMessage deleteObject(Object object) {
-        return pub.deleteObject(object);
+    public ResultMessage deleteObject(Object object,int type) {
+        return pub.deleteObject(object,type);
     }
 
     @Override
-    public ResultMessage modifyObject(Object object) {
-        return pub.modifyObject(object);
+    public ResultMessage modifyObject(Object object,int type) {
+        return pub.modifyObject(object,type);
     }
 }

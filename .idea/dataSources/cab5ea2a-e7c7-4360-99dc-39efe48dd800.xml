@@ -4,9 +4,9 @@
     <root id="1"/>
     <schema id="2" parent="1" name="PIS">
       <ObjectId>85</ObjectId>
-      <IntrospectionTimestamp>2017-11-26.16:57:05</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-11-27.23:58:57</IntrospectionTimestamp>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
-      <ModifiedTimestamp>2017-11-26.16:57:04</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-11-27.23:41:49</ModifiedTimestamp>
       <CommentsHash>9823221767240</CommentsHash>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -138,7 +138,7 @@
       <ObjectId>73645</ObjectId>
       <Comment>..</Comment>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
-      <ModifiedTimestamp>2017-11-26.16:57:04</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-11-27.23:41:49</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="40" parent="2" name="GOODSKINDS">
@@ -552,7 +552,6 @@
     <column id="111" parent="39" name="RECEOUTPRICE">
       <Position>12</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
     </column>
     <index id="112" parent="39" name="SYS_C0010872">
       <ObjectId>73646</ObjectId>

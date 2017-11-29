@@ -23,8 +23,11 @@ public class SelloutBillDB extends publicDB implements selloutBill {
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from SelloutEntity where keyno = ?";
         List<SelloutEntity> SelloutEntitys = (List<SelloutEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,No);
+                .setParameter(0,No).list();
         hibtools.session.close();
+        if(SelloutEntitys.size() == 0){
+            return null;
+        }
         SelloutEntity ret = SelloutEntitys.get(0);
         selloutPO selloutpo = new selloutPO();
         copyclass.copy(ret,selloutpo);

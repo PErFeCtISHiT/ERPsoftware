@@ -1,6 +1,7 @@
 package client.BL.Stockman.StockmanStockGlancebl;
 
 import client.BLservice.Stockman.StockmanStockGlanceblservevice.stockGlance;
+import client.RMI.link;
 import client.Vo.buyinVO;
 import client.Vo.selloutVO;
 
@@ -23,6 +24,11 @@ public class stockGlanceController implements stockGlance {
     */
     @Override
     public List stockglance(String from,String to) {
+        List<String> billNo = link.getRemoteHelper().getLog().logstockGlance(from,to);
+        for(int i = 0;i < billNo.size();i++){
+            String s = billNo.get(i);
+            bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
+        }
         List ret = new ArrayList();
         ret.add(withBase);
         ret.add(withConsumer);

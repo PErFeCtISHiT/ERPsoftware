@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import server.Po.goodsPO;
+import server.Po.goodskindsPO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,9 +203,9 @@ public class Stockman {
      * @date: 19:58 2017/11/23
      */
     private static void showGoodsTree() {
-        List<goodskindsVO> goodskindsVOS = goodsKindsController.FindAll();
+        List<goodskindsPO> goodskindsVOS = goodsKindsController.FindAll();
         List<TreeItem<String>> treeGoodsKinds = new ArrayList<>();
-        goodskindsVO t;
+        goodskindsPO t;
         for (int i = 0; i < goodskindsVOS.size(); i++) {
             t = goodskindsVOS.get(i);
             if(t.getFather() == null){
@@ -227,8 +229,8 @@ public class Stockman {
     *@date: 21:40 2017/11/23
     */
     private static void addgoods(TreeItem<String> treeItem1, String s) {
-        List<goodsVO> goodsVOS = goodsController.findByKind(s);
-        goodsVO g ;
+        List<goodsPO> goodsVOS = goodsController.findByKind(s);
+        goodsPO g ;
         for(int i = 0;i < goodsVOS.size();i++){
             g = goodsVOS.get(i);
             String message = g.getKeyname() + "  " + g.getKeyno() + "  " + g.getKeybatch() + "  " + g.getNum()

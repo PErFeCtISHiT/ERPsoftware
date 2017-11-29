@@ -29,8 +29,10 @@ public class BuyinBillDB extends publicDB implements buyinBill {
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from BuyinEntity where keyno = ?";
         List<BuyinEntity> BuyinEntitys = (List<BuyinEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,No);
+                .setParameter(0,No).list();
         hibtools.session.close();
+        if(BuyinEntitys.size() == 0)
+            return null;
         BuyinEntity ret = BuyinEntitys.get(0);
         buyinPO buyinpo = new buyinPO();
         copyclass.copy(ret,buyinpo);

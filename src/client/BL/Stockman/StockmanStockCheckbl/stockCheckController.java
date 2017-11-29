@@ -1,6 +1,7 @@
 package client.BL.Stockman.StockmanStockCheckbl;
 
 import client.BLservice.Stockman.StockmanStockCheckblservice.stockCheck;
+import client.RMI.link;
 import client.Vo.goodsVO;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class stockCheckController implements stockCheck {
     *@date: 15:33 2017/11/26
     */
     @Override
-    public List<goodsVO> stockCheck(){
-        return null;
+    public List stockCheck(){
+        return link.getRemoteHelper().getGoods().goodsfindAll();
     }
 }

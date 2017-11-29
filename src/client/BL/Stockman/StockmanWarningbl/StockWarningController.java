@@ -2,6 +2,7 @@ package client.BL.Stockman.StockmanWarningbl;
 
 import client.BLservice.Manager.ManagerExamineblservice.ManagerExamine;
 import client.BLservice.Stockman.StockmanWarningblservice.stockWarning;
+import client.RMI.link;
 import client.Vo.WarningVO;
 import client.Vo.goodsVO;
 import shared.ResultMessage;
@@ -26,6 +27,6 @@ public class StockWarningController implements stockWarning {
         warningBill.setIscheck((long) 0);
         warningBill.setKeyno(no);
         ManagerExamine.acceptBill(warningBill);
-        return ResultMessage.Success;
+        return link.getRemoteHelper().getStockwarningBill().addObject(warningBill,9);
     }
 }

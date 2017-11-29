@@ -2,6 +2,7 @@ package client.BL.Stockman.StockmanOverflowbl;
 
 import client.BLservice.Manager.ManagerExamineblservice.ManagerExamine;
 import client.BLservice.Stockman.StockmanOverflowblservice.stockOverflow;
+import client.RMI.link;
 import client.Vo.goodsVO;
 import client.Vo.stockexceptionVO;
 import shared.ResultMessage;
@@ -31,6 +32,6 @@ public class stockOverflowController implements stockOverflow {
         stockOverflow.setNuminsys((long) systemNum);
         stockOverflow.setOper(operator);
         ManagerExamine.acceptBill(stockOverflow);
-        return null;
+        return link.getRemoteHelper().getStockOverflowBill().addObject(stockOverflow,7);
     }
 }
