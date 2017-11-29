@@ -142,7 +142,6 @@ public class AccountManagementUI extends Application {
                     addEmail.getText());
 
             data.add(account);
-            FinancialAccountController.
             addFirstName.clear();
             addLastName.clear();
             addEmail.clear();
