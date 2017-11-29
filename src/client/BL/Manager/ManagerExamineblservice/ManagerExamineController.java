@@ -13,8 +13,10 @@ import java.beans.PropertyDescriptor;
  * @date: create in 16:08 2017/11/26
  */
 public class ManagerExamineController implements ManagerExamine{
+
     @Override
     public ResultMessage ExamineBill(Object o) {
         return null;
     }
+
 }
