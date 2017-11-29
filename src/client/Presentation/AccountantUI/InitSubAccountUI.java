@@ -1,28 +1,26 @@
 package client.Presentation.AccountantUI;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-public class AccountManagementUI extends Application {
+
+public class InitSubAccountUI extends Application {
 
     private final TableView<Account> table = new TableView<>();
     private final ObservableList<Account> data =
@@ -47,9 +45,6 @@ public class AccountManagementUI extends Application {
 
         table.setEditable(true);
 
-        Callback<TableColumn<Account, String>,
-                TableCell<Account, String>> cellFactory
-                = (TableColumn<Account, String> p) -> new EditingCell();
 
         TableColumn<Account, String> IDCol =
                 new TableColumn<>("账户编号");
@@ -63,36 +58,18 @@ public class AccountManagementUI extends Application {
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
-        IDCol.setCellFactory(cellFactory);
-        IDCol.setOnEditCommit(
-                (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setaccountID(t.getNewValue());
-                });
+
 
 
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
-        NameCol.setCellFactory(cellFactory);
-        NameCol.setOnEditCommit(
-                (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setaccountName(t.getNewValue());
-                });
+
 
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
-        MoneyCol.setCellFactory(cellFactory);
-        MoneyCol.setOnEditCommit(
-                (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setmoney(t.getNewValue());
-                });
+
 
 
         delCol.setCellFactory((col) -> {
@@ -197,67 +174,5 @@ public class AccountManagementUI extends Application {
         }
     }
 
-    class EditingCell extends TableCell<Account, String> {
-
-        private TextField textField;
-
-        public EditingCell() {
-        }
-
-        @Override
-        public void startEdit() {
-            if (!isEmpty()) {
-                super.startEdit();
-                createTextField();
-                setText(null);
-                setGraphic(textField);
-                textField.selectAll();
-            }
-        }
-
-        @Override
-        public void cancelEdit() {
-            super.cancelEdit();
-
-            setText((String) getItem());
-            setGraphic(null);
-        }
-
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                if (isEditing()) {
-                    if (textField != null) {
-                        textField.setText(getString());
-                    }
-                    setText(null);
-                    setGraphic(textField);
-                } else {
-                    setText(getString());
-                    setGraphic(null);
-                }
-            }
-        }
-
-        private void createTextField() {
-            textField = new TextField(getString());
-            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-            textField.focusedProperty().addListener(
-                    (ObservableValue<? extends Boolean> arg0,
-                     Boolean arg1, Boolean arg2) -> {
-                        if (!arg2) {
-                            commitEdit(textField.getText());
-                        }
-                    });
-        }
-
-        private String getString() {
-            return getItem() == null ? "" : getItem().toString();
-        }
-    }
 }
+
