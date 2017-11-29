@@ -50,11 +50,23 @@ public class start extends Application {
 
         Button turnToStockman = new Button("turn to stockman");
 
-        turnToStockman.setOnAction(e -> turntoStockman());
+        turnToStockman.setOnAction(e -> {
+            try {
+                turntoStockman();
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         Button turnToAccountant = new Button("turn to Accountant");
 
-        turnToAccountant.setOnAction(e -> turntoAccountant());
+        turnToAccountant.setOnAction(e -> {
+            try {
+                turntoAccountant();
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+        });
 
 
 
@@ -75,7 +87,7 @@ public class start extends Application {
 
 
 
-    private void turntoStockman() {
+    private void turntoStockman() throws RemoteException{
 
         Stockman.start();
 
@@ -85,7 +97,7 @@ public class start extends Application {
 
 
 
-    private void turntoAccountant() {
+    private void turntoAccountant() throws RemoteException{
 
         Accountant.start();
 

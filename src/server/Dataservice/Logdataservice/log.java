@@ -4,6 +4,7 @@ import server.Dataservice.pubservice.pub;
 import server.Po.logPO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
 import java.sql.Time;
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface log extends pub {
     *@description: 日期样例：2008-01-01 00:00:00  小时值必须介于 1 和 12 之间
     *@date: 14:16 2017/11/26
     */
-    List<String> logstockGlance(String from,String to);
+    List<String> logstockGlance(String from,String to)throws RemoteException;
 }

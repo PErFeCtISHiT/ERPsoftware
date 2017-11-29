@@ -4,6 +4,7 @@ import client.BLservice.Stockman.StockmanStockCheckblservice.stockCheck;
 import client.RMI.link;
 import client.Vo.goodsVO;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class stockCheckController implements stockCheck {
     *@date: 15:33 2017/11/26
     */
     @Override
-    public List stockCheck(){
+    public List stockCheck()throws RemoteException {
         return link.getRemoteHelper().getGoods().goodsfindAll();
     }
 }

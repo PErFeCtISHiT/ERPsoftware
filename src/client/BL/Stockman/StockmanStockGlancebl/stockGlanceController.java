@@ -5,6 +5,7 @@ import client.RMI.link;
 import client.Vo.buyinVO;
 import client.Vo.selloutVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class stockGlanceController implements stockGlance {
     *@date: 10:11 2017/11/26
     */
     @Override
-    public List stockglance(String from,String to) {
+    public List stockglance(String from,String to) throws RemoteException {
         List<String> billNo = link.getRemoteHelper().getLog().logstockGlance(from,to);
         for(int i = 0;i < billNo.size();i++){
             String s = billNo.get(i);
-            bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
+            //bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
         }
         List ret = new ArrayList();
         ret.add(withBase);

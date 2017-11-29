@@ -1,5 +1,6 @@
 package client.BLservice.Stockman.StockmanStockGlanceblservevice;
 
+import java.rmi.RemoteException;
 import java.sql.Time;
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  * @date: create in 10:05 2017/11/26
  */
 public interface stockGlance {
-    List stockglance(String from,String to);
+    List stockglance(String from,String to) throws RemoteException;
 }

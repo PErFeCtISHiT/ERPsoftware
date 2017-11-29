@@ -1,4 +1,5 @@
 package client.Presentation.AccountantUI;
+import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -136,10 +137,12 @@ public class AccountManagementUI extends Application {
 
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
-            data.add(new Account(
-                    addFirstName.getText(),
+            Account account = new Account(addFirstName.getText(),
                     addLastName.getText(),
-                    addEmail.getText()));
+                    addEmail.getText());
+
+            data.add(account);
+            FinancialAccountController.
             addFirstName.clear();
             addLastName.clear();
             addEmail.clear();

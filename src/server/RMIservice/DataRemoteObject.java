@@ -84,58 +84,58 @@ public class DataRemoteObject extends UnicastRemoteObject implements
 
 
     @Override
-    public buyinPO buyinfindByNO(String No) {
+    public buyinPO buyinfindByNO(String No)throws RemoteException {
         return buyinBill.buyinfindByNO(No);
     }
 
     @Override
-    public selloutPO selloutfindByNO(String No) {
+    public selloutPO selloutfindByNO(String No)throws RemoteException {
         return selloutBill.selloutfindByNO(No);
     }
 
     @Override
-    public List goodsfindGoods(String keyword) {
+    public List goodsfindGoods(String keyword)throws RemoteException {
         return goods.goodsfindGoods(keyword);
     }
 
     @Override
-    public List goodsfindByKind(String kind) {
+    public List goodsfindByKind(String kind)throws RemoteException {
         return goods.goodsfindByKind(kind);
     }
 
     @Override
-    public List goodsfindAll() {
+    public List goodsfindAll()throws RemoteException {
         return goods.goodsfindAll();
     }
 
     @Override
-    public List goodsKindsFindAll() {
+    public List goodsKindsFindAll()throws RemoteException {
         return goodsKinds.goodsKindsFindAll();
     }
 
     @Override
-    public List goodsKindsFind(String keyword) {
+    public List goodsKindsFind(String keyword)throws RemoteException {
         return goodsKinds.goodsKindsFind(keyword);
     }
 
 
     @Override
-    public List<String> logstockGlance(String from, String to) {
+    public List<String> logstockGlance(String from, String to)throws RemoteException {
         return log.logstockGlance(from,to);
     }
 
     @Override
-    public ResultMessage addObject(Object object,int type) {
+    public ResultMessage addObject(Object object,int type) throws RemoteException{
         return pub.addObject(object,type);
     }
 
     @Override
-    public ResultMessage deleteObject(Object object,int type) {
+    public ResultMessage deleteObject(Object object,int type)throws RemoteException {
         return pub.deleteObject(object,type);
     }
 
     @Override
-    public ResultMessage modifyObject(Object object,int type) {
+    public ResultMessage modifyObject(Object object,int type)throws RemoteException {
         return pub.modifyObject(object,type);
     }
 }
