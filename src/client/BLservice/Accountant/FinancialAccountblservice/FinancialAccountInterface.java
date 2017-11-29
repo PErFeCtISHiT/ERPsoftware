@@ -21,7 +21,7 @@ public interface FinancialAccountInterface {
      * @param vo
      * @return
      */
-    public boolean deleteAccount(coVO po);
+    public ResultMessage deleteAccount(coVO po) throws RemoteException;
     /**
      * Modify account
      *

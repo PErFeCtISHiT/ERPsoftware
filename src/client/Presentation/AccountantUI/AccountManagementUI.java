@@ -114,9 +114,17 @@ public class AccountManagementUI extends Application {
                         Button delBtn = new Button("删除");
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
+                            coVO co = new coVO();
+                            co.setKeyname("123");
+                            co.setSumall((long) 500);
                             data.remove(this.getIndex());
                             System.out.println("删除成功");
-
+                            FinancialAccountController financialAccountController = new FinancialAccountController();
+                            try {
+                                financialAccountController.deleteAccount(co);
+                            } catch (RemoteException e3) {
+                                e3.printStackTrace();
+                            }
                         });
                     }
                 }

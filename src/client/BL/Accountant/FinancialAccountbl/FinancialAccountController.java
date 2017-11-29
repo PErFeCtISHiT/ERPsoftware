@@ -28,8 +28,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public boolean deleteAccount(coVO po){
-        return false;
+    public ResultMessage deleteAccount(coVO po)throws RemoteException{
+        return link.getRemoteHelper().getCoaccount().deleteObject(po,10);
     }
 
 
