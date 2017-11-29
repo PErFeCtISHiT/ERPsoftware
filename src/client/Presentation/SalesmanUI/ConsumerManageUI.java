@@ -47,6 +47,7 @@ public class ConsumerManageUI extends Application {
         TableColumn<Consumer,String> xiaoshoushang=new TableColumn<>("销售商");
         TableColumn<Consumer,Integer> level=new TableColumn<>("级别");
         TableColumn<Consumer,String> name=new TableColumn<>("姓名");
+        TableColumn<Consumer,String> phone=new TableColumn<>("电话");
 
     }
 
