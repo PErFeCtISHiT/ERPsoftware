@@ -7,6 +7,8 @@ import client.Vo.WarningVO;
 import client.Vo.goodsVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
+
 /**
  * @author: pis
  * @description: good good study
@@ -14,7 +16,7 @@ import shared.ResultMessage;
  */
 public class StockWarningController implements stockWarning {
     @Override
-    public ResultMessage warningMake(goodsVO goods, Long warningnum, String operator, String note,String no) {
+    public ResultMessage warningMake(goodsVO goods, Long warningnum, String operator, String note,String no) throws RemoteException {
         WarningVO warningBill = new WarningVO();
         warningBill.setKind((long) 10);
         warningBill.setGoodsname(goods.getKeyname());

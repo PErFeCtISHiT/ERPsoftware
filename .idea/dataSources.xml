@@ -8,7 +8,7 @@
       <remarks>$PROJECT_DIR$/src/source/hibernate.cfg.xml</remarks>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@172.26.101.185:1521:pis</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@172.28.161.46:1521:pis</jdbc-url>
       <driver-properties>
         <property name="v$session.program" value="DataGrip" />
       </driver-properties>

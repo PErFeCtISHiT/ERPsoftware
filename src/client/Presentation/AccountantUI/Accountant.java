@@ -25,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public class Accountant {
 
 
 
-    public static void start() {
+    public static void start()throws RemoteException {
 
         Accountant = new Stage();
 
@@ -78,7 +78,13 @@ public class Accountant {
 
         setdefaultConstraints(gridPane);
 
-        receiveBill.setOnAction(e -> showGoods());
+        receiveBill.setOnAction(e -> {
+            try {
+                showGoods();
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         gridPane.getChildren().addAll(Workplace, accountManagement,receiveBill, payBill, cashBill, salesDetails, checkProgress,checkSituation,accountInit);
 
@@ -150,7 +156,7 @@ public class Accountant {
 
      */
 
-    private static void showGoods() {
+    private static void showGoods() throws RemoteException{
 
         accountPane = new GridPane();
 
@@ -190,7 +196,7 @@ public class Accountant {
 
      */
 
-    private static void showGoodsTree() {
+    private static void showGoodsTree() throws RemoteException {
 
         GoodsKindsController goodsKindsController = new GoodsKindsController();
 
@@ -244,7 +250,7 @@ public class Accountant {
 
      */
 
-    private static void addgoods(TreeItem<String> treeItem1, String s) {
+    private static void addgoods(TreeItem<String> treeItem1, String s) throws RemoteException{
 
         GoodsController goodsController = new GoodsController();
 

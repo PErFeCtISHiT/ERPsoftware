@@ -7,6 +7,8 @@ import client.Vo.goodsVO;
 import client.Vo.stockexceptionVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
+
 /**
  * @author: pis
  * @description: good good study
@@ -19,7 +21,7 @@ public class stockDamageController implements stockDamage {
     *@date: 15:45 2017/11/26
     */
     @Override
-    public ResultMessage DamageMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) {
+    public ResultMessage DamageMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) throws RemoteException {
         stockexceptionVO stockDamage = new stockexceptionVO();
         stockDamage.setKind((long) 9);
         stockDamage.setGoodsname(goods.getKeyname());

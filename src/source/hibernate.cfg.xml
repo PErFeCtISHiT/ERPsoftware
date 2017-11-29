@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:oracle:thin:@172.26.101.185:1521:pis</property>
+    <property name="connection.url">jdbc:oracle:thin:@172.28.161.46:1521:pis</property>
     <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
       <property name="current_session_context_class">thread</property>
       <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>

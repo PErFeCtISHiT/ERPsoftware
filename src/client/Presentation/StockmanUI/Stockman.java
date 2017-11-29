@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import server.Po.goodsPO;
 import server.Po.goodskindsPO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,13 @@ public class Stockman {
         initPane = new GridPane();
         init = new Scene(initPane,1200,850);
         setdefault(initPane,init);
-        goodsmanage.setOnAction(e -> showGoods());
+        goodsmanage.setOnAction(e -> {
+            try {
+                showGoods();
+            } catch (RemoteException e1) {
+
+            }
+        });
         stockglance.setOnAction(e -> stockGlance());
         stockcheck.setOnAction(e -> stockCheck());
         stockwarning.setOnAction(e -> stockWarning());
@@ -142,7 +149,7 @@ public class Stockman {
      * @description:商品管理
      * @date: 19:50 2017/11/23
      */
-    private static void showGoods() {
+    private static void showGoods() throws RemoteException{
 
         goodsPane = new GridPane();
         goodsScene = new Scene(goodsPane,1200,850);
@@ -202,11 +209,12 @@ public class Stockman {
      * @description:显示商品树
      * @date: 19:58 2017/11/23
      */
-    private static void showGoodsTree() {
+    private static void showGoodsTree() throws RemoteException {
         List<goodskindsPO> goodskindsVOS = goodsKindsController.FindAll();
         List<TreeItem<String>> treeGoodsKinds = new ArrayList<>();
         goodskindsPO t;
         for (int i = 0; i < goodskindsVOS.size(); i++) {
+            System.out.println(goodskindsVOS.get(i).getKeyno());
             t = goodskindsVOS.get(i);
             if(t.getFather() == null){
                 TreeItem<String> treeItem = new TreeItem<>(t.getKeyname());
@@ -228,7 +236,7 @@ public class Stockman {
     *@description: 向树中增加商品
     *@date: 21:40 2017/11/23
     */
-    private static void addgoods(TreeItem<String> treeItem1, String s) {
+    private static void addgoods(TreeItem<String> treeItem1, String s) throws RemoteException{
         List<goodsPO> goodsVOS = goodsController.findByKind(s);
         goodsPO g ;
         for(int i = 0;i < goodsVOS.size();i++){

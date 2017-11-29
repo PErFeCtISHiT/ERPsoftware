@@ -5,6 +5,7 @@ import client.RMI.link;
 import client.Vo.goodskindsVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -14,17 +15,17 @@ import java.util.List;
  */
 public class GoodsKindsController implements GoodsKindsListInterface {
     @Override
-    public ResultMessage addgoodskinds(goodskindsVO kind) {
+    public ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException{
         return link.getRemoteHelper().getGoodsKinds().addObject(kind,1);
     }
 
     @Override
-    public ResultMessage deletegoodskinds(goodskindsVO kind) {
+    public ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException{
         return link.getRemoteHelper().getGoodsKinds().deleteObject(kind,1);
     }
 
     @Override
-    public ResultMessage modify(goodskindsVO kind) {
+    public ResultMessage modify(goodskindsVO kind) throws RemoteException{
         return link.getRemoteHelper().getGoodsKinds().modifyObject(kind,1);
     }
     /**
@@ -33,7 +34,7 @@ public class GoodsKindsController implements GoodsKindsListInterface {
     *@date: 19:53 2017/11/23
     */
     @Override
-    public List FindAll() {
+    public List FindAll()throws RemoteException {
         return link.getRemoteHelper().getGoodsKinds().goodsKindsFindAll();
     }
 }
