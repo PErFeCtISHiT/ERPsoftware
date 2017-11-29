@@ -1,4 +1,7 @@
 package client.Presentation.AccountantUI;
+import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
+import client.RMI.link;
+import client.Vo.coVO;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -22,6 +25,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.rmi.RemoteException;
+
 public class AccountManagementUI extends Application {
 
     private final TableView<Account> table = new TableView<>();
@@ -32,6 +37,7 @@ public class AccountManagementUI extends Application {
     final HBox hb = new HBox();
 
     public static void main(String[] args) {
+        link.linktoServer();
         launch(args);
     }
 
@@ -135,12 +141,22 @@ public class AccountManagementUI extends Application {
         addEmail.setPromptText("money");
 
         final Button addButton = new Button("Add");
+
         addButton.setOnAction((ActionEvent e) -> {
             Account newaccount = new Account(
                     addFirstName.getText(),
                     addLastName.getText(),
                     addEmail.getText());
             data.add(newaccount);
+            coVO co = new coVO();
+            co.setKeyname(newaccount.getaccountName());
+            co.setSumall((long) 500);
+            FinancialAccountController financialAccountController = new FinancialAccountController();
+            try {
+                financialAccountController.addAccount(co);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
             addFirstName.clear();
             addLastName.clear();
             addEmail.clear();
