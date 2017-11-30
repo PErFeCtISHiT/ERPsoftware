@@ -10,7 +10,11 @@ public class coPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public String getKeyname() {
+    public coPO() {
+
+    }
+
+    public String getKeyname() {
 		return keyname;
 	}
 

@@ -15,6 +15,7 @@ import java.util.List;
  */
 
 public interface log extends pub {
+
     /**
     *@author:pis
     *@description: 日期样例：2008-01-01 00:00:00  小时值必须介于 1 和 12 之间

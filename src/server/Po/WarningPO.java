@@ -14,6 +14,10 @@ public class WarningPO implements Serializable {
     private Long num;
     private Long warningnum;
 
+    public WarningPO() {
+
+    }
+
     public Long getKind() {
         return kind;
     }

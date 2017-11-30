@@ -13,6 +13,10 @@ public class giftPO implements Serializable{
     private Long num;
     private String keyno;
 
+    public giftPO() {
+
+    }
+
     public Long getKind() {
         return kind;
     }

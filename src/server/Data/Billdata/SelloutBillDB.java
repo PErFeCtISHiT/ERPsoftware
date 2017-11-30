@@ -3,10 +3,14 @@ package server.Data.Billdata;
 import server.Data.pub.publicDB;
 import server.Data.tools.hibtools;
 import server.Dataservice.Billdataservice.selloutBill;
+import server.Po.giftPO;
 import server.Po.selloutPO;
+import server.hibernate.GiftEntity;
 import server.hibernate.SelloutEntity;
 import shared.copyclass;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,4 +37,5 @@ public class SelloutBillDB extends publicDB implements selloutBill {
         copyclass.copy(ret,selloutpo);
         return selloutpo;
     }
+
 }

@@ -56,10 +56,6 @@ public class RemoteHelper {
         return (selloutBill)remote;
     }
 
-    public stockDamageBill getStockDamageBill(){
-        return (stockDamageBill)remote;
-    }
-
     public stockOverflowBill getStockOverflowBill(){
         return (stockOverflowBill)remote;
     }

@@ -5,6 +5,7 @@ import server.Po.selloutPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * @author: pis
@@ -13,4 +14,5 @@ import java.rmi.RemoteException;
  */
 public interface selloutBill extends pub {
     selloutPO selloutfindByNO(String No)throws RemoteException;
+
 }

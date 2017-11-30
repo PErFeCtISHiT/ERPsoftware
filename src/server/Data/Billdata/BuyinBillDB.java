@@ -4,9 +4,13 @@ import server.Data.pub.publicDB;
 import server.Data.tools.hibtools;
 import server.Dataservice.Billdataservice.buyinBill;
 import server.Po.buyinPO;
+import server.Po.goodsPO;
 import server.hibernate.BuyinEntity;
+import server.hibernate.GoodsEntity;
 import shared.copyclass;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,5 +42,7 @@ public class BuyinBillDB extends publicDB implements buyinBill {
         copyclass.copy(ret,buyinpo);
         return buyinpo;
     }
+
+
 }
 
