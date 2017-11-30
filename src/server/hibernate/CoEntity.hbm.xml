@@ -9,7 +9,7 @@
             <column name="KEYNAME" sql-type="varchar2(20)" length="20"/>
         </id>
         <property name="sumall">
-            <column name="SUMALL" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="SUMALL" sql-type="number(*)" precision="2147483646" />
         </property>
     </class>
 </hibernate-mapping>

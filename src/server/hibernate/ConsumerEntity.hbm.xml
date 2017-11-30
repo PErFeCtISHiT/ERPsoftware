@@ -9,37 +9,37 @@
             <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
         <property name="kinds">
-            <column name="KINDS" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="KINDS" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="lev">
-            <column name="LEV" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="LEV" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="keyname">
-            <column name="KEYNAME" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="tel">
-            <column name="TEL" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="TEL" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="mailcode">
-            <column name="MAILCODE" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="MAILCODE" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="email">
-            <column name="EMAIL" sql-type="varchar2(40)" length="40" not-null="true"/>
+            <column name="EMAIL" sql-type="varchar2(40)" length="40" />
         </property>
         <property name="capacit">
-            <column name="CAPACIT" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="CAPACIT" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="receive">
-            <column name="RECEIVE" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="RECEIVE" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="pay">
-            <column name="PAY" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="PAY" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="server">
-            <column name="SERVER" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="SERVER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="accoun">
-            <column name="ACCOUN" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="ACCOUN" sql-type="varchar2(20)" length="20" />
         </property>
     </class>
 </hibernate-mapping>

@@ -12,6 +12,7 @@ import java.util.List;
  * @author: pis
  * @description: good good study
  * @date: create in 19:52 2017/11/23
+ *
  */
 public class GoodsKindsController implements GoodsKindsListInterface {
     @Override

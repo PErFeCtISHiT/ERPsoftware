@@ -30,7 +30,7 @@
             <column name="ACCOUN" sql-type="varchar2(20)" length="20" not-null="true"/>
         </property>
         <property name="num">
-            <column name="NUM" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="moneylist" sql-type="varchar2(20)" length="20"/>
         </property>
         <property name="sumall">
             <column name="SUMALL" sql-type="number(*)" precision="2147483646" not-null="true"/>
