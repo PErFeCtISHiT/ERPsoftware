@@ -14,21 +14,21 @@ public interface FinancialAccountInterface {
      * @param vo
      * @return
      */
-    public ResultMessage addAccount(coVO po) throws RemoteException;
+    public ResultMessage addAccount(coVO vo) throws RemoteException;
     /**
      * Delete account
      *
      * @param vo
      * @return
      */
-    public ResultMessage deleteAccount(coVO po) throws RemoteException;
+    public ResultMessage deleteAccount(coVO vo) throws RemoteException;
     /**
      * Modify account
      *
      * @param vo
      * @return
      */
-    public coVO modifyAccount(coVO po);
+    public ResultMessage modifyAccount(coVO vo)throws RemoteException;
 
     /**
      * Find accounts
@@ -44,7 +44,6 @@ public interface FinancialAccountInterface {
      * @param
      * @return
      */
-
     public ArrayList<coVO> show() ;
 
 }

@@ -35,7 +35,7 @@ public class FinancialAccountControllerMock extends FinancialAccountController {
      * @param vo
      * @return
      */
-    public coVO modifyAccount(coVO vo){
+    public ResultMessage modifyAccount(coVO vo){
         return null;
     }
 
