@@ -158,7 +158,8 @@ public class AccountManagementUI extends Application {
             data.add(newaccount);
             coVO co = new coVO();
             co.setKeyname(newaccount.getaccountName());
-            co.setSumall((long) 500);
+            co.setSumall(Long.parseLong(newaccount.getmoney()));
+            //co.setSumall((long) 500);
             FinancialAccountController financialAccountController = new FinancialAccountController();
             try {
                 financialAccountController.addAccount(co);

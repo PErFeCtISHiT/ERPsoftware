@@ -40,7 +40,7 @@ public class AccountInitUI extends Application {
         stage.setWidth(450);
         stage.setHeight(550);
 
-        final Label label = new Label("历史账单");
+        final Label label = new Label("期初信息");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);

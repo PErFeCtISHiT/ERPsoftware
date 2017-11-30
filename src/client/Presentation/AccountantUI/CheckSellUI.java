@@ -9,14 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -65,30 +61,39 @@ public class CheckSellUI extends Application {
         TimeCol.setMinWidth(100);
         TimeCol.setCellValueFactory(
                 param -> param.getValue().saleTime);
-
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().goodsName);
-
         TypeCol.setMinWidth(100);
         TypeCol.setCellValueFactory(
                 param -> param.getValue().goodsType);
-
         NumCol.setMinWidth(100);
         NumCol.setCellValueFactory(
                 param -> param.getValue().goodsNum);
-
         PriceCol.setMinWidth(100);
         PriceCol.setCellValueFactory(
                 param -> param.getValue().goodsPrice);
-
         SumCol.setMinWidth(100);
         SumCol.setCellValueFactory(
                 param -> param.getValue().totalSum);
-
-
         table.setItems(data);
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol);
+
+
+        TitledPane gridTitlePane = new TitledPane();
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.add(new Label("To: "), 0, 0);
+        grid.add(new TextField(), 1, 0);
+        grid.add(new Label("Cc: "), 0, 1);
+        grid.add(new TextField(), 1, 1);
+        grid.add(new Label("Subject: "), 0, 2);
+        grid.add(new TextField(), 1, 2);
+        grid.add(new Label("Attachment: "), 0, 3);
+        grid.add(label,1, 3);
+        gridTitlePane.setText("Grid");
+        gridTitlePane.setContent(grid);
 
 
         final Button DetailButton = new Button("查看详细信息");
@@ -110,7 +115,12 @@ public class CheckSellUI extends Application {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        final HBox hbox = new HBox();
+        hbox.setSpacing(5);
+        hbox.setPadding(new Insets(10, 0, 0, 10));
+        hbox.getChildren().addAll(vbox,gridTitlePane);
+
+        ((Group) scene.getRoot()).getChildren().addAll(hbox);
 
         stage.setScene(scene);
         stage.show();

@@ -19,7 +19,7 @@ public class FillMoneyBill extends Application {
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Label notification = new Label ();
-    final TextField subject = new TextField("");
+    final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
 
     String address = " ";
@@ -43,6 +43,7 @@ public class FillMoneyBill extends Application {
                 "B账户"
         );
         AccountComboBox.setValue("A账户");
+
         final ComboBox ConsumerComboBox = new ComboBox();
         ConsumerComboBox.getItems().addAll(
                 "a客户",
@@ -51,16 +52,22 @@ public class FillMoneyBill extends Application {
         ConsumerComboBox.setValue("a客户");
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()){
-                notification.setText("Your message was successfully sent"
+            if (    TypeComboBox.getValue() != null &&
+                    !TypeComboBox.getValue().toString().isEmpty()&&
+                    AccountComboBox.getValue() != null &&
+                    !AccountComboBox.getValue().toString().isEmpty()&&
+                    ConsumerComboBox.getValue() != null &&
+                    !ConsumerComboBox.getValue().toString().isEmpty()&&
+                    checkMoney(money.getText()))
+            {
+                notification.setText("The Bill was successfully sent"
                         + " to " + address);
                 TypeComboBox.setValue(null);
                 if (AccountComboBox.getValue() != null &&
                         !AccountComboBox.getValue().toString().isEmpty()){
                     AccountComboBox.setValue(null);
                 }
-                subject.clear();
+                money.clear();
                 text.clear();
             }
             else {
@@ -78,7 +85,7 @@ public class FillMoneyBill extends Application {
                         !AccountComboBox.getValue().toString().isEmpty()){
                     AccountComboBox.setValue(null);
                 }
-                subject.clear();
+                money.clear();
                 text.clear();
             }
             else {
@@ -98,7 +105,7 @@ public class FillMoneyBill extends Application {
         grid.add(new Label("客户:"), 2, 1);
         grid.add(ConsumerComboBox, 3, 1);
         grid.add(new Label("金额:"), 0, 2);
-        grid.add(subject, 1, 2, 3, 1);
+        grid.add(money, 1, 2, 3, 1);
         grid.add(new Label("备注:"), 0, 3);
         grid.add(text, 1, 3, 4, 1);
         grid.add(DraftButton, 0, 4);
@@ -110,4 +117,27 @@ public class FillMoneyBill extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+
+    public boolean checkMoney(String moneytext){
+        boolean re = false;
+        if(moneytext != null&& moneytext.isEmpty()){
+            notification.setText("Please enter the Money !");
+        }
+        else if (isNumeric(moneytext)){
+            re = true;
+        }
+        return re;
+    }
+
+    public static boolean isNumeric(String str){
+        for (int i = 0; i < str.length(); i++){
+            System.out.println(str.charAt(i));
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
