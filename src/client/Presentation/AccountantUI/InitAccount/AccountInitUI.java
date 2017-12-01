@@ -1,4 +1,4 @@
-package client.Presentation.AccountantUI;
+package client.Presentation.AccountantUI.InitAccount;
 
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;

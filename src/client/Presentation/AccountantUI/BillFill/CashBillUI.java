@@ -1,8 +1,9 @@
-package client.Presentation.AccountantUI;
+package client.Presentation.AccountantUI.BillFill;
 
+import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialReceivebl.Consumer;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,19 +12,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-public class PayBillUI extends Application {
+public class CashBillUI extends Application {
 
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
@@ -47,7 +43,7 @@ public class PayBillUI extends Application {
     @Override
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
-        stage.setTitle("制定付款单");
+        stage.setTitle("制定现金费用单");
         stage.setWidth(1300);
         stage.setHeight(850);
 
@@ -169,101 +165,8 @@ public class PayBillUI extends Application {
         stage.show();
     }
 
-    public static class Account {
-
-        private final SimpleStringProperty accountID;
-        private final SimpleStringProperty accountName;
-        private final SimpleStringProperty money;
-
-        private Account(String fName, String lName, String email) {
-            this.accountID = new SimpleStringProperty(fName);
-            this.accountName = new SimpleStringProperty(lName);
-            this.money = new SimpleStringProperty(email);
-        }
-
-        public String getaccountID() {
-            return accountID.get();
-        }
-
-        public void setaccountID(String fName) {
-            accountID.set(fName);
-        }
-
-        public String getaccountName() {
-            return accountName.get();
-        }
-
-        public void setaccountName(String fName) {
-            accountName.set(fName);
-        }
-
-        public String getmoney() {
-            return money.get();
-        }
-
-        public void setmoney(String fName) {
-            money.set(fName);
-        }
-    }
 
 
-    public static class Consumer {
-
-        private final SimpleStringProperty consumerID;
-        private final SimpleStringProperty consumerName;
-        private final SimpleStringProperty consumerLevel;
-        private final SimpleStringProperty staff;
-        private final SimpleStringProperty inOutGap;
-        private final SimpleStringProperty dueIN;
-        private final SimpleStringProperty actualIN;
-        private final SimpleStringProperty duePay;
-
-
-        private Consumer(String consumerID, String consumerName, String consumerLevel,String staff, String inOutGap, String dueIN,String actualIN, String duePay) {
-            this.consumerID = new SimpleStringProperty(consumerID);
-            this.consumerName = new SimpleStringProperty(consumerName);
-            this.consumerLevel = new SimpleStringProperty(consumerLevel);
-            this.staff = new SimpleStringProperty(staff);
-            this.inOutGap = new SimpleStringProperty(inOutGap);
-            this.dueIN = new SimpleStringProperty(dueIN);
-            this.actualIN = new SimpleStringProperty(actualIN);
-            this.duePay = new SimpleStringProperty(duePay);
-        }
-
-//        public String getconsumerID() {return consumerID.get();}
-//
-//        public void setaccountID(String fName) {consumerID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-
-
-    }
 
 
 }
