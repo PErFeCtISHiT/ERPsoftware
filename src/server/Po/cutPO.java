@@ -8,7 +8,11 @@ public class cutPO implements Serializable{
 	private String voucher;
 	private String packno;
 
-	public String getKeyno() {
+    public cutPO() {
+
+    }
+
+    public String getKeyno() {
 		return keyno;
 	}
 

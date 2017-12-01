@@ -14,5 +14,5 @@ public interface Goods extends pub {
     ResultMessage modifyObject(Object object,int type) throws RemoteException;
     List goodsfindGoods(String keyword) throws RemoteException;
     List goodsfindByKind(String kind)throws RemoteException;
-    List goodsfindAll()throws RemoteException;
+
 }

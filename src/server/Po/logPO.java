@@ -12,7 +12,11 @@ public class logPO implements Serializable{
 	private String opno;
 	private String note;
 
-	public Time getAdddate() {
+    public logPO() {
+
+    }
+
+    public Time getAdddate() {
 		return adddate;
 	}
 

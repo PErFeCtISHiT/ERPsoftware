@@ -52,21 +52,6 @@ public class GoodsDB extends publicDB implements Goods{
         return goodsPOS;
     }
 
-    @Override
-    public List goodsfindAll() {
-        hibtools.session = hibtools.sessionFactory.openSession();
-        hibtools.tx = hibtools.session.beginTransaction();
-        String hql = "from GoodsEntity";
-        List<GoodsEntity> goodsEntities = (List<GoodsEntity>)hibtools.session.createQuery(hql).list();
-        List<goodsPO> goodsPOS = new ArrayList<>() ;
-        for(GoodsEntity i : goodsEntities){
-            goodsPO temp = new goodsPO();
-            copyclass.copy(i,temp);
-            goodsPOS.add(temp);
 
-        }
-        hibtools.session.close();
-        return goodsPOS;
-    }
 
 }
