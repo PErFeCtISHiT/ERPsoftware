@@ -25,8 +25,8 @@ public class CheckSellUI extends Application {
     private final TableView<Sale> table = new TableView<>();
     private final ObservableList<Sale> data =
             FXCollections.observableArrayList(
-                    new Sale("2017-1-2", "木头", "A","Z", "S", "C"),
-                    new Sale("2016-2-24", "Brown", "D","E", "V", "R"));
+                    new Sale("2017-1-2", "木头", "A","Z", "S", "C","1","2","3"),
+                    new Sale("2016-2-24", "Brown", "D","E", "V", "R","1","2","3"));
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
     public final String[] infor = new String[6];

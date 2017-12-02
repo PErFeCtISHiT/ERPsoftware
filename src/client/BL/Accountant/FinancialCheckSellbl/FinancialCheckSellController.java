@@ -1,6 +1,7 @@
 package client.BL.Accountant.FinancialCheckSellbl;
 
 import client.BLservice.Accountant.FinancialCheckSellblservice.FinancialCheckSellInterface;
+import client.RMI.link;
 import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
 
@@ -14,7 +15,9 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @param time
      * @return ArrayList<saleVO>
      */
-    public ArrayList<saleVO> check(String time){
+    public ArrayList<Sale> check(String time){
+
+
         return null;
     }
 
@@ -30,24 +33,23 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
     }
 
 
-//
-//    public final SimpleStringProperty goodsName;
-//    public final SimpleStringProperty goodsType;
-//    public final SimpleStringProperty goodsNum;
-//    public final SimpleStringProperty goodsPrice;
-//    public final SimpleStringProperty totalSum;
+    public ArrayList<Sale> show(){
+
+       // return link.getRemoteHelper().
+        return null;
+    }
+
 
 
     public Sale VoToSale(saleVO vo,goodsOutListVO goodslist) throws RemoteException{
         String saleTime = vo.getDateandtime();
-        String goodsName;
-        String goodsType;
-        String goodsNum;
-        String goodsPrice;
-        String totalSum;
+        String goodsName =goodslist.getGoodsname();
+        String goodsType =goodslist.getKeymodel();
+        Long goodsNum = goodslist.getNum();
+        Long goodsPrice = goodslist.getPrice();
+        Long totalSum = goodsNum*goodsPrice;
 
         return null;
     }
-
 
 }

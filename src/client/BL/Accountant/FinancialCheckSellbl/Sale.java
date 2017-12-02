@@ -11,14 +11,24 @@ public  class Sale {
     public final SimpleStringProperty goodsPrice;
     public final SimpleStringProperty totalSum;
 
+    public final SimpleStringProperty consumer;
+    public final SimpleStringProperty operater;
+    public final SimpleStringProperty base;
 
-    public Sale(String saleTime, String goodsName, String goodsType,String goodsNum, String goodsPrice, String totalSum) {
+
+
+    public Sale(String saleTime, String goodsName, String goodsType,String goodsNum,
+                String goodsPrice, String totalSum,String consumer,String operater,String base) {
         this.saleTime = new SimpleStringProperty(saleTime);
         this.goodsName = new SimpleStringProperty(goodsName);
         this.goodsType = new SimpleStringProperty(goodsType);
         this.goodsNum = new SimpleStringProperty(goodsNum);
         this.goodsPrice = new SimpleStringProperty(goodsPrice);
         this.totalSum = new SimpleStringProperty(totalSum);
+        this.consumer = new SimpleStringProperty(consumer);
+        this.operater = new SimpleStringProperty(operater);
+        this.base = new SimpleStringProperty(base);
+
     }
 
     public String getSaleTime() {
@@ -68,4 +78,31 @@ public  class Sale {
     public void setTotalSum(String fName) {
         totalSum.set(fName);
     }
+
+
+    public String getConsumer() {
+        return consumer.get();
+    }
+
+    public void setConsumer(String fName) {
+        consumer.set(fName);
+    }
+
+    public String getOperater() {
+        return operater.get();
+    }
+
+    public void setOperater(String fName) { operater.set(fName); }
+
+    public String getBase() {
+        return base.get();
+    }
+
+    public void setBase(String fName) {
+        base.set(fName);
+    }
+
+
+
+
 }

@@ -10,9 +10,11 @@ import java.util.ArrayList;
 public interface FinancialCheckSellInterface {
 
 
-    public ArrayList<saleVO> check(String time);
+    public ArrayList<Sale> check(String time);
 
     public boolean getExcel(String address);
+
+    public ArrayList<Sale> show();
 
     public Sale VoToSale(saleVO vo,goodsOutListVO goodslist) throws RemoteException;
 
