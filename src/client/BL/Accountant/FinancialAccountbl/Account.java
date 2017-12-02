@@ -8,10 +8,10 @@ public class Account {
     public final SimpleStringProperty accountName;
     public final SimpleStringProperty money;
 
-    public Account(String fName, String lName, String email) {
-        this.accountID = new SimpleStringProperty(fName);
-        this.accountName = new SimpleStringProperty(lName);
-        this.money = new SimpleStringProperty(email);
+    public Account(String accountID, String accountName, String money) {
+        this.accountID = new SimpleStringProperty(accountID);
+        this.accountName = new SimpleStringProperty(accountName);
+        this.money = new SimpleStringProperty(money);
     }
 
     public String getaccountID() {

@@ -27,14 +27,17 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class AccountManagementUI extends Application {
 
     private final TableView<Account> table = new TableView<>();
+
     private final ObservableList<Account> data =
             FXCollections.observableArrayList(
                     new Account("A", "B", "C"),
-                    new Account("Q", "W", "E"));
+                    new Account("Q", "W", "E")
+            );
     final HBox hb = new HBox();
 
     public static void main(String[] args) {
@@ -52,6 +55,7 @@ public class AccountManagementUI extends Application {
         final Label label = new Label("账户列表");
         label.setFont(new Font("Arial", 20));
 
+
         table.setEditable(true);
 
         Callback<TableColumn<Account, String>,
@@ -66,7 +70,7 @@ public class AccountManagementUI extends Application {
                 new TableColumn<>("账户余额");
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
-
+///////////////////////////////////////////////////////////////////////////
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
@@ -76,9 +80,23 @@ public class AccountManagementUI extends Application {
                     ((Account) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setaccountID(t.getNewValue());
+                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    Long sum= Long.parseLong(newmoney);
+                    coVO co = new coVO();
+                    co.setSumall(sum);
+                    co.setKeyname(newID);
+                    co.setKeyname(newName);
+                    FinancialAccountController financialAccountController = new FinancialAccountController();
+                    try {
+                        financialAccountController.modifyAccount(co);
+                    } catch (RemoteException e3) {
+                        e3.printStackTrace();
+                    }
                 });
 
-
+//////////////////////////////////////////////////////////////////////////////////////
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
@@ -88,20 +106,46 @@ public class AccountManagementUI extends Application {
                     ((Account) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setaccountName(t.getNewValue());
+                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    Long sum= Long.parseLong(newmoney);
+                    coVO co = new coVO();
+                    co.setSumall(sum);
+                    co.setKeyname(newID);
+                    co.setKeyname(newName);
+                    FinancialAccountController financialAccountController = new FinancialAccountController();
+                    try {
+                        financialAccountController.modifyAccount(co);
+                    } catch (RemoteException e3) {
+                        e3.printStackTrace();
+                    }
                 });
-
+//////////////////////////////////////////////////////////////////////////////////////
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
         MoneyCol.setCellFactory(cellFactory);
         MoneyCol.setOnEditCommit(
                 (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setmoney(t.getNewValue());
+                    ((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).setmoney(t.getNewValue());
+                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
+                    Long sum= Long.parseLong(newmoney);
+                    coVO co = new coVO();
+                    co.setSumall(sum);
+                    co.setKeyname(newID);
+                    co.setKeyname(newName);
+                    FinancialAccountController financialAccountController = new FinancialAccountController();
+                    try {
+                        financialAccountController.modifyAccount(co);
+                    } catch (RemoteException e3) {
+                        e3.printStackTrace();
+                    }
                 });
 
-
+//////////////////////////////////////////////////////////////////////////////////////
         delCol.setCellFactory((col) -> {
             TableCell<Account, String> cell = new TableCell<Account, String>() {
 
@@ -134,6 +178,19 @@ public class AccountManagementUI extends Application {
             return cell;
         });
 
+//////////////////////////////////////////////////////////////////////////////////////
+        FinancialAccountController StartData = new FinancialAccountController();
+        try {
+            List<coVO> list =StartData.show();
+            for (int i=0;i<list.size();i++){
+                coVO newco = list.get(i);
+                Account account = StartData.VoToAccount(newco);
+                data.add(account);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
 
 
         table.setItems(data);
@@ -160,7 +217,6 @@ public class AccountManagementUI extends Application {
             coVO co = new coVO();
             co.setKeyname(newaccount.getaccountName());
             co.setSumall(Long.parseLong(newaccount.getmoney()));
-            //co.setSumall((long) 500);
             FinancialAccountController financialAccountController = new FinancialAccountController();
             try {
                 financialAccountController.addAccount(co);
