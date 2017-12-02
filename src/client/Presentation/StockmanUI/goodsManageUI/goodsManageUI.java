@@ -1,13 +1,9 @@
 package client.Presentation.StockmanUI.goodsManageUI;
-import client.BL.Accountant.FinancialAccountbl.Account;
-import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
 import client.RMI.link;
-import client.Vo.coVO;
 import client.Vo.goodsVO;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -34,6 +29,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class goodsManageUI extends Application {
+    /**
+    *todo:警戒数量，报警
+    */
+    int warningnum = 100;
     GoodsController goodsController = new GoodsController();
     private final TableView<Goods> table = new TableView<>();
     private final ObservableList<Goods> data =
@@ -50,14 +49,16 @@ public class goodsManageUI extends Application {
     @Override
     public void start(Stage stage) throws RemoteException {
         Scene scene = new Scene(new Group());
+        /**
+        *todo:title为商品父类名称
+        */
         stage.setTitle("商品管理");
         stage.setWidth(1000);
         stage.setHeight(550);
 
+
         /**
-        *@author:pis
-        *@description: 显示初始商品,kind由上一个界面传入
-        *@date: 15:57 2017/12/2
+        *todo:显示初始商品,kind由上一个界面传入
         */
         List<goodsPO> originGoods = (List<goodsPO>) goodsController.findByKind("ferry");
         for(goodsPO i : originGoods){
@@ -106,9 +107,10 @@ public class goodsManageUI extends Application {
         IDCol.setCellFactory(cellFactory);
         IDCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsID(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsID(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
 
@@ -118,9 +120,11 @@ public class goodsManageUI extends Application {
         NameCol.setCellFactory(cellFactory);
         NameCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsName(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsName(t.getNewValue());
+                    modifygoods(newgoods);
+
                 });
 
         ModelCol.setMinWidth(100);
@@ -129,9 +133,10 @@ public class goodsManageUI extends Application {
         ModelCol.setCellFactory(cellFactory);
         ModelCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsModel(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsModel(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
         NumCol.setMinWidth(100);
@@ -140,9 +145,10 @@ public class goodsManageUI extends Application {
         NumCol.setCellFactory(cellFactory);
         NumCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsNum(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsNum(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
         inpriceCol.setMinWidth(100);
@@ -151,9 +157,10 @@ public class goodsManageUI extends Application {
         inpriceCol.setCellFactory(cellFactory);
         inpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsInprice(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsInprice(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
         outpriceCol.setMinWidth(100);
@@ -162,9 +169,10 @@ public class goodsManageUI extends Application {
         outpriceCol.setCellFactory(cellFactory);
         outpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsOutprice(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsOutprice(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
         receinpriceCol.setMinWidth(100);
@@ -173,9 +181,10 @@ public class goodsManageUI extends Application {
         receinpriceCol.setCellFactory(cellFactory);
         receinpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsReceinprice(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsReceinprice(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
         receoutpriceCol.setMinWidth(100);
@@ -184,9 +193,10 @@ public class goodsManageUI extends Application {
         receoutpriceCol.setCellFactory(cellFactory);
         receoutpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    ( t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setGoodsReceoutprice(t.getNewValue());
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsReceoutprice(t.getNewValue());
+                    modifygoods(newgoods);
                 });
 
 
@@ -372,6 +382,22 @@ public class goodsManageUI extends Application {
 
         private String getString() {
             return getItem() == null ? "" : getItem().toString();
+        }
+    }
+    private void modifygoods(Goods newgoods){
+        goodsVO vo = new goodsVO();
+        vo.setKeyno(newgoods.getGoodsID());
+        vo.setKeyname(newgoods.getGoodsName());
+        vo.setKeymodel(newgoods.getGoodsModel());
+        vo.setNum(Long.parseLong(newgoods.getGoodsNum()));
+        vo.setInprice(Long.parseLong(newgoods.getGoodsInprice()));
+        vo.setOutprice(Long.parseLong(newgoods.getGoodsOutprice()));
+        vo.setReceprice(Long.parseLong(newgoods.getGoodsReceinprice()));
+        vo.setReceoutprice(Long.parseLong(newgoods.getGoodsReceoutprice()));
+        try {
+            goodsController.modifyGoods(vo);
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
         }
     }
 }
