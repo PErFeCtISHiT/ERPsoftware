@@ -1,18 +1,22 @@
 package client.Presentation.SalesmanUI.ConsumerManage;
 
 import client.BL.Saleman.SalemanConsumerManageblservice.Consumer;
+import client.BL.Saleman.SalemanConsumerManageblservice.ConsumerManageController;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.event.ActionEvent;
 
 import client.Vo.consumerVO;
 
@@ -207,7 +211,15 @@ public class ConsumerManageUI extends Application {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             consumerVO consumer= new consumerVO();
-
+                            consumer.setAccoun("a");
+                            data.remove(this.getIndex());
+                            System.out.println("删除成功");
+                            ConsumerManageController consumerManageController=new ConsumerManageController();
+                            try{
+                                consumerManageController.deleteConsumer(consumer);
+                            }catch(RemoteException e){
+                                e.printStackTrace();
+                            }
                         });
                     }
                 }
@@ -215,6 +227,116 @@ public class ConsumerManageUI extends Application {
             };
             return cell;
         });
+
+        table.setItems(data);
+        table.getColumns().addAll(IDcol,jinhuoshang,xiaoshoushang,level,name,phone,address,youbian,email,yingshouedu,yingfu,yingshou,yewuyuan,candelete);
+
+        final TextField field1=new TextField();
+        field1.setPromptText("客户ID");
+        field1.setMaxWidth(IDcol.getPrefWidth());
+        final TextField field2=new TextField();
+        field2.setPromptText("进货商");
+        field2.setMaxWidth(jinhuoshang.getPrefWidth());
+        final TextField field3=new TextField();
+        field3.setPromptText("销售商");
+        field3.setMaxWidth(xiaoshoushang.getPrefWidth());
+        final TextField field4=new TextField();
+        field4.setPromptText("级别");
+        field4.setMaxWidth(level.getPrefWidth());
+        final TextField field5=new TextField();
+        field5.setPromptText("姓名");
+        field5.setMaxWidth(level.getPrefWidth());
+        final TextField field6=new TextField();
+        field6.setPromptText("电话");
+        field6.setMaxWidth(level.getPrefWidth());
+        final TextField field7=new TextField();
+        field7.setPromptText("地址");
+        field7.setMaxWidth(level.getPrefWidth());
+        final TextField field8=new TextField();
+        field8.setPromptText("邮编");
+        field8.setMaxWidth(level.getPrefWidth());
+        final TextField field9=new TextField();
+        field9.setPromptText("电子邮箱");
+        field9.setMaxWidth(level.getPrefWidth());
+        final TextField field10=new TextField();
+        field10.setPromptText("应收额度");
+        field10.setMaxWidth(level.getPrefWidth());
+        final TextField field11=new TextField();
+        field11.setPromptText("应收");
+        field11.setMaxWidth(level.getPrefWidth());
+        final TextField field12=new TextField();
+        field12.setPromptText("应付");
+        field12.setMaxWidth(level.getPrefWidth());
+        final TextField field13=new TextField();
+        field13.setPromptText("业务员");
+        field13.setMaxWidth(level.getPrefWidth());
+
+        final Button button=new Button("添加");
+        button.setOnAction((ActionEvent e)->{
+            Consumer consumer=new Consumer(
+                    field1.getText(),
+                    field2.getText(),
+                    field3.getText(),
+                    field4.getText(),
+                    field5.getText(),
+                    field6.getText(),
+                    field7.getText(),
+                    field8.getText(),
+                    field9.getText(),
+                    field10.getText(),
+                    field11.getText(),
+                    field12.getText(),
+                    field13.getText());
+            data.add(consumer);
+            consumerVO vo=new consumerVO(
+                    field1.getText(),
+                    Long.parseLong(field2.getText()+field3.getText()), //?????????????????
+                    Long.parseLong(field4.getText()),
+                    field5.getText(),
+                    field6.getText(),
+                    field8.getText(),
+                    field9.getText(),
+                    Long.parseLong(field10.getText()),
+                    Long.parseLong(field11.getText()),
+                    Long.parseLong(field12.getText()),
+                    field13.getText(),
+                    " ");
+            ConsumerManageController consumerManageController=new ConsumerManageController();
+            try{
+                consumerManageController.addConsumer(vo);
+            }catch (RemoteException e1){
+                e1.printStackTrace();
+            }
+
+            field1.clear();
+            field2.clear();
+            field3.clear();
+            field4.clear();
+            field5.clear();
+            field6.clear();
+            field7.clear();
+            field8.clear();
+            field9.clear();
+            field10.clear();
+            field11.clear();
+            field12.clear();
+            field13.clear();
+
+        });
+
+        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
+        hb.setSpacing(3);
+
+        final VBox vBox=new VBox();
+        vBox.setSpacing(5);
+        vBox.setPadding(new Insets(10,0,0,10));
+        vBox.getChildren().addAll(label,table,hb);
+
+        ((Group)scene.getRoot()).getChildren().addAll(vBox);
+
+        stage.setScene(scene);
+        stage.show();
+
 
     }
 

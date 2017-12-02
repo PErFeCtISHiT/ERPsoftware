@@ -1,6 +1,7 @@
 package client.BL.Saleman.SalemanConsumerManageblservice;
 
 import client.BLservice.Saleman.SalemanConsumerManageblservice.ConsumerManageInterface;
+import client.RMI.link;
 import client.Vo.consumerVO;
 import shared.ResultMessage;
 
@@ -23,17 +24,19 @@ public class ConsumerManageController implements ConsumerManageInterface{
 
     @Override
     public ResultMessage addConsumer(consumerVO consumer) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getConsumer().addObject(consumer,10);
     }
 
     @Override
     public ResultMessage deleteConsumer(consumerVO consumer) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getConsumer().deleteObject(consumer,10);
     }
 
     @Override
     public ResultMessage modifyConsumer(consumerVO consumer) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getConsumer().modifyObject(consumer,10);
     }
+
+
 
 }
