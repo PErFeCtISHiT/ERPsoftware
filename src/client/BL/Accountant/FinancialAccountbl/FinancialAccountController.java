@@ -40,7 +40,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ResultMessage modifyAccount(coVO vo)throws RemoteException{
+    public ResultMessage modifyAccount(coVO vo) throws RemoteException{
 
         return link.getRemoteHelper().getCoaccount().modifyObject(vo,10);
     }
@@ -52,7 +52,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ArrayList<coVO> findAccount(String key){
+    public ArrayList<coVO> findAccount(String key) throws RemoteException{
 
         return null;
     }

@@ -1,16 +1,19 @@
 package client.Presentation.AccountantUI.BillFill;
 
 
+import client.BL.Accountant.FinancialReceivebl.TransferList;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -19,12 +22,16 @@ public class FillMoneyBill extends Application {
         launch(args);
     }
 
-    private final TableView table = new TableView();
+    private final TableView<TransferList> table = new TableView<>();
+    private final ObservableList<TransferList> data =
+            FXCollections.observableArrayList(
+                    new TransferList("A", "B", "C"),
+                    new TransferList("Q", "W", "E")
+            );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Label notification = new Label ();
     final Label billNum = new Label ();
-    final TextField account = new TextField("");
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
@@ -34,68 +41,105 @@ public class FillMoneyBill extends Application {
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
 
 
-    String address = " ";
-
     @Override public void start(Stage stage) {
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 750, 450);
         table.setEditable(true);
 
-        Callback<TableColumn, TableCell> cellFactory
-                = (TableColumn p) -> new EditingCell();
-        account.setTooltip(tooltipForAccount);
+        Callback<TableColumn<TransferList, String>,
+                TableCell<TransferList, String>> cellFactory
+                = (TableColumn<TransferList, String> p) -> new EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
 
-//        TableColumn AccountCol = new TableColumn("银行账户");
-//        AccountCol.setMinWidth(100);
-//        AccountCol.setCellFactory(TextFieldTableCell.forTableColumn());
-//
-//        TableColumn MoneyCol = new TableColumn("转账金额");
-//        MoneyCol.setMinWidth(100);
-//        MoneyCol.setCellFactory(TextFieldTableCell.forTableColumn());
-//
-//        TableColumn CommentCol = new TableColumn("备注");
-//        CommentCol.setMinWidth(100);
-//        CommentCol.setCellFactory(TextFieldTableCell.forTableColumn());
-//
-//        table.getColumns().addAll(AccountCol,MoneyCol,CommentCol);
 
+
+
+
+        TableColumn<TransferList,String> AccountCol = new TableColumn<>("银行账户");
+        AccountCol.setMinWidth(100);
+        AccountCol.setCellFactory(cellFactory);
+        AccountCol.setCellValueFactory(
+                param -> param.getValue().account);
+
+        TableColumn<TransferList,String> MoneyCol = new TableColumn<>("转账金额");
+        MoneyCol.setMinWidth(100);
+        MoneyCol.setCellFactory(cellFactory);
+        MoneyCol.setCellValueFactory(
+                param -> param.getValue().money);
+
+        TableColumn<TransferList,String> CommentCol = new TableColumn<>("备注");
+        CommentCol.setMinWidth(100);
+        CommentCol.setCellFactory(cellFactory);
+        CommentCol.setCellValueFactory(
+                param -> param.getValue().comment);
+
+        table.setItems(data);
+        table.getColumns().addAll(AccountCol,MoneyCol,CommentCol);
+
+
+        final TextField addID = new TextField();
+        addID.setPromptText("账户编号");
+        addID.setMaxWidth(AccountCol.getPrefWidth());
+        final TextField addMoney = new TextField();
+        addMoney.setMaxWidth(MoneyCol.getPrefWidth());
+        addMoney.setPromptText("转账金额");
+        final TextField addComment = new TextField();
+        addComment.setMaxWidth(MoneyCol.getPrefWidth());
+        addComment.setPromptText("备注");
+
+        final Button addButton = new Button("Add");
+        addButton.setOnAction((ActionEvent e) -> {
+            String acc = addID.getText();
+            String money = addMoney.getText();
+            String comment = addComment.getText();
+            TransferList list = new TransferList(acc,money,comment);
+            data.add(list);
+            addID.clear();
+            addMoney.clear();
+            addComment.clear();
+        });
+
+        HBox hb = new HBox();
+        hb.getChildren().addAll(addID, addMoney, addComment, addButton);
+        hb.setSpacing(3);
+
+        VBox vb = new VBox();
+        vb.getChildren().addAll(table,hb);
+        vb.setSpacing(3);
 
 
         final ComboBox TypeComboBox = new ComboBox();
         TypeComboBox.getItems().addAll(
-                "收款单",
-                "付款单"
+                "收款单", "付款单"
         );
         TypeComboBox.setPromptText("收款单");
         TypeComboBox.setEditable(false);
 
         final ComboBox StaffComboBox = new ComboBox();
         StaffComboBox.getItems().addAll(
-                "A员工",
-                "B员工"
+                "A员工", "B员工"
         );
         StaffComboBox.setValue("A员工");
 
 
+        final ComboBox ConsumerTypeComboBox = new ComboBox();
+        ConsumerTypeComboBox.getItems().addAll(
+                "供应商", "销售商"
+        );
+        ConsumerTypeComboBox.setPromptText("供应商");
+        ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
             if (    TypeComboBox.getValue() != null &&
                     !TypeComboBox.getValue().toString().isEmpty()&&
-                    account.getText() != null &&
-                    !account.getText().isEmpty()&&
                     consumer.getText() != null &&
                     !consumer.getText().isEmpty()&&
                     checkMoney(money.getText()))
             {
                 notification.setText("The Bill was successfully sent"
-                        + " to " + address);
+                        + " to " );
                 TypeComboBox.setValue(null);
-                if (account.getText() != null &&
-                        !account.getText().isEmpty()){
-                    account.setText(null);
-                }
                 money.clear();
                 text.clear();
             }
@@ -108,12 +152,8 @@ public class FillMoneyBill extends Application {
             if (TypeComboBox.getValue() != null &&
                     !TypeComboBox.getValue().toString().isEmpty()){
                 notification.setText("Your message was successfully sent"
-                        + " to " + address);
+                        + " to " );
                 TypeComboBox.setValue(null);
-                if (account.getText() != null &&
-                        !account.getText().isEmpty()){
-                    account.setText(null);
-                }
                 money.clear();
                 text.clear();
             }
@@ -132,19 +172,22 @@ public class FillMoneyBill extends Application {
         grid.add(billNum, 3, 0);
         grid.add(new Label("操作员："), 4, 0);
         grid.add(StaffComboBox, 5, 0);
-        grid.add(new Label("账户:"), 0, 1);
-        grid.add(account, 1, 1);
+
+        grid.add(new Label("客户类型："), 0, 1);
+        grid.add(ConsumerTypeComboBox, 1, 1);
         grid.add(new Label("客户:"), 2, 1);
         grid.add(consumer, 3, 1);
-        grid.add(new Label("金额:"), 0, 2);
-        grid.add(money, 1, 2, 3, 1);
-        grid.add(new Label("备注:"), 0, 3);
-        grid.add(text, 1, 3, 4, 1);
+
+
+        grid.add(new Label("转账列表:"), 0, 2);
+        grid.add(vb, 1, 2, 3, 1);
+        grid.add(new Label("总金额:"), 0, 3);
+        grid.add(money, 1, 3, 4, 1);
         grid.add(DraftButton, 0, 4);
         grid.add(SummitButton, 2, 4);
         grid.add (notification, 0, 6, 3, 1);
 
-        grid.add(table,0,7);
+
         Group root = (Group)scene.getRoot();
         root.getChildren().add(grid);
         stage.setScene(scene);
@@ -177,7 +220,7 @@ public class FillMoneyBill extends Application {
 
 
 
-    class EditingCell extends TableCell {
+    class EditingCell extends TableCell<TransferList, String> {
 
         private TextField textField;
 
@@ -203,26 +246,26 @@ public class FillMoneyBill extends Application {
             setGraphic(null);
         }
 
-//        @Override
-//        public void updateItem(String item, boolean empty) {
-//            super.updateItem(item, empty);
-//
-//            if (empty) {
-//                setText(null);
-//                setGraphic(null);
-//            } else {
-//                if (isEditing()) {
-//                    if (textField != null) {
-//                        textField.setText(getString());
-//                    }
-//                    setText(null);
-//                    setGraphic(textField);
-//                } else {
-//                    setText(getString());
-//                    setGraphic(null);
-//                }
-//            }
-//        }
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setText(null);
+                    setGraphic(textField);
+                } else {
+                    setText(getString());
+                    setGraphic(null);
+                }
+            }
+        }
 
         private void createTextField() {
             textField = new TextField(getString());
