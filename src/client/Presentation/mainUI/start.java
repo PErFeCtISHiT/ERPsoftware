@@ -2,8 +2,6 @@ package client.Presentation.mainUI;
 
 import client.Presentation.AccountantUI.AccountMain.Accountant;
 
-import client.Presentation.StockmanUI.Stockman;
-
 import client.RMI.RemoteHelper;
 import client.RMI.link;
 import javafx.application.Application;
@@ -84,7 +82,7 @@ public class start extends Application {
 
     private void turntoStockman() throws RemoteException{
 
-        Stockman.start();
+        //Stockman.start();
 
         login.close();
 
