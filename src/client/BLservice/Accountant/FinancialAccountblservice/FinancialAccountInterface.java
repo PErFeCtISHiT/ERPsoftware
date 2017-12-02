@@ -1,10 +1,12 @@
 package client.BLservice.Accountant.FinancialAccountblservice;
 
+import client.BL.Accountant.FinancialAccountbl.Account;
 import client.Vo.coVO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FinancialAccountInterface {
 
@@ -44,6 +46,9 @@ public interface FinancialAccountInterface {
      * @param
      * @return
      */
-    public ArrayList<coVO> show() ;
+    public List<coVO> show() throws RemoteException;
 
+    public Account VoToAccount(coVO co) throws RemoteException;
+
+    public coVO AccountToVo(Account account) throws RemoteException;
 }
