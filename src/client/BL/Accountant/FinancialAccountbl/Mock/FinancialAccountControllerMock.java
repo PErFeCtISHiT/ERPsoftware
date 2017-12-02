@@ -2,11 +2,9 @@ package client.BL.Accountant.FinancialAccountbl.Mock;
 
 import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.Vo.coVO;
-import server.Po.coPO;
 import shared.ResultMessage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FinancialAccountControllerMock extends FinancialAccountController {
 
@@ -26,8 +24,8 @@ public class FinancialAccountControllerMock extends FinancialAccountController {
      * @param vo
      * @return
      */
-    public boolean deleteAccount(coVO vo){
-        return false;
+    public ResultMessage deleteAccount(coVO vo){
+        return null;
     }
 
 

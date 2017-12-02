@@ -70,7 +70,7 @@ public class Accountant {
 
 
 
-    public static void start()throws RemoteException {
+    public static void start() {
 
         Accountant = new Stage();
 
@@ -156,7 +156,7 @@ public class Accountant {
 
      */
 
-    private static void showGoods() throws RemoteException{
+    private static void showGoods() throws RemoteException {
 
         accountPane = new GridPane();
 
@@ -250,7 +250,7 @@ public class Accountant {
 
      */
 
-    private static void addgoods(TreeItem<String> treeItem1, String s) throws RemoteException{
+    private static void addgoods(TreeItem<String> treeItem1, String s) throws RemoteException {
 
         GoodsController goodsController = new GoodsController();
 

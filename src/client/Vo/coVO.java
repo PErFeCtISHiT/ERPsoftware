@@ -11,7 +11,11 @@ public class coVO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public String getKeyname() {
+    public coVO() {
+
+    }
+
+    public String getKeyname() {
 		return keyname;
 	}
 

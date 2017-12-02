@@ -3,6 +3,7 @@ package client.BLservice.Accountant.FinancialAccountblservice;
 import client.Vo.coVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface FinancialAccountInterface {
@@ -13,14 +14,14 @@ public interface FinancialAccountInterface {
      * @param vo
      * @return
      */
-    public ResultMessage addAccount(coVO po);
+    public ResultMessage addAccount(coVO po) throws RemoteException;
     /**
      * Delete account
      *
      * @param vo
      * @return
      */
-    public boolean deleteAccount(coVO po);
+    public ResultMessage deleteAccount(coVO po) throws RemoteException;
     /**
      * Modify account
      *

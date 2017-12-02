@@ -1,8 +1,11 @@
 package client.BL.Accountant.FinancialAccountbl;
 
 import client.BLservice.Accountant.FinancialAccountblservice.FinancialAccountInterface;
+import client.RMI.link;
 import client.Vo.coVO;
 import shared.ResultMessage;
+
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class FinancialAccountController implements FinancialAccountInterface {
@@ -14,8 +17,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ResultMessage addAccount(coVO po){
-        return null;
+    public ResultMessage addAccount(coVO po) throws RemoteException {
+        return link.getRemoteHelper().getCoaccount().addObject(po,10);
     }
 
     /**
@@ -25,8 +28,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public boolean deleteAccount(coVO po){
-        return false;
+    public ResultMessage deleteAccount(coVO po)throws RemoteException{
+        return link.getRemoteHelper().getCoaccount().deleteObject(po,10);
     }
 
 
