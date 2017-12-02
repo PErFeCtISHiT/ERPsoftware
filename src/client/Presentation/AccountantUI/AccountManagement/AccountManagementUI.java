@@ -35,8 +35,8 @@ public class AccountManagementUI extends Application {
 
     private final ObservableList<Account> data =
             FXCollections.observableArrayList(
-//                    new Account("A", "B", "C"),
-//                    new Account("Q", "W", "E")
+                    new Account("A", "B", "C"),
+                    new Account("Q", "W", "E")
             );
     final HBox hb = new HBox();
 
