@@ -7,7 +7,11 @@ public class packPO implements Serializable{
 	private String goodsname;
 	private Long price;
 
-	public String getKeyno() {
+    public packPO() {
+
+    }
+
+    public String getKeyno() {
 		return keyno;
 	}
 

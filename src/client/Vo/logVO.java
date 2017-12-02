@@ -11,6 +11,33 @@ public class logVO implements Serializable{
 	private String billno;
 	private String opno;
 	private String note;
+	private String goodsname;
+	private String consumer;
+	private String base;
+
+	public String getGoodsname() {
+		return goodsname;
+	}
+
+	public void setGoodsname(String goodsname) {
+		this.goodsname = goodsname;
+	}
+
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
+	}
 
 	public Time getAdddate() {
 		return adddate;

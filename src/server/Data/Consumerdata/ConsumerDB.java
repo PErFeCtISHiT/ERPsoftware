@@ -9,4 +9,5 @@ import server.Dataservice.Consumerdataservice.Consumer;
  * @date: create in 19:03 2017/11/27
  */
 public class ConsumerDB extends publicDB implements Consumer{
+
 }

@@ -9,4 +9,5 @@ import server.Dataservice.Billdataservice.stockOverflowBill;
  * @date: create in 15:51 2017/11/26
  */
 public class stockOverflowBillDB extends publicDB implements stockOverflowBill {
+
 }

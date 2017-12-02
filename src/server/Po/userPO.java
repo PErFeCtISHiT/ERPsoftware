@@ -14,7 +14,11 @@ public class userPO implements Serializable{
 	private Long keyyear;
 	private String passwor;
 
-	public String getKeyjob() {
+    public userPO() {
+
+    }
+
+    public String getKeyjob() {
 		return keyjob;
 	}
 

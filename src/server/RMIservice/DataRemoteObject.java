@@ -32,7 +32,7 @@ import java.util.List;
 
 
 public class DataRemoteObject extends UnicastRemoteObject implements
-        moneyBill, selloutBill,stockDamageBill,stockOverflowBill,stockwarningBill,
+        moneyBill, selloutBill,stockOverflowBill,stockwarningBill,
         Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub {
 
     /**
@@ -46,7 +46,6 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     private giftBill giftBill;
     private moneyBill moneyBill;
     private selloutBill selloutBill;
-    private stockDamageBill stockDamageBill;
     private stockOverflowBill stockOverflowBill;
     private stockwarningBill stockwarningBill;
     private Coaccount coaccount;
@@ -65,7 +64,6 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         giftBill = new giftBillDB();
         moneyBill = new moneyBillDB();
         selloutBill = new SelloutBillDB();
-        stockDamageBill = new stockDamageBillDB();
         stockOverflowBill = new stockOverflowBillDB();
         stockwarningBill = new stockwarningBillDB();
         coaccount = new CoaccountDB();
@@ -84,16 +82,6 @@ public class DataRemoteObject extends UnicastRemoteObject implements
 
 
     @Override
-    public buyinPO buyinfindByNO(String No)throws RemoteException {
-        return buyinBill.buyinfindByNO(No);
-    }
-
-    @Override
-    public selloutPO selloutfindByNO(String No)throws RemoteException {
-        return selloutBill.selloutfindByNO(No);
-    }
-
-    @Override
     public List goodsfindGoods(String keyword)throws RemoteException {
         return goods.goodsfindGoods(keyword);
     }
@@ -103,15 +91,6 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         return goods.goodsfindByKind(kind);
     }
 
-    @Override
-    public List goodsfindAll()throws RemoteException {
-        return goods.goodsfindAll();
-    }
-
-    @Override
-    public List goodsKindsFindAll()throws RemoteException {
-        return goodsKinds.goodsKindsFindAll();
-    }
 
     @Override
     public List goodsKindsFind(String keyword)throws RemoteException {
@@ -120,8 +99,13 @@ public class DataRemoteObject extends UnicastRemoteObject implements
 
 
     @Override
-    public List<String> logstockGlance(String from, String to)throws RemoteException {
+    public List logstockGlance(String from, String to)throws RemoteException {
         return log.logstockGlance(from,to);
+    }
+
+    @Override
+    public List showbillDetail(String from, String to, String name, String consumer, String operator, String base) throws RemoteException{
+        return log.showbillDetail(from,to,name,consumer,operator,base);
     }
 
     @Override
@@ -137,5 +121,15 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     @Override
     public ResultMessage modifyObject(Object object,int type)throws RemoteException {
         return pub.modifyObject(object,type);
+    }
+
+    @Override
+    public List findAll(int type) throws RemoteException {
+        return pub.findAll(type);
+    }
+
+    @Override
+    public List findbyNO(int type, String no) throws RemoteException {
+        return pub.findbyNO(type,no);
     }
 }

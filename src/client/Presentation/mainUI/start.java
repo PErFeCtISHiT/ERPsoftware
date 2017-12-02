@@ -1,6 +1,6 @@
 package client.Presentation.mainUI;
 
-import client.Presentation.AccountantUI.Accountant;
+import client.Presentation.AccountantUI.AccountMain.Accountant;
 
 import client.Presentation.StockmanUI.Stockman;
 
@@ -12,15 +12,10 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 
-import javafx.scene.layout.StackPane;
-
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 

@@ -17,8 +17,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ResultMessage addAccount(coVO po) throws RemoteException {
-        return link.getRemoteHelper().getCoaccount().addObject(po,10);
+    public ResultMessage addAccount(coVO vo) throws RemoteException {
+        return link.getRemoteHelper().getCoaccount().addObject(vo,10);
     }
 
     /**
@@ -28,8 +28,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ResultMessage deleteAccount(coVO po)throws RemoteException{
-        return link.getRemoteHelper().getCoaccount().deleteObject(po,10);
+    public ResultMessage deleteAccount(coVO vo)throws RemoteException{
+        return link.getRemoteHelper().getCoaccount().deleteObject(vo,10);
     }
 
 
@@ -40,8 +40,9 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public coVO modifyAccount(coVO po){
-        return null;
+    public ResultMessage modifyAccount(coVO vo)throws RemoteException{
+
+        return link.getRemoteHelper().getCoaccount().modifyObject(vo,10);
     }
 
     /**
@@ -52,6 +53,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      */
     @Override
     public ArrayList<coVO> findAccount(String key){
+
         return null;
     }
 
@@ -62,6 +64,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      */
     @Override
     public ArrayList<coVO> show() {
+
         return null;
     }
 }

@@ -9,4 +9,5 @@ import server.Dataservice.Billdataservice.moneyBill;
  * @date: create in 18:53 2017/11/27
  */
 public class moneyBillDB extends publicDB implements moneyBill {
+
 }

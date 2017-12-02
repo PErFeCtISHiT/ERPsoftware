@@ -9,4 +9,5 @@ import server.Dataservice.Codataservice.Coaccount;
  * @date: create in 19:02 2017/11/27
  */
 public class CoaccountDB extends publicDB implements Coaccount{
+
 }

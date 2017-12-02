@@ -3,6 +3,11 @@ package server.hibernate;
 import javax.persistence.*;
 import java.sql.Time;
 
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 11:44 2017/12/2
+ */
 @Entity
 @Table(name = "LOG", schema = "PIS", catalog = "")
 public class LogEntity {
@@ -13,6 +18,9 @@ public class LogEntity {
     private String billno;
     private String opno;
     private String note;
+    private String goodsname;
+    private String consumer;
+    private String base;
 
     @Basic
     @Column(name = "ADDDATE", nullable = true)
@@ -84,6 +92,36 @@ public class LogEntity {
         this.note = note;
     }
 
+    @Basic
+    @Column(name = "GOODSNAME", nullable = true, length = 20)
+    public String getGoodsname() {
+        return goodsname;
+    }
+
+    public void setGoodsname(String goodsname) {
+        this.goodsname = goodsname;
+    }
+
+    @Basic
+    @Column(name = "CONSUMER", nullable = true, length = 20)
+    public String getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(String consumer) {
+        this.consumer = consumer;
+    }
+
+    @Basic
+    @Column(name = "BASE", nullable = true, length = 20)
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,6 +136,9 @@ public class LogEntity {
         if (billno != null ? !billno.equals(logEntity.billno) : logEntity.billno != null) return false;
         if (opno != null ? !opno.equals(logEntity.opno) : logEntity.opno != null) return false;
         if (note != null ? !note.equals(logEntity.note) : logEntity.note != null) return false;
+        if (goodsname != null ? !goodsname.equals(logEntity.goodsname) : logEntity.goodsname != null) return false;
+        if (consumer != null ? !consumer.equals(logEntity.consumer) : logEntity.consumer != null) return false;
+        if (base != null ? !base.equals(logEntity.base) : logEntity.base != null) return false;
 
         return true;
     }
@@ -111,6 +152,9 @@ public class LogEntity {
         result = 31 * result + (billno != null ? billno.hashCode() : 0);
         result = 31 * result + (opno != null ? opno.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (goodsname != null ? goodsname.hashCode() : 0);
+        result = 31 * result + (consumer != null ? consumer.hashCode() : 0);
+        result = 31 * result + (base != null ? base.hashCode() : 0);
         return result;
     }
 }

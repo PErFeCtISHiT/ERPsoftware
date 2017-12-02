@@ -9,31 +9,31 @@
             <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
         <property name="keyjob">
-            <column name="KEYJOB" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="KEYJOB" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="lev">
-            <column name="LEV" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="LEV" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="keyname">
-            <column name="KEYNAME" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="tel">
-            <column name="TEL" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="TEL" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="address">
-            <column name="ADDRESS" sql-type="varchar2(50)" length="50" not-null="true"/>
+            <column name="ADDRESS" sql-type="varchar2(50)" length="50" />
         </property>
         <property name="postcode">
-            <column name="POSTCODE" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="POSTCODE" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="email">
-            <column name="EMAIL" sql-type="varchar2(50)" length="50" not-null="true"/>
+            <column name="EMAIL" sql-type="varchar2(50)" length="50" />
         </property>
         <property name="keyyear">
-            <column name="KEYYEAR" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="KEYYEAR" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="passwor">
-            <column name="PASSWOR" sql-type="varchar2(50)" length="50" not-null="true"/>
+            <column name="PASSWOR" sql-type="varchar2(50)" length="50" />
         </property>
     </class>
 </hibernate-mapping>

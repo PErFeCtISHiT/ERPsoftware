@@ -9,4 +9,6 @@ import server.Dataservice.Billdataservice.giftBill;
  * @date: create in 18:54 2017/11/27
  */
 public class giftBillDB extends publicDB implements giftBill {
+
+
 }

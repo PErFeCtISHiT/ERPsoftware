@@ -13,7 +13,7 @@ public class MoneyEntity {
     private Long isred;
     private String consumer;
     private String accoun;
-    private Long num;
+    private String moneyList;
     private Long sumall;
 
     @Basic
@@ -97,13 +97,13 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "NUM", nullable = true, precision = 0)
-    public Long getNum() {
-        return num;
+    @Column(name = "moneylist", nullable = true, length = 20)
+    public String getNum() {
+        return moneyList;
     }
 
-    public void setNum(Long num) {
-        this.num = num;
+    public void setNum(String moneyList) {
+        this.moneyList = moneyList;
     }
 
     @Basic
@@ -131,7 +131,7 @@ public class MoneyEntity {
         if (isred != null ? !isred.equals(that.isred) : that.isred != null) return false;
         if (consumer != null ? !consumer.equals(that.consumer) : that.consumer != null) return false;
         if (accoun != null ? !accoun.equals(that.accoun) : that.accoun != null) return false;
-        if (num != null ? !num.equals(that.num) : that.num != null) return false;
+        if (moneyList != null ? !moneyList.equals(that.moneyList) : that.moneyList != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
 
         return true;
@@ -147,7 +147,7 @@ public class MoneyEntity {
         result = 31 * result + (isred != null ? isred.hashCode() : 0);
         result = 31 * result + (consumer != null ? consumer.hashCode() : 0);
         result = 31 * result + (accoun != null ? accoun.hashCode() : 0);
-        result = 31 * result + (num != null ? num.hashCode() : 0);
+        result = 31 * result + (moneyList != null ? moneyList.hashCode() : 0);
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
         return result;
     }

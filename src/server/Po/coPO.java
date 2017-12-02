@@ -4,13 +4,26 @@ import java.io.Serializable;
 public class coPO implements Serializable{
 	private String keyname;
 	private Long sumall;
+	private String keyno;
+
+	public String getKeyno() {
+		return keyno;
+	}
+
+	public void setKeyno(String keyno) {
+		this.keyno = keyno;
+	}
 
 	public coPO(String keyname, Long sumall) {
 		this.keyname = keyname;
 		this.sumall = sumall;
 	}
 
-	public String getKeyname() {
+    public coPO() {
+
+    }
+
+    public String getKeyname() {
 		return keyname;
 	}
 

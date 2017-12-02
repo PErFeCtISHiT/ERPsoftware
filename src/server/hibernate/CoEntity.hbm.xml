@@ -5,9 +5,12 @@
 <hibernate-mapping>
 
     <class name="server.hibernate.CoEntity" table="CO" schema="PIS">
-        <id name="keyname">
-            <column name="KEYNAME" sql-type="varchar2(20)" length="20"/>
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
+        <property name="keyname">
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20" not-null="true"/>
+        </property>
         <property name="sumall">
             <column name="SUMALL" sql-type="number(*)" precision="2147483646" not-null="true"/>
         </property>

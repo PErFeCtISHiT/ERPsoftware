@@ -2,6 +2,11 @@ package server.hibernate;
 
 import javax.persistence.*;
 
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 11:44 2017/12/2
+ */
 @Entity
 @Table(name = "SALE", schema = "PIS", catalog = "")
 public class SaleEntity {
@@ -16,6 +21,7 @@ public class SaleEntity {
     private Long cut;
     private Long voucher;
     private Long sumall;
+    private String dateandtime;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -127,6 +133,16 @@ public class SaleEntity {
         this.sumall = sumall;
     }
 
+    @Basic
+    @Column(name = "DATEANDTIME", nullable = true, length = 20)
+    public String getDateandtime() {
+        return dateandtime;
+    }
+
+    public void setDateandtime(String dateandtime) {
+        this.dateandtime = dateandtime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,6 +161,7 @@ public class SaleEntity {
         if (cut != null ? !cut.equals(that.cut) : that.cut != null) return false;
         if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
+        if (dateandtime != null ? !dateandtime.equals(that.dateandtime) : that.dateandtime != null) return false;
 
         return true;
     }
@@ -162,6 +179,7 @@ public class SaleEntity {
         result = 31 * result + (cut != null ? cut.hashCode() : 0);
         result = 31 * result + (voucher != null ? voucher.hashCode() : 0);
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
+        result = 31 * result + (dateandtime != null ? dateandtime.hashCode() : 0);
         return result;
     }
 }
