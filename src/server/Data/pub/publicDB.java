@@ -1,10 +1,9 @@
 package server.Data.pub;
 
 import server.Data.tools.hibtools;
-import server.Dataservice.Billdataservice.Bill;
 import server.Dataservice.pubservice.pub;
 import server.Po.*;
-import server.Dataservice.hibernate.*;
+import server.hibernate.*;
 import shared.ResultMessage;
 import shared.copyclass;
 

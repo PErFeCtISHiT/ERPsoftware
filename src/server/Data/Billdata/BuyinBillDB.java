@@ -1,13 +1,7 @@
 package server.Data.Billdata;
 
 import server.Data.pub.publicDB;
-import server.Data.tools.hibtools;
 import server.Dataservice.Billdataservice.buyinBill;
-import server.Po.buyinPO;
-import server.Dataservice.hibernate.BuyinEntity;
-import shared.copyclass;
-
-import java.util.List;
 
 /**
  * @author: pis

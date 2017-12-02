@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="server.hibernate.MoneyEntity" table="MONEY" schema="PIS">
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
+        </id>
+        <property name="kind">
+            <column name="KIND" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="note">
+            <column name="NOTE" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="oper">
+            <column name="OPER" sql-type="varchar2(20)" length="20"/>
+        </property>
+        <property name="ischeck">
+            <column name="ISCHECK" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="isred">
+            <column name="ISRED" sql-type="number(*)" precision="2147483646"/>
+        </property>
+        <property name="consumer">
+            <column name="CONSUMER" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="accoun">
+            <column name="ACCOUN" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="num">
+            <column name="moneylist" sql-type="varchar2(20)" length="20"/>
+        </property>
+        <property name="sumall">
+            <column name="SUMALL" sql-type="number(*)" precision="2147483646" />
+        </property>
+    </class>
+</hibernate-mapping>

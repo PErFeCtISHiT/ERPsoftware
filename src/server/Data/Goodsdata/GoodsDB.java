@@ -5,7 +5,7 @@ import shared.copyclass;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Po.goodsPO;
 import server.Data.tools.hibtools;
-import server.Dataservice.hibernate.GoodsEntity;
+import server.hibernate.GoodsEntity;
 
 
 import java.util.ArrayList;

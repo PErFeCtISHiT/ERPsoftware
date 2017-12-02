@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="server.hibernate.CoEntity" table="CO" schema="PIS">
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
+        </id>
+        <property name="keyname">
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20" not-null="true"/>
+        </property>
+        <property name="sumall">
+            <column name="SUMALL" sql-type="number(*)" precision="2147483646" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
