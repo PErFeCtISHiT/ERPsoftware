@@ -16,4 +16,5 @@ public interface pub extends Remote{
     ResultMessage deleteObject(Object object,int type) throws RemoteException;
     ResultMessage modifyObject(Object object,int type) throws RemoteException;
     List findAll(int type)throws RemoteException;
+    List findbyNO(int type,String no)throws RemoteException;
 }

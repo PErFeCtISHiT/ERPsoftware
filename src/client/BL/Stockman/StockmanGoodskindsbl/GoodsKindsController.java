@@ -36,6 +36,6 @@ public class GoodsKindsController implements GoodsKindsListInterface {
     */
     @Override
     public List FindAll()throws RemoteException {
-        return link.getRemoteHelper().getGoodsKinds().goodsKindsFindAll();
+        return link.getRemoteHelper().getGoodsKinds().findAll(1);
     }
 }

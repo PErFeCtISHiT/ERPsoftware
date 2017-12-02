@@ -4,13 +4,9 @@ import server.Data.pub.publicDB;
 import server.Data.tools.hibtools;
 import server.Dataservice.Billdataservice.buyinBill;
 import server.Po.buyinPO;
-import server.Po.goodsPO;
-import server.hibernate.BuyinEntity;
-import server.hibernate.GoodsEntity;
+import server.Dataservice.hibernate.BuyinEntity;
 import shared.copyclass;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +14,7 @@ import java.util.List;
  * @description: good good study
  * @date: create in 10:29 2017/11/26
  */
-public class BuyinBillDB extends publicDB implements buyinBill {
+public class BuyinBillDB extends publicDB  implements buyinBill {
 
     /**
      *@author:pis
@@ -27,21 +23,9 @@ public class BuyinBillDB extends publicDB implements buyinBill {
      */
 
 
-    @Override
-    public buyinPO buyinfindByNO(String No) {
-        hibtools.session = hibtools.sessionFactory.openSession();
-        hibtools.tx = hibtools.session.beginTransaction();
-        String hql = "from BuyinEntity where keyno = ?";
-        List<BuyinEntity> BuyinEntitys = (List<BuyinEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,No).list();
-        hibtools.session.close();
-        if(BuyinEntitys.size() == 0)
-            return null;
-        BuyinEntity ret = BuyinEntitys.get(0);
-        buyinPO buyinpo = new buyinPO();
-        copyclass.copy(ret,buyinpo);
-        return buyinpo;
-    }
+
+
+
 
 
 }

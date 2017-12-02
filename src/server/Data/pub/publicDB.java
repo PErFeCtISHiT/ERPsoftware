@@ -1,9 +1,10 @@
 package server.Data.pub;
 
 import server.Data.tools.hibtools;
+import server.Dataservice.Billdataservice.Bill;
 import server.Dataservice.pubservice.pub;
 import server.Po.*;
-import server.hibernate.*;
+import server.Dataservice.hibernate.*;
 import shared.ResultMessage;
 import shared.copyclass;
 
@@ -17,10 +18,15 @@ import java.util.List;
  * @date: create in 13:53 2017/11/26
  */
 public class publicDB implements pub {
-    hibtools hib = new hibtools();
-    Object obj;
-    String hql;
-    Object po;
+    private hibtools hib = new hibtools();
+    private Object obj;
+    private String hql;
+    private Object po;
+    /**
+    *@author:pis
+    *@description: 增删改查
+    *@date: 15:39 2017/11/30
+    */
     @Override
     public ResultMessage addObject(Object object,int type) {
         generate(type);
@@ -49,6 +55,23 @@ public class publicDB implements pub {
         hibtools.tx = hibtools.session.beginTransaction();
         generate(type);
         List Entities = hibtools.session.createQuery(hql).list();
+        List POS = new ArrayList<>();
+        for(Object i : Entities){
+            generate(type);
+            copyclass.copy(i,po);
+            POS.add(po);
+        }
+        hibtools.session.close();
+        return POS;
+    }
+
+    @Override
+    public List findbyNO(int type,String no) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        generate(type);
+        hql += "where KEYNO = ?";
+        List Entities = hibtools.session.createQuery(hql).setParameter(0,no).list();
         List POS = new ArrayList<>();
         for(Object i : Entities){
             generate(type);
@@ -164,4 +187,6 @@ public class publicDB implements pub {
             }
         }
     }
+
+
 }

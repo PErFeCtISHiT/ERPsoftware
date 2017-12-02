@@ -10,5 +10,5 @@ import java.util.List;
  * @description: good good study
  * @date: create in 18:54 2017/11/27
  */
-public interface giftBill extends pub {
+public interface giftBill extends pub ,Bill{
 }

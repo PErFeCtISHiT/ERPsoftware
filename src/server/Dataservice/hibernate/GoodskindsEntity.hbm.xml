@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="server.Dataservice.hibernate.GoodskindsEntity" table="GOODSKINDS" schema="PIS">
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
+        </id>
+        <property name="keyname">
+            <column name="KEYNAME" sql-type="varchar2(20)" length="20"/>
+        </property>
+        <property name="father">
+            <column name="FATHER" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="son">
+            <column name="SON" sql-type="varchar2(20)" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -22,7 +22,7 @@ public class RemoteHelper {
 
     private static RemoteHelper remoteHelper = new RemoteHelper();
 
-    public static RemoteHelper getInstance() {
+    static RemoteHelper getInstance() {
 
         return remoteHelper;
 
@@ -34,7 +34,7 @@ public class RemoteHelper {
     }
 
 
-    public void setRemote(Remote remote) {
+    void setRemote(Remote remote) {
 
         this.remote = remote;
 

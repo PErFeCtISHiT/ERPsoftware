@@ -10,6 +10,6 @@ import java.util.List;
  * @description: good good study
  * @date: create in 19:00 2017/11/27
  */
-public interface stockwarningBill extends pub {
+public interface stockwarningBill extends pub ,Bill{
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
  * @description: good good study
  * @date: create in 15:48 2017/11/26
  */
-public interface stockOverflowBill extends pub {
+public interface stockOverflowBill extends pub ,Bill{
 
     /**
     *@author:pis

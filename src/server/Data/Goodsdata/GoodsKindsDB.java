@@ -5,8 +5,7 @@ import shared.copyclass;
 import server.Data.tools.hibtools;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
 import server.Po.goodskindsPO;
-import server.hibernate.GoodskindsEntity;
-import shared.ResultMessage;
+import server.Dataservice.hibernate.GoodskindsEntity;
 
 import java.util.ArrayList;
 import java.util.List;

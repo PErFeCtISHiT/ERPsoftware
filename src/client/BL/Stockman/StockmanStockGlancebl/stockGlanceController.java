@@ -15,9 +15,8 @@ import java.util.List;
  * @date: create in 10:11 2017/11/26
  */
 public class stockGlanceController implements stockGlance {
-
-    List<buyinVO> withBase = new ArrayList<>();
-    List<selloutVO> withConsumer = new ArrayList<>();
+    private List<buyinVO> withBase = new ArrayList<>();
+    private List<selloutVO> withConsumer = new ArrayList<>();
     /**
     *@author:pis
     *@description: 库存查看
@@ -26,11 +25,10 @@ public class stockGlanceController implements stockGlance {
     @Override
     public List stockglance(String from,String to) throws RemoteException {
         List<String> billNo = link.getRemoteHelper().getLog().logstockGlance(from,to);
-        for(int i = 0;i < billNo.size();i++){
-            String s = billNo.get(i);
-            //bulink.getRemoteHelper().getBuyinBill().buyinfindByNO(s);
+        for (String s : billNo) {
+            link.getRemoteHelper().getBuyinBill().findbyNO(3,s);
         }
-        List ret = new ArrayList();
+        List<Object> ret = new ArrayList<>();
         ret.add(withBase);
         ret.add(withConsumer);
         return null;

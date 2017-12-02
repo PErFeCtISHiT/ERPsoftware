@@ -12,6 +12,6 @@ import java.util.List;
  * @description: good good study
  * @date: create in 10:18 2017/11/26
  */
-public interface buyinBill extends pub {
-    buyinPO buyinfindByNO(String No)throws RemoteException;
+public interface buyinBill extends pub,Bill{
+
 }

@@ -1,17 +1,7 @@
 package server.Data.Codata;
 
 import server.Data.pub.publicDB;
-import server.Data.tools.hibtools;
 import server.Dataservice.Codataservice.Coaccount;
-import server.Po.coPO;
-import server.Po.giftPO;
-import server.hibernate.CoEntity;
-import server.hibernate.GiftEntity;
-import shared.copyclass;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: pis

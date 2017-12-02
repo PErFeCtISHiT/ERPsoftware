@@ -21,5 +21,7 @@ public interface log extends pub {
     *@description: 日期样例：2008-01-01 00:00:00  小时值必须介于 1 和 12 之间
     *@date: 14:16 2017/11/26
     */
-    List<String> logstockGlance(String from,String to)throws RemoteException;
+    List logstockGlance(String from,String to)throws RemoteException;
+    List showbillDetail(String from,String to, String name,String consumer,String operator,String base)throws RemoteException;
+
 }
