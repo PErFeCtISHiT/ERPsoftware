@@ -10,5 +10,4 @@ import server.Dataservice.Billdataservice.giftBill;
  */
 public class giftBillDB extends publicDB implements giftBill {
 
-
 }

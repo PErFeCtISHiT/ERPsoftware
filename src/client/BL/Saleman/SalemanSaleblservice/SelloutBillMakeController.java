@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Created by Leonarda on 2017/12/3.
  */
 public class SelloutBillMakeController implements SelloutMakeInterface {
+
     @Override
     public ArrayList<selloutVO> findselloutBill(String keyword) {
         return null;
@@ -24,17 +25,17 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
 
     @Override
     public ResultMessage addselloutBill(selloutVO vo) throws RemoteException {
-        return link.getRemoteHelper().getSelloutBill().addObject(vo,10);
+        return link.getRemoteHelper().getSelloutBill().addObject(vo, 10);
     }
 
     @Override
     public ResultMessage deleteselloutBill(selloutVO vo) throws RemoteException {
-        return link.getRemoteHelper().getSelloutBill().deleteObject(vo,10);
+        return link.getRemoteHelper().getSelloutBill().deleteObject(vo, 10);
     }
 
     @Override
     public ResultMessage modifyselloutBill(selloutVO vo) throws RemoteException {
-        return link.getRemoteHelper().getSelloutBill().modifyObject(vo,10);
+        return link.getRemoteHelper().getSelloutBill().modifyObject(vo, 10);
     }
 
 }

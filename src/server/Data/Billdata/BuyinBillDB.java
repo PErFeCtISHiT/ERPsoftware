@@ -16,11 +16,5 @@ public class BuyinBillDB extends publicDB  implements buyinBill {
      *@date: 10:30 2017/11/26
      */
 
-
-
-
-
-
-
 }
 

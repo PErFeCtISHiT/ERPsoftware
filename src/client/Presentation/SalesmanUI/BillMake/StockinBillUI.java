@@ -32,11 +32,15 @@ public class StockinBillUI extends Application{
     final HBox hb=new HBox();
     final VBox vb=new VBox();
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     public void start(Stage stage){
         Scene scene=new Scene(new Group());
         stage.setTitle("制定进货单");
-        stage.setWidth(700);
-        stage.setHeight(450);
+        stage.setWidth(900);
+        stage.setHeight(600);
 
         final Label label=new Label("进货单列表");
         label.setFont(new Font("Arial",20));

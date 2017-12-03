@@ -1,6 +1,7 @@
 package client.Presentation.SalesmanUI.BillMake;
 
 import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 /**
  * Created by Leonarda on 2017/12/3.
  */
-public class SelloutBillUI {
+public class SelloutBillUI extends Application{
     private final TableView<SelloutBill> table=new TableView<>();
     private final ObservableList<SelloutBill> tableData=
             FXCollections.observableArrayList(
@@ -28,6 +30,10 @@ public class SelloutBillUI {
             );
     final HBox hb=new HBox();
     final VBox vb=new VBox();
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     public void start(Stage stage){
         Scene scene=new Scene(new Group());
