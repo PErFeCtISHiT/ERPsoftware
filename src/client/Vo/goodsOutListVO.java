@@ -7,9 +7,9 @@ public class goodsOutListVO implements Serializable{
 	private String goodsno;
 	private String goodsname;
 	private String keymodel;
-	private Long num;
-	private Long price;
-	private Long sumall;
+	private double num;
+	private double price;
+	private double sumall;
 
 	public String getKeyno() {
 		return keyno;
@@ -43,31 +43,31 @@ public class goodsOutListVO implements Serializable{
 		this.keymodel = keymodel;
 	}
 
-	public Long getNum() {
+	public double getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(double num) {
 		this.num = num;
 	}
 
-	public Long getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
-	public Long getSumall() {
+	public double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(double sumall) {
 		this.sumall = sumall;
 	}
 
-	public goodsOutListVO(String keyno, String goodsno, String goodsname, String keymodel, Long num, Long price, Long sumall) {
+	public goodsOutListVO(String keyno, String goodsno, String goodsname, String keymodel, double num, double price, double sumall) {
 		this.keyno = keyno;
 		this.goodsno = goodsno;
 		this.goodsname = goodsname;

@@ -16,7 +16,11 @@ public class consumerPO implements Serializable{
 	private String server;
 	private String accoun;
 
-	public String getKeyno() {
+    public consumerPO() {
+
+    }
+
+    public String getKeyno() {
 		return keyno;
 	}
 

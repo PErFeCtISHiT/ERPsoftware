@@ -9,43 +9,43 @@
             <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
         <property name="kind">
-            <column name="KIND" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="KIND" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="note">
-            <column name="NOTE" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="NOTE" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="oper">
-            <column name="OPER" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="OPER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="ischeck">
-            <column name="ISCHECK" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="ISCHECK" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="isred">
-            <column name="ISRED" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="ISRED" sql-type="number(*)" precision="2147483646"/>
         </property>
         <property name="consumer">
-            <column name="CONSUMER" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="CONSUMER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="server">
-            <column name="SERVER" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="SERVER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="base">
-            <column name="BASE" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="BASE" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="goodsoutlist">
-            <column name="GOODSOUTLIST" sql-type="varchar2(200)" length="200" not-null="true"/>
+            <column name="GOODSOUTLIST" sql-type="varchar2(200)" length="200" />
         </property>
         <property name="sumall">
-            <column name="SUMALL" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="SUMALL" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="cut">
-            <column name="CUT" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="CUT" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="voucher">
-            <column name="VOUCHER" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="VOUCHER" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="finalsum">
-            <column name="FINALSUM" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="FINALSUM" sql-type="number(*)" precision="2147483646" />
         </property>
     </class>
 </hibernate-mapping>

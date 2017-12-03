@@ -2,7 +2,6 @@ package client.BL.Stockman.StockmanStockCheckbl;
 
 import client.BLservice.Stockman.StockmanStockCheckblservice.stockCheck;
 import client.RMI.link;
-import client.Vo.goodsVO;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -20,6 +19,6 @@ public class stockCheckController implements stockCheck {
     */
     @Override
     public List stockCheck()throws RemoteException {
-        return link.getRemoteHelper().getGoods().goodsfindAll();
+        return link.getRemoteHelper().getGoods().findAll(1);
     }
 }

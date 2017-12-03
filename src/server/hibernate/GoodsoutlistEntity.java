@@ -9,9 +9,9 @@ public class GoodsoutlistEntity {
     private String goodsno;
     private String goodsname;
     private String keymodel;
-    private Long num;
-    private Long price;
-    private Long sumall;
+    private Double num;
+    private Double price;
+    private Double sumall;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -55,31 +55,31 @@ public class GoodsoutlistEntity {
 
     @Basic
     @Column(name = "NUM", nullable = true, precision = 0)
-    public Long getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
     @Basic
     @Column(name = "PRICE", nullable = true, precision = 0)
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
     }
 

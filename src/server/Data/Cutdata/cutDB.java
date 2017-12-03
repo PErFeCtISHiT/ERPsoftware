@@ -9,4 +9,5 @@ import server.Dataservice.Cutdataservice.cut;
  * @date: create in 19:03 2017/11/27
  */
 public class cutDB extends publicDB implements cut {
+
 }

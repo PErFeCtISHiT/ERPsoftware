@@ -14,6 +14,15 @@ public class salePO implements Serializable{
 	private Long cut;
 	private Long voucher;
 	private Long sumall;
+	private String dateandtime;
+
+	public String getDateandtime() {
+		return dateandtime;
+	}
+
+	public void setDateandtime(String dateandtime) {
+		this.dateandtime = dateandtime;
+	}
 
 	public String getKeyno() {
 		return keyno;

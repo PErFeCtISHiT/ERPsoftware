@@ -2,26 +2,26 @@ package client.Vo;
 import java.io.Serializable;
 
 public class stockexceptionVO implements Serializable {
-    private Long kind;
+    private double kind;
     private String note;
     private String oper;
-    private Long ischeck;
+    private double ischeck;
     private String isred;
     private String goodsno;
     private String goodsname;
-    private Long numinbase;
-    private Long numinsys;
+    private double numinbase;
+    private double numinsys;
     private String keyno;
 
     public stockexceptionVO() {
 
     }
 
-    public Long getKind() {
+    public double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(double kind) {
         this.kind = kind;
     }
 
@@ -41,11 +41,11 @@ public class stockexceptionVO implements Serializable {
         this.oper = oper;
     }
 
-    public Long getIscheck() {
+    public double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(double ischeck) {
         this.ischeck = ischeck;
     }
 
@@ -73,7 +73,7 @@ public class stockexceptionVO implements Serializable {
         this.goodsname = goodsname;
     }
 
-    public Long getNuminbase() {
+    public double getNuminbase() {
         return numinbase;
     }
 
@@ -81,11 +81,11 @@ public class stockexceptionVO implements Serializable {
         this.numinbase = numinbase;
     }
 
-    public Long getNuminsys() {
+    public double getNuminsys() {
         return numinsys;
     }
 
-    public void setNuminsys(Long numinsys) {
+    public void setNuminsys(double numinsys) {
         this.numinsys = numinsys;
     }
 
@@ -97,7 +97,7 @@ public class stockexceptionVO implements Serializable {
         this.keyno = keyno;
     }
 
-    public stockexceptionVO(Long kind, String note, String oper, Long ischeck, String isred, String goodsno, String goodsname, Long numinbase, Long numinsys, String keyno) {
+    public stockexceptionVO(double kind, String note, String oper, double ischeck, String isred, String goodsno, String goodsname, double numinbase, double numinsys, String keyno) {
 
         this.kind = kind;
         this.note = note;

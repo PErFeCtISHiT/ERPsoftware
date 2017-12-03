@@ -2,20 +2,23 @@ package client.Vo;
 
 import java.io.Serializable;
 
-public class coVO implements Serializable{
+public class coVO implements Serializable {
 	private String keyname;
-	private Long sumall;
+	private Double sumall;
+	private String keyno;
 
-	public coVO(String keyname, Long sumall) {
+
+	public coVO(String keyname, Double sumall, String keyno) {
 		this.keyname = keyname;
 		this.sumall = sumall;
+		this.keyno = keyno;
 	}
 
-    public coVO() {
+	public coVO() {
 
-    }
+	}
 
-    public String getKeyname() {
+	public String getKeyname() {
 		return keyname;
 	}
 
@@ -23,11 +26,20 @@ public class coVO implements Serializable{
 		this.keyname = keyname;
 	}
 
-	public Long getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(Double sumall) {
 		this.sumall = sumall;
 	}
+
+	public String getKeyno() {
+		return keyno;
+	}
+
+	public void setKeyno(String keyno) {
+		this.keyno = keyno;
+	}
+
 }

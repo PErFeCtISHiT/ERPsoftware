@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "CUT", schema = "PIS", catalog = "")
 public class CutEntity {
     private String keyno;
-    private Long lev;
-    private Long cut;
+    private Double lev;
+    private Double cut;
     private String voucher;
     private String packno;
 
@@ -23,21 +23,21 @@ public class CutEntity {
 
     @Basic
     @Column(name = "LEV", nullable = true, precision = 0)
-    public Long getLev() {
+    public Double getLev() {
         return lev;
     }
 
-    public void setLev(Long lev) {
+    public void setLev(Double lev) {
         this.lev = lev;
     }
 
     @Basic
     @Column(name = "CUT", nullable = true, precision = 0)
-    public Long getCut() {
+    public Double getCut() {
         return cut;
     }
 
-    public void setCut(Long cut) {
+    public void setCut(Double cut) {
         this.cut = cut;
     }
 

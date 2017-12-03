@@ -1,10 +1,13 @@
 package client.BLservice.Accountant.FinancialAccountblservice;
 
+import client.BL.Accountant.FinancialAccountbl.Account;
 import client.Vo.coVO;
+import server.Po.coPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FinancialAccountInterface {
 
@@ -14,21 +17,21 @@ public interface FinancialAccountInterface {
      * @param vo
      * @return
      */
-    public ResultMessage addAccount(coVO po) throws RemoteException;
+    public ResultMessage addAccount(coVO vo) throws RemoteException;
     /**
      * Delete account
      *
      * @param vo
      * @return
      */
-    public boolean deleteAccount(coVO po);
+    public ResultMessage deleteAccount(coVO vo) throws RemoteException;
     /**
      * Modify account
      *
      * @param vo
      * @return
      */
-    public coVO modifyAccount(coVO po);
+    public ResultMessage modifyAccount(coVO vo)throws RemoteException;
 
     /**
      * Find accounts
@@ -36,7 +39,7 @@ public interface FinancialAccountInterface {
      * @param key
      * @return
      */
-    public ArrayList<coVO> findAccount(String key);
+    public ArrayList<coVO> findAccount(String key) throws RemoteException;
 
     /**
      * show accounts
@@ -44,7 +47,15 @@ public interface FinancialAccountInterface {
      * @param
      * @return
      */
+    public List<coPO> show() throws RemoteException;
 
-    public ArrayList<coVO> show() ;
+    public Account VoToAccount(coVO co) throws RemoteException;
 
-}
+    public coVO AccountToVo(Account account) throws RemoteException;
+
+    public coVO PoToVo(coPO po) throws RemoteException;
+
+    public coPO VoToPo(coVO vo) throws RemoteException;
+
+
+    }

@@ -5,24 +5,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "MONEY", schema = "PIS", catalog = "")
 public class MoneyEntity {
-    private Long kind;
+    private Double kind;
     private String keyno;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private Double ischeck;
+    private Double isred;
     private String consumer;
     private String accoun;
-    private Long num;
-    private Long sumall;
+    private String moneyList;
+    private Double sumall;
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -58,21 +58,21 @@ public class MoneyEntity {
 
     @Basic
     @Column(name = "ISCHECK", nullable = true, precision = 0)
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
     @Basic
     @Column(name = "ISRED", nullable = true, precision = 0)
-    public Long getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -97,22 +97,22 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "NUM", nullable = true, precision = 0)
-    public Long getNum() {
-        return num;
+    @Column(name = "moneylist", nullable = true, length = 20)
+    public String getNum() {
+        return moneyList;
     }
 
-    public void setNum(Long num) {
-        this.num = num;
+    public void setNum(String moneyList) {
+        this.moneyList = moneyList;
     }
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
     }
 
@@ -131,7 +131,7 @@ public class MoneyEntity {
         if (isred != null ? !isred.equals(that.isred) : that.isred != null) return false;
         if (consumer != null ? !consumer.equals(that.consumer) : that.consumer != null) return false;
         if (accoun != null ? !accoun.equals(that.accoun) : that.accoun != null) return false;
-        if (num != null ? !num.equals(that.num) : that.num != null) return false;
+        if (moneyList != null ? !moneyList.equals(that.moneyList) : that.moneyList != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
 
         return true;
@@ -147,7 +147,7 @@ public class MoneyEntity {
         result = 31 * result + (isred != null ? isred.hashCode() : 0);
         result = 31 * result + (consumer != null ? consumer.hashCode() : 0);
         result = 31 * result + (accoun != null ? accoun.hashCode() : 0);
-        result = 31 * result + (num != null ? num.hashCode() : 0);
+        result = 31 * result + (moneyList != null ? moneyList.hashCode() : 0);
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
         return result;
     }

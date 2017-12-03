@@ -12,6 +12,7 @@ import java.util.List;
  * @author: pis
  * @description: good good study
  * @date: create in 19:52 2017/11/23
+ *
  */
 public class GoodsKindsController implements GoodsKindsListInterface {
     @Override
@@ -35,6 +36,6 @@ public class GoodsKindsController implements GoodsKindsListInterface {
     */
     @Override
     public List FindAll()throws RemoteException {
-        return link.getRemoteHelper().getGoodsKinds().goodsKindsFindAll();
+        return link.getRemoteHelper().getGoodsKinds().findAll(1);
     }
 }

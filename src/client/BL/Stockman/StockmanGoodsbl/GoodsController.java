@@ -1,9 +1,5 @@
 package client.BL.Stockman.StockmanGoodsbl;
-/**
- * @author: pis
- * @description: good good study
- * @date: create in 19:46 2017/11/23
- */
+
 import client.BLservice.Stockman.StockmanGoodsblservice.GoodsListInterface;
 import client.RMI.link;
 import client.Vo.goodsVO;
@@ -12,15 +8,21 @@ import shared.ResultMessage;
 import shared.copyclass;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 19:46 2017/11/23
+ */
 public class GoodsController implements GoodsListInterface {
+
     /**
     *@author:pis
     *@description:
     *@date: 19:49 2017/11/23
     */
+
     @Override
     public ResultMessage addGoods(goodsVO goods) throws RemoteException {
         goodsPO g = new goodsPO();
@@ -76,6 +78,6 @@ public class GoodsController implements GoodsListInterface {
     */
     @Override
     public List findAll() throws RemoteException{
-        return link.getRemoteHelper().getGoods().goodsfindAll();
+        return link.getRemoteHelper().getGoods().findAll(1);
     }
 }

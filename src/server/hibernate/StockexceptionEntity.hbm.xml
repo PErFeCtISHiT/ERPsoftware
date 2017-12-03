@@ -9,31 +9,31 @@
             <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
         <property name="kind">
-            <column name="KIND" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="KIND" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="note">
-            <column name="NOTE" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="NOTE" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="oper">
-            <column name="OPER" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="OPER" sql-type="varchar2(20)" length="20"/>
         </property>
         <property name="ischeck">
-            <column name="ISCHECK" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="ISCHECK" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="isred">
-            <column name="ISRED" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="ISRED" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="goodsno">
-            <column name="GOODSNO" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="GOODSNO" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="goodsname">
-            <column name="GOODSNAME" sql-type="varchar2(20)" length="20" not-null="true"/>
+            <column name="GOODSNAME" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="numinbase">
-            <column name="NUMINBASE" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="NUMINBASE" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="numinsys">
-            <column name="NUMINSYS" sql-type="number(*)" precision="2147483646" not-null="true"/>
+            <column name="NUMINSYS" sql-type="number(*)" precision="2147483646" />
         </property>
     </class>
 </hibernate-mapping>

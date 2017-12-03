@@ -1,18 +1,55 @@
 package client.BL.Accountant.FinancialCheckSellbl;
 
 import client.BLservice.Accountant.FinancialCheckSellblservice.FinancialCheckSellInterface;
+import client.RMI.link;
+import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FinancialCheckSellController implements FinancialCheckSellInterface{
 
-    public ArrayList<saleVO> check(String time){
+    /**
+     *
+     * @param time
+     * @return ArrayList<saleVO>
+     */
+    public List<Sale> check(String time) throws RemoteException{
+
+
         return null;
     }
 
-    public boolean getExcel(String address){
+
+    /**
+     *
+     * @param address
+     * @return boolean
+     */
+
+    public boolean getExcel(String address) throws RemoteException{
         return false;
+    }
+
+
+    public List<Sale> show() throws RemoteException{
+
+        return null;
+    }
+
+
+
+    public Sale VoToSale(saleVO vo, goodsOutListVO goodslist) throws RemoteException{
+        String saleTime = vo.getDateandtime();
+        String goodsName =goodslist.getGoodsname();
+        String goodsType =goodslist.getKeymodel();
+        double goodsNum = goodslist.getNum();
+        double goodsPrice = goodslist.getPrice();
+        double totalSum = goodsNum*goodsPrice;
+
+        return null;
     }
 
 }

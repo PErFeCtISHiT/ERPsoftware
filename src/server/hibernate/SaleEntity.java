@@ -2,20 +2,26 @@ package server.hibernate;
 
 import javax.persistence.*;
 
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 11:44 2017/12/2
+ */
 @Entity
 @Table(name = "SALE", schema = "PIS", catalog = "")
 public class SaleEntity {
     private String keyno;
-    private Long kind;
-    private Long lev;
+    private Double kind;
+    private Double lev;
     private String accoun;
     private String base;
     private String goodsinlist;
     private String goodsoutlist;
-    private Long presum;
-    private Long cut;
-    private Long voucher;
-    private Long sumall;
+    private Double presum;
+    private Double cut;
+    private Double voucher;
+    private Double sumall;
+    private String dateandtime;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -29,21 +35,21 @@ public class SaleEntity {
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
     @Basic
     @Column(name = "LEV", nullable = true, precision = 0)
-    public Long getLev() {
+    public Double getLev() {
         return lev;
     }
 
-    public void setLev(Long lev) {
+    public void setLev(Double lev) {
         this.lev = lev;
     }
 
@@ -89,42 +95,52 @@ public class SaleEntity {
 
     @Basic
     @Column(name = "PRESUM", nullable = true, precision = 0)
-    public Long getPresum() {
+    public Double getPresum() {
         return presum;
     }
 
-    public void setPresum(Long presum) {
+    public void setPresum(Double presum) {
         this.presum = presum;
     }
 
     @Basic
     @Column(name = "CUT", nullable = true, precision = 0)
-    public Long getCut() {
+    public Double getCut() {
         return cut;
     }
 
-    public void setCut(Long cut) {
+    public void setCut(Double cut) {
         this.cut = cut;
     }
 
     @Basic
     @Column(name = "VOUCHER", nullable = true, precision = 0)
-    public Long getVoucher() {
+    public Double getVoucher() {
         return voucher;
     }
 
-    public void setVoucher(Long voucher) {
+    public void setVoucher(Double voucher) {
         this.voucher = voucher;
     }
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
+    }
+
+    @Basic
+    @Column(name = "DATEANDTIME", nullable = true, length = 20)
+    public String getDateandtime() {
+        return dateandtime;
+    }
+
+    public void setDateandtime(String dateandtime) {
+        this.dateandtime = dateandtime;
     }
 
     @Override
@@ -145,6 +161,7 @@ public class SaleEntity {
         if (cut != null ? !cut.equals(that.cut) : that.cut != null) return false;
         if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
+        if (dateandtime != null ? !dateandtime.equals(that.dateandtime) : that.dateandtime != null) return false;
 
         return true;
     }
@@ -162,6 +179,7 @@ public class SaleEntity {
         result = 31 * result + (cut != null ? cut.hashCode() : 0);
         result = 31 * result + (voucher != null ? voucher.hashCode() : 0);
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
+        result = 31 * result + (dateandtime != null ? dateandtime.hashCode() : 0);
         return result;
     }
 }

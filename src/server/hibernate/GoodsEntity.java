@@ -9,13 +9,13 @@ public class GoodsEntity {
     private String keyno;
     private String keyname;
     private String keymodel;
-    private Long num;
-    private Long inprice;
-    private Long outprice;
-    private Long receprice;
-    private Long receoutprice;
+    private Double num;
+    private Double inprice;
+    private Double outprice;
+    private Double receprice;
+    private Double receoutprice;
     private String keybatch;
-    private Long batchno;
+    private Double batchno;
     private Time dat;
     private String kinds;
 
@@ -51,51 +51,51 @@ public class GoodsEntity {
 
     @Basic
     @Column(name = "NUM", nullable = true, precision = 0)
-    public Long getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
     @Basic
     @Column(name = "INPRICE", nullable = true, precision = 0)
-    public Long getInprice() {
+    public Double getInprice() {
         return inprice;
     }
 
-    public void setInprice(Long inprice) {
+    public void setInprice(Double inprice) {
         this.inprice = inprice;
     }
 
     @Basic
     @Column(name = "OUTPRICE", nullable = true, precision = 0)
-    public Long getOutprice() {
+    public Double getOutprice() {
         return outprice;
     }
 
-    public void setOutprice(Long outprice) {
+    public void setOutprice(Double outprice) {
         this.outprice = outprice;
     }
 
     @Basic
     @Column(name = "RECEPRICE", nullable = true, precision = 0)
-    public Long getReceprice() {
+    public Double getReceprice() {
         return receprice;
     }
 
-    public void setReceprice(Long receprice) {
+    public void setReceprice(Double receprice) {
         this.receprice = receprice;
     }
 
     @Basic
     @Column(name = "RECEOUTPRICE", nullable = true, precision = 0)
-    public Long getReceoutprice() {
+    public Double getReceoutprice() {
         return receoutprice;
     }
 
-    public void setReceoutprice(Long receoutprice) {
+    public void setReceoutprice(Double receoutprice) {
         this.receoutprice = receoutprice;
     }
 
@@ -111,11 +111,11 @@ public class GoodsEntity {
 
     @Basic
     @Column(name = "BATCHNO", nullable = true, precision = 0)
-    public Long getBatchno() {
+    public Double getBatchno() {
         return batchno;
     }
 
-    public void setBatchno(Long batchno) {
+    public void setBatchno(Double batchno) {
         this.batchno = batchno;
     }
 

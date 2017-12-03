@@ -9,4 +9,5 @@ import server.Dataservice.Billdataservice.stockwarningBill;
  * @date: create in 19:00 2017/11/27
  */
 public class stockwarningBillDB extends publicDB implements stockwarningBill {
+
 }

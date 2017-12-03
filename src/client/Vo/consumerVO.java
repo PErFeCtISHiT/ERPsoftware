@@ -3,18 +3,18 @@ package client.Vo;
 import java.io.Serializable;
 
 public class consumerVO implements Serializable{
-	private String keyno;
-	private Long kinds;
-	private Long lev;
-	private String keyname;
-	private String tel;
-	private String mailcode;
-	private String email;
-	private Long capacit;
-	private Long receive;
-	private Long pay;
-	private String server;
-	private String accoun;
+	private String keyno;  //客户编号
+	private double kinds;  //分类
+	private double lev;    //级别
+	private String keyname; //姓名
+	private String tel;  //电话
+	private String mailcode;  //邮编
+	private String email;   //电子邮箱
+	private double capacit;    //应收额度
+	private double receive;    //应收
+	private double pay;     //应付
+	private String server;   //业务员
+	private String accoun;    //银行账户
 
 	public String getKeyno() {
 		return keyno;
@@ -24,19 +24,19 @@ public class consumerVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public Long getKinds() {
+	public double getKinds() {
 		return kinds;
 	}
 
-	public void setKinds(Long kinds) {
+	public void setKinds(double kinds) {
 		this.kinds = kinds;
 	}
 
-	public Long getLev() {
+	public double getLev() {
 		return lev;
 	}
 
-	public void setLev(Long lev) {
+	public void setLev(double lev) {
 		this.lev = lev;
 	}
 
@@ -72,23 +72,23 @@ public class consumerVO implements Serializable{
 		this.email = email;
 	}
 
-	public Long getCapacit() {
+	public double getCapacit() {
 		return capacit;
 	}
 
-	public void setCapacit(Long capacit) {
+	public void setCapacit(double capacit) {
 		this.capacit = capacit;
 	}
 
-	public Long getReceive() {
+	public double getReceive() {
 		return receive;
 	}
 
-	public void setReceive(Long receive) {
+	public void setReceive(double receive) {
 		this.receive = receive;
 	}
 
-	public Long getPay() {
+	public double getPay() {
 		return pay;
 	}
 
@@ -112,7 +112,7 @@ public class consumerVO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public consumerVO(String keyno, Long kinds, Long lev, String keyname, String tel, String mailcode, String email, Long capacit, Long receive, Long pay, String server, String accoun) {
+	public consumerVO(String keyno, double kinds, double lev, String keyname, String tel, String mailcode, String email, double capacit, double receive, double pay, String server, String accoun) {
 		this.keyno = keyno;
 		this.kinds = kinds;
 		this.lev = lev;
@@ -127,4 +127,6 @@ public class consumerVO implements Serializable{
 		this.server = server;
 		this.accoun = accoun;
 	}
+
+	public consumerVO(){}
 }

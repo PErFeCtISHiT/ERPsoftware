@@ -8,7 +8,7 @@ public class PackEntity {
     private String keyno;
     private String goodsno;
     private String goodsname;
-    private Long price;
+    private Double price;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -42,11 +42,11 @@ public class PackEntity {
 
     @Basic
     @Column(name = "PRICE", nullable = true, precision = 0)
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

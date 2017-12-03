@@ -5,24 +5,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "STOCKEXCEPTION", schema = "PIS", catalog = "")
 public class StockexceptionEntity {
-    private Long kind;
+    private Double kind;
     private String note;
     private String oper;
-    private Long ischeck;
+    private Double ischeck;
     private String isred;
     private String goodsno;
     private String goodsname;
-    private Long numinbase;
-    private Long numinsys;
+    private Double numinbase;
+    private Double numinsys;
     private String keyno;
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -48,11 +48,11 @@ public class StockexceptionEntity {
 
     @Basic
     @Column(name = "ISCHECK", nullable = true, precision = 0)
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
@@ -88,21 +88,21 @@ public class StockexceptionEntity {
 
     @Basic
     @Column(name = "NUMINBASE", nullable = true, precision = 0)
-    public Long getNuminbase() {
+    public Double getNuminbase() {
         return numinbase;
     }
 
-    public void setNuminbase(Long numinbase) {
+    public void setNuminbase(Double numinbase) {
         this.numinbase = numinbase;
     }
 
     @Basic
     @Column(name = "NUMINSYS", nullable = true, precision = 0)
-    public Long getNuminsys() {
+    public Double getNuminsys() {
         return numinsys;
     }
 
-    public void setNuminsys(Long numinsys) {
+    public void setNuminsys(Double numinsys) {
         this.numinsys = numinsys;
     }
 

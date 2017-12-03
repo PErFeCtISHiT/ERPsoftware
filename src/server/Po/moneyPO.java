@@ -14,7 +14,11 @@ public class moneyPO implements Serializable{
 	private Long num;
 	private Long sumall;
 
-	public Long getKind() {
+    public moneyPO() {
+
+    }
+
+    public Long getKind() {
 		return kind;
 	}
 

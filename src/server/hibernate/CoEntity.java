@@ -2,14 +2,20 @@ package server.hibernate;
 
 import javax.persistence.*;
 
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 12:08 2017/12/2
+ */
 @Entity
 @Table(name = "CO", schema = "PIS", catalog = "")
 public class CoEntity {
     private String keyname;
-    private Long sumall;
+    private Double sumall;
+    private String keyno;
 
-    @Id
-    @Column(name = "KEYNAME", nullable = false, length = 20)
+    @Basic
+    @Column(name = "KEYNAME", nullable = true, length = 20)
     public String getKeyname() {
         return keyname;
     }
@@ -20,12 +26,22 @@ public class CoEntity {
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
+    }
+
+    @Id
+    @Column(name = "KEYNO", nullable = false, length = 20)
+    public String getKeyno() {
+        return keyno;
+    }
+
+    public void setKeyno(String keyno) {
+        this.keyno = keyno;
     }
 
     @Override
@@ -37,6 +53,7 @@ public class CoEntity {
 
         if (keyname != null ? !keyname.equals(coEntity.keyname) : coEntity.keyname != null) return false;
         if (sumall != null ? !sumall.equals(coEntity.sumall) : coEntity.sumall != null) return false;
+        if (keyno != null ? !keyno.equals(coEntity.keyno) : coEntity.keyno != null) return false;
 
         return true;
     }
@@ -45,6 +62,7 @@ public class CoEntity {
     public int hashCode() {
         int result = keyname != null ? keyname.hashCode() : 0;
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
+        result = 31 * result + (keyno != null ? keyno.hashCode() : 0);
         return result;
     }
 }

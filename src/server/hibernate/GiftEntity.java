@@ -5,25 +5,25 @@ import javax.persistence.*;
 @Entity
 @Table(name = "GIFT", schema = "PIS", catalog = "")
 public class GiftEntity {
-    private Long kind;
+    private Double kind;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private Double ischeck;
+    private Double isred;
     private String goodsno;
     private String goodsname;
     private String consumerno;
     private String comsumername;
-    private Long num;
+    private Double num;
     private String keyno;
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -49,21 +49,21 @@ public class GiftEntity {
 
     @Basic
     @Column(name = "ISCHECK", nullable = true, precision = 0)
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
     @Basic
     @Column(name = "ISRED", nullable = true, precision = 0)
-    public Long getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -109,11 +109,11 @@ public class GiftEntity {
 
     @Basic
     @Column(name = "NUM", nullable = true, precision = 0)
-    public Long getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 

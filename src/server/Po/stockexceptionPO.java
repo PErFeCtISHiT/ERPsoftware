@@ -13,6 +13,10 @@ public class stockexceptionPO implements Serializable {
     private Long numinsys;
     private String keyno;
 
+    public stockexceptionPO() {
+
+    }
+
     public Long getKind() {
         return kind;
     }

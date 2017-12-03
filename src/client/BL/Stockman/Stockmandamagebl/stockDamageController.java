@@ -34,7 +34,7 @@ public class stockDamageController implements stockDamage {
         stockDamage.setOper(operator);
         stockDamage.setKeyno(no);
         ManagerExamine.acceptBill(stockDamage);
-        return link.getRemoteHelper().getStockDamageBill().addObject(stockDamage,7);
+        return link.getRemoteHelper().getStockOverflowBill().addObject(stockDamage,8);
 
     }
 }

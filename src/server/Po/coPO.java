@@ -3,14 +3,27 @@ import java.io.Serializable;
 
 public class coPO implements Serializable{
 	private String keyname;
-	private Long sumall;
+	private Double sumall;
+	private String keyno;
 
-	public coPO(String keyname, Long sumall) {
+	public String getKeyno() {
+		return keyno;
+	}
+
+	public void setKeyno(String keyno) {
+		this.keyno = keyno;
+	}
+
+	public coPO(String keyname, Double sumall) {
 		this.keyname = keyname;
 		this.sumall = sumall;
 	}
 
-	public String getKeyname() {
+    public coPO() {
+
+    }
+
+    public String getKeyname() {
 		return keyname;
 	}
 
@@ -18,11 +31,11 @@ public class coPO implements Serializable{
 		this.keyname = keyname;
 	}
 
-	public Long getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(Double sumall) {
 		this.sumall = sumall;
 	}
 }
