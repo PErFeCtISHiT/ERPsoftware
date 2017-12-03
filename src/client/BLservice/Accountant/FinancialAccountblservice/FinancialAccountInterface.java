@@ -55,4 +55,7 @@ public interface FinancialAccountInterface {
 
     public coVO PoToVo(coPO po) throws RemoteException;
 
-}
+    public coPO VoToPo(coVO vo) throws RemoteException;
+
+
+    }

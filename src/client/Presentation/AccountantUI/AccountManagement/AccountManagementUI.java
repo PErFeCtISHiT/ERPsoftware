@@ -117,7 +117,6 @@ public class AccountManagementUI extends Application {
 //////////////////////////////////////////////////////////////////////////////////删除传递
         delCol.setCellFactory((col) -> {
             TableCell<Account, String> cell = new TableCell<Account, String>() {
-
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -129,13 +128,12 @@ public class AccountManagementUI extends Application {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
-                            co.setKeyname("456");
-                            co.setSumall((double) 500);
+                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
+                            System.out.println(co.getKeyno());
                             data.remove(this.getIndex());
-                            System.out.println("删除成功");
-                            FinancialAccountController financialAccountController = new FinancialAccountController();
                             try {
-                                financialAccountController.deleteAccount(co);
+                                controller.deleteAccount(co);
+                                System.out.println("删除成功");
                             } catch (RemoteException e3) {
                                 e3.printStackTrace();
                             }

@@ -41,7 +41,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
 
 
 
-    public Sale VoToSale(saleVO vo,goodsOutListVO goodslist) throws RemoteException{
+    public Sale VoToSale(saleVO vo, goodsOutListVO goodslist) throws RemoteException{
         String saleTime = vo.getDateandtime();
         String goodsName =goodslist.getGoodsname();
         String goodsType =goodslist.getKeymodel();
