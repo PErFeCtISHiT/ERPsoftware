@@ -129,9 +129,7 @@ public class AccountManagementUI extends Application {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
-                            co.setKeyname("456");
-                            co.setKeyno("00001");
-                            co.setSumall((double) 500);
+                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
                             data.remove(this.getIndex());
                             System.out.println("删除成功");
                             FinancialAccountController financialAccountController = new FinancialAccountController();
