@@ -40,7 +40,7 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
 
     @Override
     public SelloutBill VoTosellout(selloutVO vo) {
-        return null;
+
     }
 
     @Override
