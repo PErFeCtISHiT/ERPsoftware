@@ -117,6 +117,7 @@ public class AccountManagementUI extends Application {
 //////////////////////////////////////////////////////////////////////////////////删除传递
         delCol.setCellFactory((col) -> {
             TableCell<Account, String> cell = new TableCell<Account, String>() {
+
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -128,12 +129,14 @@ public class AccountManagementUI extends Application {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
-                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
-                            System.out.println(co.getKeyno());
+                            co.setKeyname("456");
+                            co.setKeyno("00001");
+                            co.setSumall((double) 500);
                             data.remove(this.getIndex());
+                            System.out.println("删除成功");
+                            FinancialAccountController financialAccountController = new FinancialAccountController();
                             try {
-                                controller.deleteAccount(co);
-                                System.out.println("删除成功");
+                                financialAccountController.deleteAccount(co);
                             } catch (RemoteException e3) {
                                 e3.printStackTrace();
                             }
@@ -184,7 +187,7 @@ public class AccountManagementUI extends Application {
             coVO co = new coVO();
             co.setKeyno(newaccount.getaccountID());
             co.setKeyname(newaccount.getaccountName());
-            co.setSumall(Double.parseDouble(newaccount.getmoney()));
+            co.setSumall(praseDouble.prase(newaccount.getmoney()));
             try {
                 controller.addAccount(co);
             } catch (RemoteException e1) {

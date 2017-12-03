@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class MoneylistEntity {
     private String keyno;
     private String accountname;
-    private Long sumall;
+    private Double sumall;
     private String note;
 
     @Id
@@ -37,11 +37,11 @@ public class MoneylistEntity {
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
     }
 

@@ -3,18 +3,18 @@ package client.Vo;
 import java.io.Serializable;
 
 public class buyinVO implements Serializable{
-	private Long kind;
-	private String keyno;
-	private String note;
-	private String oper;
-	private Long ischeck;
-	private Long isred;
-	private String provider;
-	private String base;
-	private String goodsoutlist;
-	private Long sumall;
+	private double kind; //收款单or付款单
+	private String keyno; //单据ID
+	private String note;  //备注
+	private String oper;  //操作员
+	private double ischeck;  //是否审批
+	private double isred;   //是否红冲
+	private String provider;  //供应商
+	private String base;   //仓库
+	private String goodsoutlist;  //出库商品列表
+	private double sumall;   //金额
 
-	public buyinVO(Long kind, String keyno, String note, String oper, Long ischeck, Long isred, String provider, String base, String goodsoutlist, Long sumall) {
+	public buyinVO(double kind, String keyno, String note, String oper, double ischeck, double isred, String provider, String base, String goodsoutlist, double sumall) {
 		this.kind = kind;
 		this.keyno = keyno;
 		this.note = note;
@@ -27,11 +27,11 @@ public class buyinVO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public Long getKind() {
+	public double getKind() {
 		return kind;
 	}
 
-	public void setKind(Long kind) {
+	public void setKind(double kind) {
 		this.kind = kind;
 	}
 
@@ -59,19 +59,19 @@ public class buyinVO implements Serializable{
 		this.oper = oper;
 	}
 
-	public Long getIscheck() {
+	public double getIscheck() {
 		return ischeck;
 	}
 
-	public void setIscheck(Long ischeck) {
+	public void setIscheck(double ischeck) {
 		this.ischeck = ischeck;
 	}
 
-	public Long getIsred() {
+	public double getIsred() {
 		return isred;
 	}
 
-	public void setIsred(Long isred) {
+	public void setIsred(double isred) {
 		this.isred = isred;
 	}
 
@@ -99,11 +99,11 @@ public class buyinVO implements Serializable{
 		this.goodsoutlist = goodsoutlist;
 	}
 
-	public Long getSumall() {
+	public double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(double sumall) {
 		this.sumall = sumall;
 	}
 }

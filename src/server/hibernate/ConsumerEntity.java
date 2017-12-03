@@ -6,15 +6,15 @@ import javax.persistence.*;
 @Table(name = "CONSUMER", schema = "PIS", catalog = "")
 public class ConsumerEntity {
     private String keyno;
-    private Long kinds;
-    private Long lev;
+    private Double kinds;
+    private Double lev;
     private String keyname;
     private String tel;
     private String mailcode;
     private String email;
-    private Long capacit;
-    private Long receive;
-    private Long pay;
+    private Double capacit;
+    private Double receive;
+    private Double pay;
     private String server;
     private String accoun;
 
@@ -30,21 +30,21 @@ public class ConsumerEntity {
 
     @Basic
     @Column(name = "KINDS", nullable = true, precision = 0)
-    public Long getKinds() {
+    public Double getKinds() {
         return kinds;
     }
 
-    public void setKinds(Long kinds) {
+    public void setKinds(Double kinds) {
         this.kinds = kinds;
     }
 
     @Basic
     @Column(name = "LEV", nullable = true, precision = 0)
-    public Long getLev() {
+    public Double getLev() {
         return lev;
     }
 
-    public void setLev(Long lev) {
+    public void setLev(Double lev) {
         this.lev = lev;
     }
 
@@ -90,31 +90,31 @@ public class ConsumerEntity {
 
     @Basic
     @Column(name = "CAPACIT", nullable = true, precision = 0)
-    public Long getCapacit() {
+    public Double getCapacit() {
         return capacit;
     }
 
-    public void setCapacit(Long capacit) {
+    public void setCapacit(Double capacit) {
         this.capacit = capacit;
     }
 
     @Basic
     @Column(name = "RECEIVE", nullable = true, precision = 0)
-    public Long getReceive() {
+    public Double getReceive() {
         return receive;
     }
 
-    public void setReceive(Long receive) {
+    public void setReceive(Double receive) {
         this.receive = receive;
     }
 
     @Basic
     @Column(name = "PAY", nullable = true, precision = 0)
-    public Long getPay() {
+    public Double getPay() {
         return pay;
     }
 
-    public void setPay(Long pay) {
+    public void setPay(Double pay) {
         this.pay = pay;
     }
 

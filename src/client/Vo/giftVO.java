@@ -1,23 +1,23 @@
 package client.Vo;
 import java.io.Serializable;
 public class giftVO implements Serializable {
-    private Long kind;
+    private double kind;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private double ischeck;
+    private double isred;
     private String goodsno;
     private String goodsname;
     private String consumerno;
     private String comsumername;
-    private Long num;
+    private double num;
     private String keyno;
 
-    public Long getKind() {
+    public double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(double kind) {
         this.kind = kind;
     }
 
@@ -37,19 +37,19 @@ public class giftVO implements Serializable {
         this.oper = oper;
     }
 
-    public Long getIscheck() {
+    public double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(double ischeck) {
         this.ischeck = ischeck;
     }
 
-    public Long getIsred() {
+    public double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(double isred) {
         this.isred = isred;
     }
 
@@ -85,11 +85,11 @@ public class giftVO implements Serializable {
         this.comsumername = comsumername;
     }
 
-    public Long getNum() {
+    public double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(double num) {
         this.num = num;
     }
 
@@ -101,7 +101,7 @@ public class giftVO implements Serializable {
         this.keyno = keyno;
     }
 
-    public giftVO(Long kind, String note, String oper, Long ischeck, Long isred, String goodsno, String goodsname, String consumerno, String comsumername, Long num, String keyno) {
+    public giftVO(double kind, String note, String oper, double ischeck, double isred, String goodsno, String goodsname, String consumerno, String comsumername, double num, String keyno) {
 
         this.kind = kind;
         this.note = note;
