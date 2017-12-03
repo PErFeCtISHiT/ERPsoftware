@@ -11,8 +11,5 @@ import java.util.List;
  * @date: create in 21:29 2017/12/3
  */
 public class goodsoutListDB extends publicDB implements goodsoutList {
-    @Override
-    public List findbysaleno(String no) {
-        return null;
-    }
+
 }

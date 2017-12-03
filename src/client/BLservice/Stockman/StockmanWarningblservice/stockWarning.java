@@ -11,5 +11,5 @@ import java.rmi.RemoteException;
  * @date: create in 16:18 2017/11/26
  */
 public interface stockWarning {
-    ResultMessage warningMake(goodsVO goods,Long warningnum,String operator,String note,String no) throws RemoteException;
+    ResultMessage warningMake(goodsVO goods,Double warningnum,String operator,String note,String no) throws RemoteException;
 }

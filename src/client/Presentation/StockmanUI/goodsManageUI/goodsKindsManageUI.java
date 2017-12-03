@@ -60,7 +60,6 @@ public class goodsKindsManageUI extends Application{
             if (newValue.isLeaf()) {
 
                 try {
-                    System.out.println(vbox.getChildren().size());
                     if(vbox.getChildren().size() > 1)
                         vbox.getChildren().remove(1);
                     vbox.getChildren().add(goodsManageUI.start(newValue.getValue()));

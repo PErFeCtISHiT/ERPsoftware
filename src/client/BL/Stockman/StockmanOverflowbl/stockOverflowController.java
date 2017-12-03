@@ -21,17 +21,17 @@ public class stockOverflowController implements stockOverflow {
     *@date: 15:43 2017/11/26
     */
     @Override
-    public ResultMessage OverflowMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) throws RemoteException {
+    public ResultMessage OverflowMake(goodsVO goods, Double actualNum, Double systemNum, String operator,String note,String no) throws RemoteException {
         stockexceptionVO stockOverflow = new stockexceptionVO();
-        stockOverflow.setKind((long) 8);
+        stockOverflow.setKind((double) 8);
         stockOverflow.setGoodsname(goods.getKeyname());
         stockOverflow.setGoodsno(goods.getKeyno());
-        stockOverflow.setIscheck((long) 0);
+        stockOverflow.setIscheck((double) 0);
         stockOverflow.setKeyno(no);
         stockOverflow.setIsred("NO");
         stockOverflow.setNote(note);
-        stockOverflow.setNuminbase((long) actualNum);
-        stockOverflow.setNuminsys((long) systemNum);
+        stockOverflow.setNuminbase( actualNum);
+        stockOverflow.setNuminsys(systemNum);
         stockOverflow.setOper(operator);
         ManagerExamine.acceptBill(stockOverflow);
         return link.getRemoteHelper().getStockOverflowBill().addObject(stockOverflow, 7);

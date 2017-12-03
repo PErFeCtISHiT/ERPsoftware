@@ -11,5 +11,5 @@ import java.util.List;
  * @date: create in 21:28 2017/12/3
  */
 public interface goodsoutList extends pub {
-    List findbysaleno(String no)throws RemoteException;
+
 }

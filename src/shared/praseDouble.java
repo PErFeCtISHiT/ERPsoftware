@@ -7,7 +7,7 @@ package shared;
  */
 public class praseDouble {
     public static Double prase(String str){
-        if(str.length() != 0){
+        if(str.length() != 0 && str.charAt(0) >= '0' && str.charAt(0) <= '9'){
             Double ret = Double.parseDouble(str);
             return ret;
         }

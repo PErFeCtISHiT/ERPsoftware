@@ -30,6 +30,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class goodsManageUI {
+    String kinds;
 
     GoodsController goodsController = new GoodsController();
     /**
@@ -42,6 +43,7 @@ public class goodsManageUI {
 
 
     public VBox start(String kinds) throws RemoteException {
+        this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
         ObservableList<Goods> data =
@@ -375,14 +377,15 @@ public class goodsManageUI {
     }
     private void modifygoods(Goods newgoods){
         goodsVO vo = new goodsVO();
+        vo.setKinds(kinds);
         vo.setKeyno(newgoods.getGoodsID());
         vo.setKeyname(newgoods.getGoodsName());
         vo.setKeymodel(newgoods.getGoodsModel());
-        vo.setNum(Long.parseLong(newgoods.getGoodsNum()));
-        vo.setInprice(Long.parseLong(newgoods.getGoodsInprice()));
-        vo.setOutprice(Long.parseLong(newgoods.getGoodsOutprice()));
-        vo.setReceprice(Long.parseLong(newgoods.getGoodsReceinprice()));
-        vo.setReceoutprice(Long.parseLong(newgoods.getGoodsReceoutprice()));
+        vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+        vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
+        vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
+        vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
+        vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
         try {
             goodsController.modifyGoods(vo);
         } catch (RemoteException e1) {

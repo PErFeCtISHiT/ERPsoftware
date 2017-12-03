@@ -7,13 +7,13 @@ public class goodsVO implements Serializable{
 	private String keyno;
 	private String keyname;
 	private String keymodel;
-	private double num;
-	private double inprice;
-	private double outprice;
-	private double receprice;
-	private double receoutprice;
+	private Double num;
+	private Double inprice;
+	private Double outprice;
+	private Double receprice;
+	private Double receoutprice;
 	private String keybatch;
-	private double batchno;
+	private Double batchno;
 	private Time dat;
 	private String kinds;
 
@@ -21,7 +21,7 @@ public class goodsVO implements Serializable{
 
     }
 
-    public String getKeyno() {
+	public String getKeyno() {
 		return keyno;
 	}
 
@@ -45,36 +45,44 @@ public class goodsVO implements Serializable{
 		this.keymodel = keymodel;
 	}
 
-	public double getNum() {
+	public Double getNum() {
 		return num;
 	}
 
-	public void setNum(double num) {
+	public void setNum(Double num) {
 		this.num = num;
 	}
 
-	public double getInprice() {
+	public Double getInprice() {
 		return inprice;
 	}
 
-	public void setInprice(double inprice) {
+	public void setInprice(Double inprice) {
 		this.inprice = inprice;
 	}
 
-	public double getOutprice() {
+	public Double getOutprice() {
 		return outprice;
 	}
 
-	public void setOutprice(double outprice) {
+	public void setOutprice(Double outprice) {
 		this.outprice = outprice;
 	}
 
-	public double getReceprice() {
+	public Double getReceprice() {
 		return receprice;
 	}
 
-	public void setReceprice(double receprice) {
+	public void setReceprice(Double receprice) {
 		this.receprice = receprice;
+	}
+
+	public Double getReceoutprice() {
+		return receoutprice;
+	}
+
+	public void setReceoutprice(Double receoutprice) {
+		this.receoutprice = receoutprice;
 	}
 
 	public String getKeybatch() {
@@ -85,11 +93,11 @@ public class goodsVO implements Serializable{
 		this.keybatch = keybatch;
 	}
 
-	public double getBatchno() {
+	public Double getBatchno() {
 		return batchno;
 	}
 
-	public void setBatchno(Long batchno) {
+	public void setBatchno(Double batchno) {
 		this.batchno = batchno;
 	}
 
@@ -109,15 +117,7 @@ public class goodsVO implements Serializable{
 		this.kinds = kinds;
 	}
 
-	public double getReceoutprice() {
-		return receoutprice;
-	}
-
-	public void setReceoutprice(double receoutprice) {
-		this.receoutprice = receoutprice;
-	}
-
-	public goodsVO(String keyno, String keyname, String keymodel, Long num, Long inprice, Long outprice, Long receprice, String keybatch, Long batchno, Time dat, String kinds) {
+	public goodsVO(String keyno, String keyname, String keymodel, Double num, Double inprice, Double outprice, Double receprice, Double receoutprice, String keybatch, Double batchno, Time dat, String kinds) {
 
 		this.keyno = keyno;
 		this.keyname = keyname;
@@ -126,6 +126,7 @@ public class goodsVO implements Serializable{
 		this.inprice = inprice;
 		this.outprice = outprice;
 		this.receprice = receprice;
+		this.receoutprice = receoutprice;
 		this.keybatch = keybatch;
 		this.batchno = batchno;
 		this.dat = dat;

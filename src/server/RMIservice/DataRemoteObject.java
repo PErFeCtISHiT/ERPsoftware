@@ -138,8 +138,5 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         return pub.findbyNO(type,no);
     }
 
-    @Override
-    public List findbysaleno(String no) throws RemoteException {
-        return goodsoutList.findbysaleno(no);
-    }
+
 }
