@@ -1,5 +1,6 @@
 package client.BLservice.Saleman.SalemanConsumerManageblservice;
 
+import client.BL.Saleman.SalemanConsumerManageblservice.Consumer;
 import shared.ResultMessage;
 import client.Vo.consumerVO;
 
@@ -15,4 +16,6 @@ public interface ConsumerManageInterface {
     public ResultMessage modifyConsumer(consumerVO consumer) throws RemoteException;
     public ArrayList<consumerVO> findConsumer(String keyword);
     public ArrayList<consumerVO> show();
+    public consumerVO consumerToVO(Consumer consumer);
+    public Consumer VOtoconsumer(consumerVO vo);
 }

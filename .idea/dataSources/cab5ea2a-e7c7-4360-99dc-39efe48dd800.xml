@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="source:hibernate.cfg.xml/Hibernate">
-  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.4">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.1">
     <root id="1"/>
     <schema id="2" parent="1" name="PIS">
       <ObjectId>85</ObjectId>
-      <IntrospectionTimestamp>2017-12-03.19:57:25</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-12-03.20:50:05</IntrospectionTimestamp>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
       <ModifiedTimestamp>2017-12-02.12:05:44</ModifiedTimestamp>
       <CommentsHash>9823221767240</CommentsHash>
