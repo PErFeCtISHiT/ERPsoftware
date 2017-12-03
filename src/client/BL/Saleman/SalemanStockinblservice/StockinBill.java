@@ -14,26 +14,26 @@ public class StockinBill {
     public final SimpleStringProperty BuyinOffer;
     public final SimpleStringProperty BuyinStoreHouse;
     public final SimpleStringProperty BuyinOperater;
-    public ArrayList<goodsVO> BuyinGoodsList;
+    public final SimpleStringProperty BuyinGoodsList;
     public final SimpleStringProperty BuyinTips;
-    public final SimpleLongProperty BuyinSum;
+    public final SimpleStringProperty BuyinSum;
 
-    public StockinBill(String a,String b,String c,String d,ArrayList<goodsVO> e,String f,Long g){
+    public StockinBill(String a,String b,String c,String d,String e,String f,String g){
         this.BuyinID=new SimpleStringProperty(a);
         this.BuyinOffer=new SimpleStringProperty(b);
         this.BuyinStoreHouse=new SimpleStringProperty(c);
         this.BuyinOperater=new SimpleStringProperty(d);
-        this.BuyinGoodsList=e;
+        this.BuyinGoodsList=new SimpleStringProperty(e);
         this.BuyinTips=new SimpleStringProperty(f);
-        this.BuyinSum=new SimpleLongProperty(g);
+        this.BuyinSum=new SimpleStringProperty(g);
     }
 
-    public ArrayList<goodsVO> getBuyinGoodsList() {
-        return BuyinGoodsList;
+    public void setBuyinGoodsList(String buyinGoodsList) {
+        this.BuyinGoodsList.set(buyinGoodsList);
     }
 
-    public void setBuyinGoodsList(ArrayList<goodsVO> buyinGoodsList) {
-        this.BuyinGoodsList = buyinGoodsList;
+    public String getBuyinGoodsList() {
+        return BuyinGoodsList.get();
     }
 
     public void setBuyinID(String buyinID) {
@@ -52,7 +52,7 @@ public class StockinBill {
         this.BuyinStoreHouse.set(buyinStoreHouse);
     }
 
-    public void setBuyinSum(long buyinSum) {
+    public void setBuyinSum(String buyinSum) {
         this.BuyinSum.set(buyinSum);
     }
 
