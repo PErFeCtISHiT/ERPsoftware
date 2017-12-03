@@ -41,5 +41,8 @@
         <property name="kinds">
             <column name="KINDS" sql-type="varchar2(20)" length="20" />
         </property>
+        <property name="warningnum">
+            <column name="WARNINGNUM" sql-type="number(*)" precision="100" />
+        </property>
     </class>
 </hibernate-mapping>

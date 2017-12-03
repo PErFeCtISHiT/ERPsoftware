@@ -16,8 +16,17 @@ public class goodsVO implements Serializable{
 	private Double batchno;
 	private Time dat;
 	private String kinds;
+	private Double warningnum;
 
-    public goodsVO() {
+	public Double getWarningnum() {
+		return warningnum;
+	}
+
+	public void setWarningnum(Double warningnum) {
+		this.warningnum = warningnum;
+	}
+
+	public goodsVO() {
 
     }
 

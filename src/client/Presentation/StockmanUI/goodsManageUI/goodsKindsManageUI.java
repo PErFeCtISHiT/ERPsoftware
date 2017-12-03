@@ -42,7 +42,7 @@ public class goodsKindsManageUI extends Application{
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(new Group());
         stage.setTitle("商品分类管理");
-        stage.setWidth(1200);
+        stage.setWidth(1400);
         stage.setHeight(750);
 
         root = new TreeItem<>();
