@@ -1,4 +1,4 @@
-package client.BL.Accountant.FinancialMoneybl;
+package client.BL.Accountant.FinancialCashbl;
 
 import javafx.beans.property.SimpleStringProperty;
 

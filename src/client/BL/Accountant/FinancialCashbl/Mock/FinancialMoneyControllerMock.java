@@ -1,6 +1,6 @@
-package client.BL.Accountant.FinancialMoneybl.Mock;
+package client.BL.Accountant.FinancialCashbl.Mock;
 
-import client.BL.Accountant.FinancialMoneybl.FinancialMoneyController;
+import client.BL.Accountant.FinancialCashbl.FinancialMoneyController;
 import client.Vo.moneyVO;
 import shared.ResultMessage;
 

@@ -1,13 +1,12 @@
 package client.Presentation.AccountantUI.BillFill;
 
 
-import client.BL.Accountant.FinancialMoneybl.ItemList;
+import client.BL.Accountant.FinancialCashbl.ItemList;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -124,12 +123,12 @@ public class FillCashBillUI extends Application {
         StaffComboBox.setValue("A员工");
 
 
-        final ComboBox ConsumerTypeComboBox = new ComboBox();
-        ConsumerTypeComboBox.getItems().addAll(
-                "供应商", "销售商"
-        );
-        ConsumerTypeComboBox.setPromptText("供应商");
-        ConsumerTypeComboBox.setEditable(false);
+//        final ComboBox ConsumerTypeComboBox = new ComboBox();
+//        ConsumerTypeComboBox.getItems().addAll(
+//                "供应商", "销售商"
+//        );
+//        ConsumerTypeComboBox.setPromptText("供应商");
+//        ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
             if (    TypeComboBox.getValue() != null &&
@@ -174,10 +173,8 @@ public class FillCashBillUI extends Application {
         grid.add(new Label("操作员："), 4, 0);
         grid.add(StaffComboBox, 5, 0);
 
-        grid.add(new Label("客户类型："), 0, 1);
-        grid.add(ConsumerTypeComboBox, 1, 1);
-        grid.add(new Label("客户:"), 2, 1);
-        grid.add(consumer, 3, 1);
+        grid.add(new Label("账户编号:"), 0, 1);
+        grid.add(consumer, 1, 1);
 
 
         grid.add(new Label("条目列表:"), 0, 2);
