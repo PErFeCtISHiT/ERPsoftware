@@ -13,7 +13,8 @@ import java.util.ArrayList;
  */
 public class StockinBillMakeController implements StockinMakeInterface {
     @Override
-    public ArrayList<buyinVO> findBuyinBill(String keyword) {
+    public ArrayList<buyinVO> findBuyinBill(String keyword) throws RemoteException{
+
         return null;
     }
 

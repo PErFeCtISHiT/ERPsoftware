@@ -14,7 +14,7 @@ public interface StockinMakeInterface {
     public ResultMessage addBuyinBill(buyinVO vo) throws RemoteException;
     public ResultMessage deleteBuyinBill(buyinVO vo) throws RemoteException;
     public ResultMessage modifyBuyinBill(buyinVO vo) throws RemoteException;
-    public ArrayList<buyinVO> findBuyinBill(String keyword);
-    public ArrayList<buyinVO> show();
+    public ArrayList<buyinVO> findBuyinBill(String keyword) throws RemoteException;
+    public ArrayList<buyinVO> show() ;
 
 }
