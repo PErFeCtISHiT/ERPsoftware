@@ -1,5 +1,6 @@
 package client.Presentation.AccountantUI.CheckSell;
 
+import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +21,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.rmi.RemoteException;
+import java.util.List;
+
 public class CheckSellUI extends Application {
 
     private final TableView<Sale> table = new TableView<>();
@@ -30,6 +34,7 @@ public class CheckSellUI extends Application {
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
     public final String[] infor = new String[6];
+    FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
         launch(args);
@@ -130,6 +135,16 @@ public class CheckSellUI extends Application {
 
 
 /////////////////////////////////////////////////////////////////////开始的数据获取
+
+        try {
+            List<Sale> list =controller.show();
+            for (int i=0;i<list.size();i++){
+                data.add(list.get(i));
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
 
 
 

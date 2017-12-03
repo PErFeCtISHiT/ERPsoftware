@@ -7,6 +7,7 @@ import client.Vo.saleVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FinancialCheckSellController implements FinancialCheckSellInterface{
 
@@ -15,7 +16,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @param time
      * @return ArrayList<saleVO>
      */
-    public ArrayList<Sale> check(String time){
+    public List<Sale> check(String time) throws RemoteException{
 
 
         return null;
@@ -28,14 +29,13 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @return boolean
      */
 
-    public boolean getExcel(String address){
+    public boolean getExcel(String address) throws RemoteException{
         return false;
     }
 
 
-    public ArrayList<Sale> show(){
+    public List<Sale> show() throws RemoteException{
 
-       // return link.getRemoteHelper().
         return null;
     }
 
