@@ -11,6 +11,14 @@ import java.util.List;
 
 public class FinancialAccountController implements FinancialAccountInterface {
 
+
+    private Account account;
+
+
+    public FinancialAccountController() {
+        account = new Account();
+    }
+
     /**
      * Add account
      *

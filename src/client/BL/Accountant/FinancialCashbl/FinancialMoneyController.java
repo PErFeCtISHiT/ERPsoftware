@@ -1,4 +1,4 @@
-package client.BL.Accountant.FinancialMoneybl;
+package client.BL.Accountant.FinancialCashbl;
 
 import client.BLservice.Accountant.FinancialMoneyblservice.FinancialMoneyInterface;
 import client.Vo.moneyVO;

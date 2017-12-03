@@ -15,6 +15,12 @@ public class TransferList {
         this.comment = new SimpleStringProperty(comment);
     }
 
+    public TransferList() {
+        this.account = new SimpleStringProperty();
+        this.money = new SimpleStringProperty();
+        this.comment = new SimpleStringProperty();
+    }
+
     public String getAccount() {
         return account.get();
     }

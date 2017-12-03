@@ -14,6 +14,12 @@ public class Account {
         this.money = new SimpleStringProperty(money);
     }
 
+    public Account() {
+        this.accountID = new SimpleStringProperty();
+        this.accountName = new SimpleStringProperty();
+        this.money = new SimpleStringProperty();
+    }
+
     public String getaccountID() {
         return accountID.get();
     }
