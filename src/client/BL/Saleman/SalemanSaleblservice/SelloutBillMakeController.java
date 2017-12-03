@@ -38,4 +38,13 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
         return link.getRemoteHelper().getSelloutBill().modifyObject(vo, 10);
     }
 
+    @Override
+    public SelloutBill VoTosellout(selloutVO vo) {
+        return null;
+    }
+
+    @Override
+    public selloutVO selloutToVo(SelloutBill sellout) {
+        return null;
+    }
 }

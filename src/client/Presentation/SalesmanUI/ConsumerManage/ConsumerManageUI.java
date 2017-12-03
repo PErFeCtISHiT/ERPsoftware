@@ -41,8 +41,8 @@ public class ConsumerManageUI extends Application {
     public void start(Stage stage){
         Scene scene=new Scene(new Group());
         stage.setTitle("客户管理");
-        stage.setWidth(650);
-        stage.setHeight(500);
+        stage.setWidth(1200);
+        stage.setHeight(600);
 
         final Label label=new Label("客户列表");
         label.setFont(new Font("Arial",20));

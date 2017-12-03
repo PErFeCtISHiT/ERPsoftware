@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class coVO implements Serializable {
 	private String keyname;
-	private Long sumall;
+	private double sumall;
 	private String keyno;
 
 
-	public coVO(String keyname, Long sumall, String keyno) {
+	public coVO(String keyname, double sumall, String keyno) {
 		this.keyname = keyname;
 		this.sumall = sumall;
 		this.keyno = keyno;
@@ -26,11 +26,11 @@ public class coVO implements Serializable {
 		this.keyname = keyname;
 	}
 
-	public Long getSumall() {
+	public double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(double sumall) {
 		this.sumall = sumall;
 	}
 

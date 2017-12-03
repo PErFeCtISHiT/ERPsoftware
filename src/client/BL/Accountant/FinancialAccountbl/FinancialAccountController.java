@@ -81,8 +81,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
 
         String id=co.getKeyno();
         String name= co.getKeyname();
-        Long money = co.getSumall();
-        Account account = new Account(id,name,money.toString());
+        double money = co.getSumall();
+        Account account = new Account(id,name,String.valueOf(money));
         return account;
     }
     @Override

@@ -46,9 +46,9 @@ public class FinancialCheckSellControllerMock extends FinancialCheckSellControll
         String saleTime = vo.getDateandtime();
         String goodsName =goodslist.getGoodsname();
         String goodsType =goodslist.getKeymodel();
-        Long goodsNum = goodslist.getNum();
-        Long goodsPrice = goodslist.getPrice();
-        Long totalSum = goodsNum*goodsPrice;
+        double goodsNum = goodslist.getNum();
+        double goodsPrice = goodslist.getPrice();
+        double totalSum = goodsNum*goodsPrice;
 
         return null;
     }

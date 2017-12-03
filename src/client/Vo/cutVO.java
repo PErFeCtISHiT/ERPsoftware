@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class cutVO implements Serializable{
 	private String keyno;
-	private Long lev;
-	private Long cut;
+	private double lev;
+	private double cut;
 	private String voucher;
 	private String packno;
 
@@ -17,19 +17,19 @@ public class cutVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public Long getLev() {
+	public double getLev() {
 		return lev;
 	}
 
-	public void setLev(Long lev) {
+	public void setLev(double lev) {
 		this.lev = lev;
 	}
 
-	public Long getCut() {
+	public double getCut() {
 		return cut;
 	}
 
-	public void setCut(Long cut) {
+	public void setCut(double cut) {
 		this.cut = cut;
 	}
 
@@ -49,7 +49,7 @@ public class cutVO implements Serializable{
 		this.packno = packno;
 	}
 
-	public cutVO(String keyno, Long lev, Long cut, String voucher, String packno) {
+	public cutVO(String keyno, double lev, double cut, String voucher, String packno) {
 
 		this.keyno = keyno;
 		this.lev = lev;
