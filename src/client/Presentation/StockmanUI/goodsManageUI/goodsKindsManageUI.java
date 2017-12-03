@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import server.Po.goodskindsPO;
@@ -41,18 +42,33 @@ public class goodsKindsManageUI extends Application{
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(new Group());
         stage.setTitle("商品分类管理");
-        stage.setWidth(1000);
-        stage.setHeight(550);
+        stage.setWidth(1200);
+        stage.setHeight(750);
 
         root = new TreeItem<>();
         root.setExpanded(true);
         goodsTreeView = new TreeView<>(root);
         goodsTreeView.setShowRoot(false);
         showGoodsTree();
-        final VBox vbox = new VBox();
+        final HBox vbox = new HBox();
+        goodsManageUI goodsManageUI = new goodsManageUI();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(goodsTreeView);
+
+        goodsTreeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue.isLeaf()) {
+
+                try {
+                    System.out.println(vbox.getChildren().size());
+                    if(vbox.getChildren().size() > 1)
+                        vbox.getChildren().remove(1);
+                    vbox.getChildren().add(goodsManageUI.start(newValue.getValue()));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
