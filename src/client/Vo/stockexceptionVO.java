@@ -2,26 +2,26 @@ package client.Vo;
 import java.io.Serializable;
 
 public class stockexceptionVO implements Serializable {
-    private double kind;
+    private Double kind;
     private String note;
     private String oper;
-    private double ischeck;
+    private Double ischeck;
     private String isred;
     private String goodsno;
     private String goodsname;
-    private double numinbase;
-    private double numinsys;
+    private Double numinbase;
+    private Double numinsys;
     private String keyno;
 
     public stockexceptionVO() {
 
     }
 
-    public double getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(double kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -41,11 +41,11 @@ public class stockexceptionVO implements Serializable {
         this.oper = oper;
     }
 
-    public double getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(double ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
@@ -73,19 +73,19 @@ public class stockexceptionVO implements Serializable {
         this.goodsname = goodsname;
     }
 
-    public double getNuminbase() {
+    public Double getNuminbase() {
         return numinbase;
     }
 
-    public void setNuminbase(Long numinbase) {
+    public void setNuminbase(Double numinbase) {
         this.numinbase = numinbase;
     }
 
-    public double getNuminsys() {
+    public Double getNuminsys() {
         return numinsys;
     }
 
-    public void setNuminsys(double numinsys) {
+    public void setNuminsys(Double numinsys) {
         this.numinsys = numinsys;
     }
 
@@ -97,7 +97,7 @@ public class stockexceptionVO implements Serializable {
         this.keyno = keyno;
     }
 
-    public stockexceptionVO(double kind, String note, String oper, double ischeck, String isred, String goodsno, String goodsname, double numinbase, double numinsys, String keyno) {
+    public stockexceptionVO(Double kind, String note, String oper, Double ischeck, String isred, String goodsno, String goodsname, Double numinbase, Double numinsys, String keyno) {
 
         this.kind = kind;
         this.note = note;

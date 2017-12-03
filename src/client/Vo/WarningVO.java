@@ -3,26 +3,26 @@ package client.Vo;
 import java.io.Serializable;
 
 public class WarningVO implements Serializable {
-    private double kind;
+    private Double kind;
     private String keyno;
     private String note;
     private String oper;
-    private double ischeck;
-    private double isred;
+    private Double ischeck;
+    private Double isred;
     private String goodsno;
     private String goodsname;
-    private double num;
-    private double warningnum;
+    private Double num;
+    private Double warningnum;
 
     public WarningVO() {
 
     }
 
-    public double getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(double kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -50,19 +50,19 @@ public class WarningVO implements Serializable {
         this.oper = oper;
     }
 
-    public double getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(double ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
-    public double getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(double isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -82,23 +82,23 @@ public class WarningVO implements Serializable {
         this.goodsname = goodsname;
     }
 
-    public double getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(double num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
-    public double getWarningnum() {
+    public Double getWarningnum() {
         return warningnum;
     }
 
-    public void setWarningnum(Long warningnum) {
+    public void setWarningnum(Double warningnum) {
         this.warningnum = warningnum;
     }
 
-    public WarningVO(double kind, String keyno, String note, String oper, double ischeck, double isred, String goodsno, String goodsname, double num, double warningnum) {
+    public WarningVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String goodsno, String goodsname, Double num, Double warningnum) {
 
         this.kind = kind;
         this.keyno = keyno;

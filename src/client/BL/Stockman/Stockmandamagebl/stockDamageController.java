@@ -21,16 +21,16 @@ public class stockDamageController implements stockDamage {
     *@date: 15:45 2017/11/26
     */
     @Override
-    public ResultMessage DamageMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) throws RemoteException {
+    public ResultMessage DamageMake(goodsVO goods, Double actualNum, Double systemNum, String operator,String note,String no) throws RemoteException {
         stockexceptionVO stockDamage = new stockexceptionVO();
-        stockDamage.setKind((long) 9);
+        stockDamage.setKind((double) 9);
         stockDamage.setGoodsname(goods.getKeyname());
         stockDamage.setGoodsno(goods.getKeyno());
-        stockDamage.setIscheck((long) 0);
+        stockDamage.setIscheck((double) 0);
         stockDamage.setIsred("NO");
         stockDamage.setNote(note);
-        stockDamage.setNuminbase((long) actualNum);
-        stockDamage.setNuminsys((long) systemNum);
+        stockDamage.setNuminbase( actualNum);
+        stockDamage.setNuminsys( systemNum);
         stockDamage.setOper(operator);
         stockDamage.setKeyno(no);
         ManagerExamine.acceptBill(stockDamage);

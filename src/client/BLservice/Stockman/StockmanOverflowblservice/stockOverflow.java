@@ -11,5 +11,5 @@ import java.rmi.RemoteException;
  * @date: create in 15:35 2017/11/26
  */
 public interface stockOverflow {
-    ResultMessage OverflowMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) throws RemoteException;
+    ResultMessage OverflowMake(goodsVO goods, Double actualNum, Double systemNum, String operator,String note,String no) throws RemoteException;
 }

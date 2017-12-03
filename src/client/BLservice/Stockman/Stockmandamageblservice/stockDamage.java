@@ -11,5 +11,5 @@ import java.rmi.RemoteException;
  * @date: create in 15:44 2017/11/26
  */
 public interface stockDamage {
-    ResultMessage DamageMake(goodsVO goods, int actualNum, int systemNum, String operator,String note,String no) throws RemoteException;
+    ResultMessage DamageMake(goodsVO goods, Double actualNum, Double systemNum, String operator,String note,String no) throws RemoteException;
 }

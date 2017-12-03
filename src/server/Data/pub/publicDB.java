@@ -26,6 +26,7 @@ public class publicDB implements pub {
     *@description: 增删改查
     *@date: 15:39 2017/11/30
     */
+
     @Override
     public ResultMessage addObject(Object object,int type) {
         generate(type);
