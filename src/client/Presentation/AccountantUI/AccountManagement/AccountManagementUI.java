@@ -32,7 +32,6 @@ import java.util.List;
 public class AccountManagementUI extends Application {
 
     private final TableView<Account> table = new TableView<>();
-
     private final ObservableList<Account> data =
             FXCollections.observableArrayList(
                     new Account("A", "B", "C"),
@@ -40,6 +39,8 @@ public class AccountManagementUI extends Application {
             );
     final HBox hb = new HBox();
 
+
+    FinancialAccountController controller  = new FinancialAccountController();
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
@@ -69,7 +70,7 @@ public class AccountManagementUI extends Application {
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
 
-///////////////////////////////////////////////////////////////////////////修改传递
+/////////////////////////////////////////////////////////////////////////////////修改传递
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
@@ -79,23 +80,12 @@ public class AccountManagementUI extends Application {
                     ((Account) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setaccountID(t.getNewValue());
-                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
-                    coVO co = new coVO();
-                    co.setSumall(sum);
-                    co.setKeyname(newID);
-                    co.setKeyname(newName);
-                    FinancialAccountController financialAccountController = new FinancialAccountController();
-                    try {
-                        financialAccountController.modifyAccount(co);
-                    } catch (RemoteException e3) {
-                        e3.printStackTrace();
-                    }
+
+                    Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    modifyAccount(acc);
                 });
 
-///////////////////////////////////////////////////////////////////////////////////修改传递
+/////////////////////////////////////////////////////////////////////////////////修改传递
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
@@ -105,20 +95,9 @@ public class AccountManagementUI extends Application {
                     ((Account) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setaccountName(t.getNewValue());
-                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
-                    coVO co = new coVO();
-                    co.setSumall(sum);
-                    co.setKeyname(newID);
-                    co.setKeyname(newName);
-                    FinancialAccountController financialAccountController = new FinancialAccountController();
-                    try {
-                        financialAccountController.modifyAccount(co);
-                    } catch (RemoteException e3) {
-                        e3.printStackTrace();
-                    }
+                    Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    modifyAccount(acc);
+
                 });
 /////////////////////////////////////////////////////////////////////////////////修改传递
         MoneyCol.setMinWidth(200);
@@ -128,20 +107,8 @@ public class AccountManagementUI extends Application {
         MoneyCol.setOnEditCommit(
                 (CellEditEvent<Account, String> t) -> {
                     ((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).setmoney(t.getNewValue());
-                    String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
-                    coVO co = new coVO();
-                    co.setSumall(sum);
-                    co.setKeyname(newID);
-                    co.setKeyname(newName);
-                    FinancialAccountController financialAccountController = new FinancialAccountController();
-                    try {
-                        financialAccountController.modifyAccount(co);
-                    } catch (RemoteException e3) {
-                        e3.printStackTrace();
-                    }
+                    Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    modifyAccount(acc);
                 });
 
 //////////////////////////////////////////////////////////////////////////////////删除传递
@@ -160,7 +127,7 @@ public class AccountManagementUI extends Application {
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
                             co.setKeyname("456");
-                            co.setSumall((long) 500);
+                            co.setSumall((double) 500);
                             data.remove(this.getIndex());
                             System.out.println("删除成功");
                             FinancialAccountController financialAccountController = new FinancialAccountController();
@@ -178,12 +145,11 @@ public class AccountManagementUI extends Application {
         });
 
 //////////////////////////////////////////////////////////////////////////////////////开始获取数据
-        FinancialAccountController StartData = new FinancialAccountController();
         try {
-            List<coVO> list =StartData.show();
+            List<coVO> list =controller.show();
             for (int i=0;i<list.size();i++){
                 coVO newco = list.get(i);
-                Account account = StartData.VoToAccount(newco);
+                Account account = controller.VoToAccount(newco);
                 data.add(account);
             }
         } catch (RemoteException e) {
@@ -213,11 +179,11 @@ public class AccountManagementUI extends Application {
                     addMoney.getText());
             data.add(newaccount);
             coVO co = new coVO();
+            co.setKeyno(newaccount.getaccountID());
             co.setKeyname(newaccount.getaccountName());
-            co.setSumall(Long.parseLong(newaccount.getmoney()));
-            FinancialAccountController financialAccountController = new FinancialAccountController();
+            co.setSumall(Double.parseDouble(newaccount.getmoney()));
             try {
-                financialAccountController.addAccount(co);
+                controller.addAccount(co);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
@@ -303,6 +269,19 @@ public class AccountManagementUI extends Application {
 
         private String getString() {
             return getItem() == null ? "" : getItem().toString();
+        }
+    }
+
+
+    private void modifyAccount(Account acc){
+        coVO vo = new coVO();
+        vo.setKeyname(acc.getaccountName());
+        vo.setKeyno(acc.getaccountID());
+        vo.setSumall(Double.parseDouble(acc.getmoney()));
+        try {
+            controller.modifyAccount(vo);
+        }catch (RemoteException e1) {
+            e1.printStackTrace();
         }
     }
 }

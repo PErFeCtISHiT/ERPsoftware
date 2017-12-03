@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class userVO implements Serializable{
 	private String keyjob;
 	private String keyno;
-	private Long lev;
+	private double lev;
 	private String keyname;
 	private String tel;
 	private String address;
 	private String postcode;
 	private String email;
-	private Long keyyear;
+	private double keyyear;
 	private String passwor;
 
 	public String getKeyjob() {
@@ -30,11 +30,11 @@ public class userVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public Long getLev() {
+	public double getLev() {
 		return lev;
 	}
 
-	public void setLev(Long lev) {
+	public void setLev(double lev) {
 		this.lev = lev;
 	}
 
@@ -78,11 +78,11 @@ public class userVO implements Serializable{
 		this.email = email;
 	}
 
-	public Long getKeyyear() {
+	public double getKeyyear() {
 		return keyyear;
 	}
 
-	public void setKeyyear(Long keyyear) {
+	public void setKeyyear(double keyyear) {
 		this.keyyear = keyyear;
 	}
 
@@ -94,7 +94,7 @@ public class userVO implements Serializable{
 		this.passwor = passwor;
 	}
 
-	public userVO(String keyjob, String keyno, Long lev, String keyname, String tel, String address, String postcode, String email, Long keyyear, String passwor) {
+	public userVO(String keyjob, String keyno, double lev, String keyname, String tel, String address, String postcode, String email, double keyyear, String passwor) {
 
 		this.keyjob = keyjob;
 		this.keyno = keyno;

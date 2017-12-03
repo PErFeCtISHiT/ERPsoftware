@@ -3,6 +3,7 @@ package client.BL.Accountant.FinancialAccountbl;
 import client.BLservice.Accountant.FinancialAccountblservice.FinancialAccountInterface;
 import client.RMI.link;
 import client.Vo.coVO;
+import server.Dataservice.Codataservice.Coaccount;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
@@ -38,6 +39,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      */
     @Override
     public ResultMessage deleteAccount(coVO vo)throws RemoteException{
+
         return link.getRemoteHelper().getCoaccount().deleteObject(vo,10);
     }
 
@@ -81,8 +83,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
 
         String id=co.getKeyno();
         String name= co.getKeyname();
-        double money = co.getSumall();
-        Account account = new Account(id,name,String.valueOf(money));
+        Double money = co.getSumall();
+        Account account = new Account(id,name,money.toString());
         return account;
     }
     @Override
@@ -90,7 +92,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
 
         String id=account.getaccountID();
         String name= account.getaccountName();
-        Long money =Long.parseLong(account.getmoney());
+        Double money = Double.parseDouble(account.getmoney());
         coVO co = new coVO();
         co.setKeyname(name);
         co.setSumall(money);

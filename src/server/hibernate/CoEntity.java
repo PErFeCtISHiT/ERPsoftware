@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "CO", schema = "PIS", catalog = "")
 public class CoEntity {
     private String keyname;
-    private Long sumall;
+    private Double sumall;
     private String keyno;
 
     @Basic
@@ -26,11 +26,11 @@ public class CoEntity {
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
     }
 

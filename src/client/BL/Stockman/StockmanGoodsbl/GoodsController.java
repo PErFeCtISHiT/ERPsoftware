@@ -16,11 +16,13 @@ import java.util.List;
  * @date: create in 19:46 2017/11/23
  */
 public class GoodsController implements GoodsListInterface {
+
     /**
     *@author:pis
     *@description:
     *@date: 19:49 2017/11/23
     */
+
     @Override
     public ResultMessage addGoods(goodsVO goods) throws RemoteException {
         goodsPO g = new goodsPO();
