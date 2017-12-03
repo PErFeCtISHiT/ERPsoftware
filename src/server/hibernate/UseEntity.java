@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class UseEntity {
     private String keyjob;
     private String keyno;
-    private Long lev;
+    private Double lev;
     private String keyname;
     private String tel;
     private String address;
     private String postcode;
     private String email;
-    private Long keyyear;
+    private Double keyyear;
     private String passwor;
 
     @Basic
@@ -38,11 +38,11 @@ public class UseEntity {
 
     @Basic
     @Column(name = "LEV", nullable = true, precision = 0)
-    public Long getLev() {
+    public Double getLev() {
         return lev;
     }
 
-    public void setLev(Long lev) {
+    public void setLev(Double lev) {
         this.lev = lev;
     }
 
@@ -98,11 +98,11 @@ public class UseEntity {
 
     @Basic
     @Column(name = "KEYYEAR", nullable = true, precision = 0)
-    public Long getKeyyear() {
+    public Double getKeyyear() {
         return keyyear;
     }
 
-    public void setKeyyear(Long keyyear) {
+    public void setKeyyear(Double keyyear) {
         this.keyyear = keyyear;
     }
 

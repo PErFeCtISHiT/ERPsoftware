@@ -5,28 +5,28 @@ import javax.persistence.*;
 @Entity
 @Table(name = "SELLOUT", schema = "PIS", catalog = "")
 public class SelloutEntity {
-    private Long kind;
+    private Double kind;
     private String keyno;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private Double ischeck;
+    private Double isred;
     private String consumer;
     private String server;
     private String base;
     private String goodsoutlist;
-    private Long sumall;
-    private Long cut;
-    private Long voucher;
-    private Long finalsum;
+    private Double sumall;
+    private Double cut;
+    private Double voucher;
+    private Double finalsum;
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -62,21 +62,21 @@ public class SelloutEntity {
 
     @Basic
     @Column(name = "ISCHECK", nullable = true, precision = 0)
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
     @Basic
     @Column(name = "ISRED", nullable = true, precision = 0)
-    public Long getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -122,41 +122,41 @@ public class SelloutEntity {
 
     @Basic
     @Column(name = "SUMALL", nullable = true, precision = 0)
-    public Long getSumall() {
+    public Double getSumall() {
         return sumall;
     }
 
-    public void setSumall(Long sumall) {
+    public void setSumall(Double sumall) {
         this.sumall = sumall;
     }
 
     @Basic
     @Column(name = "CUT", nullable = true, precision = 0)
-    public Long getCut() {
+    public Double getCut() {
         return cut;
     }
 
-    public void setCut(Long cut) {
+    public void setCut(Double cut) {
         this.cut = cut;
     }
 
     @Basic
     @Column(name = "VOUCHER", nullable = true, precision = 0)
-    public Long getVoucher() {
+    public Double getVoucher() {
         return voucher;
     }
 
-    public void setVoucher(Long voucher) {
+    public void setVoucher(Double voucher) {
         this.voucher = voucher;
     }
 
     @Basic
     @Column(name = "FINALSUM", nullable = true, precision = 0)
-    public Long getFinalsum() {
+    public Double getFinalsum() {
         return finalsum;
     }
 
-    public void setFinalsum(Long finalsum) {
+    public void setFinalsum(Double finalsum) {
         this.finalsum = finalsum;
     }
 

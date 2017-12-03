@@ -24,43 +24,36 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.goodsPO;
+import shared.praseDouble;
 
 import java.rmi.RemoteException;
 import java.util.List;
 
-public class goodsManageUI extends Application {
+public class goodsManageUI {
+
+    GoodsController goodsController = new GoodsController();
     /**
     *todo:警戒数量，报警
     */
     int warningnum = 100;
-    GoodsController goodsController = new GoodsController();
-    private final TableView<Goods> table = new TableView<>();
-    private final ObservableList<Goods> data =
-
-            FXCollections.observableArrayList();
-
-    final HBox hb = new HBox();
-
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws RemoteException {
-        Scene scene = new Scene(new Group());
-        /**
-        *todo:title为商品父类名称
-        */
-        stage.setTitle("商品管理");
-        stage.setWidth(1000);
-        stage.setHeight(550);
 
 
-        /**
-        *todo:显示初始商品,kind由上一个界面传入
-        */
-        List<goodsPO> originGoods = (List<goodsPO>) goodsController.findByKind("ferry");
+
+
+
+    public VBox start(String kinds) throws RemoteException {
+
+        TableView<Goods> table = new TableView<>();
+        ObservableList<Goods> data =
+
+                FXCollections.observableArrayList();
+
+        HBox hb = new HBox();
+
+
+
+
+        List<goodsPO> originGoods = (List<goodsPO>) goodsController.findByKind(kinds);
         for(goodsPO i : originGoods){
             Goods newgoods = new Goods(i.getKeyno(),
                     i.getKeyname(),
@@ -73,7 +66,7 @@ public class goodsManageUI extends Application {
             data.add(newgoods);
 
         }
-        final Label label = new Label("商品列表");
+        final Label label = new Label(kinds);
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
@@ -266,9 +259,7 @@ public class goodsManageUI extends Application {
         addreceoutprice.setMaxWidth(ModelCol.getPrefWidth());
         addreceoutprice.setPromptText("最近零售价");
 
-/**
-*todo:父类信息传入，设置商品父类
-*/
+
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             Goods newgoods = new Goods(
@@ -282,14 +273,15 @@ public class goodsManageUI extends Application {
                     addreceoutprice.getText());
             data.add(newgoods);
             goodsVO vo = new goodsVO();
+            vo.setKinds(kinds);
             vo.setKeyno(newgoods.getGoodsID());
             vo.setKeyname(newgoods.getGoodsName());
             vo.setKeymodel(newgoods.getGoodsModel());
-            vo.setNum(Long.parseLong(newgoods.getGoodsNum()));
-            vo.setInprice(Long.parseLong(newgoods.getGoodsInprice()));
-            vo.setOutprice(Long.parseLong(newgoods.getGoodsOutprice()));
-            vo.setReceprice(Long.parseLong(newgoods.getGoodsReceinprice()));
-            vo.setReceoutprice(Long.parseLong(newgoods.getGoodsReceoutprice()));
+            vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+            vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
+            vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
+            vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
+            vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
             try {
                 goodsController.addGoods(vo);
             } catch (RemoteException e1) {
@@ -308,15 +300,12 @@ public class goodsManageUI extends Application {
         hb.getChildren().addAll(addID, addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice, addButton);
         hb.setSpacing(3);
 
-        final VBox vbox = new VBox();
+        VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return vbox;
     }
 
 

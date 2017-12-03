@@ -1,6 +1,8 @@
 package client.Presentation.AccountantUI.CheckSell;
 
+import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.rmi.RemoteException;
+import java.util.List;
+
 public class CheckSellUI extends Application {
 
     private final TableView<Sale> table = new TableView<>();
@@ -30,8 +35,10 @@ public class CheckSellUI extends Application {
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
     public final String[] infor = new String[6];
+    FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
+        //link.getRemoteHelper();
         launch(args);
     }
 
@@ -131,6 +138,16 @@ public class CheckSellUI extends Application {
 
 /////////////////////////////////////////////////////////////////////开始的数据获取
 
+        try {
+            List<Sale> list =controller.show();
+            for (int i=0;i<list.size();i++){
+                data.add(list.get(i));
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+
 
 
         table.setItems(data);
@@ -161,43 +178,3 @@ public class CheckSellUI extends Application {
 
 
 }
-
-
-//        TitledPane gridTitlePane = new TitledPane();
-//        GridPane grid = new GridPane();
-//        grid.setVgap(4);
-//        grid.setPadding(new Insets(5, 5, 5, 5));
-//        grid.add(new Label("To: "), 0, 0);
-//        grid.add(new TextField(), 1, 0);
-//        grid.add(new Label("Cc: "), 0, 1);
-//        grid.add(new TextField(), 1, 1);
-//        grid.add(new Label("Subject: "), 0, 2);
-//        grid.add(new TextField(), 1, 2);
-//        grid.add(new Label("Attachment: "), 0, 3);
-//        grid.add(label,1, 3);
-//        gridTitlePane.setText("Grid");
-//        gridTitlePane.setContent(grid);
-//
-//        final Accordion accordion = new Accordion ();
-//        for (int i = 0; i < imageNames.length; i++) {
-//            tps[i] = new TitledPane();
-//            tps[i].setText(imageNames[i]);
-//        }
-//
-//        accordion.getPanes().addAll(tps);
-//        accordion.expandedPaneProperty().addListener(
-//            (ObservableValue<? extends TitledPane> ov, TitledPane old_val,
-//            TitledPane new_val) -> {
-//                if (new_val != null) {
-//                label.setText(accordion.getExpandedPane().getText() + ".jpg");
-//        }
-//        });
-//
-//        HBox hbox1 = new HBox(10);
-//        hbox1.setPadding(new Insets(20, 0, 0, 20));
-//        hbox1.getChildren().setAll(gridTitlePane, accordion);
-//
-//        Group root = (Group)scene.getRoot();
-//        root.getChildren().add(hbox1);
-//        stage.setScene(scene);
-//        stage.show();

@@ -131,6 +131,8 @@ public class AccountManagementUI extends Application {
                             coVO co = new coVO();
                             co.setKeyname("456");
                             co.setSumall((double) 500);
+                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
+                            System.out.println(data.get(this.getIndex()).getaccountID().toString());
                             data.remove(this.getIndex());
                             System.out.println("删除成功");
                             FinancialAccountController financialAccountController = new FinancialAccountController();
@@ -186,7 +188,7 @@ public class AccountManagementUI extends Application {
             coVO co = new coVO();
             co.setKeyno(newaccount.getaccountID());
             co.setKeyname(newaccount.getaccountName());
-            co.setSumall(Double.parseDouble(newaccount.getmoney()));
+            co.setSumall(praseDouble.prase(newaccount.getmoney()));
             try {
                 controller.addAccount(co);
             } catch (RemoteException e1) {
