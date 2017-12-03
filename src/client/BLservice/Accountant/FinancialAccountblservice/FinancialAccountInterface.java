@@ -38,7 +38,7 @@ public interface FinancialAccountInterface {
      * @param key
      * @return
      */
-    public ArrayList<coVO> findAccount(String key);
+    public ArrayList<coVO> findAccount(String key) throws RemoteException;
 
     /**
      * show accounts

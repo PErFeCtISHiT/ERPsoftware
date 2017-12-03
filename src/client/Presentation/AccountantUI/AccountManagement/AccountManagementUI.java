@@ -35,8 +35,8 @@ public class AccountManagementUI extends Application {
 
     private final ObservableList<Account> data =
             FXCollections.observableArrayList(
-//                    new Account("A", "B", "C"),
-//                    new Account("Q", "W", "E")
+                    new Account("A", "B", "C"),
+                    new Account("Q", "W", "E")
             );
     final HBox hb = new HBox();
 
@@ -54,8 +54,6 @@ public class AccountManagementUI extends Application {
 
         final Label label = new Label("账户列表");
         label.setFont(new Font("Arial", 20));
-
-
         table.setEditable(true);
 
         Callback<TableColumn<Account, String>,
@@ -70,7 +68,8 @@ public class AccountManagementUI extends Application {
                 new TableColumn<>("账户余额");
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
-///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////修改传递
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
@@ -96,7 +95,7 @@ public class AccountManagementUI extends Application {
                     }
                 });
 
-//////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////修改传递
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
@@ -121,7 +120,7 @@ public class AccountManagementUI extends Application {
                         e3.printStackTrace();
                     }
                 });
-//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////修改传递
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
@@ -145,7 +144,7 @@ public class AccountManagementUI extends Application {
                     }
                 });
 
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////删除传递
         delCol.setCellFactory((col) -> {
             TableCell<Account, String> cell = new TableCell<Account, String>() {
 
@@ -178,7 +177,7 @@ public class AccountManagementUI extends Application {
             return cell;
         });
 
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////开始获取数据
         FinancialAccountController StartData = new FinancialAccountController();
         try {
             List<coVO> list =StartData.show();
@@ -196,22 +195,22 @@ public class AccountManagementUI extends Application {
         table.setItems(data);
         table.getColumns().addAll(IDCol, NameCol, MoneyCol,delCol);
 
-        final TextField addFirstName = new TextField();
-        addFirstName.setPromptText("accountID");
-        addFirstName.setMaxWidth(IDCol.getPrefWidth());
-        final TextField addLastName = new TextField();
-        addLastName.setMaxWidth(NameCol.getPrefWidth());
-        addLastName.setPromptText("accountName");
-        final TextField addEmail = new TextField();
-        addEmail.setMaxWidth(MoneyCol.getPrefWidth());
-        addEmail.setPromptText("money");
+        final TextField addID= new TextField();
+        addID.setPromptText("accountID");
+        addID.setMaxWidth(IDCol.getPrefWidth());
+        final TextField addName = new TextField();
+        addName.setMaxWidth(NameCol.getPrefWidth());
+        addName.setPromptText("accountName");
+        final TextField addMoney = new TextField();
+        addMoney.setMaxWidth(MoneyCol.getPrefWidth());
+        addMoney.setPromptText("money");
 
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             Account newaccount = new Account(
-                    addFirstName.getText(),
-                    addLastName.getText(),
-                    addEmail.getText());
+                    addID.getText(),
+                    addName.getText(),
+                    addMoney.getText());
             data.add(newaccount);
             coVO co = new coVO();
             co.setKeyno("00001");
@@ -223,12 +222,12 @@ public class AccountManagementUI extends Application {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-            addFirstName.clear();
-            addLastName.clear();
-            addEmail.clear();
+            addID.clear();
+            addName.clear();
+            addMoney.clear();
         });
 
-        hb.getChildren().addAll(addFirstName, addLastName, addEmail, addButton);
+        hb.getChildren().addAll(addID, addName, addMoney, addButton);
         hb.setSpacing(3);
 
         final VBox vbox = new VBox();

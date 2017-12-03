@@ -65,6 +65,7 @@ public class PayBillUI extends Application {
                 new TableColumn<>("账户余额");
 
 
+
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
@@ -137,7 +138,7 @@ public class PayBillUI extends Application {
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
 
-        final Button BillButton = new Button("生成收款单");
+        final Button BillButton = new Button("生成付款单");
         BillButton.setOnAction((ActionEvent e) -> {
 
         });

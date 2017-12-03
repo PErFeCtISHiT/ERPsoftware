@@ -127,4 +127,6 @@ public class consumerVO implements Serializable{
 		this.server = server;
 		this.accoun = accoun;
 	}
+
+	public consumerVO(){}
 }
