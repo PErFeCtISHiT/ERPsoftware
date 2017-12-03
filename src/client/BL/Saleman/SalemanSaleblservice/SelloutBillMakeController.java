@@ -1,6 +1,7 @@
 package client.BL.Saleman.SalemanSaleblservice;
 
 import client.BLservice.Saleman.SalemanSaleblservice.SelloutMakeInterface;
+import client.RMI.link;
 import client.Vo.selloutVO;
 import shared.ResultMessage;
 
@@ -23,17 +24,17 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
 
     @Override
     public ResultMessage addselloutBill(selloutVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getSelloutBill().addObject(vo,10);
     }
 
     @Override
     public ResultMessage deleteselloutBill(selloutVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getSelloutBill().deleteObject(vo,10);
     }
 
     @Override
     public ResultMessage modifyselloutBill(selloutVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getSelloutBill().modifyObject(vo,10);
     }
 
 }
