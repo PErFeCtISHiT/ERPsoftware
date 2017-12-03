@@ -10,6 +10,7 @@ public class SelloutBill {
     public final SimpleStringProperty selloutConsumer;
     public final SimpleStringProperty selloutServer;
     public final SimpleStringProperty selloutOperater;
+    public final SimpleStringProperty selloutWarehouse;
     public final SimpleStringProperty selloutGoodslist;
     public final SimpleStringProperty selloutBeforeMoney;
     public final SimpleStringProperty selloutDiscount;
@@ -17,17 +18,26 @@ public class SelloutBill {
     public final SimpleStringProperty selloutSum;
     public final SimpleStringProperty selloutTip;
 
-    public SelloutBill(String a1,String a2,String a3,String a4,String a5,String a6,String a7,String a8,String a9,String a10){
+    public SelloutBill(String a1,String a2,String a3,String a4,String warehouse,String a5,String a6,String a7,String a8,String a9,String a10){
         this.selloutID=new SimpleStringProperty(a1);
         this.selloutConsumer=new SimpleStringProperty(a2);
         this.selloutServer=new SimpleStringProperty(a3);
         this.selloutOperater=new SimpleStringProperty(a4);
+        this.selloutWarehouse=new SimpleStringProperty(warehouse);
         this.selloutGoodslist=new SimpleStringProperty(a5);
         this.selloutBeforeMoney=new SimpleStringProperty(a6);
         this.selloutDiscount=new SimpleStringProperty(a7);
         this.selloutCard=new SimpleStringProperty(a8);
         this.selloutSum=new SimpleStringProperty(a9);
         this.selloutTip=new SimpleStringProperty(a10);
+    }
+
+    public void setSelloutWarehouse(String selloutWarehouse) {
+        this.selloutWarehouse.set(selloutWarehouse);
+    }
+
+    public String getSelloutWarehouse() {
+        return selloutWarehouse.get();
     }
 
     public void setSelloutBeforeMoney(String selloutBeforeMoney) {
