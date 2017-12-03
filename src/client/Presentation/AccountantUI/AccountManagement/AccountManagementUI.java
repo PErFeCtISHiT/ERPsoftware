@@ -105,6 +105,9 @@ public class AccountManagementUI extends Application {
                     ((Account) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setaccountName(t.getNewValue());
+
+                  //  Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
+
                     String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
@@ -305,4 +308,17 @@ public class AccountManagementUI extends Application {
             return getItem() == null ? "" : getItem().toString();
         }
     }
+
+
+//    private void modifyAccount(Account acc){
+//        coVO vo = new coVO();
+//        vo.setKeyname(acc.getaccountName());
+//        vo.setKeyno(acc.getaccountID());
+//        vo.setSumall(Long.parseLong(acc.getmoney()));
+//        try {
+//            goodsController.modifyGoods(vo);
+//        } catch (RemoteException e1) {
+//            e1.printStackTrace();
+//        }
+//    }
 }
