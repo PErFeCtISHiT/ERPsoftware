@@ -82,7 +82,7 @@ public class AccountManagementUI extends Application {
                     String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
+                    Double sum= Double.parseDouble(newmoney);
                     coVO co = new coVO();
                     co.setSumall(sum);
                     co.setKeyname(newID);
@@ -111,7 +111,7 @@ public class AccountManagementUI extends Application {
                     String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
+                    Double sum= Double.parseDouble(newmoney);
                     coVO co = new coVO();
                     co.setSumall(sum);
                     co.setKeyname(newID);
@@ -134,7 +134,7 @@ public class AccountManagementUI extends Application {
                     String newID =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newName =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
                     String newmoney =((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).getmoney();
-                    Long sum= Long.parseLong(newmoney);
+                    Double sum= Double.parseDouble(newmoney);
                     coVO co = new coVO();
                     co.setSumall(sum);
                     co.setKeyname(newID);
@@ -163,7 +163,7 @@ public class AccountManagementUI extends Application {
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
                             co.setKeyname("456");
-                            co.setSumall((long) 500);
+                            co.setSumall((double) 500);
                             data.remove(this.getIndex());
                             System.out.println("删除成功");
                             FinancialAccountController financialAccountController = new FinancialAccountController();
@@ -216,8 +216,9 @@ public class AccountManagementUI extends Application {
                     addMoney.getText());
             data.add(newaccount);
             coVO co = new coVO();
+            co.setKeyno("00001");
             co.setKeyname(newaccount.getaccountName());
-            co.setSumall(Long.parseLong(newaccount.getmoney()));
+            co.setSumall(Double.parseDouble(newaccount.getmoney()));
             FinancialAccountController financialAccountController = new FinancialAccountController();
             try {
                 financialAccountController.addAccount(co);

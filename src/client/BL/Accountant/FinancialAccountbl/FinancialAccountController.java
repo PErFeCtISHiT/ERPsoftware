@@ -83,7 +83,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
 
         String id=co.getKeyno();
         String name= co.getKeyname();
-        Long money = co.getSumall();
+        Double money = co.getSumall();
         Account account = new Account(id,name,money.toString());
         return account;
     }
@@ -92,7 +92,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
 
         String id=account.getaccountID();
         String name= account.getaccountName();
-        Long money =Long.parseLong(account.getmoney());
+        Double money = Double.parseDouble(account.getmoney());
         coVO co = new coVO();
         co.setKeyname(name);
         co.setSumall(money);
