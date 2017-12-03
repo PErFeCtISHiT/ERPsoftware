@@ -2,6 +2,7 @@ package client.Presentation.AccountantUI.CheckSell;
 
 import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -37,6 +38,7 @@ public class CheckSellUI extends Application {
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
+        //link.getRemoteHelper();
         launch(args);
     }
 

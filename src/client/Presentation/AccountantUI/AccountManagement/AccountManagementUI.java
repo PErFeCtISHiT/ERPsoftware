@@ -129,9 +129,8 @@ public class AccountManagementUI extends Application {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
-//                            co.setKeyname("456");
-//                            co.setKeyno("00002");
-//                            co.setSumall((double) 500);
+                            co.setKeyname("456");
+                            co.setSumall((double) 500);
                             co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
                             System.out.println(data.get(this.getIndex()).getaccountID().toString());
                             data.remove(this.getIndex());
