@@ -1,6 +1,7 @@
 package client.BL.Saleman.SalemanStockinblservice;
 
 import client.BLservice.Saleman.SalemanStockinblservice.StockinMakeInterface;
+import client.RMI.link;
 import client.Vo.buyinVO;
 import shared.ResultMessage;
 
@@ -23,16 +24,16 @@ public class StockinBillMakeController implements StockinMakeInterface {
 
     @Override
     public ResultMessage addBuyinBill(buyinVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getBuyinBill().addObject(vo,10);//???????????????
     }
 
     @Override
     public ResultMessage deleteBuyinBill(buyinVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getBuyinBill().deleteObject(vo,10);
     }
 
     @Override
     public ResultMessage modifyBuyinBill(buyinVO vo) throws RemoteException {
-        return null;
+        return link.getRemoteHelper().getBuyinBill().modifyObject(vo,10);
     }
 }
