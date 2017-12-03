@@ -43,6 +43,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
     public ResultMessage deleteAccount(coVO vo)throws RemoteException{
 
         return link.getRemoteHelper().getCoaccount().deleteObject(vo,10);
+
     }
 
     /**

@@ -3,8 +3,8 @@ import java.io.Serializable;
 
 public class cutPO implements Serializable{
 	private String keyno;
-	private Long lev;
-	private Long cut;
+	private Double lev;
+	private Double cut;
 	private String voucher;
 	private String packno;
 
@@ -12,7 +12,7 @@ public class cutPO implements Serializable{
 
     }
 
-    public String getKeyno() {
+	public String getKeyno() {
 		return keyno;
 	}
 
@@ -20,19 +20,19 @@ public class cutPO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public Long getLev() {
+	public Double getLev() {
 		return lev;
 	}
 
-	public void setLev(Long lev) {
+	public void setLev(Double lev) {
 		this.lev = lev;
 	}
 
-	public Long getCut() {
+	public Double getCut() {
 		return cut;
 	}
 
-	public void setCut(Long cut) {
+	public void setCut(Double cut) {
 		this.cut = cut;
 	}
 
@@ -52,7 +52,7 @@ public class cutPO implements Serializable{
 		this.packno = packno;
 	}
 
-	public cutPO(String keyno, Long lev, Long cut, String voucher, String packno) {
+	public cutPO(String keyno, Double lev, Double cut, String voucher, String packno) {
 
 		this.keyno = keyno;
 		this.lev = lev;

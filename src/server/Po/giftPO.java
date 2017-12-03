@@ -1,27 +1,27 @@
 package server.Po;
 import java.io.Serializable;
 public class giftPO implements Serializable{
-    private Long kind;
+    private Double kind;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private Double ischeck;
+    private Double isred;
     private String goodsno;
     private String goodsname;
     private String consumerno;
     private String comsumername;
-    private Long num;
+    private Double num;
     private String keyno;
 
     public giftPO() {
 
     }
 
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -41,19 +41,19 @@ public class giftPO implements Serializable{
         this.oper = oper;
     }
 
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
-    public Long getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -89,11 +89,11 @@ public class giftPO implements Serializable{
         this.comsumername = comsumername;
     }
 
-    public Long getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
@@ -105,7 +105,7 @@ public class giftPO implements Serializable{
         this.keyno = keyno;
     }
 
-    public giftPO(Long kind, String note, String oper, Long ischeck, Long isred, String goodsno, String goodsname, String consumerno, String comsumername, Long num, String keyno) {
+    public giftPO(Double kind, String note, String oper, Double ischeck, Double isred, String goodsno, String goodsname, String consumerno, String comsumername, Double num, String keyno) {
 
         this.kind = kind;
         this.note = note;

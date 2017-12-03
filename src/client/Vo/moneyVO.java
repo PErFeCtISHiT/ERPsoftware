@@ -3,22 +3,22 @@ package client.Vo;
 import java.io.Serializable;
 
 public class moneyVO implements Serializable{
-	private Long kind;
+	private Double kind;
 	private String keyno;
 	private String note;
 	private String oper;
-	private Long ischeck;
-	private Long isred;
+	private Double ischeck;
+	private Double isred;
 	private String consumer;
 	private String accoun;
-	private Long num;
-	private Long sumall;
+	private Double num;
+	private Double sumall;
 
-	public Long getKind() {
+	public Double getKind() {
 		return kind;
 	}
 
-	public void setKind(Long kind) {
+	public void setKind(Double kind) {
 		this.kind = kind;
 	}
 
@@ -46,19 +46,19 @@ public class moneyVO implements Serializable{
 		this.oper = oper;
 	}
 
-	public Long getIscheck() {
+	public Double getIscheck() {
 		return ischeck;
 	}
 
-	public void setIscheck(Long ischeck) {
+	public void setIscheck(Double ischeck) {
 		this.ischeck = ischeck;
 	}
 
-	public Long getIsred() {
+	public Double getIsred() {
 		return isred;
 	}
 
-	public void setIsred(Long isred) {
+	public void setIsred(Double isred) {
 		this.isred = isred;
 	}
 
@@ -78,23 +78,23 @@ public class moneyVO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public Long getNum() {
+	public Double getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(Double num) {
 		this.num = num;
 	}
 
-	public Long getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(Double sumall) {
 		this.sumall = sumall;
 	}
 
-	public moneyVO(Long kind, String keyno, String note, String oper, Long ischeck, Long isred, String consumer, String accoun, Long num, Long sumall) {
+	public moneyVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String accoun, Double num, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;

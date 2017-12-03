@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class saleVO implements Serializable{
 	private String keyno;
-	private Long kind;
-	private Long lev;
+	private Double kind;
+	private Double lev;
 	private String accoun;
 	private String base;
 	private String goodsinlist;
 	private String goodsoutlist;
-	private Long presum;
-	private Long cut;
-	private Long voucher;
-	private Long sumall;
+	private Double presum;
+	private Double cut;
+	private Double voucher;
+	private Double sumall;
 	private String dateandtime;
 
 	public String getDateandtime() {
@@ -32,19 +32,19 @@ public class saleVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public Long getKind() {
+	public Double getKind() {
 		return kind;
 	}
 
-	public void setKind(Long kind) {
+	public void setKind(Double kind) {
 		this.kind = kind;
 	}
 
-	public Long getLev() {
+	public Double getLev() {
 		return lev;
 	}
 
-	public void setLev(Long lev) {
+	public void setLev(Double lev) {
 		this.lev = lev;
 	}
 
@@ -80,39 +80,39 @@ public class saleVO implements Serializable{
 		this.goodsoutlist = goodsoutlist;
 	}
 
-	public Long getPresum() {
+	public Double getPresum() {
 		return presum;
 	}
 
-	public void setPresum(Long presum) {
+	public void setPresum(Double presum) {
 		this.presum = presum;
 	}
 
-	public Long getCut() {
+	public Double getCut() {
 		return cut;
 	}
 
-	public void setCut(Long cut) {
+	public void setCut(Double cut) {
 		this.cut = cut;
 	}
 
-	public Long getVoucher() {
+	public Double getVoucher() {
 		return voucher;
 	}
 
-	public void setVoucher(Long voucher) {
+	public void setVoucher(Double voucher) {
 		this.voucher = voucher;
 	}
 
-	public Long getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(Double sumall) {
 		this.sumall = sumall;
 	}
 
-	public saleVO(String keyno, Long kind, Long lev, String accoun, String base, String goodsinlist, String goodsoutlist, Long presum, Long cut, Long voucher, Long sumall) {
+	public saleVO(String keyno, Double kind, Double lev, String accoun, String base, String goodsinlist, String goodsoutlist, Double presum, Double cut, Double voucher, Double sumall) {
 
 		this.keyno = keyno;
 		this.kind = kind;

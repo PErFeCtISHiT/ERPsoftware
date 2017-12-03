@@ -3,6 +3,7 @@ import server.Data.Billdata.*;
 import server.Data.Codata.CoaccountDB;
 import server.Data.Consumerdata.ConsumerDB;
 import server.Data.Cutdata.cutDB;
+import server.Data.Financedata.goodsoutListDB;
 import server.Data.Goodsdata.GoodsDB;
 import server.Data.Goodsdata.GoodsKindsDB;
 import server.Data.Logdata.logDB;
@@ -13,6 +14,8 @@ import server.Dataservice.Billdataservice.*;
 import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
+import server.Dataservice.Financedataservice.goodsoutList;
+import server.Dataservice.Financedataservice.sale;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
 import server.Dataservice.Logdataservice.log;
@@ -33,7 +36,7 @@ import java.util.List;
 
 public class DataRemoteObject extends UnicastRemoteObject implements
         moneyBill, selloutBill,stockOverflowBill,stockwarningBill,
-        Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub {
+        Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub ,sale,goodsoutList {
 
     /**
 
@@ -57,6 +60,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     private pack pack;
     private pub pub;
     private user user;
+    private goodsoutList goodsoutList;
 
     protected DataRemoteObject() throws RemoteException {
 
@@ -75,6 +79,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         pack = new packDB();
         pub = new publicDB();
         user = new userDB();
+        goodsoutList = new goodsoutListDB() ;
 
 
 
@@ -131,5 +136,10 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     @Override
     public List findbyNO(int type, String no) throws RemoteException {
         return pub.findbyNO(type,no);
+    }
+
+    @Override
+    public List findbysaleno(String no) throws RemoteException {
+        return goodsoutList.findbysaleno(no);
     }
 }

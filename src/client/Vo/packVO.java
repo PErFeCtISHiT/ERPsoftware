@@ -6,7 +6,7 @@ public class packVO implements Serializable{
 	private String keyno;
 	private String goodsno;
 	private String goodsname;
-	private Long price;
+	private Double price;
 
 	public String getKeyno() {
 		return keyno;
@@ -32,15 +32,15 @@ public class packVO implements Serializable{
 		this.goodsname = goodsname;
 	}
 
-	public Long getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public packVO(String keyno, String goodsno, String goodsname, Long price) {
+	public packVO(String keyno, String goodsno, String goodsname, Double price) {
 
 		this.keyno = keyno;
 		this.goodsno = goodsno;

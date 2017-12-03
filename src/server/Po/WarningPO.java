@@ -3,26 +3,26 @@ package server.Po;
 import java.io.Serializable;
 
 public class WarningPO implements Serializable {
-    private Long kind;
+    private Double kind;
     private String keyno;
     private String note;
     private String oper;
-    private Long ischeck;
-    private Long isred;
+    private Double ischeck;
+    private Double isred;
     private String goodsno;
     private String goodsname;
-    private Long num;
-    private Long warningnum;
+    private Double num;
+    private Double warningnum;
 
     public WarningPO() {
 
     }
 
-    public Long getKind() {
+    public Double getKind() {
         return kind;
     }
 
-    public void setKind(Long kind) {
+    public void setKind(Double kind) {
         this.kind = kind;
     }
 
@@ -50,19 +50,19 @@ public class WarningPO implements Serializable {
         this.oper = oper;
     }
 
-    public Long getIscheck() {
+    public Double getIscheck() {
         return ischeck;
     }
 
-    public void setIscheck(Long ischeck) {
+    public void setIscheck(Double ischeck) {
         this.ischeck = ischeck;
     }
 
-    public Long getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(Long isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -82,23 +82,23 @@ public class WarningPO implements Serializable {
         this.goodsname = goodsname;
     }
 
-    public Long getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
-    public Long getWarningnum() {
+    public Double getWarningnum() {
         return warningnum;
     }
 
-    public void setWarningnum(Long warningnum) {
+    public void setWarningnum(Double warningnum) {
         this.warningnum = warningnum;
     }
 
-    public WarningPO(Long kind, String keyno, String note, String oper, Long ischeck, Long isred, String goodsno, String goodsname, Long num, Long warningnum) {
+    public WarningPO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String goodsno, String goodsname, Double num, Double warningnum) {
 
         this.kind = kind;
         this.keyno = keyno;

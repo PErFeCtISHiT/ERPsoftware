@@ -3,18 +3,18 @@ package server.Po;
 import java.io.Serializable;
 
 public class buyinPO implements Serializable{
-	private Long kind;
+	private Double kind;
 	private String keyno;
 	private String note;
 	private String oper;
-	private Long ischeck;
-	private Long isred;
+	private Double ischeck;
+	private Double isred;
 	private String provider;
 	private String base;
 	private String goodsoutlist;
-	private Long sumall;
+	private Double sumall;
 
-    public buyinPO(Long kind, String keyno, String note, String oper, Long ischeck, Long isred, String consumer, String server, String base, String goodsoutlist, Long sumall, Long cut, Long voucher, Long finalsum) {
+    public buyinPO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String server, String base, String goodsoutlist, Double sumall, Double cut, Double voucher, Double finalsum) {
         this.kind = kind;
         this.keyno = keyno;
         this.note = note;
@@ -31,11 +31,11 @@ public class buyinPO implements Serializable{
 
 	}
 
-	public Long getKind() {
+	public Double getKind() {
 		return kind;
 	}
 
-	public void setKind(Long kind) {
+	public void setKind(Double kind) {
 		this.kind = kind;
 	}
 
@@ -63,19 +63,19 @@ public class buyinPO implements Serializable{
 		this.oper = oper;
 	}
 
-	public Long getIscheck() {
+	public Double getIscheck() {
 		return ischeck;
 	}
 
-	public void setIscheck(Long ischeck) {
+	public void setIscheck(Double ischeck) {
 		this.ischeck = ischeck;
 	}
 
-	public Long getIsred() {
+	public Double getIsred() {
 		return isred;
 	}
 
-	public void setIsred(Long isred) {
+	public void setIsred(Double isred) {
 		this.isred = isred;
 	}
 
@@ -103,11 +103,11 @@ public class buyinPO implements Serializable{
 		this.goodsoutlist = goodsoutlist;
 	}
 
-	public Long getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(Long sumall) {
+	public void setSumall(Double sumall) {
 		this.sumall = sumall;
 	}
 }

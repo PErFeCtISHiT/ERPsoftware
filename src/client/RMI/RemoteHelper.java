@@ -1,10 +1,13 @@
 package client.RMI;
 
 
+import server.Data.Financedata.saleDB;
 import server.Dataservice.Billdataservice.*;
 import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
+import server.Dataservice.Financedataservice.goodsoutList;
+import server.Dataservice.Financedataservice.sale;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
 import server.Dataservice.Logdataservice.log;
@@ -99,4 +102,10 @@ public class RemoteHelper {
     public user getUser(){
         return (user)remote;
     }
+
+    public sale getSale(){return (sale)remote;}
+
+    public goodsoutList getgoodsoutList(){return (goodsoutList)remote;}
+
+
 }
