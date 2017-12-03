@@ -97,7 +97,7 @@ public class SelloutBillUI {
         });
         final Button OutputButton = new Button("导出单据");
         OutputButton.setOnAction((ActionEvent e) -> {
-
+            System.out.println("提交成功");
         });
 
         final HBox hb1= new HBox();
