@@ -29,6 +29,9 @@ import javafx.util.Callback;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import server.Po.coPO;
+import shared.*;
+
 public class AccountManagementUI extends Application {
 
     private final TableView<Account> table = new TableView<>();
@@ -146,9 +149,9 @@ public class AccountManagementUI extends Application {
 
 //////////////////////////////////////////////////////////////////////////////////////开始获取数据
         try {
-            List<coVO> list =controller.show();
+            List<coPO> list =controller.show();
             for (int i=0;i<list.size();i++){
-                coVO newco = list.get(i);
+                coVO newco = controller.PoToVo(list.get(i));
                 Account account = controller.VoToAccount(newco);
                 data.add(account);
             }
@@ -170,6 +173,8 @@ public class AccountManagementUI extends Application {
         final TextField addMoney = new TextField();
         addMoney.setMaxWidth(MoneyCol.getPrefWidth());
         addMoney.setPromptText("money");
+
+
 
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {

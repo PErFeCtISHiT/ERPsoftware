@@ -2,6 +2,7 @@ package client.BLservice.Accountant.FinancialAccountblservice;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.Vo.coVO;
+import server.Po.coPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
@@ -46,9 +47,12 @@ public interface FinancialAccountInterface {
      * @param
      * @return
      */
-    public List<coVO> show() throws RemoteException;
+    public List<coPO> show() throws RemoteException;
 
     public Account VoToAccount(coVO co) throws RemoteException;
 
     public coVO AccountToVo(Account account) throws RemoteException;
+
+    public coVO PoToVo(coPO po) throws RemoteException;
+
 }

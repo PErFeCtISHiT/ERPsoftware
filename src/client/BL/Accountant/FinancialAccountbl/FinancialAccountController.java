@@ -4,6 +4,7 @@ import client.BLservice.Accountant.FinancialAccountblservice.FinancialAccountInt
 import client.RMI.link;
 import client.Vo.coVO;
 import server.Dataservice.Codataservice.Coaccount;
+import server.Po.coPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
@@ -28,6 +29,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      */
     @Override
     public ResultMessage addAccount(coVO vo) throws RemoteException {
+        System.out.println("Add");
         return link.getRemoteHelper().getCoaccount().addObject(vo,10);
     }
 
@@ -73,7 +75,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public List<coVO> show() throws RemoteException{
+    public List<coPO> show() throws RemoteException{
 
         return link.getRemoteHelper().getCoaccount().findAll(10);
     }
@@ -99,5 +101,21 @@ public class FinancialAccountController implements FinancialAccountInterface {
         co.setKeyno(id);
         return co;
     }
+
+    @Override
+    public coVO PoToVo(coPO po) throws RemoteException{
+
+        String id=po.getKeyno();
+        String name= po.getKeyname();
+        Double money = po.getSumall();
+        coVO co = new coVO();
+        co.setKeyname(name);
+        co.setSumall(money);
+        co.setKeyno(id);
+        return co;
+    }
+
+
+
 }
 
