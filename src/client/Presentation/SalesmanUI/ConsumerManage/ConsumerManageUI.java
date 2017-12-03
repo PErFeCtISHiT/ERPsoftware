@@ -2,6 +2,7 @@ package client.Presentation.SalesmanUI.ConsumerManage;
 
 import client.BL.Saleman.SalemanConsumerManageblservice.Consumer;
 import client.BL.Saleman.SalemanConsumerManageblservice.ConsumerManageController;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -35,7 +36,9 @@ public class ConsumerManageUI extends Application {
             );
     final HBox hb=new HBox();
 
-    public static void main(String[] args){launch(args);}
+    public static void main(String[] args){
+        link.linktoServer();
+        launch(args);}
 
 
     public void start(Stage stage){
@@ -108,7 +111,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         phone.setMinWidth(30);
-        phone.setCellValueFactory(param -> param.getValue().ConsumerName);
+        phone.setCellValueFactory(param -> param.getValue().ConsumerPhone);
         phone.setCellFactory(cellFactory);
         phone.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -118,7 +121,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         name.setMinWidth(30);
-        name.setCellValueFactory(param -> param.getValue().ConsumerID);
+        name.setCellValueFactory(param -> param.getValue().ConsumerName);
         name.setCellFactory(cellFactory);
         name.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -128,7 +131,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         address.setMinWidth(30);
-        address.setCellValueFactory(param -> param.getValue().ConsumerID);
+        address.setCellValueFactory(param -> param.getValue().ConsumerAddress);
         address.setCellFactory(cellFactory);
         address.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -138,7 +141,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         youbian.setMinWidth(30);
-        youbian.setCellValueFactory(param -> param.getValue().ConsumerID);
+        youbian.setCellValueFactory(param -> param.getValue().ConsumerMail);
         youbian.setCellFactory(cellFactory);
         youbian.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -148,7 +151,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         email.setMinWidth(30);
-        email.setCellValueFactory(param -> param.getValue().ConsumerID);
+        email.setCellValueFactory(param -> param.getValue().ConsumerEmail);
         email.setCellFactory(cellFactory);
         email.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -158,7 +161,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         yingshouedu.setMinWidth(30);
-        yingshouedu.setCellValueFactory(param -> param.getValue().ConsumerID);
+        yingshouedu.setCellValueFactory(param -> param.getValue().ConsumerReveiveMoney);
         yingshouedu.setCellFactory(cellFactory);
         yingshouedu.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -168,7 +171,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         yingshou.setMinWidth(30);
-        yingshou.setCellValueFactory(param -> param.getValue().ConsumerID);
+        yingshou.setCellValueFactory(param -> param.getValue().ConsumerReceive);
         yingshou.setCellFactory(cellFactory);
         yingshou.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -178,7 +181,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         yingfu.setMinWidth(30);
-        yingfu.setCellValueFactory(param -> param.getValue().ConsumerID);
+        yingfu.setCellValueFactory(param -> param.getValue().ConsumerPay);
         yingfu.setCellFactory(cellFactory);
         yingfu.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -188,7 +191,7 @@ public class ConsumerManageUI extends Application {
                 });
 
         yewuyuan.setMinWidth(30);
-        yewuyuan.setCellValueFactory(param -> param.getValue().ConsumerID);
+        yewuyuan.setCellValueFactory(param -> param.getValue().Salesman);
         yewuyuan.setCellFactory(cellFactory);
         yewuyuan.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
@@ -243,33 +246,35 @@ public class ConsumerManageUI extends Application {
         final TextField field4=new TextField();
         field4.setPromptText("级别");
         field4.setMaxWidth(level.getPrefWidth());
+
         final TextField field5=new TextField();
         field5.setPromptText("姓名");
-        field5.setMaxWidth(level.getPrefWidth());
+        field5.setMaxWidth(name.getPrefWidth());
+
         final TextField field6=new TextField();
         field6.setPromptText("电话");
-        field6.setMaxWidth(level.getPrefWidth());
+        field6.setMaxWidth(phone.getPrefWidth());
         final TextField field7=new TextField();
         field7.setPromptText("地址");
-        field7.setMaxWidth(level.getPrefWidth());
+        field7.setMaxWidth(address.getPrefWidth());
         final TextField field8=new TextField();
         field8.setPromptText("邮编");
-        field8.setMaxWidth(level.getPrefWidth());
+        field8.setMaxWidth(youbian.getPrefWidth());
         final TextField field9=new TextField();
         field9.setPromptText("电子邮箱");
-        field9.setMaxWidth(level.getPrefWidth());
+        field9.setMaxWidth(email.getPrefWidth());
         final TextField field10=new TextField();
         field10.setPromptText("应收额度");
-        field10.setMaxWidth(level.getPrefWidth());
+        field10.setMaxWidth(yingshouedu.getPrefWidth());
         final TextField field11=new TextField();
         field11.setPromptText("应收");
-        field11.setMaxWidth(level.getPrefWidth());
+        field11.setMaxWidth(yingshou.getPrefWidth());
         final TextField field12=new TextField();
         field12.setPromptText("应付");
-        field12.setMaxWidth(level.getPrefWidth());
+        field12.setMaxWidth(yingfu.getPrefWidth());
         final TextField field13=new TextField();
         field13.setPromptText("业务员");
-        field13.setMaxWidth(level.getPrefWidth());
+        field13.setMaxWidth(yewuyuan.getPrefWidth());
 
         final Button button=new Button("添加");
         button.setOnAction((ActionEvent e)->{
@@ -287,20 +292,36 @@ public class ConsumerManageUI extends Application {
                     field11.getText(),
                     field12.getText(),
                     field13.getText());
+
             data.add(consumer);
+
             consumerVO vo=new consumerVO(
                     field1.getText(),
-                    Long.parseLong(field2.getText()+field3.getText()), //?????????????????
-                    Long.parseLong(field4.getText()),
+                    Double.parseDouble(field3.getText()), //?????????????????
+                    Double.parseDouble(field4.getText()),
                     field5.getText(),
                     field6.getText(),
                     field8.getText(),
                     field9.getText(),
-                    Long.parseLong(field10.getText()),
-                    Long.parseLong(field11.getText()),
-                    Long.parseLong(field12.getText()),
+                    Double.parseDouble(field10.getText()),
+                    Double.parseDouble(field11.getText()),
+                    Double.parseDouble(field12.getText()),
                     field13.getText(),
-                    " ");
+                    "123");
+
+            System.out.println(vo.getKeyno());
+            System.out.println(vo.getKinds());
+            System.out.println(vo.getLev());
+            System.out.println(vo.getKeyname());
+            System.out.println(vo.getTel());
+            System.out.println(vo.getMailcode());
+            System.out.println(vo.getEmail());
+            System.out.println(vo.getCapacit());
+            System.out.println(vo.getReceive());
+            System.out.println(vo.getPay());
+            System.out.println(vo.getServer());
+            System.out.println(vo.getAccoun());
+
             ConsumerManageController consumerManageController=new ConsumerManageController();
             try{
                 consumerManageController.addConsumer(vo);
@@ -324,7 +345,7 @@ public class ConsumerManageUI extends Application {
 
         });
 
-        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
+        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13,button);
         hb.setSpacing(3);
 
         final VBox vBox=new VBox();

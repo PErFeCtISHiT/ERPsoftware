@@ -4,34 +4,19 @@ import java.io.Serializable;
 
 public class consumerPO implements Serializable{
 	private String keyno;
-	private Double kinds;
-	private Double lev;
+	private double kinds;
+	private double lev;
 	private String keyname;
 	private String tel;
 	private String mailcode;
 	private String email;
-	private Double capacit;
-	private Double receive;
-	private Double pay;
+	private double capacit;
+	private double receive;
+	private double pay;
 	private String server;
 	private String accoun;
 
-	public consumerPO(String keyno, Double kinds, Double lev, String keyname, String tel, String mailcode, String email, Double capacit, Double receive, Double pay, String server, String accoun) {
-		this.keyno = keyno;
-		this.kinds = kinds;
-		this.lev = lev;
-		this.keyname = keyname;
-		this.tel = tel;
-		this.mailcode = mailcode;
-		this.email = email;
-		this.capacit = capacit;
-		this.receive = receive;
-		this.pay = pay;
-		this.server = server;
-		this.accoun = accoun;
-	}
-
-	public consumerPO() {
+    public consumerPO() {
 
     }
 
@@ -43,9 +28,21 @@ public class consumerPO implements Serializable{
 		this.keyno = keyno;
 	}
 
+	public double getKinds() {
+		return kinds;
+	}
 
+	public void setKinds(double kinds) {
+		this.kinds = kinds;
+	}
 
+	public double getLev() {
+		return lev;
+	}
 
+	public void setLev(double lev) {
+		this.lev = lev;
+	}
 
 	public String getKeyname() {
 		return keyname;
@@ -79,10 +76,29 @@ public class consumerPO implements Serializable{
 		this.email = email;
 	}
 
+	public double getCapacit() {
+		return capacit;
+	}
 
+	public void setCapacit(double capacit) {
+		this.capacit = capacit;
+	}
 
+	public double getReceive() {
+		return receive;
+	}
 
+	public void setReceive(double receive) {
+		this.receive = receive;
+	}
 
+	public double getPay() {
+		return pay;
+	}
+
+	public void setPay(double pay) {
+		this.pay = pay;
+	}
 
 	public String getServer() {
 		return server;
@@ -100,23 +116,19 @@ public class consumerPO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public void setKinds(Double kinds) {
+	public consumerPO(String keyno, double kinds, double lev, String keyname, String tel, String mailcode, String email, double capacit, double receive, double pay, String server, String accoun) {
+		this.keyno = keyno;
 		this.kinds = kinds;
-	}
-
-	public void setLev(Double lev) {
 		this.lev = lev;
-	}
+		this.keyname = keyname;
 
-	public void setCapacit(Double capacit) {
+		this.tel = tel;
+		this.mailcode = mailcode;
+		this.email = email;
 		this.capacit = capacit;
-	}
-
-	public void setReceive(Double receive) {
 		this.receive = receive;
-	}
-
-	public void setPay(Double pay) {
 		this.pay = pay;
+		this.server = server;
+		this.accoun = accoun;
 	}
 }

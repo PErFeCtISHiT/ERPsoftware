@@ -40,8 +40,10 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ResultMessage deleteAccount(coVO vo)throws RemoteException{
-
+    public ResultMessage deleteAccount(coVO vo) throws RemoteException{
+        //coPO po = VoToPo(vo);
+        System.out.println("Test");
+        System.out.println(vo.getKeyno());
         return link.getRemoteHelper().getCoaccount().deleteObject(vo,10);
 
     }
@@ -116,6 +118,18 @@ public class FinancialAccountController implements FinancialAccountInterface {
         return co;
     }
 
+    @Override
+    public coPO VoToPo(coVO vo) throws RemoteException{
+
+        String id=vo.getKeyno();
+        String name= vo.getKeyname();
+        Double money = vo.getSumall();
+        coPO po = new coPO();
+        po.setKeyname(name);
+        po.setSumall(money);
+        po.setKeyno(id);
+        return po;
+    }
 
 
 }

@@ -6,15 +6,16 @@ import client.Vo.saleVO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FinancialCheckSellInterface {
 
 
-    public ArrayList<Sale> check(String time);
+    public List<Sale> check(String time) throws RemoteException;
 
-    public boolean getExcel(String address);
+    public boolean getExcel(String address) throws RemoteException;
 
-    public ArrayList<Sale> show();
+    public List<Sale> show() throws RemoteException;
 
     public Sale VoToSale(saleVO vo,goodsOutListVO goodslist) throws RemoteException;
 
