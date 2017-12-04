@@ -14,18 +14,6 @@ public class buyinPO implements Serializable{
 	private String goodsoutlist;
 	private Double sumall;
 
-    public buyinPO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String server, String base, String goodsoutlist, Double sumall, Double cut, Double voucher, Double finalsum) {
-        this.kind = kind;
-        this.keyno = keyno;
-        this.note = note;
-        this.oper = oper;
-        this.ischeck = ischeck;
-        this.isred = isred;
-        this.provider = provider;
-        this.base = base;
-        this.goodsoutlist = goodsoutlist;
-        this.sumall = sumall;
-    }
 
 	public buyinPO() {
 

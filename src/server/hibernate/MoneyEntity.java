@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class MoneyEntity {
     private Double kind;
     private String keyno;
-    private String note;
     private String oper;
     private Double ischeck;
     private Double isred;
@@ -15,6 +14,7 @@ public class MoneyEntity {
     private String accoun;
     private String moneyList;
     private Double sumall;
+    private String consumertype;
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
@@ -37,13 +37,13 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 2000)
-    public String getNote() {
-        return note;
+    @Column(name = "consumertype", nullable = true, length = 2000)
+    public String getConsumertype() {
+        return consumertype;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setConsumertype(String consumertype) {
+        this.consumertype = consumertype;
     }
 
     @Basic
@@ -125,7 +125,7 @@ public class MoneyEntity {
 
         if (kind != null ? !kind.equals(that.kind) : that.kind != null) return false;
         if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
-        if (note != null ? !note.equals(that.note) : that.note != null) return false;
+        if (consumertype != null ? !consumertype.equals(that.consumertype) : that.consumertype != null) return false;
         if (oper != null ? !oper.equals(that.oper) : that.oper != null) return false;
         if (ischeck != null ? !ischeck.equals(that.ischeck) : that.ischeck != null) return false;
         if (isred != null ? !isred.equals(that.isred) : that.isred != null) return false;
@@ -141,7 +141,7 @@ public class MoneyEntity {
     public int hashCode() {
         int result = kind != null ? kind.hashCode() : 0;
         result = 31 * result + (keyno != null ? keyno.hashCode() : 0);
-        result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (consumertype != null ? consumertype.hashCode() : 0);
         result = 31 * result + (oper != null ? oper.hashCode() : 0);
         result = 31 * result + (ischeck != null ? ischeck.hashCode() : 0);
         result = 31 * result + (isred != null ? isred.hashCode() : 0);
