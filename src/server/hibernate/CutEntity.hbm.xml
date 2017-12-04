@@ -18,7 +18,7 @@
             <column name="VOUCHER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="packno">
-            <column name="PACKNO" sql-type="varchar2(200)" length="200" />
+            <column name="PACKNO" sql-type="varchar2(200)" length="2000" />
         </property>
     </class>
 </hibernate-mapping>

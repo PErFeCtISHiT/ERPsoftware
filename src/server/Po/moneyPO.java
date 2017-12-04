@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class moneyPO implements Serializable{
 	private Double kind;
 	private String keyno;
-	private String note;
+	private String consumertype;
 	private String oper;
 	private Double ischeck;
 	private Double isred;
@@ -13,10 +13,19 @@ public class moneyPO implements Serializable{
 	private String accoun;
 	private Double num;
 	private Double sumall;
+	private String moneyList;
 
     public moneyPO() {
 
     }
+
+	public String getConsumertype() {
+		return consumertype;
+	}
+
+	public void setConsumertype(String consumertype) {
+		this.consumertype = consumertype;
+	}
 
 	public Double getKind() {
 		return kind;
@@ -34,20 +43,20 @@ public class moneyPO implements Serializable{
 		this.keyno = keyno;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
 	public String getOper() {
 		return oper;
 	}
 
 	public void setOper(String oper) {
 		this.oper = oper;
+	}
+
+	public String getMoneyList() {
+		return moneyList;
+	}
+
+	public void setMoneyList(String moneyList) {
+		this.moneyList = moneyList;
 	}
 
 	public Double getIscheck() {
@@ -98,11 +107,10 @@ public class moneyPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public moneyPO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String accoun, Double num, Double sumall) {
+	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double num, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;
-		this.note = note;
 		this.oper = oper;
 		this.ischeck = ischeck;
 		this.isred = isred;

@@ -33,10 +33,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class goodsManageUI {
-    ObservableList<Goods> data;
-    String kinds;
+    private ObservableList<Goods> data;
+    private String kinds;
 
-    GoodsController goodsController = new GoodsController();
+    private GoodsController goodsController = new GoodsController();
     /**
     *todo:警戒数量，报警
     */
@@ -105,7 +105,7 @@ public class goodsManageUI {
         TableColumn<Goods,String> warningCol =
                 new TableColumn<>("库存报警");
 
-        IDCol.setMinWidth(100);
+        IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().goodsID);
         IDCol.setCellFactory(cellFactory);
@@ -131,7 +131,7 @@ public class goodsManageUI {
 
                 });
 
-        ModelCol.setMinWidth(100);
+        ModelCol.setMinWidth(50);
         ModelCol.setCellValueFactory(
                 param -> param.getValue().goodsModel);
         ModelCol.setCellFactory(cellFactory);
@@ -143,7 +143,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        NumCol.setMinWidth(100);
+        NumCol.setMinWidth(50);
         NumCol.setCellValueFactory(
                 param -> param.getValue().goodsNum);
         NumCol.setCellFactory(cellFactory);
@@ -215,77 +215,56 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        /**
-        *@author:pis
-        *@description: 删除按钮
-        *@date: 23:53 2017/12/3
-        */
-        delCol.setCellFactory((col) -> {
-            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
+        delCol.setCellFactory((col) -> new TableCell<Goods, String>() {
 
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
 
-                    if (!empty) {
-                        Button delBtn = new Button("删除商品");
-                        this.setGraphic(delBtn);
-                        delBtn.setOnMouseClicked((me) -> {
-                            goodsVO vo = createGoodsVO(this);
-                            data.remove(this.getIndex());
-                            try {
-                                goodsController.deleteGoods(vo);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
+                if (!empty) {
+                    Button delBtn = new Button("删除商品");
+                    this.setGraphic(delBtn);
+                    delBtn.setOnMouseClicked((me) -> {
+                        goodsVO vo = createGoodsVO(this);
+                        data.remove(this.getIndex());
+                        try {
+                            goodsController.deleteGoods(vo);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
+            }
 
-            };
-            return cell;
         });
-        /**
-        *@author:pis
-        *@description: 库存报警界面从这里跳转
-        *@date: 23:53 2017/12/3
-        */
-        warningCol.setCellFactory((col) -> {
-            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
 
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
+        warningCol.setCellFactory((col) -> new TableCell<Goods, String>() {
 
-                    if (!empty) {
-                            goodsVO goodsVO = createGoodsVO(this);
-                        Button warninglBtn = new Button("报警");
-                        if(goodsVO.getWarningnum() < goodsVO.getNum())
-                            warninglBtn.setDisable(true);
-                        this.setGraphic(warninglBtn);
-                        warninglBtn.setOnMouseClicked((me) -> {
-                            goodsWarningUI goodsWarningUI = new goodsWarningUI();
-                            try {
-                                goodsWarningUI.start(goodsVO);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            } catch (IntrospectionException e) {
-                                e.printStackTrace();
-                            } catch (InvocationTargetException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
+
+                if (!empty) {
+                        goodsVO goodsVO = createGoodsVO(this);
+                    Button warninglBtn = new Button("报警");
+                    if(goodsVO.getWarningnum() < goodsVO.getNum())
+                        warninglBtn.setDisable(true);
+                    this.setGraphic(warninglBtn);
+                    warninglBtn.setOnMouseClicked((me) -> {
+                        goodsWarningUI goodsWarningUI = new goodsWarningUI();
+                        try {
+                            goodsWarningUI.start(goodsVO);
+                        } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
+            }
 
-            };
-            return cell;
         });
 
 
@@ -351,6 +330,7 @@ public class goodsManageUI {
             vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
             vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
             vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
+            vo.setWarningnum((double) 100);
             try {
                 goodsController.addGoods(vo);
             } catch (RemoteException e1) {
@@ -383,7 +363,7 @@ public class goodsManageUI {
 
         private TextField textField;
 
-        public EditingCell() {
+        EditingCell() {
         }
 
         @Override
@@ -401,7 +381,7 @@ public class goodsManageUI {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText((String) getItem());
+            setText(getItem());
             setGraphic(null);
         }
 
@@ -439,7 +419,7 @@ public class goodsManageUI {
         }
 
         private String getString() {
-            return getItem() == null ? "" : getItem().toString();
+            return getItem() == null ? "" : getItem();
         }
     }
 

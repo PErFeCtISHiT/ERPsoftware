@@ -15,7 +15,7 @@
             <column name="FATHER" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="son">
-            <column name="SON" sql-type="varchar2(20)" length="20" />
+            <column name="SON" sql-type="varchar2(20)" length="2000" />
         </property>
     </class>
 </hibernate-mapping>

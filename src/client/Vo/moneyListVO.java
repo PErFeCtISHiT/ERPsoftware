@@ -1,11 +1,24 @@
 package client.Vo;
 
-public class moneylistVO {
+/**
+ * @author: pis
+ * @description: good good study
+ * @date: create in 20:59 2017/12/4
+ */
+public class moneyListVO {
     private String keyno;
     private String accountname;
     private Double sumall;
     private String note;
     private String keyid;
+
+    public String getKeyid() {
+        return keyid;
+    }
+
+    public void setKeyid(String keyid) {
+        this.keyid = keyid;
+    }
 
     public String getKeyno() {
         return keyno;
@@ -37,13 +50,5 @@ public class moneylistVO {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getKeyid() {
-        return keyid;
-    }
-
-    public void setKeyid(String keyid) {
-        this.keyid = keyid;
     }
 }
