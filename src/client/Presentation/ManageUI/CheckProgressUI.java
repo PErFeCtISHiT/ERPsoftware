@@ -1,25 +1,34 @@
 package client.Presentation.ManageUI;
 
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import client.BL.Manager.ManagerCheckProcessService.Billgotten;
+import javafx.util.Callback;
+
+import java.time.LocalDate;
+import java.util.Locale;
 
 public class CheckProgressUI extends Application {
 
     private final TableView<Billgotten> table = new TableView<>();
+    private DatePicker checkInDatePicker;
+    private DatePicker checkOutDatePicker;
+
 
     private final ObservableList<Billgotten> data =
             FXCollections.observableArrayList(
@@ -28,10 +37,16 @@ public class CheckProgressUI extends Application {
                     );
 
     final HBox hb = new HBox();
+    final HBox hb2 =new HBox();
+    Callback<TableColumn<Billgotten,String>,
+            TableCell<Billgotten,String>> cellFactory
+            =(TableColumn<Billgotten,String> p)->new CheckProgressUI.EditingCell();
     @Override
     public void start(Stage stage) {
+        Locale.setDefault(Locale.CHINA);
         Scene scene = new Scene(new Group());
         stage.setTitle("经营历程表");
+
         stage.setWidth(1250);
         stage.setHeight(850);
 
@@ -70,6 +85,46 @@ public class CheckProgressUI extends Application {
         table.setItems(data);
         table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol);
 
+        VBox vbox = new VBox(20);
+        vbox.setStyle("-fx-padding: 10;");
+
+        checkInDatePicker = new DatePicker();
+        checkOutDatePicker = new DatePicker();
+        checkInDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory =
+                new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (item.isBefore(
+                                        checkInDatePicker.getValue().plusDays(1))
+                                        ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
+                            }
+                        };
+                    }
+                };
+        checkOutDatePicker.setDayCellFactory(dayCellFactory);
+        checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        Label checkInlabel = new Label("开始时间");
+        gridPane.add(checkInlabel, 0, 0);
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        gridPane.add(checkInDatePicker, 0, 1);
+        Label checkOutlabel = new Label("结束时间");
+        gridPane.add(checkOutlabel, 1, 0);
+        GridPane.setHalignment(checkOutlabel, HPos.LEFT);
+        gridPane.add(checkOutDatePicker, 1, 1);
+        vbox.getChildren().add(gridPane);
+
 
         final Button button1 = new Button("红冲操作");
         button1.setOnAction((ActionEvent e) -> {
@@ -81,72 +136,109 @@ public class CheckProgressUI extends Application {
 
 
         });
-        final Button button3 = new Button("查看单据详细信息");
+        final Button button3 = new Button("导出经营情况表");
         button3.setOnAction((ActionEvent e) -> {
 
 
         });
 
-        final Button button4 = new Button("导出经营情况表");
+        final Button button4 = new Button("查询");
         button4.setOnAction((ActionEvent e) -> {
 
 
         });
 
+        final TextField BillType= new TextField();
+        BillType.setPromptText("单据类型");
+
+        final TextField  client= new TextField();
+        client.setPromptText("客户");
+        final TextField salesman = new TextField();
+
+        salesman.setPromptText("业务员");
+        final TextField storehouse = new TextField();
+        storehouse.setPromptText("仓库");
+
+
         hb.getChildren().addAll(button1,button2,button3,button4);
         hb.setSpacing(3);
 
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, hb);
+        hb2.getChildren().addAll(vbox);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        final VBox vbox1 = new VBox();
+        vbox1.setSpacing(5);
+        vbox1.setPadding(new Insets(10, 0, 0, 10));
+        vbox1.getChildren().addAll(label, table, hb,hb2,BillType,client,salesman,storehouse);
+
+        ((Group) scene.getRoot()).getChildren().addAll(vbox1);
 
         stage.setScene(scene);
         stage.show();
     }
 
-    public static class Billgotten{
-        private final SimpleStringProperty Id;
-        private final SimpleStringProperty BillType;
-        private final SimpleStringProperty BillName;
-        private final SimpleStringProperty BIllAccount;
 
-        private Billgotten(String id, String billType, String billName, String bIllAccount){
-            this.Id = new SimpleStringProperty(id);
-            this.BillType =new SimpleStringProperty(billType);
-            this.BillName =new SimpleStringProperty(billName);
-            this.BIllAccount =new SimpleStringProperty(bIllAccount);
+    class EditingCell extends TableCell<Billgotten,String>{
+        private TextField textField;
+
+        public EditingCell() {
         }
 
-        public String getId() {
-            return Id.get();
-        }
-        public void setId(String id){
-            Id.set(id);
-        }
-
-        public String getBillType() {
-            return BillType.get();
-        }
-        public void setBillType(String billType){
-            BillType.set(billType);
+        @Override
+        public void startEdit() {
+            if (!isEmpty()) {
+                super.startEdit();
+                createTextField();
+                setText(null);
+                setGraphic(textField);
+                textField.selectAll();
+            }
         }
 
-        public String getBillName() {
-            return BillName.get();}
-        public void setBillName(String billName){
-           BillName.set(billName);
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+
+            setText((String) getItem());
+            setGraphic(null);
         }
 
-        public String getBIllAccount() {
-            return BIllAccount.get();
-        }
-        public void setBIllAccount(String bIllAccount){
-            BIllAccount.set(bIllAccount);
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setText(null);
+                    setGraphic(textField);
+                } else {
+                    setText(getString());
+                    setGraphic(null);
+                }
+            }
         }
 
+        private void createTextField() {
+            textField = new TextField(getString());
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+            textField.focusedProperty().addListener(
+                    (ObservableValue<? extends Boolean> arg0,
+                     Boolean arg1, Boolean arg2) -> {
+                        if (!arg2) {
+                            commitEdit(textField.getText());
+                        }
+                    });
+        }
+
+        private String getString() {
+            return getItem() == null ? "" : getItem().toString();
+        }
     }
+
 
 }

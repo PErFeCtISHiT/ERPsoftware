@@ -1,22 +1,23 @@
-package client.BL.Manager.ManagerExamineblservice;
+package client.BL.Manager.ManagerMakeCutService;
 
-import client.BLservice.Manager.ManagerExamineblservice.ManagerExamineblInterface;
+import client.BLservice.Manager.ManagerMakeCutblservice.ManagerMakeCutblInterface;
 import server.Po.salePO;
 import shared.ResultMessage;
 
-public class BillListController implements ManagerExamineblInterface {
+public class CutListController implements ManagerMakeCutblInterface {
+
     @Override
     public ResultMessage insert(salePO po) {
         return null;
     }
 
     @Override
-    public ResultMessage find(String id) {
+    public ResultMessage delete(salePO po) {
         return null;
     }
 
     @Override
-    public ResultMessage delete(salePO po) {
+    public ResultMessage find(salePO po) {
         return null;
     }
 
