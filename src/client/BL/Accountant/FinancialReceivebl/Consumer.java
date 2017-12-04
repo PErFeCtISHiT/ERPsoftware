@@ -23,38 +23,48 @@ public  class Consumer {
         this.actualIN = new SimpleStringProperty(actualIN);
         this.duePay = new SimpleStringProperty(duePay);
     }
+    public Consumer( ) {
+        this.consumerID = new SimpleStringProperty();
+        this.consumerName = new SimpleStringProperty();
+        this.consumerLevel = new SimpleStringProperty();
+        this.staff = new SimpleStringProperty();
+        this.inOutGap = new SimpleStringProperty();
+        this.dueIN = new SimpleStringProperty();
+        this.actualIN = new SimpleStringProperty();
+        this.duePay = new SimpleStringProperty();
+    }
 
-//        public String getconsumerID() {return consumerID.get();}
-//
-//        public void setaccountID(String fName) {consumerID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
-//
-//        public String getaccountID() {return accountID.get();}
-//
-//        public void setaccountID(String fName) {accountID.set(fName);}
+        public String getconsumerID() {return consumerID.get();}
+
+        public void setconsumerID(String fName) {consumerID.set(fName);}
+
+        public String getconsumerName() {return consumerName.get();}
+
+        public void setconsumerName(String fName) {consumerName.set(fName);}
+
+        public String getconsumerLevel() {return consumerLevel.get();}
+
+        public void setconsumerLevel(String fName) {consumerLevel.set(fName);}
+
+        public String getstaff() {return staff.get();}
+
+        public void setstaff(String fName) {staff.set(fName);}
+
+        public String getinOutGap() {return inOutGap.get();}
+
+        public void setinOutGap(String fName) {inOutGap.set(fName);}
+
+        public String getdueIN() {return dueIN.get();}
+
+        public void setdueIN(String fName) {dueIN.set(fName);}
+
+        public String getactualIN() {return actualIN.get();}
+
+        public void setactualIN(String fName) {actualIN.set(fName);}
+
+        public String getduePay() {return duePay.get();}
+
+        public void setduePay(String fName) {duePay.set(fName);}
 
 
 }

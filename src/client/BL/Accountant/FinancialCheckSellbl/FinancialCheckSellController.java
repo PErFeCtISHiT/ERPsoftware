@@ -4,6 +4,7 @@ import client.BLservice.Accountant.FinancialCheckSellblservice.FinancialCheckSel
 import client.RMI.link;
 import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
+import server.Po.salePO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
 
 
     public List<Sale> show() throws RemoteException{
-
+        //link.getRemoteHelper().getSale().findAll()
         return null;
     }
 

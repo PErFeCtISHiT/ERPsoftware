@@ -1,7 +1,9 @@
 package client.Presentation.AccountantUI.BillFill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +27,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 public class PayBillUI extends Application {
 
     private final TableView<Account> accounttable = new TableView<>();
@@ -42,7 +47,10 @@ public class PayBillUI extends Application {
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
+    FinancialPayController payController = new FinancialPayController();
+
     public static void main(String[] args) {
+        link.linktoServer();
         launch(args);
     }
 
@@ -81,6 +89,13 @@ public class PayBillUI extends Application {
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
 
+
+        try {
+            ArrayList<Account> list =payController.getAllAccount();
+            accountdata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         accounttable.setItems(accountdata);
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
@@ -134,6 +149,14 @@ public class PayBillUI extends Application {
         DuePayCol.setMinWidth(100);
         DuePayCol.setCellValueFactory(
                 param -> param.getValue().duePay);
+
+        try {
+            ArrayList<Consumer> list =payController.getAllConsumer();
+            consumerdata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
         consumertable.setItems(consumerdata);
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
