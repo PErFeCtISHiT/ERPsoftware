@@ -13,6 +13,15 @@ public class moneyVO implements Serializable{
 	private String accoun;
 	private Double num;
 	private Double sumall;
+	private String moneyList;
+
+	public String getMoneyList() {
+		return moneyList;
+	}
+
+	public void setMoneyList(String moneyList) {
+		this.moneyList = moneyList;
+	}
 
 	public Double getKind() {
 		return kind;

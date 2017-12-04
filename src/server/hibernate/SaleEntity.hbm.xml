@@ -11,6 +11,12 @@
         <property name="kind">
             <column name="KIND" sql-type="number(*)" precision="2147483646" />
         </property>
+        <property name="consumer">
+            <column name="CONSUMER" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="operater">
+            <column name="OPERATER" sql-type="varchar2(20)" length="20" />
+        </property>
         <property name="lev">
             <column name="LEV" sql-type="number(*)" precision="2147483646" />
         </property>
@@ -24,7 +30,7 @@
             <column name="GOODSINLIST" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="goodsoutlist">
-            <column name="GOODSOUTLIST" sql-type="varchar2(20)" length="20" />
+            <column name="GOODSOUTLIST" sql-type="varchar2(20)" length="2000" />
         </property>
         <property name="presum">
             <column name="PRESUM" sql-type="number(*)" precision="2147483646" />

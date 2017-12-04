@@ -15,8 +15,26 @@ public class salePO implements Serializable{
 	private Double voucher;
 	private Double sumall;
 	private String dateandtime;
+	private String consumer;
+	private String operater;
 
-    public salePO() {
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
+	}
+
+	public String getOperater() {
+		return operater;
+	}
+
+	public void setOperater(String operater) {
+		this.operater = operater;
+	}
+
+	public salePO() {
 
     }
 

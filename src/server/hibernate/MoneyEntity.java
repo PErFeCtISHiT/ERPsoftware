@@ -37,7 +37,7 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 20)
+    @Column(name = "NOTE", nullable = true, length = 2000)
     public String getNote() {
         return note;
     }
@@ -97,7 +97,7 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "moneylist", nullable = true, length = 20)
+    @Column(name = "moneylist", nullable = true, length = 2000)
     public String getNum() {
         return moneyList;
     }

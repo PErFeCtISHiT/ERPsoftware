@@ -10,13 +10,25 @@ import javax.persistence.*;
 @Entity
 @Table(name = "MONEYLIST", schema = "PIS", catalog = "")
 public class MoneylistEntity {
+    private String keyid;
     private String keyno;
     private String accountname;
     private Double sumall;
     private String note;
 
     @Id
-    @Column(name = "KEYNO", nullable = false, length = 20)
+    @Column(name = "KEYID", nullable = false, length = 20)
+    public String getKeyid() {
+        return keyid;
+    }
+
+    public void setKeyid(String keyid) {
+        this.keyid = keyid;
+    }
+
+
+    @Basic
+    @Column(name = "KEYNO", nullable = true, length = 20)
     public String getKeyno() {
         return keyno;
     }
@@ -46,7 +58,7 @@ public class MoneylistEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 20)
+    @Column(name = "NOTE", nullable = true, length = 2000)
     public String getNote() {
         return note;
     }

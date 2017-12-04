@@ -13,6 +13,7 @@ public class moneyPO implements Serializable{
 	private String accoun;
 	private Double num;
 	private Double sumall;
+	private String moneyList;
 
     public moneyPO() {
 
@@ -48,6 +49,14 @@ public class moneyPO implements Serializable{
 
 	public void setOper(String oper) {
 		this.oper = oper;
+	}
+
+	public String getMoneyList() {
+		return moneyList;
+	}
+
+	public void setMoneyList(String moneyList) {
+		this.moneyList = moneyList;
 	}
 
 	public Double getIscheck() {

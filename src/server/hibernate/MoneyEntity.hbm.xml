@@ -12,7 +12,7 @@
             <column name="KIND" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="note">
-            <column name="NOTE" sql-type="varchar2(20)" length="20" />
+            <column name="NOTE" sql-type="varchar2(20)" length="2000" />
         </property>
         <property name="oper">
             <column name="OPER" sql-type="varchar2(20)" length="20"/>
@@ -30,7 +30,7 @@
             <column name="ACCOUN" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="num">
-            <column name="moneylist" sql-type="varchar2(20)" length="20"/>
+            <column name="moneylist" sql-type="varchar2(20)" length="2000"/>
         </property>
         <property name="sumall">
             <column name="SUMALL" sql-type="number(*)" precision="2147483646" />

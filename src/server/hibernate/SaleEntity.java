@@ -22,6 +22,8 @@ public class SaleEntity {
     private Double voucher;
     private Double sumall;
     private String dateandtime;
+    private String consumer;
+    private String operater;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -42,6 +44,27 @@ public class SaleEntity {
     public void setKind(Double kind) {
         this.kind = kind;
     }
+
+    @Basic
+    @Column(name = "CONSUMER", nullable = true, length = 20)
+    public String getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(String consumer) {
+        this.consumer = consumer;
+    }
+
+    @Basic
+    @Column(name = "OPERATER", nullable = true, length = 20)
+    public String getOperater() {
+        return operater;
+    }
+
+    public void setOperater(String operater) {
+        this.operater = operater;
+    }
+
 
     @Basic
     @Column(name = "LEV", nullable = true, precision = 0)
@@ -84,7 +107,7 @@ public class SaleEntity {
     }
 
     @Basic
-    @Column(name = "GOODSOUTLIST", nullable = true, length = 20)
+    @Column(name = "GOODSOUTLIST", nullable = true, length = 2000)
     public String getGoodsoutlist() {
         return goodsoutlist;
     }

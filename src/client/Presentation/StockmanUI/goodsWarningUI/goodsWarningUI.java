@@ -32,9 +32,9 @@ public class goodsWarningUI {
     *todo:单据编号，由日期加其他单据生成
     */
     final Label billNum = new Label ();
-    final TextField account = new TextField("");
-    final TextField worker = new TextField("");
-    final TextField money = new TextField("");
+    final Label name = new Label();
+    final Label num = new Label();
+    final Label warningnum = new Label();
     final TextArea text = new TextArea ("");
     Stage stage = new Stage();
 
@@ -76,9 +76,9 @@ public class goodsWarningUI {
         );
         StaffComboBox.setValue("A员工");
 
-        account.setTooltip(tooltipForAccount);
-        worker.setTooltip(tooltipForConsumer);
-        money.setTooltip(tooltipForMoney);
+        name.setText(goods.getKeyname());
+        num.setText(String.valueOf(goods.getNum()));
+        warningnum.setText(String.valueOf(goods.getWarningnum()));
 
         SummitButton.setOnAction((ActionEvent e) -> {
             if (TypeComboBox.getValue() != null &&
@@ -90,7 +90,6 @@ public class goodsWarningUI {
                         !AccountComboBox.getValue().toString().isEmpty()){
                     AccountComboBox.setValue(null);
                 }
-                money.clear();
                 text.clear();
             }
             else {
@@ -103,7 +102,6 @@ public class goodsWarningUI {
                     !TypeComboBox.getValue().toString().isEmpty()){
 
 
-                money.clear();
                 text.clear();
             }
             else {
@@ -121,15 +119,12 @@ public class goodsWarningUI {
         grid.add(billNum, 3, 0);
         grid.add(new Label("操作员："), 4, 0);
         grid.add(StaffComboBox, 5, 0);
-        grid.add(new Label("商品名称:"), 0, 2);
-        grid.add(account,1,1);
-        grid.add(new Label("库存:"), 2, 1);
-        grid.add(worker, 3, 1);
-        grid.add(new Label("警戒数量:"), 0, 1);
-        /**
-         *todo:商品名称，由上一级跳转
-         */
-        grid.add(new Label("shangping"), 1, 2, 3, 1);
+        grid.add(new Label("商品名称:"), 0, 1);
+        grid.add(name,1,1);
+        grid.add(new Label("库存:"), 0, 2);
+        grid.add(num, 1, 2);
+        grid.add(new Label("警戒数量:"), 2, 2);
+        grid.add(warningnum, 3, 2);
         grid.add(new Label("备注:"), 0, 3);
         grid.add(text, 1, 3, 4, 1);
         grid.add(DraftButton, 0, 4);

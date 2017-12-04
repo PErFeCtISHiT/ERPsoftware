@@ -24,7 +24,7 @@
             <column name="OPNO" sql-type="varchar2(20)" length="20" />
         </property>
         <property name="note">
-            <column name="NOTE" sql-type="varchar2(20)" length="20" />
+            <column name="NOTE" sql-type="varchar2(20)" length="2000" />
         </property>
         <property name="goodsname">
             <column name="GOODSNAME" sql-type="varchar2(20)" length="20" />

@@ -15,6 +15,24 @@ public class saleVO implements Serializable{
 	private Double voucher;
 	private Double sumall;
 	private String dateandtime;
+	private String consumer;
+	private String operater;
+
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
+	}
+
+	public String getOperater() {
+		return operater;
+	}
+
+	public void setOperater(String operater) {
+		this.operater = operater;
+	}
 
 	public String getDateandtime() {
 		return dateandtime;
