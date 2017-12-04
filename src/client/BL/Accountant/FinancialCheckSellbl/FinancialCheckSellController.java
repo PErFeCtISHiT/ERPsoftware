@@ -40,20 +40,24 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
     public ArrayList<Sale> show() throws RemoteException{//(List<salePO>)
         List<salePO> list = link.getRemoteHelper().getSale().findAll(16);
         ArrayList<Sale> salelist = new ArrayList<Sale>();
-        System.out.println(1);
+        //System.out.println(1);
         for (int i=0;i<list.size();i++){
             salePO salepo = list.get(i);
-            String keyno = salepo.getKeyno();
-            System.out.println(2);
             saleVO salevo = PoToVo(salepo);
-            List<goodsOutListPO> goodslistpo =link.getRemoteHelper().getSale().findbySaleVO(salevo);
-            System.out.println(3);
-            System.out.println(goodslistpo.size());
-            for (int j=0; j<goodslistpo.size();j++){
-                System.out.println("Test");
-                Sale newSale = PoToSale(salepo,goodslistpo.get(j));
-                System.out.println(newSale.saleTime);
-                salelist.add(newSale);
+            //System.out.println(2);
+            String[] str = salevo.getGoodsoutlist().split(",");
+            //System.out.println("The size is "+str.length);
+            for (int k=0;k<str.length;k++){
+                String keyno = str[k];
+                List<goodsOutListPO> goodslistpo =link.getRemoteHelper().getgoodsoutList().findbyNO(17,keyno);
+                //System.out.println(3);
+                //System.out.println(goodslistpo.size());
+                for (int j=0; j<goodslistpo.size();j++){
+                    //System.out.println("Test");
+                    Sale newSale = PoToSale(salepo,goodslistpo.get(j));
+                    //System.out.println(newSale.saleTime);
+                    salelist.add(newSale);
+                }
             }
         }
         return salelist;
@@ -70,13 +74,14 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
         double Price = goodslist.getPrice();
         String goodsPrice = String.valueOf(goodslist.getPrice());
         String totalSum = String.valueOf(Num*Price);
-        String consumer =null;
+
+        String consumer ="";
         String base =po.getBase();
-        String operater= null;
+        String operater= "";
 
         Sale sale= new Sale(saleTime,goodsName,goodsType,goodsNum,goodsPrice,totalSum,consumer,base,operater);
 
-        System.out.println(sale.saleTime);
+        //System.out.println(sale.saleTime);
 
         return sale;
     }
