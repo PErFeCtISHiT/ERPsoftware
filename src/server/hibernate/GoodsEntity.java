@@ -18,6 +18,7 @@ public class GoodsEntity {
     private Double batchno;
     private Time dat;
     private String kinds;
+    private Double warningnum;
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -137,6 +138,16 @@ public class GoodsEntity {
 
     public void setKinds(String kinds) {
         this.kinds = kinds;
+    }
+
+    @Basic
+    @Column(name = "WARNINGNUM", nullable = true, precision = 100)
+    public Double getWarningnum() {
+        return warningnum;
+    }
+
+    public void setWarningnum(Double warningnum) {
+        this.warningnum = warningnum;
     }
 
     @Override

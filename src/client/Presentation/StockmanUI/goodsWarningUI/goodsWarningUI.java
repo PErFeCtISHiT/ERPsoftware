@@ -1,6 +1,7 @@
 package client.Presentation.StockmanUI.goodsWarningUI;
 
 
+import client.Vo.goodsVO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -11,10 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class goodsWarningUI extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class goodsWarningUI {
+
 
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
@@ -27,6 +26,7 @@ public class goodsWarningUI extends Application {
     final TextField worker = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
+    Stage stage = new Stage();
 
     final Tooltip tooltipForAccount = new Tooltip("输入商品编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入商品数量");
@@ -34,7 +34,7 @@ public class goodsWarningUI extends Application {
 
     String address = " ";
 
-    @Override public void start(Stage stage) {
+     public void start(goodsVO goods) {
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 750, 450);
 

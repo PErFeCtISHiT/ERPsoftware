@@ -1,7 +1,11 @@
 package client.Presentation.AccountantUI.BillFill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
+import client.RMI.link;
+import client.Vo.coVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +21,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import server.Po.coPO;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReceiveBillUI extends Application {
 
@@ -35,7 +44,11 @@ public class ReceiveBillUI extends Application {
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
+    FinancialReceiveController receiveController  = new FinancialReceiveController();
+
+
     public static void main(String[] args) {
+        link.linktoServer();
         launch(args);
     }
 
@@ -72,6 +85,16 @@ public class ReceiveBillUI extends Application {
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
+
+
+        try {
+            ArrayList<Account> list =receiveController.getAllAccount();
+            accountdata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+
 
 
         accounttable.setItems(accountdata);
@@ -126,6 +149,15 @@ public class ReceiveBillUI extends Application {
         DuePayCol.setMinWidth(100);
         DuePayCol.setCellValueFactory(
                 param -> param.getValue().duePay);
+
+
+
+        try {
+            ArrayList<Consumer> list =receiveController.getAllConsumer();
+            consumerdata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         consumertable.setItems(consumerdata);
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
@@ -163,25 +195,3 @@ public class ReceiveBillUI extends Application {
 
 }
 
-
-//    final Button addButton = new Button("Add");
-//        addButton.setOnAction((ActionEvent e) -> {
-//                Account newaccount = new Account(
-//                addFirstName.getText(),
-//                addLastName.getText(),
-//                addEmail.getText());
-//                data.add(newaccount);
-//                coVO co = new coVO();
-//                co.setKeyname(newaccount.getaccountName());
-//                co.setSumall(Long.parseLong(newaccount.getmoney()));
-//                //co.setSumall((long) 500);
-//                FinancialAccountController financialAccountController = new FinancialAccountController();
-//                try {
-//                financialAccountController.addAccount(co);
-//                } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//                }
-//                addFirstName.clear();
-//                addLastName.clear();
-//                addEmail.clear();
-//                });

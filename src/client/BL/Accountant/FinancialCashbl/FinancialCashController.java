@@ -1,28 +1,26 @@
-package client.BL.Accountant.FinancialReceivebl;
+package client.BL.Accountant.FinancialCashbl;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
-import client.BLservice.Accountant.FinancialReceiveblservice.FinancialReceiveInterface;
+import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BLservice.Accountant.FinancialMoneyblservice.FinancialMoneyInterface;
 import client.RMI.link;
 import client.Vo.coVO;
 import client.Vo.moneyVO;
 import server.Po.coPO;
 import server.Po.consumerPO;
-import server.Po.moneyPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FinancialReceiveController implements FinancialReceiveInterface {
-
+public class FinancialCashController implements FinancialMoneyInterface{
 
     FinancialAccountController Accountcontroller  = new FinancialAccountController();
 
-
-
     @Override
-    public ResultMessage getReceiveID(){
+    public ResultMessage getMoneyID(){
         return null;
     }
 
@@ -40,6 +38,12 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public moneyVO summit(){
         return null;
     }
+
+    @Override
+    public ResultMessage getSum(){
+        return null;
+    }
+
 
     @Override
     public ArrayList<Account> getAllAccount() throws RemoteException {
@@ -83,7 +87,5 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         con.setduePay(String.valueOf(po.getCapacit()));
         return con;
     }
-
-
 
 }

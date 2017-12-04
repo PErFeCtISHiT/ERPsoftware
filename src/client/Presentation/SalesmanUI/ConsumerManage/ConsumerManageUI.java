@@ -34,7 +34,7 @@ public class ConsumerManageUI extends Application {
                     new Consumer("a","b","c","d","e","f","g","h","i","j","k","l","m"),
                     new Consumer("A","B","C","D","E","F","G","H","I","J","K","L","M")
             );
-    final HBox hb=new HBox();
+    final HBox hb = new HBox();
 
     public static void main(String[] args){
         link.linktoServer();
