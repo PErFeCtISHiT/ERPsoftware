@@ -2,6 +2,7 @@ package client.Presentation.AccountantUI.BillFill;
 
 
 import client.BL.Accountant.FinancialReceivebl.TransferList;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.util.Callback;
 
 public class FillMoneyBill extends Application {
     public static void main(String[] args) {
+        link.linktoServer();
         launch(args);
     }
 
