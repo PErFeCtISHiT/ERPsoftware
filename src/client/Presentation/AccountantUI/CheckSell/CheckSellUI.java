@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckSellUI extends Application {
@@ -38,7 +39,7 @@ public class CheckSellUI extends Application {
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
-        //link.getRemoteHelper();
+        link.linktoServer();
         launch(args);
     }
 
@@ -139,16 +140,12 @@ public class CheckSellUI extends Application {
 /////////////////////////////////////////////////////////////////////开始的数据获取
 
         try {
-            List<Sale> list =controller.show();
-            for (int i=0;i<list.size();i++){
-                data.add(list.get(i));
-            }
+            System.out.println(0);
+            ArrayList<Sale> list =controller.show();
+            data.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
-
-
 
         table.setItems(data);
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol,DetailCol);
