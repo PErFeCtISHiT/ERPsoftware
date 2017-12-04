@@ -1,7 +1,9 @@
 package client.BL.Accountant.FinancialReceivebl;
 
+import client.RMI.link;
 import client.Vo.moneyVO;
 import client.Vo.moneylistVO;
+import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -22,44 +24,45 @@ public class FinancialBill {
 
     private double sum;
 
-    private moneyVO vo;
+    public FinancialBill(String ID, String Billtype, String operater, String consumerType,
+                         String consumerID, ArrayList<MoneyList> moneyList, double sum){
 
-    public FinancialBill(){
 
-        try {
-            this.ID = this.getID();
-            this.Billtype = this.getBillType();
-            this.operater= this.getOperater();
-            this.consumerType= this.getConsumerType();
-            this.moneyList = this.getMoneyList();
-            for (int i=0;i<moneyList.size();i++){
-                moneyList.get(i).setlistNO(ID);
-            }
-            this.sum = this.getSum();
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        this.ID = ID;
+        this.Billtype = Billtype;
+        this.operater= operater;
+        this.consumerType= consumerType;
+        this.consumerID = consumerID;
+        this.moneyList = moneyList;
+        for (int i=0;i<moneyList.size();i++){
+            moneyList.get(i).setlistNO(ID);
         }
-
+        this.sum = sum;
 
     }
 
     public String getID() throws RemoteException{
-        //data.getID
-        //return link.getRemoteHelper().getMoneyBill().getID();
         return null;
     }
 
-//    public String setID(String ID) throws RemoteException{
-//
-//    }
+    public void setID(String ID) throws RemoteException{
+        this.ID = ID;
+    }
 
     public  String getBillType() throws RemoteException{
         return null;
     }
 
+    public void setBilltype(String billtype) throws RemoteException{
+        this.Billtype =billtype;
+    }
+
     public String getOperater() throws RemoteException{
         return null;
+    }
+
+    public void setOperater(String operater) throws RemoteException{
+        this.operater = operater;
     }
 
 
@@ -67,28 +70,34 @@ public class FinancialBill {
         return null;
     }
 
+    public void setConsumerType(String consumerType) throws RemoteException{
+        this.consumerType = consumerType;
+    }
+
     public String getConsumerID() throws  RemoteException{
         return null;
     }
 
+    public void setConsumerID(String consumerID) throws RemoteException{
+        this.consumerID = consumerID;
+    }
+
+
     public ArrayList<MoneyList> getMoneyList() throws RemoteException{
         return null;
+    }
+
+    public void setMoneyList(ArrayList<MoneyList> moneyList) throws RemoteException{
+        this.moneyList = moneyList;
     }
 
     public Double getSum() throws RemoteException{
         return null;
     }
 
-    public moneyVO summit() throws RemoteException{
-        //data.insert
-        return null;
+    public void setSum(double sum) throws RemoteException{
+
+        this.sum = sum;
     }
-
-    public moneyVO saveAsDraft() throws RemoteException{
-
-        return null;
-    }
-
-
 
 }
