@@ -4,8 +4,6 @@ import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,18 +11,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CheckSellUI extends Application {
 

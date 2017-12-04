@@ -1,9 +1,10 @@
 package client.BL.Accountant.FinancialReceivebl;
 
-import client.RMI.link;
 import client.Vo.moneyVO;
+import client.Vo.moneylistVO;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class FinancialBill {
 
@@ -11,7 +12,13 @@ public class FinancialBill {
 
     private String type;
 
-    private TransferList list = new TransferList();
+    private String operater;
+
+    private String consumerType;
+
+    private String consumerID;
+
+    private ArrayList<moneylistVO> moneyList;
 
     private double sum;
 
@@ -29,13 +36,18 @@ public class FinancialBill {
         //data.getID
         //return link.getRemoteHelper().getMoneyBill().getID();
         return null;
-
     }
 
     public moneyVO summit() throws RemoteException{
         //data.insert
         return null;
     }
+
+    public moneyVO saveAsDraft() throws RemoteException{
+
+        return null;
+    }
+
 
 
 }
