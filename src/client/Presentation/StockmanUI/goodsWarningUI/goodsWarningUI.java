@@ -1,6 +1,8 @@
 package client.Presentation.StockmanUI.goodsWarningUI;
 
 
+import client.Presentation.NOgenerator.NOgenerator;
+import client.RMI.link;
 import client.Vo.goodsVO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,6 +13,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import server.Po.WarningPO;
+
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class goodsWarningUI {
 
@@ -34,7 +44,12 @@ public class goodsWarningUI {
 
     String address = " ";
 
-     public void start(goodsVO goods) {
+     public void start(goodsVO goods) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+         String nostr = NOgenerator.generate(9);
+         String type = "KCBJD";
+         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+         billNum.setText(type + "-" + df.format(new Date()) + "-" + nostr);
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 750, 450);
 

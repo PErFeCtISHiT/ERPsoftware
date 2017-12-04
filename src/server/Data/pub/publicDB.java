@@ -17,7 +17,7 @@ import java.util.List;
  * @date: create in 13:53 2017/11/26
  */
 public class publicDB implements pub {
-    private hibtools hib = new hibtools();
+    private static hibtools hib = new hibtools();
     private Object obj;
     private String hql;
     private Object po;
@@ -30,7 +30,6 @@ public class publicDB implements pub {
     @Override
     public ResultMessage addObject(Object object,int type) {
         generate(type);
-
         copyclass.copy(object,obj);
         return hib.Save(obj);
     }
@@ -183,6 +182,18 @@ public class publicDB implements pub {
                 obj = new UseEntity();
                 po = new userPO();
                 hql = "from UseEntity ";
+                break;
+            }
+            case 16:{
+                obj = new SaleEntity();
+                po = new salePO();
+                hql = "from SaleEntity ";
+                break;
+            }
+            case 17:{
+                obj = new GoodsoutlistEntity();
+                po = new goodsOutListPO();
+                hql = "from GoodsoutlistEntity ";
                 break;
             }
         }

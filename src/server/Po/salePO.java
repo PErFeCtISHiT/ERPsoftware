@@ -16,7 +16,11 @@ public class salePO implements Serializable{
 	private Double sumall;
 	private String dateandtime;
 
-	public String getKeyno() {
+    public salePO() {
+
+    }
+
+    public String getKeyno() {
 		return keyno;
 	}
 

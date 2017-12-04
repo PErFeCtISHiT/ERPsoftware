@@ -1,6 +1,10 @@
 package server.Dataservice.Financedataservice;
 
+import client.Vo.saleVO;
 import server.Dataservice.pubservice.pub;
+
+import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * @author: pis
@@ -8,4 +12,5 @@ import server.Dataservice.pubservice.pub;
  * @date: create in 21:27 2017/12/3
  */
 public interface sale extends pub {
+    public List findbySaleVO(saleVO saleVO) throws RemoteException;
 }

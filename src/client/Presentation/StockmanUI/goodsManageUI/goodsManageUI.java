@@ -27,6 +27,8 @@ import javafx.util.Callback;
 import server.Po.goodsPO;
 import shared.praseDouble;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class goodsManageUI {
                     String.valueOf(i.getOutprice()),
                     String.valueOf(i.getReceprice()),
                     String.valueOf(i.getReceoutprice()),
-                    "100");
+                    String.valueOf(i.getWarningnum()));
             data.add(newgoods);
 
         }
@@ -261,12 +263,23 @@ public class goodsManageUI {
 
                     if (!empty) {
                             goodsVO goodsVO = createGoodsVO(this);
-
                         Button warninglBtn = new Button("报警");
+                        if(goodsVO.getWarningnum() < goodsVO.getNum())
+                            warninglBtn.setDisable(true);
                         this.setGraphic(warninglBtn);
                         warninglBtn.setOnMouseClicked((me) -> {
                             goodsWarningUI goodsWarningUI = new goodsWarningUI();
-                           goodsWarningUI.start(goodsVO);
+                            try {
+                                goodsWarningUI.start(goodsVO);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (IntrospectionException e) {
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
                         });
                     }
                 }

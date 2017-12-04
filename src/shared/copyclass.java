@@ -6,6 +6,11 @@ import java.beans.PropertyDescriptor;
 import java.util.List;
 
 public class copyclass {
+    /**
+    *@author:pis
+    *@description: 类的复制
+    *@date: 11:15 2017/12/4
+    */
     public static void copy(Object from,Object to){
         try {
 
