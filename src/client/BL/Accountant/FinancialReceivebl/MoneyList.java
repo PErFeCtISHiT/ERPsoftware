@@ -4,13 +4,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class MoneyList {
 
+    public final SimpleStringProperty keyid;
     public final SimpleStringProperty listNO;
     public final SimpleStringProperty account;
     public final SimpleStringProperty money;
     public final SimpleStringProperty comment;
 
 
-    public MoneyList(String listNO, String account, String money, String comment) {
+    public MoneyList(String keyid, String listNO, String account, String money, String comment) {
+        this.keyid = new SimpleStringProperty(keyid);
         this.listNO= new SimpleStringProperty(listNO);
         this.account = new SimpleStringProperty(account);
         this.money = new SimpleStringProperty(money);
@@ -18,10 +20,20 @@ public class MoneyList {
     }
 
     public MoneyList() {
+        this.keyid= new SimpleStringProperty();
         this.listNO= new SimpleStringProperty();
         this.account = new SimpleStringProperty();
         this.money = new SimpleStringProperty();
         this.comment = new SimpleStringProperty();
+    }
+
+
+    public String getkeyid() {
+        return keyid.get();
+    }
+
+    public void setKeyid(String fName) {
+        keyid.set(fName);
     }
 
     public String getlistNO() {
