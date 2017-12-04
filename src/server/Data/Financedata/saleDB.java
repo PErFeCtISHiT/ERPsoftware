@@ -22,7 +22,7 @@ public class saleDB extends publicDB implements sale {
         String[] str;
         List<goodsOutListPO> ret = new ArrayList<>();
         if(saleVO.getKind() == 0){//入库类sale
-            str = saleVO.getGoodsinlist().split(",");
+            str = saleVO.getGoodsoutlist().split(",");
 
         }
         else//出库类sale

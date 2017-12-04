@@ -130,7 +130,7 @@ public class saleVO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public saleVO(String keyno, Double kind, Double lev, String accoun, String base, String goodsinlist, String goodsoutlist, Double presum, Double cut, Double voucher, Double sumall) {
+	public saleVO(String keyno, Double kind, Double lev, String accoun, String base, String goodsinlist, String goodsoutlist, Double presum, Double cut, Double voucher, Double sumall,String dateandtime) {
 
 		this.keyno = keyno;
 		this.kind = kind;
@@ -143,5 +143,6 @@ public class saleVO implements Serializable{
 		this.cut = cut;
 		this.voucher = voucher;
 		this.sumall = sumall;
+		this.dateandtime=dateandtime;
 	}
 }
