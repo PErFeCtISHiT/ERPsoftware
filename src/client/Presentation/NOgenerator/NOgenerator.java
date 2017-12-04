@@ -8,7 +8,9 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +50,8 @@ public class NOgenerator {
             while (no.length() < 5)
                 no.insert(0, "0");
         }
-        return no.toString();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        return df.format(new Date()) + "-" + no.toString();
     }
 }

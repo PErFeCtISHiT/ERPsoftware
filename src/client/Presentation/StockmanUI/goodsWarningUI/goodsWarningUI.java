@@ -47,9 +47,8 @@ public class goodsWarningUI {
      public void start(goodsVO goods) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
          String nostr = NOgenerator.generate(9);
          String type = "KCBJD";
-         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 
-         billNum.setText(type + "-" + df.format(new Date()) + "-" + nostr);
+         billNum.setText(type + "-" + nostr);
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 750, 450);
 

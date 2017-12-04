@@ -154,8 +154,7 @@ public class goodsKindsManageUI extends Application{
         goodskindsPO goodskindsPO = new goodskindsPO();
         String no = NOgenerator.generate(1);
         String type = "SPFL";
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-        goodskindsPO.setKeyno(type + "-" + df.format(new Date()) + "-" + no);
+        goodskindsPO.setKeyno(type + "-" + no);
         goodskindsPO.setKeyname(text);
         String father = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
 
