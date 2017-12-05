@@ -21,20 +21,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
 
 
-
-    
-
-    @Override
-    public ResultMessage getReceiveID(){
-        return null;
-    }
-
-    @Override
-    public moneyVO find(String iD){
-        return null;
-    }
-
-
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
@@ -63,17 +49,74 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
+
+
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
-//        link.getRemoteHelper().getmoneyList().addObject()
+       for (int i=0; i< moneyLists.size();i++){
+           link.getRemoteHelper().getmoneyList().addObject(moneyLists.get(i),18);
+       }
+    }
+
+    @Override
+    public void ReEditBill(String Keyno) throws RemoteException{
 
 
 
     }
 
 
+    @Override
+    public ArrayList<AccountBill> getAllDraftReceive() throws RemoteException{
+        List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
+        ArrayList<moneyPO> DraftReceivePO = PickDraftReceive(moneyPOList);
+        ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+
+        for (int i=0; i<DraftReceivePO.size();i++){
+            accountBills.add(PoToAccountBill(DraftReceivePO.get(i)));
+        }
+
+        return accountBills;
+    }
+    @Override
+    public AccountBill PoToAccountBill(moneyPO po) throws RemoteException{
+        AccountBill bill = new AccountBill();
+
+        if (po.getKind()==0.0){
+           bill.setKind("收款单");
+        }
+        else if (po.getKind() ==1.0){
+            bill.setKind("付款单");
+        }
+        else {
+            bill.setKind("现金费用单");
+        }
+        bill.setKeyno(po.getKeyno());
+        bill.setConsumertype(po.getConsumertype());
+        bill.setOper(po.getOper());
+        bill.setConsumer(po.getConsumer());
+        bill.setAccoun(po.getAccoun());
+        bill.setMoneyList(po.getMoneyList());
+
+        bill.setIscheck(String.valueOf(po.getIscheck()));
+        bill.setIsDraft(String.valueOf(po.getIsDraft()));
+        bill.setIsred(String.valueOf(po.getIsred()));
+        bill.setSumall(String.valueOf(po.getSumall()));
+
+        return bill;
+    }
 
 
+    @Override
+    public ArrayList<moneyPO> PickDraftReceive(List<moneyPO> pos) throws RemoteException{
+        ArrayList<moneyPO> draftReceive = new ArrayList<moneyPO>();
+        for(int i=0;i<pos.size();i++){
+            if (pos.get(i).getKind()==0.0&&pos.get(i).getIsDraft()==1.0){
+                draftReceive.add(pos.get(i));
+            }
+        }
+        return draftReceive;
+    }
 
     @Override
     public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException {

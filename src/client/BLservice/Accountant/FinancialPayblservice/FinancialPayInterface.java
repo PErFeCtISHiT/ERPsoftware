@@ -1,28 +1,42 @@
 package client.BLservice.Accountant.FinancialPayblservice;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BL.Accountant.FinancialReceivebl.FinancialBill;
+import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.Vo.moneyVO;
+import server.Po.coPO;
 import server.Po.consumerPO;
+import server.Po.moneyPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FinancialPayInterface {
 
+    public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
-    ResultMessage getPayID();
+    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
 
-    moneyVO find(String iD);
+    public void ReEditBill(String Keyno) throws RemoteException;
 
-    ResultMessage addBill(moneyVO vo);
+    public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException;
 
-    moneyVO summit();
+    public ArrayList<AccountBill> getAllDraftPay() throws RemoteException;
 
-    ArrayList<Account> getAllAccount() throws RemoteException;
+    public AccountBill PoToAccountBill(moneyPO po) throws RemoteException;
 
-    ArrayList<Consumer> getAllConsumer() throws RemoteException;
+    public ArrayList<moneyPO> PickDraftPay(List<moneyPO> pos) throws RemoteException;
 
-    Consumer PoToConsumer(consumerPO po) throws RemoteException;
+    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
+
+    public ArrayList<Account> getAllAccount() throws RemoteException;
+
+    public ArrayList<Consumer> getAllConsumer() throws RemoteException;
+
+    public Consumer PoToConsumer(consumerPO po) throws RemoteException;
+
 }

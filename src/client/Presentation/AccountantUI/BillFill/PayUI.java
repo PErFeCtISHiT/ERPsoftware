@@ -2,35 +2,32 @@ package client.Presentation.AccountantUI.BillFill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialPaybl.FinancialPayController;
+import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class PayBillUI extends Application {
+public class PayUI extends Application {
+
+    final String[] imageNames = new String[]{"账户列表", "客户列表", "付款单草稿"};
+    final TitledPane[] tps = new TitledPane[imageNames.length];
+    final TableView[] table = new TableView[3];
+
+
 
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
@@ -43,53 +40,42 @@ public class PayBillUI extends Application {
                     new Consumer("A", "B", "C","A", "B", "C","B", "C"),
                     new Consumer("b", "B", "C","A", "B", "C","B", "C"));
 
+    private final TableView<AccountBill> draftbilltable = new TableView<>();
+    private final ObservableList<AccountBill> draftbilldata =
+            FXCollections.observableArrayList();
+
     final HBox hb = new HBox();
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
-    FinancialPayController payController = new FinancialPayController();
+    FinancialPayController payController  = new FinancialPayController();
 
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("制定付款单");
-        stage.setWidth(1300);
-        stage.setHeight(850);
+    @Override public void start(Stage stage) {
+        stage.setTitle("TitledPane");
+        Scene scene = new Scene(new Group(), 800, 250);
 
-        final Label accountlabel = new Label("账户列表");
-        accountlabel.setFont(new Font("Arial", 20));
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
-
         TableColumn<Account, String> IDCol =
                 new TableColumn<>("账户编号");
         TableColumn<Account, String> NameCol =
                 new TableColumn<>("账户名称");
         TableColumn<Account, String> MoneyCol =
                 new TableColumn<>("账户余额");
-
-
-
         IDCol.setMinWidth(100);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
-
-
-
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
-
-
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
-
-
         try {
             ArrayList<Account> list =payController.getAllAccount();
             accountdata.addAll(list);
@@ -100,15 +86,7 @@ public class PayBillUI extends Application {
         accounttable.setItems(accountdata);
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
 
-        vb1.setSpacing(5);
-        vb1.setPadding(new Insets(10, 0, 0, 10));
-        vb1.getChildren().addAll(accountlabel,  accounttable);
-
-
-
-        final Label consumerlabel = new Label("客户列表");
-        consumerlabel.setFont(new Font("Arial", 20));
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
         TableColumn<Consumer, String> ConsumerIDCol =
                 new TableColumn<>("客户编号");
         ConsumerIDCol.setMinWidth(100);
@@ -156,46 +134,87 @@ public class PayBillUI extends Application {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
         consumertable.setItems(consumerdata);
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
-        final Button BillButton = new Button("生成付款单");
-        BillButton.setOnAction((ActionEvent e) -> {
+        TableColumn<AccountBill, String> BillIDCol =
+                new TableColumn<>("单据编号");
+        TableColumn<AccountBill, String> BillTypeCol =
+                new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillEditCol =
+                new TableColumn<>("编辑单据");
+        BillIDCol.setMinWidth(100);
+        BillIDCol.setCellValueFactory(
+                param -> param.getValue().keyno);
+        BillTypeCol.setMinWidth(100);
+        BillTypeCol.setCellValueFactory(
+                param -> param.getValue().kind);
+        BillEditCol.setMinWidth(200);
+        BillEditCol.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button editBtn = new Button("编辑付款单");
+                        this.setGraphic(editBtn);
+                        editBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
 
+                            try {
+                                payController.ReEditBill(keyno);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
         });
-        final Button OutputButton = new Button("导出单据");
-        OutputButton.setOnAction((ActionEvent e) -> {
-
-        });
-
-        final HBox hb1= new HBox();
-        hb1.setSpacing(5);
-        hb1.setPadding(new Insets(10, 0, 0, 10));
-        hb1.getChildren().addAll(BillButton,OutputButton);
 
 
-        vb2.setSpacing(5);
-        vb2.setPadding(new Insets(10, 0, 0, 10));
-        vb2.getChildren().addAll(consumerlabel,  consumertable,hb1);
+        try {
+            ArrayList<AccountBill> list =payController.getAllDraftPay();
+            draftbilldata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        draftbilltable.setItems(draftbilldata);
+        draftbilltable.getColumns().addAll(BillIDCol,BillTypeCol,BillEditCol);
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+        table[0] = accounttable;
+        table[1] = consumertable;
+        table[2] = draftbilltable;
+        // --- Accordion
+        final Accordion accordion = new Accordion ();
+        for (int i = 0; i < imageNames.length; i++) {
+            tps[i] = new TitledPane(imageNames[i],table[i]);
+        }
 
+        accordion.getPanes().addAll(tps);
+        final Button refresh = new Button("刷新列表");
+        final Button newBill = new Button("新建收款单");
 
+        HBox hbox = new HBox(10);
+        hbox.setPadding(new Insets(20, 0, 0, 20));
+        hbox.getChildren().setAll(refresh,newBill);
 
+        VBox vb = new VBox();
+        vb.getChildren().setAll(accordion,hbox);
 
-        hb.setSpacing(5);
-        hb.setPadding(new Insets(10, 0, 0, 10));
-        hb.getChildren().addAll(vb1,  vb2);
-
-        ((Group) scene.getRoot()).getChildren().addAll(hb);
-
+        Group root = (Group)scene.getRoot();
+        root.getChildren().add(vb);
         stage.setScene(scene);
         stage.show();
     }
-
-
-
-
 }
+
+
+

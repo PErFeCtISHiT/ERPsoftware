@@ -1,6 +1,7 @@
 package client.BLservice.Accountant.FinancialReceiveblservice;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
@@ -16,15 +17,19 @@ import java.util.List;
 
 public interface FinancialReceiveInterface {
 
-    public ResultMessage getReceiveID();
-
-    public moneyVO find(String iD);
-
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
     public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
 
+    public void ReEditBill(String Keyno) throws RemoteException;
+
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException;
+
+    public ArrayList<AccountBill> getAllDraftReceive() throws RemoteException;
+
+    public AccountBill PoToAccountBill(moneyPO po) throws RemoteException;
+
+    public ArrayList<moneyPO> PickDraftReceive(List<moneyPO> pos) throws RemoteException;
 
     public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
 

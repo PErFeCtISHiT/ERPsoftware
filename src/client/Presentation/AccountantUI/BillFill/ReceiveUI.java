@@ -22,9 +22,9 @@ import java.util.ArrayList;
 
 public class ReceiveUI extends Application {
 
-    final String[] imageNames = new String[]{"Apples", "Flowers", "Leaves"};
+    final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
-    final TableView[] table = new TableView[4];
+    final TableView[] table = new TableView[5];
 
 
 
@@ -43,8 +43,12 @@ public class ReceiveUI extends Application {
     private final ObservableList<AccountBill> draftbilldata =
             FXCollections.observableArrayList();
 
-    private final TableView<AccountBill> underpromotedbilltable = new TableView<>();
-    private final ObservableList<AccountBill> underpromotedbilldata =
+    private final TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
+    private final ObservableList<AccountBill> UnderPromotionbilldata =
+            FXCollections.observableArrayList();
+
+    private final TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
+    private final ObservableList<AccountBill> AlreadyPromotionbilldata =
             FXCollections.observableArrayList();
 
 
@@ -149,7 +153,7 @@ public class ReceiveUI extends Application {
         TableColumn<AccountBill, String> BillTypeCol =
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillEditCol =
-                new TableColumn<>("");
+                new TableColumn<>("编辑单据");
         BillIDCol.setMinWidth(100);
         BillIDCol.setCellValueFactory(
                 param -> param.getValue().keyno);
@@ -163,12 +167,15 @@ public class ReceiveUI extends Application {
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {
-                        Button editBtn = new Button("编辑");
+                        Button editBtn = new Button("编辑收款单");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
-
-                            /////////
+                            try {
+                                receiveController.ReEditBill(keyno);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
 
                         });
                     }
@@ -179,24 +186,54 @@ public class ReceiveUI extends Application {
         });
 
 
+        try {
+            ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
+            draftbilldata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        draftbilltable.setItems(draftbilldata);
+        draftbilltable.getColumns().addAll(BillIDCol,BillTypeCol,BillEditCol);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        AlreadyPromotionbilltable.setItems(AlreadyPromotionbilldata);
+        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+        UnderPromotionbilltable.setItems(UnderPromotionbilldata);
+        UnderPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
         table[0] = accounttable;
         table[1] = consumertable;
+        table[2] = draftbilltable;
+        table[3] = AlreadyPromotionbilltable;
+        table[4] = UnderPromotionbilltable;
         // --- Accordion
         final Accordion accordion = new Accordion ();
         for (int i = 0; i < imageNames.length; i++) {
             tps[i] = new TitledPane(imageNames[i],table[i]);
         }
-
         accordion.getPanes().addAll(tps);
+
+        final Button refresh = new Button("刷新列表");
+        final Button newBill = new Button("新建收款单");
 
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(20, 0, 0, 20));
-        hbox.getChildren().setAll(accordion);
+        hbox.getChildren().setAll(refresh,newBill);
+
+        VBox vb = new VBox();
+        vb.getChildren().setAll(accordion,hbox);
 
         Group root = (Group)scene.getRoot();
-        root.getChildren().add(hbox);
+        root.getChildren().add(vb);
         stage.setScene(scene);
         stage.show();
     }
