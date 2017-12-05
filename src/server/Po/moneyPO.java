@@ -110,13 +110,14 @@ public class moneyPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double sumall) {
+	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, Double isDraft, String consumer, String accoun, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;
 		this.oper = oper;
 		this.ischeck = ischeck;
 		this.isred = isred;
+		this.isDraft = isDraft;
 		this.consumer = consumer;
 		this.accoun = accoun;
 		this.sumall = sumall;
