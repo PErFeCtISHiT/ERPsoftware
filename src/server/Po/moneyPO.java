@@ -15,16 +15,6 @@ public class moneyPO implements Serializable{
 	private Double sumall;
 	private String moneyList;
 
-	private Double isDraft;
-
-	public Double getIsDraft() {
-		return isDraft;
-	}
-
-	public void setIsDraft(Double isDraft) {
-		this.isDraft = isDraft;
-	}
-
     public moneyPO() {
 
     }
@@ -119,13 +109,14 @@ public class moneyPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double sumall) {
+	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, Double isDraft, String consumer, String accoun, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;
 		this.oper = oper;
 		this.ischeck = ischeck;
 		this.isred = isred;
+		this.isDraft = isDraft;
 		this.consumer = consumer;
 		this.accoun = accoun;
 		this.sumall = sumall;

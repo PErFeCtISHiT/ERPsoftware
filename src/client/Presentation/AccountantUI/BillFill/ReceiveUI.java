@@ -1,33 +1,35 @@
 package client.Presentation.AccountantUI.BillFill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
-import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.RMI.link;
-import client.Vo.coVO;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import server.Po.coPO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ReceiveBillUI extends Application {
+public class ReceiveUI extends Application {
+
+    final String[] imageNames = new String[]{"Apples", "Flowers", "Leaves"};
+    final TitledPane[] tps = new TitledPane[imageNames.length];
+    final TableView[] table = new TableView[4];
+    final Label label = new Label("N/A");
+
+
 
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
@@ -46,22 +48,16 @@ public class ReceiveBillUI extends Application {
 
     FinancialReceiveController receiveController  = new FinancialReceiveController();
 
-
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("制定收款单");
-        stage.setWidth(1300);
-        stage.setHeight(850);
+    @Override public void start(Stage stage) {
+        stage.setTitle("TitledPane");
+        Scene scene = new Scene(new Group(), 800, 250);
 
-        final Label accountlabel = new Label("账户列表");
-        accountlabel.setFont(new Font("Arial", 20));
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
         TableColumn<Account, String> IDCol =
                 new TableColumn<>("账户编号");
@@ -88,15 +84,7 @@ public class ReceiveBillUI extends Application {
         accounttable.setItems(accountdata);
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
 
-        vb1.setSpacing(5);
-        vb1.setPadding(new Insets(10, 0, 0, 10));
-        vb1.getChildren().addAll(accountlabel,  accounttable);
-
-
-
-        final Label consumerlabel = new Label("客户列表");
-        consumerlabel.setFont(new Font("Arial", 20));
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
         TableColumn<Consumer, String> ConsumerIDCol =
                 new TableColumn<>("客户编号");
         ConsumerIDCol.setMinWidth(100);
@@ -138,8 +126,6 @@ public class ReceiveBillUI extends Application {
         DuePayCol.setCellValueFactory(
                 param -> param.getValue().duePay);
 
-
-
         try {
             ArrayList<Consumer> list =receiveController.getAllConsumer();
             consumerdata.addAll(list);
@@ -149,37 +135,47 @@ public class ReceiveBillUI extends Application {
         consumertable.setItems(consumerdata);
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
+////////////////////////////////////////////////////////////////////////////////////////////
 
-        final Button BillButton = new Button("生成收款单");
-        BillButton.setOnAction((ActionEvent e) -> {
 
+
+
+
+
+        // --- GridPane container
+        TitledPane gridTitlePane = new TitledPane();
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.add(new Label("To: "), 0, 0);
+        grid.add(new TableView<>(), 1, 0);
+//        grid.add(new TextField(), 1, 0);
+//        grid.add(new Label("Attachment: "), 0, 3);
+//        grid.add(label,1, 3);
+        gridTitlePane.setText("Grid");
+        gridTitlePane.setContent(grid);
+
+        // --- Accordion
+        final Accordion accordion = new Accordion ();
+        for (int i = 0; i < imageNames.length; i++) {
+            tps[i] = new TitledPane(imageNames[i],table[i]);
+        }
+
+        accordion.getPanes().addAll(tps);
+        accordion.expandedPaneProperty().addListener(
+                (ObservableValue<? extends TitledPane> ov, TitledPane old_val, TitledPane new_val) -> {
+                    if (new_val != null) {
+                        label.setText(accordion.getExpandedPane().getText() );
+                }
         });
-        final Button OutputButton = new Button("导出单据");
-        OutputButton.setOnAction((ActionEvent e) -> {
 
-        });
+        HBox hbox = new HBox(10);
+        hbox.setPadding(new Insets(20, 0, 0, 20));
+        hbox.getChildren().setAll(gridTitlePane, accordion);
 
-        final HBox hb1= new HBox();
-        hb1.setSpacing(5);
-        hb1.setPadding(new Insets(10, 0, 0, 10));
-        hb1.getChildren().addAll(BillButton,OutputButton);
-
-
-        vb2.setSpacing(5);
-        vb2.setPadding(new Insets(10, 0, 0, 10));
-        vb2.getChildren().addAll(consumerlabel,  consumertable,hb1);
-
-
-        hb.setSpacing(5);
-        hb.setPadding(new Insets(10, 0, 0, 10));
-        hb.getChildren().addAll(vb1,  vb2);
-
-        ((Group) scene.getRoot()).getChildren().addAll(hb);
-
+        Group root = (Group)scene.getRoot();
+        root.getChildren().add(hbox);
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
-
