@@ -196,6 +196,11 @@ public class publicDB implements pub {
                 hql = "from GoodsoutlistEntity ";
                 break;
             }
+            case 18:{
+                obj = new MoneylistEntity();
+                po = new moneyListPO();
+                hql = "from MoneylistEntity ";
+            }
         }
     }
 
