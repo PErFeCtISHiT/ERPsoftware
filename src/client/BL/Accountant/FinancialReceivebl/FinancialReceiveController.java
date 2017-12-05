@@ -31,24 +31,22 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return null;
     }
 
-    @Override
-    public ResultMessage addBill(moneyVO vo){
-
-        return null;
-    }
 
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
-        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
+        moneypo.setIsDraft(0.0);
 
+        System.out.println(moneypo.getKind());
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
 
     @Override
     public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException{
-
-
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(1.0);
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
 

@@ -139,12 +139,13 @@ public class FillMoneyBill extends Application {
         ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (checkMoney(money.getText()))
+            if (true)//checkMoney(money.getText())
             {
-                String billtype = TypeComboBox.getValue().toString();
+                System.out.println(TypeComboBox.getSelectionModel().getSelectedIndex());
+                String billtype = TypeComboBox.getSelectionModel().getSelectedItem().toString();
                 String billID = billNum.getText();
-                String operater = StaffComboBox.getValue().toString();
-                String consumerType =ConsumerTypeComboBox.getValue().toString();
+                String operater = StaffComboBox.getSelectionModel().getSelectedItem().toString();
+                String consumerType =ConsumerTypeComboBox.getSelectionModel().getSelectedItem().toString();
                 String consumerID = consumer.getText();
                 double sum = Double.parseDouble(money.getText());
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
@@ -152,21 +153,21 @@ public class FillMoneyBill extends Application {
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
+                System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
+                    System.out.println("Step 2");
                     ResultMessage resultMessage = receiveController.summit(financialBill);
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
 
+                System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent"
                         + " to " );
                 TypeComboBox.setValue(null);
                 money.clear();
                 text.clear();
-            }
-            else {
-                notification.setText("You have not selected a recipient!");
             }
         });
 

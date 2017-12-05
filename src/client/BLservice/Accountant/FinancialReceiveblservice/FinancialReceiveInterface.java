@@ -19,8 +19,6 @@ public interface FinancialReceiveInterface {
 
     public moneyVO find(String iD);
 
-    public ResultMessage addBill(moneyVO vo);
-
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
     public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;

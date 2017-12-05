@@ -9,6 +9,7 @@ public class moneyPO implements Serializable{
 	private String oper;
 	private Double ischeck;
 	private Double isred;
+	private Double isDraft;
 	private String consumer;
 	private String accoun;
 	private Double sumall;
@@ -73,6 +74,15 @@ public class moneyPO implements Serializable{
 	public void setIsred(Double isred) {
 		this.isred = isred;
 	}
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
 
 	public String getConsumer() {
 		return consumer;
