@@ -41,7 +41,7 @@ public class SelloutEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 20)
+    @Column(name = "NOTE", nullable = true, length = 2000)
     public String getNote() {
         return note;
     }
@@ -111,7 +111,7 @@ public class SelloutEntity {
     }
 
     @Basic
-    @Column(name = "GOODSOUTLIST", nullable = true, length = 200)
+    @Column(name = "GOODSOUTLIST", nullable = true, length = 2000)
     public String getGoodsoutlist() {
         return goodsoutlist;
     }

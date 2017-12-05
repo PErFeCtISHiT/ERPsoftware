@@ -27,7 +27,7 @@ public class StockexceptionEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 20)
+    @Column(name = "NOTE", nullable = true, length = 2000)
     public String getNote() {
         return note;
     }

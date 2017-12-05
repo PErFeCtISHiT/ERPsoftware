@@ -1,9 +1,11 @@
 package server.RMIservice;
+import client.Vo.saleVO;
 import server.Data.Billdata.*;
 import server.Data.Codata.CoaccountDB;
 import server.Data.Consumerdata.ConsumerDB;
 import server.Data.Cutdata.cutDB;
 import server.Data.Financedata.goodsoutListDB;
+import server.Data.Financedata.saleDB;
 import server.Data.Goodsdata.GoodsDB;
 import server.Data.Goodsdata.GoodsKindsDB;
 import server.Data.Logdata.logDB;
@@ -61,6 +63,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     private pub pub;
     private user user;
     private goodsoutList goodsoutList;
+    private sale sale;
 
     protected DataRemoteObject() throws RemoteException {
 
@@ -80,6 +83,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         pub = new publicDB();
         user = new userDB();
         goodsoutList = new goodsoutListDB() ;
+        sale = new saleDB();
 
 
 
@@ -138,8 +142,9 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         return pub.findbyNO(type,no);
     }
 
+
     @Override
-    public List findbysaleno(String no) throws RemoteException {
-        return goodsoutList.findbysaleno(no);
+    public List findbySaleVO(saleVO saleVO) throws RemoteException {
+        return sale.findbySaleVO(saleVO);
     }
 }

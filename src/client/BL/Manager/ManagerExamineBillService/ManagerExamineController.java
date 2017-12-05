@@ -1,11 +1,7 @@
-package client.BL.Manager.ManagerExamineblservice;
+package client.BL.Manager.ManagerExamineBillService;
 
 import client.BLservice.Manager.ManagerExamineblservice.ManagerExamine;
 import shared.ResultMessage;
-
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 
 /**
  * @author: pis

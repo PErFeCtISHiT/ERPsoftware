@@ -4,8 +4,6 @@ import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,17 +11,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class CheckSellUI extends Application {
 
@@ -38,7 +33,7 @@ public class CheckSellUI extends Application {
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
-        //link.getRemoteHelper();
+        link.linktoServer();
         launch(args);
     }
 
@@ -139,16 +134,12 @@ public class CheckSellUI extends Application {
 /////////////////////////////////////////////////////////////////////开始的数据获取
 
         try {
-            List<Sale> list =controller.show();
-            for (int i=0;i<list.size();i++){
-                data.add(list.get(i));
-            }
+            System.out.println(0);
+            ArrayList<Sale> list =controller.show();
+            data.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
-
-
 
         table.setItems(data);
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol,DetailCol);

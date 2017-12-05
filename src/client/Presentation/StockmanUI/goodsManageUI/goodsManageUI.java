@@ -1,6 +1,7 @@
 package client.Presentation.StockmanUI.goodsManageUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
+import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
 import client.RMI.link;
 import client.Vo.goodsVO;
 import javafx.application.Application;
@@ -26,12 +27,16 @@ import javafx.util.Callback;
 import server.Po.goodsPO;
 import shared.praseDouble;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
 
 public class goodsManageUI {
+    private ObservableList<Goods> data;
+    private String kinds;
 
-    GoodsController goodsController = new GoodsController();
+    private GoodsController goodsController = new GoodsController();
     /**
     *todo:警戒数量，报警
     */
@@ -42,9 +47,10 @@ public class goodsManageUI {
 
 
     public VBox start(String kinds) throws RemoteException {
+        this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
-        ObservableList<Goods> data =
+        data =
 
                 FXCollections.observableArrayList();
 
@@ -62,7 +68,8 @@ public class goodsManageUI {
                     String.valueOf(i.getInprice()),
                     String.valueOf(i.getOutprice()),
                     String.valueOf(i.getReceprice()),
-                    String.valueOf(i.getReceoutprice()));
+                    String.valueOf(i.getReceoutprice()),
+                    String.valueOf(i.getWarningnum()));
             data.add(newgoods);
 
         }
@@ -91,10 +98,14 @@ public class goodsManageUI {
                 new TableColumn<>("最近进价");
         TableColumn<Goods,String> receoutpriceCol =
                 new TableColumn<>("最近零售价");
+        TableColumn<Goods,String> warningnumcol =
+                new TableColumn<>("警戒数量");
         TableColumn<Goods, String> delCol =
                 new TableColumn<>("是否删除");
+        TableColumn<Goods,String> warningCol =
+                new TableColumn<>("库存报警");
 
-        IDCol.setMinWidth(100);
+        IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().goodsID);
         IDCol.setCellFactory(cellFactory);
@@ -120,7 +131,7 @@ public class goodsManageUI {
 
                 });
 
-        ModelCol.setMinWidth(100);
+        ModelCol.setMinWidth(50);
         ModelCol.setCellValueFactory(
                 param -> param.getValue().goodsModel);
         ModelCol.setCellFactory(cellFactory);
@@ -132,7 +143,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        NumCol.setMinWidth(100);
+        NumCol.setMinWidth(50);
         NumCol.setCellValueFactory(
                 param -> param.getValue().goodsNum);
         NumCol.setCellFactory(cellFactory);
@@ -192,40 +203,74 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
+        warningnumcol.setMinWidth(100);
+        warningnumcol.setCellValueFactory(
+                param -> param.getValue().goodsWarningnum);
+        warningnumcol.setCellFactory(cellFactory);
+        warningnumcol.setOnEditCommit(
+                (CellEditEvent<Goods, String> t) -> {
+                    Goods newgoods =  t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
+                    newgoods.setGoodsWarningnum(t.getNewValue());
+                    modifygoods(newgoods);
+                });
 
-        delCol.setCellFactory((col) -> {
-            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
+        delCol.setCellFactory((col) -> new TableCell<Goods, String>() {
 
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
 
-                    if (!empty) {
-                        Button delBtn = new Button("删除商品");
-                        this.setGraphic(delBtn);
-                        delBtn.setOnMouseClicked((me) -> {
-                            goodsVO vo = new goodsVO();
-                            vo.setKeyno(data.get(this.getIndex()).getGoodsID());
-                            data.remove(this.getIndex());
-                            try {
-                                goodsController.deleteGoods(vo);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
+                if (!empty) {
+                    Button delBtn = new Button("删除商品");
+                    this.setGraphic(delBtn);
+                    delBtn.setOnMouseClicked((me) -> {
+                        goodsVO vo = createGoodsVO(this);
+                        data.remove(this.getIndex());
+                        try {
+                            goodsController.deleteGoods(vo);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
+            }
 
-            };
-            return cell;
+        });
+
+        warningCol.setCellFactory((col) -> new TableCell<Goods, String>() {
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
+
+                if (!empty) {
+                        goodsVO goodsVO = createGoodsVO(this);
+                    Button warninglBtn = new Button("报警");
+                    if(goodsVO.getWarningnum() < goodsVO.getNum())
+                        warninglBtn.setDisable(true);
+                    this.setGraphic(warninglBtn);
+                    warninglBtn.setOnMouseClicked((me) -> {
+                        goodsWarningUI goodsWarningUI = new goodsWarningUI();
+                        try {
+                            goodsWarningUI.start(goodsVO);
+                        } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+
         });
 
 
 
         table.setItems(data);
-        table.getColumns().addAll(IDCol, NameCol,ModelCol,NumCol,inpriceCol,outpriceCol,receinpriceCol,receoutpriceCol,delCol);
+        table.getColumns().addAll(IDCol, NameCol,ModelCol,NumCol,inpriceCol,outpriceCol,receinpriceCol,receoutpriceCol,warningnumcol,delCol,warningCol);
 
         final TextField addID = new TextField();
         addID.setPromptText("ID");
@@ -260,6 +305,7 @@ public class goodsManageUI {
         addreceoutprice.setPromptText("最近零售价");
 
 
+
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             Goods newgoods = new Goods(
@@ -270,7 +316,9 @@ public class goodsManageUI {
                     addinprice.getText(),
                     addoutprice.getText(),
                     addreceinprice.getText(),
-                    addreceoutprice.getText());
+                    addreceoutprice.getText(),
+                    "100");
+
             data.add(newgoods);
             goodsVO vo = new goodsVO();
             vo.setKinds(kinds);
@@ -282,6 +330,7 @@ public class goodsManageUI {
             vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
             vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
             vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
+            vo.setWarningnum((double) 100);
             try {
                 goodsController.addGoods(vo);
             } catch (RemoteException e1) {
@@ -314,7 +363,7 @@ public class goodsManageUI {
 
         private TextField textField;
 
-        public EditingCell() {
+        EditingCell() {
         }
 
         @Override
@@ -332,7 +381,7 @@ public class goodsManageUI {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText((String) getItem());
+            setText(getItem());
             setGraphic(null);
         }
 
@@ -370,19 +419,37 @@ public class goodsManageUI {
         }
 
         private String getString() {
-            return getItem() == null ? "" : getItem().toString();
+            return getItem() == null ? "" : getItem();
         }
     }
+
+    private goodsVO createGoodsVO(TableCell tableCell){
+        goodsVO goodsVO = new goodsVO();
+        goodsVO.setKeyno(data.get(tableCell.getIndex()).getGoodsID());
+        goodsVO.setKinds(kinds);
+        goodsVO.setKeyname(data.get(tableCell.getIndex()).getGoodsName());
+        goodsVO.setKeymodel(data.get(tableCell.getIndex()).getGoodsModel());
+        goodsVO.setNum(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsNum()));
+        goodsVO.setInprice(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsInprice()));
+        goodsVO.setOutprice(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsOutprice()));
+        goodsVO.setReceoutprice(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsReceoutprice()));
+        goodsVO.setReceprice(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsReceinprice()));
+        goodsVO.setWarningnum(praseDouble.prase(data.get(tableCell.getIndex()).getGoodsWarningnum()));
+        return goodsVO;
+    }
+
     private void modifygoods(Goods newgoods){
         goodsVO vo = new goodsVO();
+        vo.setKinds(kinds);
         vo.setKeyno(newgoods.getGoodsID());
         vo.setKeyname(newgoods.getGoodsName());
         vo.setKeymodel(newgoods.getGoodsModel());
-        vo.setNum(Long.parseLong(newgoods.getGoodsNum()));
-        vo.setInprice(Long.parseLong(newgoods.getGoodsInprice()));
-        vo.setOutprice(Long.parseLong(newgoods.getGoodsOutprice()));
-        vo.setReceprice(Long.parseLong(newgoods.getGoodsReceinprice()));
-        vo.setReceoutprice(Long.parseLong(newgoods.getGoodsReceoutprice()));
+        vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+        vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
+        vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
+        vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
+        vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
+        vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
         try {
             goodsController.modifyGoods(vo);
         } catch (RemoteException e1) {

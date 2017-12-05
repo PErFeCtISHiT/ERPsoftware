@@ -112,8 +112,21 @@ public class Goods {
     public final SimpleStringProperty goodsOutprice;
     public final SimpleStringProperty goodsReceinprice;
     public final SimpleStringProperty goodsReceoutprice;
+    public final SimpleStringProperty goodsWarningnum;
 
-    public Goods(String goodsID, String goodsName, String goodsModel, String goodsNum, String goodsInprice, String goodsOutprice, String goodsReceinprice, String goodsReceoutprice) {
+    public String getGoodsWarningnum() {
+        return goodsWarningnum.get();
+    }
+
+    public SimpleStringProperty goodsWarningnumProperty() {
+        return goodsWarningnum;
+    }
+
+    public void setGoodsWarningnum(String goodsWarningnum) {
+        this.goodsWarningnum.set(goodsWarningnum);
+    }
+
+    public Goods(String goodsID, String goodsName, String goodsModel, String goodsNum, String goodsInprice, String goodsOutprice, String goodsReceinprice, String goodsReceoutprice,String warningnum) {
         this.goodsID = new SimpleStringProperty(goodsID);
         this.goodsName = new SimpleStringProperty(goodsName);
         this.goodsModel = new SimpleStringProperty(goodsModel);
@@ -122,5 +135,6 @@ public class Goods {
         this.goodsOutprice = new SimpleStringProperty(goodsOutprice);
         this.goodsReceinprice = new SimpleStringProperty(goodsReceinprice);
         this.goodsReceoutprice = new SimpleStringProperty(goodsReceoutprice);
+        this.goodsWarningnum = new SimpleStringProperty(warningnum);
     }
 }

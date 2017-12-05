@@ -15,6 +15,24 @@ public class saleVO implements Serializable{
 	private Double voucher;
 	private Double sumall;
 	private String dateandtime;
+	private String consumer;
+	private String operater;
+
+	public String getConsumer() {
+		return consumer;
+	}
+
+	public void setConsumer(String consumer) {
+		this.consumer = consumer;
+	}
+
+	public String getOperater() {
+		return operater;
+	}
+
+	public void setOperater(String operater) {
+		this.operater = operater;
+	}
 
 	public String getDateandtime() {
 		return dateandtime;
@@ -112,7 +130,7 @@ public class saleVO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public saleVO(String keyno, Double kind, Double lev, String accoun, String base, String goodsinlist, String goodsoutlist, Double presum, Double cut, Double voucher, Double sumall) {
+	public saleVO(String keyno, Double kind, Double lev, String accoun, String base, String goodsinlist, String goodsoutlist, Double presum, Double cut, Double voucher, Double sumall,String dateandtime) {
 
 		this.keyno = keyno;
 		this.kind = kind;
@@ -125,5 +143,6 @@ public class saleVO implements Serializable{
 		this.cut = cut;
 		this.voucher = voucher;
 		this.sumall = sumall;
+		this.dateandtime=dateandtime;
 	}
 }

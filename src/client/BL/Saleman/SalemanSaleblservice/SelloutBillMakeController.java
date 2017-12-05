@@ -75,6 +75,6 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
         String voucher=sellout.getSelloutCard();
         String finalsum=sellout.getSelloutSum();
 
-        return new selloutVO(Long.parseLong(kind),keyno,note,oper,Long.parseLong(ischeck),Long.parseLong(isred),consumer,server,base,goodsoutlist,Long.parseLong(sumall),Long.parseLong(cut),Long.parseLong(voucher),Long.parseLong(finalsum));
+        return new selloutVO(Double.parseDouble(kind),keyno,note,oper,Double.parseDouble(ischeck),Double.parseDouble(isred),consumer,server,base,goodsoutlist,Double.parseDouble(sumall),Double.parseDouble(cut),Double.parseDouble(voucher),Double.parseDouble(finalsum));
     }
 }

@@ -1,7 +1,8 @@
 package client.Presentation.AccountantUI.BillFill;
 
 
-import client.BL.Accountant.FinancialReceivebl.TransferList;
+import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,14 +20,15 @@ import javafx.util.Callback;
 
 public class FillMoneyBill extends Application {
     public static void main(String[] args) {
+        link.linktoServer();
         launch(args);
     }
 
-    private final TableView<TransferList> table = new TableView<>();
-    private final ObservableList<TransferList> data =
+    private final TableView<MoneyList> table = new TableView<>();
+    private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new TransferList("A", "B", "C"),
-                    new TransferList("Q", "W", "E")
+                    new MoneyList("1","A", "B", "C"),
+                    new MoneyList("2","Q", "W", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
@@ -46,9 +48,9 @@ public class FillMoneyBill extends Application {
         Scene scene = new Scene(new Group(), 750, 450);
         table.setEditable(true);
 
-        Callback<TableColumn<TransferList, String>,
-                TableCell<TransferList, String>> cellFactory
-                = (TableColumn<TransferList, String> p) -> new EditingCell();
+        Callback<TableColumn<MoneyList, String>,
+                TableCell<MoneyList, String>> cellFactory
+                = (TableColumn<MoneyList, String> p) -> new EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
 
@@ -56,19 +58,19 @@ public class FillMoneyBill extends Application {
 
 
 
-        TableColumn<TransferList,String> AccountCol = new TableColumn<>("银行账户");
+        TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
         AccountCol.setMinWidth(100);
         AccountCol.setCellFactory(cellFactory);
         AccountCol.setCellValueFactory(
                 param -> param.getValue().account);
 
-        TableColumn<TransferList,String> MoneyCol = new TableColumn<>("转账金额");
+        TableColumn<MoneyList,String> MoneyCol = new TableColumn<>("转账金额");
         MoneyCol.setMinWidth(100);
         MoneyCol.setCellFactory(cellFactory);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
 
-        TableColumn<TransferList,String> CommentCol = new TableColumn<>("备注");
+        TableColumn<MoneyList,String> CommentCol = new TableColumn<>("备注");
         CommentCol.setMinWidth(100);
         CommentCol.setCellFactory(cellFactory);
         CommentCol.setCellValueFactory(
@@ -93,7 +95,7 @@ public class FillMoneyBill extends Application {
             String acc = addID.getText();
             String money = addMoney.getText();
             String comment = addComment.getText();
-            TransferList list = new TransferList(acc,money,comment);
+            MoneyList list = new MoneyList(billNum.getText(),acc,money,comment);
             data.add(list);
             addID.clear();
             addMoney.clear();
@@ -175,7 +177,7 @@ public class FillMoneyBill extends Application {
 
         grid.add(new Label("客户类型："), 0, 1);
         grid.add(ConsumerTypeComboBox, 1, 1);
-        grid.add(new Label("客户:"), 2, 1);
+        grid.add(new Label("客户编号:"), 2, 1);
         grid.add(consumer, 3, 1);
 
 
@@ -220,7 +222,7 @@ public class FillMoneyBill extends Application {
 
 
 
-    class EditingCell extends TableCell<TransferList, String> {
+    class EditingCell extends TableCell<MoneyList, String> {
 
         private TextField textField;
 

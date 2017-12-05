@@ -1,10 +1,10 @@
 package client.BL.Accountant.FinancialCashbl.Mock;
 
-import client.BL.Accountant.FinancialCashbl.FinancialMoneyController;
+import client.BL.Accountant.FinancialCashbl.FinancialCashController;
 import client.Vo.moneyVO;
 import shared.ResultMessage;
 
-public class FinancialMoneyControllerMock extends FinancialMoneyController {
+public class FinancialMoneyControllerMock extends FinancialCashController {
 
     public ResultMessage getMoneyID(){
         return null;

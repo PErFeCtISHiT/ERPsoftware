@@ -41,7 +41,7 @@ public class GoodskindsEntity {
     }
 
     @Basic
-    @Column(name = "SON", nullable = true, length = 20)
+    @Column(name = "SON", nullable = true, length = 2000)
     public String getSon() {
         return son;
     }

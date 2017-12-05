@@ -17,7 +17,7 @@ public class BuyinEntity {
     private Double sumall;
 
     @Basic
-    @Column(name = "KIND", nullable = true, length = 20)
+    @Column(name = "KIND", nullable = true, precision = 0)
     public Double getKind() {
         return kind;
     }
@@ -37,7 +37,7 @@ public class BuyinEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = true, length = 20)
+    @Column(name = "NOTE", nullable = true, length = 2000)
     public String getNote() {
         return note;
     }
@@ -97,7 +97,7 @@ public class BuyinEntity {
     }
 
     @Basic
-    @Column(name = "GOODSOUTLIST", nullable = true, length = 200)
+    @Column(name = "GOODSOUTLIST", nullable = true, length = 2000)
     public String getGoodsoutlist() {
         return goodsoutlist;
     }

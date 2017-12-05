@@ -4,6 +4,8 @@ import client.BLservice.Accountant.FinancialCheckSellblservice.FinancialCheckSel
 import client.RMI.link;
 import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
+import server.Po.goodsOutListPO;
+import server.Po.salePO;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @param time
      * @return ArrayList<saleVO>
      */
+    @Override
     public List<Sale> check(String time) throws RemoteException{
 
 
@@ -28,28 +31,71 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @param address
      * @return boolean
      */
-
+    @Override
     public boolean getExcel(String address) throws RemoteException{
         return false;
     }
 
-
-    public List<Sale> show() throws RemoteException{
-
-        return null;
+    @Override
+    public ArrayList<Sale> show() throws RemoteException{//(List<salePO>)
+        List<salePO> list = link.getRemoteHelper().getSale().findAll(16);
+        ArrayList<Sale> salelist = new ArrayList<Sale>();
+        //System.out.println(1);
+        for (int i=0;i<list.size();i++){
+            salePO salepo = list.get(i);
+            saleVO salevo = PoToVo(salepo);
+            //System.out.println(2);
+            String[] str = salevo.getGoodsoutlist().split(",");
+            //System.out.println("The size is "+str.length);
+            for (int k=0;k<str.length;k++){
+                String keyno = str[k];
+                List<goodsOutListPO> goodslistpo =link.getRemoteHelper().getgoodsoutList().findbyNO(17,keyno);
+                //System.out.println(3);
+                //System.out.println(goodslistpo.size());
+                for (int j=0; j<goodslistpo.size();j++){
+                    //System.out.println("Test");
+                    Sale newSale = PoToSale(salepo,goodslistpo.get(j));
+                    //System.out.println(newSale.saleTime);
+                    salelist.add(newSale);
+                }
+            }
+        }
+        return salelist;
     }
 
 
-
-    public Sale VoToSale(saleVO vo, goodsOutListVO goodslist) throws RemoteException{
-        String saleTime = vo.getDateandtime();
+    @Override
+    public Sale PoToSale(salePO po, goodsOutListPO goodslist) throws RemoteException{
+        String saleTime = po.getDateandtime();
         String goodsName =goodslist.getGoodsname();
         String goodsType =goodslist.getKeymodel();
-        double goodsNum = goodslist.getNum();
-        double goodsPrice = goodslist.getPrice();
-        double totalSum = goodsNum*goodsPrice;
+        double Num = goodslist.getNum();
+        String goodsNum =String.valueOf(goodslist.getNum());
+        double Price = goodslist.getPrice();
+        String goodsPrice = String.valueOf(goodslist.getPrice());
+        String totalSum = String.valueOf(Num*Price);
 
-        return null;
+        String consumer ="";
+        String base =po.getBase();
+        String operater= "";
+
+        Sale sale= new Sale(saleTime,goodsName,goodsType,goodsNum,goodsPrice,totalSum,consumer,base,operater);
+
+        //System.out.println(sale.saleTime);
+
+        return sale;
     }
+
+
+    public saleVO PoToVo(salePO po) throws RemoteException{
+        saleVO sale = new saleVO(po.getKeyno(),po.getKind(),po.getLev(),po.getAccoun(),
+                po.getBase(),po.getGoodsinlist(),po.getGoodsoutlist(),po.getPresum(),po.getCut(),
+                po.getVoucher(),po.getSumall(),po.getDateandtime());
+
+
+        return sale;
+    }
+
+
 
 }

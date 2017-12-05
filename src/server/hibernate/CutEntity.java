@@ -52,7 +52,7 @@ public class CutEntity {
     }
 
     @Basic
-    @Column(name = "PACKNO", nullable = true, length = 200)
+    @Column(name = "PACKNO", nullable = true, length = 2000)
     public String getPackno() {
         return packno;
     }

@@ -3,35 +3,22 @@ package client.Vo;
 import java.io.Serializable;
 
 public class buyinVO implements Serializable{
-	private double kind; //收款单or付款单
+	private Double kind; //收款单or付款单
 	private String keyno; //单据ID
 	private String note;  //备注
 	private String oper;  //操作员
-	private double ischeck;  //是否审批
-	private double isred;   //是否红冲
+	private Double ischeck;  //是否审批
+	private Double isred;   //是否红冲
 	private String provider;  //供应商
 	private String base;   //仓库
 	private String goodsoutlist;  //出库商品列表
-	private double sumall;   //金额
+	private Double sumall;   //金额
 
-	public buyinVO(double kind, String keyno, String note, String oper, double ischeck, double isred, String provider, String base, String goodsoutlist, double sumall) {
-		this.kind = kind;
-		this.keyno = keyno;
-		this.note = note;
-		this.oper = oper;
-		this.ischeck = ischeck;
-		this.isred = isred;
-		this.provider = provider;
-		this.base = base;
-		this.goodsoutlist = goodsoutlist;
-		this.sumall = sumall;
-	}
-
-	public double getKind() {
+	public Double getKind() {
 		return kind;
 	}
 
-	public void setKind(double kind) {
+	public void setKind(Double kind) {
 		this.kind = kind;
 	}
 
@@ -59,19 +46,19 @@ public class buyinVO implements Serializable{
 		this.oper = oper;
 	}
 
-	public double getIscheck() {
+	public Double getIscheck() {
 		return ischeck;
 	}
 
-	public void setIscheck(double ischeck) {
+	public void setIscheck(Double ischeck) {
 		this.ischeck = ischeck;
 	}
 
-	public double getIsred() {
+	public Double getIsred() {
 		return isred;
 	}
 
-	public void setIsred(double isred) {
+	public void setIsred(Double isred) {
 		this.isred = isred;
 	}
 
@@ -99,11 +86,25 @@ public class buyinVO implements Serializable{
 		this.goodsoutlist = goodsoutlist;
 	}
 
-	public double getSumall() {
+	public Double getSumall() {
 		return sumall;
 	}
 
-	public void setSumall(double sumall) {
+	public void setSumall(Double sumall) {
+		this.sumall = sumall;
+	}
+
+	public buyinVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String provider, String base, String goodsoutlist, Double sumall) {
+
+		this.kind = kind;
+		this.keyno = keyno;
+		this.note = note;
+		this.oper = oper;
+		this.ischeck = ischeck;
+		this.isred = isred;
+		this.provider = provider;
+		this.base = base;
+		this.goodsoutlist = goodsoutlist;
 		this.sumall = sumall;
 	}
 }

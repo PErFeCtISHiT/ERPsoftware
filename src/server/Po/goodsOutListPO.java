@@ -11,7 +11,11 @@ public class goodsOutListPO implements Serializable{
 	private Double price;
 	private Double sumall;
 
-	public String getKeyno() {
+    public goodsOutListPO() {
+
+    }
+
+    public String getKeyno() {
 		return keyno;
 	}
 
