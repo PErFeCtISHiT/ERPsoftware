@@ -12,6 +12,7 @@ import client.Vo.coVO;
 import client.Vo.moneyVO;
 import server.Po.coPO;
 import server.Po.consumerPO;
+import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
@@ -28,6 +29,8 @@ public class FinancialCashController implements FinancialCashInterface {
     @Override
     public ResultMessage summit(FinancialCash financialCash) throws RemoteException{
         moneyPO moneypo = FinancialCashToMoneyPO(financialCash);
+        ArrayList<MoneyList> list = financialCash.getMoneyList();
+        saveMoneyList(list);
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         System.out.println("summit");
         return null;
@@ -47,7 +50,15 @@ public class FinancialCashController implements FinancialCashInterface {
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
         for (int i=0; i< moneyLists.size();i++){
-            link.getRemoteHelper().getmoneyList().addObject(moneyLists.get(i),18);
+            MoneyList ml =moneyLists.get(i);
+            System.out.println(ml.getlistNO());
+            moneyListPO moneylist = new moneyListPO();
+            moneylist.setKeyid(ml.getkeyid());
+            moneylist.setKeyno(ml.getlistNO());
+            moneylist.setAccountname(ml.getAccount());
+            moneylist.setSumall(Double.parseDouble(ml.getMoney()));
+            moneylist.setNote(ml.getComment());
+            link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
         }
     }
 

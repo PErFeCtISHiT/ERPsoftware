@@ -8,6 +8,7 @@ import client.Vo.coVO;
 import client.Vo.moneyVO;
 import server.Po.coPO;
 import server.Po.consumerPO;
+import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
@@ -32,7 +33,8 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 //        System.out.println(moneypo.getSumall());
 //        System.out.println(moneypo.getMoneyList());
 
-
+        ArrayList<MoneyList> list = financialBill.getMoneyList();
+        saveMoneyList(list);
 
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
@@ -52,9 +54,20 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
+
         for (int i=0; i< moneyLists.size();i++){
-            link.getRemoteHelper().getmoneyList().addObject(moneyLists.get(i),18);
+            MoneyList ml =moneyLists.get(i);
+            System.out.println(ml.getlistNO());
+            moneyListPO moneylist = new moneyListPO();
+            moneylist.setKeyid(ml.getkeyid());
+            moneylist.setKeyno(ml.getlistNO());
+            moneylist.setAccountname(ml.getAccount());
+            moneylist.setSumall(Double.parseDouble(ml.getMoney()));
+            moneylist.setNote(ml.getComment());
+            link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
         }
+
+
     }
 
     @Override

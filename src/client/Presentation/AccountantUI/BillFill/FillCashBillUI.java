@@ -119,6 +119,8 @@ public class FillCashBillUI extends Application {
         vb.setSpacing(3);
 
 
+
+
         final ComboBox<String> TypeComboBox = new ComboBox<String>();
         TypeComboBox.getItems().addAll(
                 "现金费用单"
@@ -149,6 +151,7 @@ public class FillCashBillUI extends Application {
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++){
+                    data.get(i).setKeyid(i+"");
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }

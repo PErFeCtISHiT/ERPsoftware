@@ -34,8 +34,8 @@ public class FillMoneyBill extends Application {
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new MoneyList("1","1","A", "B", "C"),
-                    new MoneyList("2","2","Q", "W", "E")
+                    new MoneyList("1","1","123", "12.5", "C"),
+                    new MoneyList("2","2","456", "17.6", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
@@ -157,6 +157,7 @@ public class FillMoneyBill extends Application {
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++){
+                    data.get(i).setKeyid(i+"");
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }

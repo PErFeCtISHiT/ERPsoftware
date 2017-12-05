@@ -206,12 +206,38 @@ public class CashUI extends Application{
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol1 =
                 new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillDetailCol1 =
+                new TableColumn<>("详细内容");
         BillIDCol1.setMinWidth(100);
         BillIDCol1.setCellValueFactory(
                 param -> param.getValue().keyno);
         BillTypeCol1.setMinWidth(100);
         BillTypeCol1.setCellValueFactory(
                 param -> param.getValue().kind);
+        BillDetailCol1.setMinWidth(200);
+        BillDetailCol1.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            try {
+                                cashController.ReEditBill(keyno);/////////////////////////////////////////////////
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
 
         try {
             ArrayList<AccountBill> list = cashController.getAllPromotedCash();
@@ -222,7 +248,7 @@ public class CashUI extends Application{
             e.printStackTrace();
         }
         AlreadyPromotionbilltable.setItems(AlreadyPromotionbilldata);
-        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol1, BillTypeCol1);
+        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol1, BillTypeCol1, BillDetailCol1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -231,12 +257,38 @@ public class CashUI extends Application{
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol2 =
                 new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillDetailCol2 =
+                new TableColumn<>("详细内容");
         BillIDCol2.setMinWidth(100);
         BillIDCol2.setCellValueFactory(
                 param -> param.getValue().keyno);
         BillTypeCol2.setMinWidth(100);
         BillTypeCol2.setCellValueFactory(
                 param -> param.getValue().kind);
+        BillDetailCol2.setMinWidth(200);
+        BillDetailCol2.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            try {
+                                cashController.ReEditBill(keyno);/////////////////////////////////////////////////
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
 
         try {
             ArrayList<AccountBill> list = cashController.getAllUnderPromotedCash();
@@ -247,7 +299,7 @@ public class CashUI extends Application{
             e.printStackTrace();
         }
         UnderPromotionbilltable.setItems(UnderPromotionbilldata);
-        UnderPromotionbilltable.getColumns().addAll(BillIDCol2, BillTypeCol2);
+        UnderPromotionbilltable.getColumns().addAll(BillIDCol2, BillTypeCol2,BillDetailCol2);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
