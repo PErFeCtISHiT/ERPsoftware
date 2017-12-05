@@ -47,5 +47,8 @@
         <property name="finalsum">
             <column name="FINALSUM" sql-type="number(*)" precision="2147483646" />
         </property>
+        <property name="isDraft">
+            <column name="ISDRAFT" sql-type="number(*)" precision="2147483646" />
+        </property>
     </class>
 </hibernate-mapping>

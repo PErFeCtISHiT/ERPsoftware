@@ -28,9 +28,6 @@ public class goodsWarningUI {
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Label notification = new Label ();
-    /**
-    *todo:单据编号，由日期加其他单据生成
-    */
     final Label billNum = new Label ();
     final Label name = new Label();
     final Label num = new Label();
