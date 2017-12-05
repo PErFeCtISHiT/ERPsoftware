@@ -11,7 +11,6 @@ public class moneyVO implements Serializable{
 	private Double isred;
 	private String consumer;
 	private String accoun;
-	private Double num;
 	private Double sumall;
 	private String moneyList;
 
@@ -88,13 +87,6 @@ public class moneyVO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public Double getNum() {
-		return num;
-	}
-
-	public void setNum(Double num) {
-		this.num = num;
-	}
 
 	public Double getSumall() {
 		return sumall;

@@ -19,7 +19,7 @@ public class MoneyList {
         this.comment = new SimpleStringProperty(comment);
     }
 
-    public MoneyList() {
+    public MoneyList(String s, String a, String b, String c) {
         this.keyid= new SimpleStringProperty();
         this.listNO= new SimpleStringProperty();
         this.account = new SimpleStringProperty();

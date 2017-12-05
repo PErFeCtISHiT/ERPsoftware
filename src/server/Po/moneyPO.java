@@ -11,7 +11,6 @@ public class moneyPO implements Serializable{
 	private Double isred;
 	private String consumer;
 	private String accoun;
-	private Double num;
 	private Double sumall;
 	private String moneyList;
 
@@ -91,13 +90,6 @@ public class moneyPO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public Double getNum() {
-		return num;
-	}
-
-	public void setNum(Double num) {
-		this.num = num;
-	}
 
 	public Double getSumall() {
 		return sumall;
@@ -107,7 +99,7 @@ public class moneyPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double num, Double sumall) {
+	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;
@@ -116,7 +108,6 @@ public class moneyPO implements Serializable{
 		this.isred = isred;
 		this.consumer = consumer;
 		this.accoun = accoun;
-		this.num = num;
 		this.sumall = sumall;
 	}
 }
