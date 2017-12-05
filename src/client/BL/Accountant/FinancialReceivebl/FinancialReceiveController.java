@@ -21,6 +21,9 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
 
 
+
+    
+
     @Override
     public ResultMessage getReceiveID(){
         return null;
