@@ -25,12 +25,12 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
 
-        System.out.println("summit");
-        System.out.println(moneypo.getKind());
-        System.out.println(moneypo.getConsumer());
-        System.out.println(moneypo.getIsred());
-        System.out.println(moneypo.getSumall());
-        System.out.println(moneypo.getMoneyList());
+//        System.out.println("summit");
+//        System.out.println(moneypo.getKind());
+//        System.out.println(moneypo.getConsumer());
+//        System.out.println(moneypo.getIsred());
+//        System.out.println(moneypo.getSumall());
+//        System.out.println(moneypo.getMoneyList());
 
 
 
@@ -44,7 +44,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         saveMoneyList(moneyLists);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
         moneypo.setIsDraft(1.0);
-        System.out.println("draft");
 
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
@@ -74,6 +73,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
                 accountBills.add(PoToAccountBill(moneyPOList.get(i)));
             }
         }
+//        System.out.println(accountBills.size()+" "+accountBills.get(0).getKeyno());
         return accountBills;
     }
 
@@ -82,11 +82,14 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public ArrayList<AccountBill> getAllUnderPromotedReceive() throws RemoteException{
         List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
         ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+        System.out.println(moneyPOList.size());
         for(int i=0;i<moneyPOList.size();i++){
+            System.out.println(moneyPOList.get(i).getKeyno());
             if (moneyPOList.get(i).getKind()==0.0&&moneyPOList.get(i).getIscheck()==0.0 && moneyPOList.get(i).getIsDraft()==0.0){
                 accountBills.add(PoToAccountBill(moneyPOList.get(i)));
             }
         }
+        System.out.println(accountBills.size());
         return accountBills;
     }
 

@@ -190,6 +190,7 @@ public class ReceiveUI extends Application {
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
+//            System.out.println("Draft "+list.size()+" "+list.get(0).getKeyno());
             draftbilldata.clear();
             draftbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -201,28 +202,54 @@ public class ReceiveUI extends Application {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+        TableColumn<AccountBill, String> BillIDCol1 =
+                new TableColumn<>("单据编号");
+        TableColumn<AccountBill, String> BillTypeCol1 =
+                new TableColumn<>("单据类型");
+        BillIDCol1.setMinWidth(100);
+        BillIDCol1.setCellValueFactory(
+                param -> param.getValue().keyno);
+        BillTypeCol1.setMinWidth(100);
+        BillTypeCol1.setCellValueFactory(
+                param -> param.getValue().kind);
+
         try {
             ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
+//            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         AlreadyPromotionbilltable.setItems(AlreadyPromotionbilldata);
-        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
+        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol1,BillTypeCol1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        TableColumn<AccountBill, String> BillIDCol2 =
+                new TableColumn<>("单据编号");
+        TableColumn<AccountBill, String> BillTypeCol2 =
+                new TableColumn<>("单据类型");
+        BillIDCol2.setMinWidth(100);
+        BillIDCol2.setCellValueFactory(
+                param -> param.getValue().keyno);
+        BillTypeCol2.setMinWidth(100);
+        BillTypeCol2.setCellValueFactory(
+                param -> param.getValue().kind);
+
         try {
             ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
+//            System.out.println("Under "+list.size()+" "+list.get(0).getKeyno());
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         UnderPromotionbilltable.setItems(UnderPromotionbilldata);
-        UnderPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
+        UnderPromotionbilltable.getColumns().addAll(BillIDCol2,BillTypeCol2);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,6 +266,10 @@ public class ReceiveUI extends Application {
         accordion.getPanes().addAll(tps);
 
         final Button refresh = new Button("刷新列表");
+        refresh.setOnAction(e -> {
+//            refresh();
+        });
+
         final Button newBill = new Button("新建收款单");
 
         HBox hbox = new HBox(10);
@@ -253,4 +284,28 @@ public class ReceiveUI extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+
+
+//    public void refresh() {
+//        try {
+//            ArrayList<Account> list1 =receiveController.getAllAccount();
+//            accountdata.clear();
+//            accountdata.addAll(list1);
+//            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
+//            consumerdata.clear();
+//            consumerdata.addAll(list2);
+//            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
+//            draftbilldata.clear();
+//            draftbilldata.addAll(list3);
+//            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
+//            AlreadyPromotionbilldata.clear();
+//            AlreadyPromotionbilldata.addAll(list4);
+//            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
+//            UnderPromotionbilldata.clear();
+//            UnderPromotionbilldata.addAll(list5);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
