@@ -9,7 +9,7 @@ import java.sql.Time;
  * @date: create in 11:44 2017/12/2
  */
 @Entity
-@Table(name = "LOG", schema = "PIS", catalog = "")
+@Table(name = "LOG", schema = "PIS")
 public class LogEntity {
     private Time adddate;
     private String keyno;

@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PACK", schema = "PIS", catalog = "")
+@Table(name = "PACK", schema = "PIS")
 public class PackEntity {
     private String keyno;
     private String goodsno;

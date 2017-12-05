@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USE", schema = "PIS", catalog = "")
+@Table(name = "USE", schema = "PIS")
 public class UseEntity {
     private String keyjob;
     private String keyno;

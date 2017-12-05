@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "STOCKEXCEPTION", schema = "PIS", catalog = "")
+@Table(name = "STOCKEXCEPTION", schema = "PIS")
 public class StockexceptionEntity {
     private Double kind;
     private String note;

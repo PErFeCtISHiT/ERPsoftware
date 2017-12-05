@@ -5,6 +5,7 @@ import server.Data.Codata.CoaccountDB;
 import server.Data.Consumerdata.ConsumerDB;
 import server.Data.Cutdata.cutDB;
 import server.Data.Financedata.goodsoutListDB;
+import server.Data.Financedata.moneyListDB;
 import server.Data.Financedata.saleDB;
 import server.Data.Goodsdata.GoodsDB;
 import server.Data.Goodsdata.GoodsKindsDB;
@@ -17,6 +18,7 @@ import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
 import server.Dataservice.Financedataservice.goodsoutList;
+import server.Dataservice.Financedataservice.moneyList;
 import server.Dataservice.Financedataservice.sale;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
@@ -37,7 +39,7 @@ import java.util.List;
 
 
 public class DataRemoteObject extends UnicastRemoteObject implements
-        moneyBill, selloutBill,stockOverflowBill,stockwarningBill,
+        moneyBill, selloutBill,stockOverflowBill,stockwarningBill,moneyList,
         Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub ,sale,goodsoutList {
 
     /**
@@ -47,6 +49,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
      */
 
     private static final long serialVersionUID = 4029039744279087114L;
+    private moneyList moneyList;
     private buyinBill buyinBill;
     private giftBill giftBill;
     private moneyBill moneyBill;
@@ -65,8 +68,9 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     private goodsoutList goodsoutList;
     private sale sale;
 
-    protected DataRemoteObject() throws RemoteException {
+    DataRemoteObject() throws RemoteException {
 
+        moneyList = new moneyListDB();
         buyinBill = new BuyinBillDB();
         giftBill = new giftBillDB();
         moneyBill = new moneyBillDB();

@@ -24,7 +24,7 @@ public class RemoteHelper {
 
 
 
-    public void initServer(){
+    private void initServer(){
 
         DataRemoteObject dataRemoteObject;
 
@@ -36,20 +36,11 @@ public class RemoteHelper {
 
             Naming.bind("rmi://127.0.0.1:8886/DataRemoteObject", dataRemoteObject);
 
-        } catch (RemoteException e) {
-
-            e.printStackTrace();
-
-        } catch (MalformedURLException e) {
-
-            e.printStackTrace();
-
-        } catch (AlreadyBoundException e) {
+        } catch (RemoteException | MalformedURLException | AlreadyBoundException e) {
 
             e.printStackTrace();
 
         }
-
 
 
     }

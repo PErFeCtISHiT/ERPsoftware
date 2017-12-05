@@ -19,7 +19,8 @@ public class moneyPO implements Serializable{
 
     }
 
-	public String getConsumertype() {
+
+    public String getConsumertype() {
 		return consumertype;
 	}
 

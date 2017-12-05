@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
-@Table(name = "GOODS", schema = "PIS", catalog = "")
+@Table(name = "GOODS", schema = "PIS")
 public class GoodsEntity {
     private String keyno;
     private String keyname;

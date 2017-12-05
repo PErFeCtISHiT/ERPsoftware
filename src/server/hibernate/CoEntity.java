@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @date: create in 12:08 2017/12/2
  */
 @Entity
-@Table(name = "CO", schema = "PIS", catalog = "")
+@Table(name = "CO", schema = "PIS")
 public class CoEntity {
     private String keyname;
     private Double sumall;
