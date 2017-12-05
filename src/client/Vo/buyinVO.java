@@ -13,6 +13,15 @@ public class buyinVO implements Serializable{
 	private String base;   //仓库
 	private String goodsoutlist;  //出库商品列表
 	private Double sumall;   //金额
+	private Double isDraft;
+
+	public Double getIsDraft() {
+		return isDraft;
+	}
+
+	public void setIsDraft(Double isDraft) {
+		this.isDraft = isDraft;
+	}
 
 	public Double getKind() {
 		return kind;

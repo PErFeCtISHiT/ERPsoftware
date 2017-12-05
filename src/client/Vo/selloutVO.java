@@ -17,6 +17,15 @@ public class selloutVO implements Serializable{
 	private Double cut;
 	private Double voucher;
 	private Double finalsum;
+	private Double isDraft;
+
+	public Double getIsDraft() {
+		return isDraft;
+	}
+
+	public void setIsDraft(Double isDraft) {
+		this.isDraft = isDraft;
+	}
 
 	public Double getKind() {
 		return kind;

@@ -18,6 +18,16 @@ public class selloutPO implements Serializable{
 	private Double voucher;
 	private Double finalsum;
 
+	private Double isDraft;
+
+	public Double getIsDraft() {
+		return isDraft;
+	}
+
+	public void setIsDraft(Double isDraft) {
+		this.isDraft = isDraft;
+	}
+
     public selloutPO() {
 
     }

@@ -16,6 +16,17 @@ public class MoneyEntity {
     private Double sumall;
     private String consumertype;
 
+    private Double isDraft;
+    @Basic
+    @Column(name = "ISDRAFT", nullable = true, precision = 0)
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
     public Double getKind() {

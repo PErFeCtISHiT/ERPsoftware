@@ -13,6 +13,16 @@ public class stockexceptionPO implements Serializable {
     private Double numinsys;
     private String keyno;
 
+    private Double isDraft;
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
     public stockexceptionPO() {
 
     }

@@ -12,6 +12,15 @@ public class giftVO implements Serializable {
     private String comsumername;
     private Double num;
     private String keyno;
+    private Double isDraft;
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
 
     public Double getKind() {
         return kind;

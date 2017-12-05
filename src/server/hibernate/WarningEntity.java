@@ -16,6 +16,17 @@ public class WarningEntity {
     private Double num;
     private Double warningnum;
 
+    private Double isDraft;
+    @Basic
+    @Column(name = "ISDRAFT", nullable = true, precision = 0)
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
     public Double getKind() {
