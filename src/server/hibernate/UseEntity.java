@@ -132,9 +132,7 @@ public class UseEntity {
         if (postcode != null ? !postcode.equals(useEntity.postcode) : useEntity.postcode != null) return false;
         if (email != null ? !email.equals(useEntity.email) : useEntity.email != null) return false;
         if (keyyear != null ? !keyyear.equals(useEntity.keyyear) : useEntity.keyyear != null) return false;
-        if (passwor != null ? !passwor.equals(useEntity.passwor) : useEntity.passwor != null) return false;
-
-        return true;
+        return passwor != null ? passwor.equals(useEntity.passwor) : useEntity.passwor == null;
     }
 
     @Override

@@ -167,9 +167,7 @@ public class GoodsEntity {
         if (keybatch != null ? !keybatch.equals(that.keybatch) : that.keybatch != null) return false;
         if (batchno != null ? !batchno.equals(that.batchno) : that.batchno != null) return false;
         if (dat != null ? !dat.equals(that.dat) : that.dat != null) return false;
-        if (kinds != null ? !kinds.equals(that.kinds) : that.kinds != null) return false;
-
-        return true;
+        return kinds != null ? kinds.equals(that.kinds) : that.kinds == null;
     }
 
     @Override

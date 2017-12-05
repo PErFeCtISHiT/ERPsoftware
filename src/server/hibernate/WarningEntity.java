@@ -143,9 +143,7 @@ public class WarningEntity {
         if (goodsno != null ? !goodsno.equals(that.goodsno) : that.goodsno != null) return false;
         if (goodsname != null ? !goodsname.equals(that.goodsname) : that.goodsname != null) return false;
         if (num != null ? !num.equals(that.num) : that.num != null) return false;
-        if (warningnum != null ? !warningnum.equals(that.warningnum) : that.warningnum != null) return false;
-
-        return true;
+        return warningnum != null ? warningnum.equals(that.warningnum) : that.warningnum == null;
     }
 
     @Override

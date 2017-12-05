@@ -4,8 +4,8 @@ import server.Po.salePO;
 import shared.ResultMessage;
 
 public interface ManagerExamineblInterface {
-  public ResultMessage insert(salePO po);
-  public ResultMessage find(String id);
-  public ResultMessage delete(salePO po);
-  public ResultMessage modify(salePO po);
+  ResultMessage insert(salePO po);
+  ResultMessage find(String id);
+  ResultMessage delete(salePO po);
+  ResultMessage modify(salePO po);
 }

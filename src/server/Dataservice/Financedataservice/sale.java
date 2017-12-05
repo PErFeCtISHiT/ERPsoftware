@@ -12,5 +12,5 @@ import java.util.List;
  * @date: create in 21:27 2017/12/3
  */
 public interface sale extends pub {
-    public List findbySaleVO(saleVO saleVO) throws RemoteException;
+    List findbySaleVO(saleVO saleVO) throws RemoteException;
 }

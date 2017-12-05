@@ -9,5 +9,5 @@ import java.util.List;
  * @date: create in 10:48 2017/12/5
  */
 public interface WarningList {
-    public List getAllDraft() throws RemoteException;
+    List getAllDraft() throws RemoteException;
 }

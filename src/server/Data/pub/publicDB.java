@@ -49,7 +49,7 @@ public class publicDB implements pub {
     }
 
     @Override
-    public List findAll(int type) throws RemoteException {
+    public List findAll(int type) {
         hibtools.session = hibtools.sessionFactory.openSession();
         hibtools.tx = hibtools.session.beginTransaction();
         generate(type);
@@ -65,7 +65,7 @@ public class publicDB implements pub {
     }
 
     @Override
-    public List findbyNO(int type,String no) throws RemoteException {
+    public List findbyNO(int type,String no) {
         hibtools.session = hibtools.sessionFactory.openSession();
         hibtools.tx = hibtools.session.beginTransaction();
         generate(type);

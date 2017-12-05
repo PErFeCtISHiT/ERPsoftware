@@ -7,8 +7,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface GoodsKindsListInterface {
-    public ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException;
-    public ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException;
-    public ResultMessage modify(goodskindsVO kind) throws RemoteException;
-    public List FindAll() throws RemoteException;
+    ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException;
+    ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException;
+    ResultMessage modify(goodskindsVO kind) throws RemoteException;
+    List FindAll() throws RemoteException;
 }

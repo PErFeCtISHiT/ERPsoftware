@@ -13,14 +13,14 @@ import java.util.List;
 public interface FinancialCheckSellInterface {
 
 
-    public List<Sale> check(String time) throws RemoteException;
+    List<Sale> check(String time) throws RemoteException;
 
-    public boolean getExcel(String address) throws RemoteException;
+    boolean getExcel(String address) throws RemoteException;
 
-    public ArrayList<Sale> show() throws RemoteException;
+    ArrayList<Sale> show() throws RemoteException;
 
-    public Sale PoToSale(salePO po, goodsOutListPO goodslist) throws RemoteException;
+    Sale PoToSale(salePO po, goodsOutListPO goodslist) throws RemoteException;
 
-    public saleVO PoToVo(salePO po) throws RemoteException;
+    saleVO PoToVo(salePO po) throws RemoteException;
 
 }

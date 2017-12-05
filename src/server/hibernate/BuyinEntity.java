@@ -141,9 +141,7 @@ public class BuyinEntity {
         if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
         if (base != null ? !base.equals(that.base) : that.base != null) return false;
         if (goodsoutlist != null ? !goodsoutlist.equals(that.goodsoutlist) : that.goodsoutlist != null) return false;
-        if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-
-        return true;
+        return sumall != null ? sumall.equals(that.sumall) : that.sumall == null;
     }
 
     @Override

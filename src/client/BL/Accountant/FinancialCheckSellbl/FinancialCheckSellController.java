@@ -19,7 +19,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @return ArrayList<saleVO>
      */
     @Override
-    public List<Sale> check(String time) throws RemoteException{
+    public List<Sale> check(String time) {
 
 
         return null;
@@ -32,7 +32,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @return boolean
      */
     @Override
-    public boolean getExcel(String address) throws RemoteException{
+    public boolean getExcel(String address) {
         return false;
     }
 
@@ -65,7 +65,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
 
 
     @Override
-    public Sale PoToSale(salePO po, goodsOutListPO goodslist) throws RemoteException{
+    public Sale PoToSale(salePO po, goodsOutListPO goodslist) {
         String saleTime = po.getDateandtime();
         String goodsName =goodslist.getGoodsname();
         String goodsType =goodslist.getKeymodel();
@@ -87,7 +87,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
     }
 
 
-    public saleVO PoToVo(salePO po) throws RemoteException{
+    public saleVO PoToVo(salePO po) {
         saleVO sale = new saleVO(po.getKeyno(),po.getKind(),po.getLev(),po.getAccoun(),
                 po.getBase(),po.getGoodsinlist(),po.getGoodsoutlist(),po.getPresum(),po.getCut(),
                 po.getVoucher(),po.getSumall(),po.getDateandtime());
