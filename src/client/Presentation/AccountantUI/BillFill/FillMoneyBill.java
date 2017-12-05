@@ -39,7 +39,7 @@ public class FillMoneyBill extends Application {
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Label notification = new Label ();
-    final Label billNum = new Label ();
+    final Label billNum = new Label ("danjubianhao");
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
@@ -51,7 +51,7 @@ public class FillMoneyBill extends Application {
 
     @Override public void start(Stage stage) {
         stage.setTitle("填写单据");
-        Scene scene = new Scene(new Group(), 750, 450);
+        Scene scene = new Scene(new Group(), 700, 850);
         table.setEditable(true);
 
         Callback<TableColumn<MoneyList, String>,
@@ -117,37 +117,42 @@ public class FillMoneyBill extends Application {
         vb.setSpacing(3);
 
 
-        final ComboBox TypeComboBox = new ComboBox();
+        final ComboBox<String> TypeComboBox = new ComboBox<String>();
         TypeComboBox.getItems().addAll(
                 "收款单", "付款单"
         );
-        TypeComboBox.setPromptText("收款单");
+        TypeComboBox.setValue("收款单");
         TypeComboBox.setEditable(false);
 
-        final ComboBox StaffComboBox = new ComboBox();
+        final ComboBox<String> StaffComboBox = new ComboBox<String>();
         StaffComboBox.getItems().addAll(
                 "A员工", "B员工"
         );
         StaffComboBox.setValue("A员工");
 
 
-        final ComboBox ConsumerTypeComboBox = new ComboBox();
+        final ComboBox<String> ConsumerTypeComboBox = new ComboBox<String>();
         ConsumerTypeComboBox.getItems().addAll(
                 "供应商", "销售商"
         );
-        ConsumerTypeComboBox.setPromptText("供应商");
+        ConsumerTypeComboBox.setValue("供应商");
         ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
             if (true)//checkMoney(money.getText())
             {
-                System.out.println(TypeComboBox.getSelectionModel().getSelectedIndex());
-                String billtype = TypeComboBox.getSelectionModel().getSelectedItem().toString();
+                System.out.println(TypeComboBox.getValue());
+
+                String billtype = TypeComboBox.getValue();
                 String billID = billNum.getText();
-                String operater = StaffComboBox.getSelectionModel().getSelectedItem().toString();
-                String consumerType =ConsumerTypeComboBox.getSelectionModel().getSelectedItem().toString();
+                String operater = StaffComboBox.getValue();
+                String consumerType =ConsumerTypeComboBox.getValue();
                 String consumerID = consumer.getText();
+
+                System.out.println(money.getText());
                 double sum = Double.parseDouble(money.getText());
+                System.out.println(sum);
+
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++){
                     data.get(i).setlistNO(billID);
