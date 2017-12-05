@@ -2,6 +2,7 @@ package client.BLservice.Accountant.FinancialReceiveblservice;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.Vo.moneyVO;
 import server.Po.coPO;
 import server.Po.consumerPO;
@@ -18,9 +19,11 @@ public interface FinancialReceiveInterface {
 
     public moneyVO find(String iD);
 
-    public ResultMessage addBill(moneyVO vo);
+    public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
-    public moneyVO summit();
+    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
+
+    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
 
     public ArrayList<Account> getAllAccount() throws RemoteException;
 

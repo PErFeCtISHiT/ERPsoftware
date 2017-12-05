@@ -31,15 +31,50 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return null;
     }
 
+
     @Override
-    public ResultMessage addBill(moneyVO vo){
+    public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
+
+        System.out.println(moneypo.getKind());
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
 
     @Override
-    public moneyVO summit(){
+    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException{
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(1.0);
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
+
+    @Override
+    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException {
+        moneyPO moneypo = new moneyPO();
+        String billtype = financialBill.getBillType();
+        String billID = financialBill.getID();
+        String operater = financialBill.getOperater();
+        String consumerType = financialBill.getConsumerType();
+        String consumerID = financialBill.getConsumerID();
+        double sum = financialBill.getSum();
+        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+
+        moneypo.setKind(1.0);
+        moneypo.setKeyno(billID);
+        moneypo.setAccoun("");
+        moneypo.setConsumer(consumerID);
+        moneypo.setConsumertype(consumerType);
+        moneypo.setIscheck(0.0);
+        moneypo.setIsred(0.0);
+        moneypo.setOper(operater);
+        moneypo.setMoneyList(moneylistNO);
+        moneypo.setSumall(sum);
+
+        return moneypo;
+    }
+
 
     @Override
     public ArrayList<Account> getAllAccount() throws RemoteException {
@@ -54,8 +89,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
         return colist;
     }
-
-
 
     @Override
     public ArrayList<Consumer> getAllConsumer() throws RemoteException {

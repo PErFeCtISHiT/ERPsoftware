@@ -42,7 +42,7 @@ public class FinancialBill {
     }
 
     public String getID() throws RemoteException{
-        return null;
+        return this.ID;
     }
 
     public void setID(String ID) throws RemoteException{
@@ -50,7 +50,7 @@ public class FinancialBill {
     }
 
     public  String getBillType() throws RemoteException{
-        return null;
+        return this.Billtype;
     }
 
     public void setBilltype(String billtype) throws RemoteException{
@@ -58,7 +58,7 @@ public class FinancialBill {
     }
 
     public String getOperater() throws RemoteException{
-        return null;
+        return this.operater;
     }
 
     public void setOperater(String operater) throws RemoteException{
@@ -67,7 +67,7 @@ public class FinancialBill {
 
 
     public String getConsumerType() throws RemoteException{
-        return null;
+        return this.consumerType;
     }
 
     public void setConsumerType(String consumerType) throws RemoteException{
@@ -75,7 +75,7 @@ public class FinancialBill {
     }
 
     public String getConsumerID() throws  RemoteException{
-        return null;
+        return this.consumerID;
     }
 
     public void setConsumerID(String consumerID) throws RemoteException{
@@ -84,7 +84,7 @@ public class FinancialBill {
 
 
     public ArrayList<MoneyList> getMoneyList() throws RemoteException{
-        return null;
+        return this.moneyList;
     }
 
     public void setMoneyList(ArrayList<MoneyList> moneyList) throws RemoteException{
@@ -92,11 +92,10 @@ public class FinancialBill {
     }
 
     public Double getSum() throws RemoteException{
-        return null;
+        return this.sum;
     }
 
     public void setSum(double sum) throws RemoteException{
-
         this.sum = sum;
     }
 
