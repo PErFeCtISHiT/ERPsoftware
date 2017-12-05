@@ -3,7 +3,7 @@ package client.Vo;
 /**
  * @author: pis
  * @description: good good study
- * @date: create in 20:59 2017/12/4
+ * @date: create in 21:00 2017/12/4
  */
 public class moneyListVO {
     private String keyno;
