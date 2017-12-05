@@ -44,21 +44,13 @@ public class start extends Application {
         Button turnToStockman = new Button("turn to stockman");
 
         turnToStockman.setOnAction(e -> {
-            try {
-                turntoStockman();
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
+            turntoStockman();
         });
 
         Button turnToAccountant = new Button("turn to Accountant");
 
         turnToAccountant.setOnAction(e -> {
-            try {
-                turntoAccountant();
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
+            turntoAccountant();
         });
 
 
