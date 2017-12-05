@@ -1,6 +1,8 @@
 package client.Presentation.AccountantUI.BillFill;
 
 
+import client.BL.Accountant.FinancialReceivebl.FinancialBill;
+import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.RMI.link;
 import javafx.application.Application;
@@ -17,6 +19,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import shared.ResultMessage;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class FillMoneyBill extends Application {
     public static void main(String[] args) {
@@ -27,8 +33,8 @@ public class FillMoneyBill extends Application {
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new MoneyList("1","A", "B", "C"),
-                    new MoneyList("2","Q", "W", "E")
+                    new MoneyList("1","1","A", "B", "C"),
+                    new MoneyList("2","2","Q", "W", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
@@ -41,7 +47,7 @@ public class FillMoneyBill extends Application {
     final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
-
+    FinancialReceiveController receiveController = new FinancialReceiveController();
 
     @Override public void start(Stage stage) {
         stage.setTitle("填写单据");
@@ -95,7 +101,7 @@ public class FillMoneyBill extends Application {
             String acc = addID.getText();
             String money = addMoney.getText();
             String comment = addComment.getText();
-            MoneyList list = new MoneyList(billNum.getText(),acc,money,comment);
+            MoneyList list = new MoneyList("123",billNum.getText(),acc,money,comment);
             data.add(list);
             addID.clear();
             addMoney.clear();
@@ -133,12 +139,26 @@ public class FillMoneyBill extends Application {
         ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (    TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()&&
-                    consumer.getText() != null &&
-                    !consumer.getText().isEmpty()&&
-                    checkMoney(money.getText()))
+            if (checkMoney(money.getText()))
             {
+                String billtype = TypeComboBox.getValue().toString();
+                String billID = billNum.getText();
+                String operater = StaffComboBox.getValue().toString();
+                String consumerType =ConsumerTypeComboBox.getValue().toString();
+                String consumerID = consumer.getText();
+                double sum = Double.parseDouble(money.getText());
+                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+                for (int i=0;i<data.size();i++){
+                    data.get(i).setlistNO(billID);
+                    moneylist.add(data.get(i));
+                }
+                FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
+                try {
+                    ResultMessage resultMessage = receiveController.summit(financialBill);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+
                 notification.setText("The Bill was successfully sent"
                         + " to " );
                 TypeComboBox.setValue(null);
@@ -151,17 +171,29 @@ public class FillMoneyBill extends Application {
         });
 
         DraftButton.setOnAction((ActionEvent e) -> {
-            if (TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()){
-                notification.setText("Your message was successfully sent"
-                        + " to " );
-                TypeComboBox.setValue(null);
-                money.clear();
-                text.clear();
+            String billtype = TypeComboBox.getValue().toString();
+            String billID = billNum.getText();
+            String operater = StaffComboBox.getValue().toString();
+            String consumerType =ConsumerTypeComboBox.getValue().toString();
+            String consumerID = consumer.getText();
+            double sum = Double.parseDouble(money.getText());
+            ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+            for (int i=0;i<data.size();i++){
+                data.get(i).setlistNO(billID);
+                moneylist.add(data.get(i));
             }
-            else {
-                notification.setText("You have not selected a recipient!");
+            FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
+            try {
+                ResultMessage resultMessage = receiveController.saveAsDraft(financialBill);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
             }
+
+            TypeComboBox.setValue(null);
+            money.clear();
+            text.clear();
+
+
         });
 
         GridPane grid = new GridPane();
