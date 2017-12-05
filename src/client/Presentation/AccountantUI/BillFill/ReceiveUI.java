@@ -1,6 +1,7 @@
 package client.Presentation.AccountantUI.BillFill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.RMI.link;
@@ -12,9 +13,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,7 +25,6 @@ public class ReceiveUI extends Application {
     final String[] imageNames = new String[]{"Apples", "Flowers", "Leaves"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] table = new TableView[4];
-    final Label label = new Label("N/A");
 
 
 
@@ -41,6 +38,16 @@ public class ReceiveUI extends Application {
             FXCollections.observableArrayList(
                     new Consumer("A", "B", "C","A", "B", "C","B", "C"),
                     new Consumer("b", "B", "C","A", "B", "C","B", "C"));
+
+    private final TableView<AccountBill> draftbilltable = new TableView<>();
+    private final ObservableList<AccountBill> draftbilldata =
+            FXCollections.observableArrayList();
+
+    private final TableView<AccountBill> underpromotedbilltable = new TableView<>();
+    private final ObservableList<AccountBill> underpromotedbilldata =
+            FXCollections.observableArrayList();
+
+
 
     final HBox hb = new HBox();
     final VBox vb1 = new VBox();
@@ -137,24 +144,45 @@ public class ReceiveUI extends Application {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+        TableColumn<AccountBill, String> BillIDCol =
+                new TableColumn<>("单据编号");
+        TableColumn<AccountBill, String> BillTypeCol =
+                new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillEditCol =
+                new TableColumn<>("");
+        BillIDCol.setMinWidth(100);
+        BillIDCol.setCellValueFactory(
+                param -> param.getValue().keyno);
+        BillTypeCol.setMinWidth(100);
+        BillTypeCol.setCellValueFactory(
+                param -> param.getValue().kind);
+        BillEditCol.setMinWidth(200);
+        BillEditCol.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button editBtn = new Button("编辑");
+                        this.setGraphic(editBtn);
+                        editBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+
+                            /////////
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
 
 
 
-
-
-        // --- GridPane container
-        TitledPane gridTitlePane = new TitledPane();
-        GridPane grid = new GridPane();
-        grid.setVgap(4);
-        grid.setPadding(new Insets(5, 5, 5, 5));
-        grid.add(new Label("To: "), 0, 0);
-        grid.add(new TableView<>(), 1, 0);
-//        grid.add(new TextField(), 1, 0);
-//        grid.add(new Label("Attachment: "), 0, 3);
-//        grid.add(label,1, 3);
-        gridTitlePane.setText("Grid");
-        gridTitlePane.setContent(grid);
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+        table[0] = accounttable;
+        table[1] = consumertable;
         // --- Accordion
         final Accordion accordion = new Accordion ();
         for (int i = 0; i < imageNames.length; i++) {
@@ -162,16 +190,10 @@ public class ReceiveUI extends Application {
         }
 
         accordion.getPanes().addAll(tps);
-        accordion.expandedPaneProperty().addListener(
-                (ObservableValue<? extends TitledPane> ov, TitledPane old_val, TitledPane new_val) -> {
-                    if (new_val != null) {
-                        label.setText(accordion.getExpandedPane().getText() );
-                }
-        });
 
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(20, 0, 0, 20));
-        hbox.getChildren().setAll(gridTitlePane, accordion);
+        hbox.getChildren().setAll(accordion);
 
         Group root = (Group)scene.getRoot();
         root.getChildren().add(hbox);
@@ -179,3 +201,31 @@ public class ReceiveUI extends Application {
         stage.show();
     }
 }
+
+
+
+
+
+
+
+// --- GridPane container
+//        TitledPane gridTitlePane = new TitledPane();
+//        GridPane grid = new GridPane();
+//        grid.setVgap(4);
+//        grid.setPadding(new Insets(5, 5, 5, 5));
+//        grid.add(new Label("To: "), 0, 0);
+//        grid.add(new TableView<>(), 1, 0);
+//        grid.add(new TextField(), 1, 0);
+//        grid.add(new Label("Attachment: "), 0, 3);
+//        grid.add(label,1, 3);
+//        gridTitlePane.setText("Grid");
+//        gridTitlePane.setContent(grid);
+
+//        accordion.expandedPaneProperty().addListener(
+//                (ObservableValue<? extends TitledPane> ov, TitledPane old_val, TitledPane new_val) -> {
+//                    if (new_val != null) {
+//                        label.setText(accordion.getExpandedPane().getText() );
+//                }
+//        });
+
+

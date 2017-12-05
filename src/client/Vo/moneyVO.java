@@ -48,7 +48,6 @@ public class moneyVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-
 	public String getOper() {
 		return oper;
 	}
@@ -72,6 +71,7 @@ public class moneyVO implements Serializable{
 	public void setIsred(Double isred) {
 		this.isred = isred;
 	}
+
 	public Double getIsDraft() {
 		return isDraft;
 	}
@@ -95,7 +95,6 @@ public class moneyVO implements Serializable{
 	public void setAccoun(String accoun) {
 		this.accoun = accoun;
 	}
-
 
 	public Double getSumall() {
 		return sumall;

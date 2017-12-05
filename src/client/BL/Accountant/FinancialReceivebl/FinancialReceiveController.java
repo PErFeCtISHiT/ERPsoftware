@@ -62,7 +62,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     }
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
-//        link.getRemoteHelper()
+//        link.getRemoteHelper().getmoneyList().addObject()
 
 
 
