@@ -65,7 +65,7 @@ public class ReceiveUI extends Application {
     }
 
     @Override public void start(Stage stage) {
-        stage.setTitle("TitledPane");
+        stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 800, 250);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,7 +267,7 @@ public class ReceiveUI extends Application {
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
-//            refresh();
+            refresh();
         });
 
         final Button newBill = new Button("新建收款单");
@@ -287,25 +287,25 @@ public class ReceiveUI extends Application {
 
 
 
-//    public void refresh() {
-//        try {
-//            ArrayList<Account> list1 =receiveController.getAllAccount();
-//            accountdata.clear();
-//            accountdata.addAll(list1);
-//            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
-//            consumerdata.clear();
-//            consumerdata.addAll(list2);
-//            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
-//            draftbilldata.clear();
-//            draftbilldata.addAll(list3);
-//            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
-//            AlreadyPromotionbilldata.clear();
-//            AlreadyPromotionbilldata.addAll(list4);
-//            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
-//            UnderPromotionbilldata.clear();
-//            UnderPromotionbilldata.addAll(list5);
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void refresh() {
+        try {
+            ArrayList<Account> list1 =receiveController.getAllAccount();
+            accountdata.clear();
+            accountdata.addAll(list1);
+            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
+            consumerdata.clear();
+            consumerdata.addAll(list2);
+            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
+            draftbilldata.clear();
+            draftbilldata.addAll(list3);
+            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
+            AlreadyPromotionbilldata.clear();
+            AlreadyPromotionbilldata.addAll(list4);
+            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
+            UnderPromotionbilldata.clear();
+            UnderPromotionbilldata.addAll(list5);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }

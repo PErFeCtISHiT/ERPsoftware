@@ -38,7 +38,6 @@ public class FinancialPayController implements FinancialPayInterface {
         saveMoneyList(moneyLists);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
         moneypo.setIsDraft(1.0);
-        System.out.println("draft");
 
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
@@ -55,7 +54,39 @@ public class FinancialPayController implements FinancialPayInterface {
     @Override
     public void ReEditBill(String Keyno) throws RemoteException{
 
+
     }
+
+    @Override
+    public ArrayList<AccountBill> getAllPromotedPay() throws RemoteException{
+
+        List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
+        ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+        for(int i=0;i<moneyPOList.size();i++){
+            if (moneyPOList.get(i).getKind()==1.0&&moneyPOList.get(i).getIscheck()==1.0){
+                accountBills.add(PoToAccountBill(moneyPOList.get(i)));
+            }
+        }
+//        System.out.println(accountBills.size()+" "+accountBills.get(0).getKeyno());
+        return accountBills;
+    }
+
+
+    @Override
+    public ArrayList<AccountBill> getAllUnderPromotedPay() throws RemoteException{
+        List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
+        ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+        System.out.println(moneyPOList.size());
+        for(int i=0;i<moneyPOList.size();i++){
+            System.out.println(moneyPOList.get(i).getKeyno());
+            if (moneyPOList.get(i).getKind()==1.0&&moneyPOList.get(i).getIscheck()==0.0 && moneyPOList.get(i).getIsDraft()==0.0){
+                accountBills.add(PoToAccountBill(moneyPOList.get(i)));
+            }
+        }
+        System.out.println(accountBills.size());
+        return accountBills;
+    }
+
 
 
     @Override
@@ -63,13 +94,13 @@ public class FinancialPayController implements FinancialPayInterface {
         List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
         ArrayList<moneyPO> DraftPayPO = PickDraftPay(moneyPOList);
         ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+
         for (int i=0; i<DraftPayPO.size();i++){
             accountBills.add(PoToAccountBill(DraftPayPO.get(i)));
         }
 
         return accountBills;
     }
-
     @Override
     public AccountBill PoToAccountBill(moneyPO po) throws RemoteException{
         AccountBill bill = new AccountBill();
@@ -83,13 +114,12 @@ public class FinancialPayController implements FinancialPayInterface {
         else {
             bill.setKind("现金费用单");
         }
-        bill.setConsumer(po.getConsumer());
-        bill.setAccoun(po.getAccoun());
-        bill.setMoneyList(po.getMoneyList());
         bill.setKeyno(po.getKeyno());
         bill.setConsumertype(po.getConsumertype());
         bill.setOper(po.getOper());
-
+        bill.setConsumer(po.getConsumer());
+        bill.setAccoun(po.getAccoun());
+        bill.setMoneyList(po.getMoneyList());
 
         bill.setIscheck(String.valueOf(po.getIscheck()));
         bill.setIsDraft(String.valueOf(po.getIsDraft()));
@@ -102,32 +132,26 @@ public class FinancialPayController implements FinancialPayInterface {
 
     @Override
     public ArrayList<moneyPO> PickDraftPay(List<moneyPO> pos) throws RemoteException{
-        ArrayList<moneyPO> draftPay = new ArrayList<moneyPO>();
-
+        ArrayList<moneyPO> draftReceive = new ArrayList<moneyPO>();
         for(int i=0;i<pos.size();i++){
-            if (pos.get(i).getKind().equals(1.0)&&pos.get(i).getIsDraft().equals(1.0)){
-                draftPay.add(pos.get(i));
+            if (pos.get(i).getKind()==1.0&&pos.get(i).getIsDraft()==1.0){
+                draftReceive.add(pos.get(i));
             }
         }
-        return draftPay;
+        return draftReceive;
     }
-
-
-
-
-
 
     @Override
     public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException {
         moneyPO moneypo = new moneyPO();
-
-        String consumerID = financialBill.getConsumerID();
-        double sum = financialBill.getSum();
-        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
         String billtype = financialBill.getBillType();
         String billID = financialBill.getID();
         String operater = financialBill.getOperater();
         String consumerType = financialBill.getConsumerType();
+        String consumerID = financialBill.getConsumerID();
+        double sum = financialBill.getSum();
+        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+
 
         moneypo.setKind(1.0);
         moneypo.setKeyno(billID);
@@ -185,7 +209,5 @@ public class FinancialPayController implements FinancialPayInterface {
         con.setduePay(String.valueOf(po.getCapacit()));
         return con;
     }
-
-
 
 }
