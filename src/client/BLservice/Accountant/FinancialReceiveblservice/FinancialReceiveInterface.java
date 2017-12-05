@@ -23,6 +23,10 @@ public interface FinancialReceiveInterface {
 
     public void ReEditBill(String Keyno) throws RemoteException;
 
+    public ArrayList<AccountBill> getAllPromotedReceive() throws RemoteException;
+
+    public ArrayList<AccountBill> getAllUnderPromotedReceive() throws RemoteException;
+
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException;
 
     public ArrayList<AccountBill> getAllDraftReceive() throws RemoteException;

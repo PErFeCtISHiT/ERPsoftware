@@ -53,17 +53,43 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
-       for (int i=0; i< moneyLists.size();i++){
-           link.getRemoteHelper().getmoneyList().addObject(moneyLists.get(i),18);
-       }
+        for (int i=0; i< moneyLists.size();i++){
+            link.getRemoteHelper().getmoneyList().addObject(moneyLists.get(i),18);
+        }
     }
 
     @Override
     public void ReEditBill(String Keyno) throws RemoteException{
 
 
-
     }
+
+    @Override
+    public ArrayList<AccountBill> getAllPromotedReceive() throws RemoteException{
+
+        List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
+        ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+        for(int i=0;i<moneyPOList.size();i++){
+            if (moneyPOList.get(i).getKind()==0.0&&moneyPOList.get(i).getIscheck()==1.0){
+                accountBills.add(PoToAccountBill(moneyPOList.get(i)));
+            }
+        }
+        return accountBills;
+    }
+
+
+    @Override
+    public ArrayList<AccountBill> getAllUnderPromotedReceive() throws RemoteException{
+        List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
+        ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
+        for(int i=0;i<moneyPOList.size();i++){
+            if (moneyPOList.get(i).getKind()==0.0&&moneyPOList.get(i).getIscheck()==0.0 && moneyPOList.get(i).getIsDraft()==0.0){
+                accountBills.add(PoToAccountBill(moneyPOList.get(i)));
+            }
+        }
+        return accountBills;
+    }
+
 
 
     @Override
@@ -83,7 +109,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         AccountBill bill = new AccountBill();
 
         if (po.getKind()==0.0){
-           bill.setKind("收款单");
+            bill.setKind("收款单");
         }
         else if (po.getKind() ==1.0){
             bill.setKind("付款单");

@@ -87,6 +87,7 @@ public class ReceiveUI extends Application {
                 param -> param.getValue().money);
         try {
             ArrayList<Account> list =receiveController.getAllAccount();
+            accountdata.clear();
             accountdata.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -139,6 +140,7 @@ public class ReceiveUI extends Application {
 
         try {
             ArrayList<Consumer> list =receiveController.getAllConsumer();
+            consumerdata.clear();
             consumerdata.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -188,6 +190,7 @@ public class ReceiveUI extends Application {
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
+            draftbilldata.clear();
             draftbilldata.addAll(list);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -198,13 +201,26 @@ public class ReceiveUI extends Application {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
+        try {
+            ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
+            AlreadyPromotionbilldata.clear();
+            AlreadyPromotionbilldata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         AlreadyPromotionbilltable.setItems(AlreadyPromotionbilldata);
         AlreadyPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        try {
+            ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
+            UnderPromotionbilldata.clear();
+            UnderPromotionbilldata.addAll(list);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         UnderPromotionbilltable.setItems(UnderPromotionbilldata);
         UnderPromotionbilltable.getColumns().addAll(BillIDCol,BillTypeCol);
 
@@ -238,31 +254,3 @@ public class ReceiveUI extends Application {
         stage.show();
     }
 }
-
-
-
-
-
-
-
-// --- GridPane container
-//        TitledPane gridTitlePane = new TitledPane();
-//        GridPane grid = new GridPane();
-//        grid.setVgap(4);
-//        grid.setPadding(new Insets(5, 5, 5, 5));
-//        grid.add(new Label("To: "), 0, 0);
-//        grid.add(new TableView<>(), 1, 0);
-//        grid.add(new TextField(), 1, 0);
-//        grid.add(new Label("Attachment: "), 0, 3);
-//        grid.add(label,1, 3);
-//        gridTitlePane.setText("Grid");
-//        gridTitlePane.setContent(grid);
-
-//        accordion.expandedPaneProperty().addListener(
-//                (ObservableValue<? extends TitledPane> ov, TitledPane old_val, TitledPane new_val) -> {
-//                    if (new_val != null) {
-//                        label.setText(accordion.getExpandedPane().getText() );
-//                }
-//        });
-
-
