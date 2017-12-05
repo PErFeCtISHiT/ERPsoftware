@@ -14,15 +14,7 @@ public class moneyVO implements Serializable{
 	private String accoun;
 	private Double sumall;
 	private String moneyList;
-	private Double isDraft;
 
-	public Double getIsDraft() {
-		return isDraft;
-	}
-
-	public void setIsDraft(Double isDraft) {
-		this.isDraft = isDraft;
-	}
 
 	public String getConsumertype() {
 		return consumertype;

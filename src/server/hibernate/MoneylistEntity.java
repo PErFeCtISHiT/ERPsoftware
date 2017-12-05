@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @date: create in 11:05 2017/11/30
  */
 @Entity
-@Table(name = "MONEYLIST", schema = "PIS", catalog = "")
+@Table(name = "MONEYLIST", schema = "PIS")
 public class MoneylistEntity {
     private String keyid;
     private String keyno;

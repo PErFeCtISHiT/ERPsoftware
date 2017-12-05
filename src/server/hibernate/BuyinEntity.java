@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "BUYIN", schema = "PIS", catalog = "")
+@Table(name = "BUYIN", schema = "PIS")
 public class BuyinEntity {
     private Double kind;
     private String keyno;

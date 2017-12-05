@@ -15,21 +15,12 @@ public class moneyPO implements Serializable{
 	private Double sumall;
 	private String moneyList;
 
-	private Double isDraft;
-
-	public Double getIsDraft() {
-		return isDraft;
-	}
-
-	public void setIsDraft(Double isDraft) {
-		this.isDraft = isDraft;
-	}
-
     public moneyPO() {
 
     }
 
-	public String getConsumertype() {
+
+    public String getConsumertype() {
 		return consumertype;
 	}
 
