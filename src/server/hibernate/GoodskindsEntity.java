@@ -60,9 +60,7 @@ public class GoodskindsEntity {
         if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
         if (keyname != null ? !keyname.equals(that.keyname) : that.keyname != null) return false;
         if (father != null ? !father.equals(that.father) : that.father != null) return false;
-        if (son != null ? !son.equals(that.son) : that.son != null) return false;
-
-        return true;
+        return son != null ? son.equals(that.son) : that.son == null;
     }
 
     @Override

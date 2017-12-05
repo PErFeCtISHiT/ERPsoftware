@@ -138,9 +138,7 @@ public class LogEntity {
         if (note != null ? !note.equals(logEntity.note) : logEntity.note != null) return false;
         if (goodsname != null ? !goodsname.equals(logEntity.goodsname) : logEntity.goodsname != null) return false;
         if (consumer != null ? !consumer.equals(logEntity.consumer) : logEntity.consumer != null) return false;
-        if (base != null ? !base.equals(logEntity.base) : logEntity.base != null) return false;
-
-        return true;
+        return base != null ? base.equals(logEntity.base) : logEntity.base == null;
     }
 
     @Override

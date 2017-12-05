@@ -67,7 +67,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ArrayList<coVO> findAccount(String key) throws RemoteException{
+    public ArrayList<coVO> findAccount(String key) {
 
         return null;
     }
@@ -84,7 +84,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
     }
 
     @Override
-    public Account VoToAccount(coVO co) throws RemoteException{
+    public Account VoToAccount(coVO co) {
 
         String id=co.getKeyno();
         String name= co.getKeyname();
@@ -93,7 +93,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
         return account;
     }
     @Override
-    public coVO AccountToVo(Account account) throws RemoteException{
+    public coVO AccountToVo(Account account) {
 
         String id=account.getaccountID();
         String name= account.getaccountName();
@@ -106,7 +106,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
     }
 
     @Override
-    public coVO PoToVo(coPO po) throws RemoteException{
+    public coVO PoToVo(coPO po) {
 
         String id=po.getKeyno();
         String name= po.getKeyname();
@@ -119,7 +119,7 @@ public class FinancialAccountController implements FinancialAccountInterface {
     }
 
     @Override
-    public coPO VoToPo(coVO vo) throws RemoteException{
+    public coPO VoToPo(coVO vo) {
 
         String id=vo.getKeyno();
         String name= vo.getKeyname();

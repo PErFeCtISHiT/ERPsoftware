@@ -35,7 +35,7 @@ public class start extends Application {
 
     @Override
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         login = new Stage();
 
@@ -80,7 +80,7 @@ public class start extends Application {
 
 
 
-    private void turntoStockman() throws RemoteException{
+    private void turntoStockman() {
 
         //Stockman.start();
 
@@ -90,7 +90,7 @@ public class start extends Application {
 
 
 
-    private void turntoAccountant() throws RemoteException{
+    private void turntoAccountant() {
 
         Accountant.start();
 

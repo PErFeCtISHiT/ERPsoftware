@@ -154,9 +154,7 @@ public class GiftEntity {
         if (consumerno != null ? !consumerno.equals(that.consumerno) : that.consumerno != null) return false;
         if (comsumername != null ? !comsumername.equals(that.comsumername) : that.comsumername != null) return false;
         if (num != null ? !num.equals(that.num) : that.num != null) return false;
-        if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
-
-        return true;
+        return keyno != null ? keyno.equals(that.keyno) : that.keyno == null;
     }
 
     @Override

@@ -143,9 +143,7 @@ public class StockexceptionEntity {
         if (goodsname != null ? !goodsname.equals(that.goodsname) : that.goodsname != null) return false;
         if (numinbase != null ? !numinbase.equals(that.numinbase) : that.numinbase != null) return false;
         if (numinsys != null ? !numinsys.equals(that.numinsys) : that.numinsys != null) return false;
-        if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
-
-        return true;
+        return keyno != null ? keyno.equals(that.keyno) : that.keyno == null;
     }
 
     @Override

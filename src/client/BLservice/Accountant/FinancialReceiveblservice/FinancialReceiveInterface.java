@@ -15,20 +15,20 @@ import java.util.List;
 
 public interface FinancialReceiveInterface {
 
-    public ResultMessage getReceiveID();
+    ResultMessage getReceiveID();
 
-    public moneyVO find(String iD);
+    moneyVO find(String iD);
 
-    public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
+    ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
-    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
+    ResultMessage saveAsDraft(FinancialBill financialBill) throws RemoteException;
 
-    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
+    moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
 
-    public ArrayList<Account> getAllAccount() throws RemoteException;
+    ArrayList<Account> getAllAccount() throws RemoteException;
 
-    public ArrayList<Consumer> getAllConsumer() throws RemoteException;
+    ArrayList<Consumer> getAllConsumer() throws RemoteException;
 
-    public Consumer PoToConsumer(consumerPO po) throws RemoteException;
+    Consumer PoToConsumer(consumerPO po) throws RemoteException;
 
 }

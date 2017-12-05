@@ -12,17 +12,17 @@ import java.util.ArrayList;
 public interface FinancialPayInterface {
 
 
-    public ResultMessage getPayID();
+    ResultMessage getPayID();
 
-    public moneyVO find(String iD);
+    moneyVO find(String iD);
 
-    public ResultMessage addBill(moneyVO vo);
+    ResultMessage addBill(moneyVO vo);
 
-    public moneyVO summit();
+    moneyVO summit();
 
-    public ArrayList<Account> getAllAccount() throws RemoteException;
+    ArrayList<Account> getAllAccount() throws RemoteException;
 
-    public ArrayList<Consumer> getAllConsumer() throws RemoteException;
+    ArrayList<Consumer> getAllConsumer() throws RemoteException;
 
-    public Consumer PoToConsumer(consumerPO po) throws RemoteException;
+    Consumer PoToConsumer(consumerPO po) throws RemoteException;
 }

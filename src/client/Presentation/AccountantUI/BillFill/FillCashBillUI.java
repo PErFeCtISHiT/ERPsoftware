@@ -242,7 +242,7 @@ public class FillCashBillUI extends Application {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText((String) getItem());
+            setText(getItem());
             setGraphic(null);
         }
 

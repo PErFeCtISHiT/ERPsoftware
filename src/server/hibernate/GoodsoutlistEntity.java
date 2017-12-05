@@ -96,9 +96,7 @@ public class GoodsoutlistEntity {
         if (keymodel != null ? !keymodel.equals(that.keymodel) : that.keymodel != null) return false;
         if (num != null ? !num.equals(that.num) : that.num != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-
-        return true;
+        return sumall != null ? sumall.equals(that.sumall) : that.sumall == null;
     }
 
     @Override

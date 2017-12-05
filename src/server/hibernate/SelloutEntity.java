@@ -191,9 +191,7 @@ public class SelloutEntity {
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
         if (cut != null ? !cut.equals(that.cut) : that.cut != null) return false;
         if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
-        if (finalsum != null ? !finalsum.equals(that.finalsum) : that.finalsum != null) return false;
-
-        return true;
+        return finalsum != null ? finalsum.equals(that.finalsum) : that.finalsum == null;
     }
 
     @Override
