@@ -1,6 +1,9 @@
 package client.Presentation.ManageUI;
 
-
+import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
+import client.RMI.link;
+import client.Vo.coVO;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,8 +22,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import javafx.util.Callback;
+import server.Po.*;
 
+
+import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 public class CheckProgressUI extends Application {
@@ -28,19 +35,23 @@ public class CheckProgressUI extends Application {
     private final TableView<Billgotten> table = new TableView<>();
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
-
+    BillgottenController controller = new BillgottenController();
 
     private final ObservableList<Billgotten> data =
             FXCollections.observableArrayList(
-                    new Billgotten("1","销售类单据","ferry","10000"),
-                    new Billgotten("2","销售类单据","ferry","10000")
-                    );
+
+            );
 
     final HBox hb = new HBox();
     final HBox hb2 =new HBox();
+
     Callback<TableColumn<Billgotten,String>,
             TableCell<Billgotten,String>> cellFactory
             =(TableColumn<Billgotten,String> p)->new CheckProgressUI.EditingCell();
+    public static void main(String[] args) {
+        link.linktoServer();
+        launch(args);
+    }
     @Override
     public void start(Stage stage) {
         Locale.setDefault(Locale.CHINA);
@@ -55,35 +66,41 @@ public class CheckProgressUI extends Application {
 
         table.setEditable(true);
 
-
         TableColumn<Billgotten, String> IdCol =
-                new TableColumn<>("序号");
-        TableColumn<Billgotten, String> TypeCol =
                 new TableColumn<>("类型");
+        TableColumn<Billgotten, String> TypeCol =
+                new TableColumn<>("编号");
         TableColumn<Billgotten, String> NameCol =
-                new TableColumn<>("名称");
+                new TableColumn<>("操作员");
         TableColumn<Billgotten, String> AccountCol =
-                new TableColumn<>("金额");
+                new TableColumn<>("审批状态");
+        TableColumn<Billgotten, String> StockCol =
+                new TableColumn<>("是否红冲");
 
         IdCol.setMinWidth(100);
         IdCol.setCellValueFactory(
-                param -> param.getValue().Id);
+                param -> param.getValue().Type);
 
         TypeCol.setMinWidth(100);
         TypeCol.setCellValueFactory(
-                param -> param.getValue().BillType);
+                param -> param.getValue().Id);
 
         NameCol.setMinWidth(100);
         NameCol.setCellValueFactory(
-                param -> param.getValue().BillName);
+                param -> param.getValue().Operator);
 
         AccountCol.setMinWidth(100);
         AccountCol.setCellValueFactory(
-                param -> param.getValue().BIllAccount);
+                param -> param.getValue().State);
+
+        StockCol.setMinWidth(100);
+        StockCol.setCellValueFactory(
+                param -> param.getValue().IsHongChong);
+
 
 
         table.setItems(data);
-        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol);
+        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol);
 
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
@@ -159,7 +176,42 @@ public class CheckProgressUI extends Application {
         final TextField storehouse = new TextField();
         storehouse.setPromptText("仓库");
 
+        try {
+            List<selloutPO> list2 =controller.showselloutPO();
+            for (int i=0;i<list2.size();i++){
 
+                data.add(new Billgotten("销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
+            }
+            List<buyinPO> list =controller.showbyingPO();
+            for (int i=0;i<list.size();i++){
+
+                data.add(new Billgotten("进货类单据",list.get(i).getKeyno(),list.get(i).getOper(),getState(list.get(i).getIscheck()),getIsRed(list.get(i).getIsred())));
+            }
+            List<moneyPO> list3 =controller.showmoneyPO();
+            for (int i=0;i<list3.size();i++){
+
+                data.add(new Billgotten("财务类单据",list3.get(i).getKeyno(),list3.get(i).getOper(),getState(list3.get(i).getIscheck()),getIsRed(list3.get(i).getIsred())));
+            }
+            List<stockexceptionPO> list4 =controller.showstockexceptionPO();
+            for (int i=0;i<list4.size();i++){
+
+                data.add(new Billgotten("库存类单据",list4.get(i).getKeyno(),list4.get(i).getOper(),getState(list4.get(i).getIscheck()),getIsRed(list4.get(i).getIsred())));
+            }
+            List<WarningPO> list5 =controller.showwarningPO();
+            for (int i=0;i<list5.size();i++){
+
+                data.add(new Billgotten("库存类单据",list5.get(i).getKeyno(),list5.get(i).getOper(),getState(list5.get(i).getIscheck()),getIsRed(list5.get(i).getIsred())));
+            }
+            List<giftPO> list6 =controller.showgiftPO();
+            for (int i=0;i<list6.size();i++){
+
+                data.add(new Billgotten("库存类单据",list6.get(i).getKeyno(),list6.get(i).getOper(),getState(list6.get(i).getIscheck()),getIsRed(list6.get(i).getIsred())));
+            }
+
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         hb.getChildren().addAll(button1,button2,button3,button4);
         hb.setSpacing(3);
 
@@ -198,7 +250,7 @@ public class CheckProgressUI extends Application {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText(getItem());
+            setText((String) getItem());
             setGraphic(null);
         }
 
@@ -233,12 +285,34 @@ public class CheckProgressUI extends Application {
                             commitEdit(textField.getText());
                         }
                     });
+
         }
 
         private String getString() {
             return getItem() == null ? "" : getItem().toString();
         }
+
+
     }
 
+    public static String getState(double number){
+        if(number == 0) {
+            return "未审批";
+        }
+        else if(number ==1){
+            return "已审批";
+        }
+        else{
+            return "草稿";
+        }
+    }
+    public static String getIsRed(double isred){
 
+        if(isred ==0){
+            return"非红冲账单";
+        }
+        else{
+            return"红冲账单";
+        }
+    }
 }
