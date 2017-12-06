@@ -25,14 +25,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
-
-//        System.out.println("summit");
-//        System.out.println(moneypo.getKind());
-//        System.out.println(moneypo.getConsumer());
-//        System.out.println(moneypo.getIsred());
-//        System.out.println(moneypo.getSumall());
-//        System.out.println(moneypo.getMoneyList());
-
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
 
@@ -71,9 +63,13 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     }
 
     @Override
-    public void ReEditBill(String Keyno) throws RemoteException{
+    public FinancialBill ReEditBill(String Keyno) throws RemoteException{
 
-
+        List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
+        System.out.println("edit: "+moneypo.size());
+        moneyPO po = moneypo.get(0);
+        FinancialBill bill=PoToFinancialBill(po);
+        return bill;
     }
 
     @Override
@@ -187,6 +183,38 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return moneypo;
     }
 
+    @Override
+    public FinancialBill PoToFinancialBill( moneyPO po) throws RemoteException{
+        String ID = po.getKeyno();
+        String Billtype = String.valueOf(po.getKind());
+        String operater=po.getOper();
+        String consumerType=po.getConsumertype();
+        String consumerID=po.getConsumer();
+        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
+        ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
+        double sum = po.getSumall();
+        FinancialBill bill = new FinancialBill(ID,Billtype,operater,consumerType,consumerID,moneylist,sum);
+        return bill;
+    }
+
+    @Override
+    public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException{
+        ArrayList<MoneyList> newlist= new ArrayList<>();
+        for (int i=0; i<list.size(); i++){
+            MoneyList newml= new MoneyList();
+            newml.setKeyid(list.get(i).getKeyid());
+            newml.setlistNO(list.get(i).getKeyno());
+            newml.setAccount(list.get(i).getAccountname());
+            newml.setMoney(String.valueOf(list.get(i).getSumall()));
+            newml.setComment(list.get(i).getNote());
+            newlist.add(newml);
+
+        }
+        return newlist;
+    }
+
+
+
 
     @Override
     public ArrayList<Account> getAllAccount() throws RemoteException {
@@ -228,6 +256,8 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         con.setduePay(String.valueOf(po.getCapacit()));
         return con;
     }
+
+
 
 
 

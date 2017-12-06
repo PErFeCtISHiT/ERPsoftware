@@ -4,9 +4,9 @@
     <root id="1"/>
     <schema id="2" parent="1" name="PIS">
       <ObjectId>85</ObjectId>
-      <IntrospectionTimestamp>2017-12-05.20:04:47</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-12-06.09:17:46</IntrospectionTimestamp>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
-      <ModifiedTimestamp>2017-12-05.10:39:23</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-12-05.22:56:09</ModifiedTimestamp>
       <CommentsHash>9823221767240</CommentsHash>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -192,7 +192,7 @@
     <table id="48" parent="2" name="STOCKEXCEPTION">
       <ObjectId>74024</ObjectId>
       <CreatedTimestamp>2017-11-02.17:26:33</CreatedTimestamp>
-      <ModifiedTimestamp>2017-12-05.10:33:12</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-12-05.22:56:09</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="49" parent="2" name="USE">
@@ -1102,48 +1102,48 @@
     <column id="207" parent="48" name="OPER">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL</DefaultExpression>
+      <DefaultExpression>NULL  </DefaultExpression>
     </column>
     <column id="208" parent="48" name="ISCHECK">
       <Position>4</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0 </DefaultExpression>
     </column>
     <column id="209" parent="48" name="ISRED">
       <Position>5</Position>
-      <DataType>VARCHAR2(20)|0</DataType>
+      <DataType>NUMBER(*)|0</DataType>
       <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="210" parent="48" name="GOODSNO">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL</DefaultExpression>
+      <DefaultExpression>NULL  </DefaultExpression>
     </column>
     <column id="211" parent="48" name="GOODSNAME">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL</DefaultExpression>
+      <DefaultExpression>NULL  </DefaultExpression>
     </column>
     <column id="212" parent="48" name="NUMINBASE">
       <Position>8</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0 </DefaultExpression>
     </column>
     <column id="213" parent="48" name="NUMINSYS">
       <Position>9</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0 </DefaultExpression>
     </column>
     <column id="214" parent="48" name="KEYNO">
       <Position>10</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL</DefaultExpression>
+      <DefaultExpression>NULL  </DefaultExpression>
     </column>
     <column id="215" parent="48" name="ISDRAFT">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0 </DefaultExpression>
     </column>
     <index id="216" parent="48" name="STOCKEXCEPTION_NO_PK">
       <ObjectId>74025</ObjectId>

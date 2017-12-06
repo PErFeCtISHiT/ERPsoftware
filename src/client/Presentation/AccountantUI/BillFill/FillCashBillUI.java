@@ -103,7 +103,7 @@ public class FillCashBillUI extends Application {
             String acc = addID.getText();
             String money = addMoney.getText();
             String comment = addComment.getText();
-            MoneyList list = new MoneyList("",acc,money,comment);
+            MoneyList list = new MoneyList("","",acc,money,comment);
             data.add(list);
             addID.clear();
             addMoney.clear();
