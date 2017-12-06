@@ -19,8 +19,20 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
 
     FinancialAccountController Accountcontroller  = new FinancialAccountController();
+    public static FinancialBill bill ;
 
 
+    @Override
+    public FinancialBill getDetailInfor() throws RemoteException {
+        System.out.println(bill.getID());
+        return this.bill;
+    }
+
+    @Override
+    public void setDetailInfor(FinancialBill financialBill) throws RemoteException {
+        System.out.println(bill.getID()+"!!!");
+        this.bill =financialBill;
+    }
 
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
@@ -66,9 +78,10 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public FinancialBill ReEditBill(String Keyno) throws RemoteException{
 
         List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
-        System.out.println("edit: "+moneypo.size());
+//        System.out.println("edit: "+moneypo.size());
         moneyPO po = moneypo.get(0);
         FinancialBill bill=PoToFinancialBill(po);
+        System.out.println("size: "+bill.getMoneyList().size());
         return bill;
     }
 
@@ -194,6 +207,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
         double sum = po.getSumall();
         FinancialBill bill = new FinancialBill(ID,Billtype,operater,consumerType,consumerID,moneylist,sum);
+        System.out.println("size: "+bill.getMoneyList().size());
         return bill;
     }
 

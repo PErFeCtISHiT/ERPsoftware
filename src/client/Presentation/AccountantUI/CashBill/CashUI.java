@@ -1,10 +1,9 @@
-package client.Presentation.AccountantUI.BillFill;
+package client.Presentation.AccountantUI.CashBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialCashbl.FinancialCashController;
 import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
-import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.collections.FXCollections;

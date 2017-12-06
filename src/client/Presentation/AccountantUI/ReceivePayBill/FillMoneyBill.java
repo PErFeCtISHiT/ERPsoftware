@@ -1,9 +1,9 @@
-package client.Presentation.AccountantUI.BillFill;
+package client.Presentation.AccountantUI.ReceivePayBill;
 
 
-import client.BL.Accountant.FinancialCashbl.FinancialCash;
-import client.BL.Accountant.FinancialCashbl.FinancialCashController;
-import client.BL.Accountant.FinancialCashbl.ItemList;
+import client.BL.Accountant.FinancialPaybl.FinancialPayController;
+import client.BL.Accountant.FinancialReceivebl.FinancialBill;
+import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.RMI.link;
 import javafx.application.Application;
@@ -25,7 +25,7 @@ import shared.ResultMessage;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class FillCashBillUI extends Application {
+public class FillMoneyBill extends Application {
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
@@ -34,14 +34,14 @@ public class FillCashBillUI extends Application {
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new MoneyList("1","1","A", "B", "C"),
-                    new MoneyList("2","2","Q", "W", "E")
+                    new MoneyList("1","1","123", "12.5", "C"),
+                    new MoneyList("2","2","456", "17.6", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
-    final Label billNum = new Label ();
+    final Label billNum = new Label ("XXXdanjubianhao");
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
@@ -49,15 +49,15 @@ public class FillCashBillUI extends Application {
     final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
-    FinancialCashController cashController = new FinancialCashController();
-
+    FinancialReceiveController receiveController = new FinancialReceiveController();
+    FinancialPayController payController = new FinancialPayController();
     @Override public void start(Stage stage) {
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
         table.setEditable(true);
 
         Callback<TableColumn<MoneyList, String>,
-                        TableCell<MoneyList, String>> cellFactory
+                TableCell<MoneyList, String>> cellFactory
                 = (TableColumn<MoneyList, String> p) -> new EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
@@ -66,13 +66,13 @@ public class FillCashBillUI extends Application {
 
 
 
-        TableColumn<MoneyList,String> ItemCol = new TableColumn<>("条目名");
-        ItemCol.setMinWidth(100);
-        ItemCol.setCellFactory(cellFactory);
-        ItemCol.setCellValueFactory(
+        TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
+        AccountCol.setMinWidth(100);
+        AccountCol.setCellFactory(cellFactory);
+        AccountCol.setCellValueFactory(
                 param -> param.getValue().account);
 
-        TableColumn<MoneyList,String> MoneyCol = new TableColumn<>("金额");
+        TableColumn<MoneyList,String> MoneyCol = new TableColumn<>("转账金额");
         MoneyCol.setMinWidth(100);
         MoneyCol.setCellFactory(cellFactory);
         MoneyCol.setCellValueFactory(
@@ -85,25 +85,25 @@ public class FillCashBillUI extends Application {
                 param -> param.getValue().comment);
 
         table.setItems(data);
-        table.getColumns().addAll(ItemCol,MoneyCol,CommentCol);
+        table.getColumns().addAll(AccountCol,MoneyCol,CommentCol);
 
 
         final TextField addID = new TextField();
-        addID.setPromptText("条目名");
-        addID.setMaxWidth(ItemCol.getPrefWidth());
+        addID.setPromptText("账户编号");
+        addID.setMaxWidth(AccountCol.getPrefWidth());
         final TextField addMoney = new TextField();
         addMoney.setMaxWidth(MoneyCol.getPrefWidth());
-        addMoney.setPromptText("金额");
+        addMoney.setPromptText("转账金额");
         final TextField addComment = new TextField();
         addComment.setMaxWidth(MoneyCol.getPrefWidth());
         addComment.setPromptText("备注");
 
-        final Button addButton = new Button("新建");
+        final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             String acc = addID.getText();
             String money = addMoney.getText();
             String comment = addComment.getText();
-            MoneyList list = new MoneyList("","",acc,money,comment);
+            MoneyList list = new MoneyList("123",billNum.getText(),acc,money,comment);
             data.add(list);
             addID.clear();
             addMoney.clear();
@@ -119,13 +119,11 @@ public class FillCashBillUI extends Application {
         vb.setSpacing(3);
 
 
-
-
         final ComboBox<String> TypeComboBox = new ComboBox<String>();
         TypeComboBox.getItems().addAll(
-                "现金费用单"
+                "收款单", "付款单"
         );
-        TypeComboBox.setValue("现金费用单");
+        TypeComboBox.setValue("收款单");
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
@@ -135,15 +133,23 @@ public class FillCashBillUI extends Application {
         StaffComboBox.setValue("A员工");
 
 
+        final ComboBox<String> ConsumerTypeComboBox = new ComboBox<String>();
+        ConsumerTypeComboBox.getItems().addAll(
+                "供应商", "销售商"
+        );
+        ConsumerTypeComboBox.setValue("供应商");
+        ConsumerTypeComboBox.setEditable(false);
+
         SummitButton.setOnAction((ActionEvent e) -> {
             if (true)//checkMoney(money.getText())
             {
                 System.out.println(TypeComboBox.getValue());
 
                 String billtype = TypeComboBox.getValue();
-                String billID = "TxT";//billNum.getText();
+                String billID = billNum.getText();
                 String operater = StaffComboBox.getValue();
-                String Account = consumer.getText();
+                String consumerType =ConsumerTypeComboBox.getValue();
+                String consumerID = consumer.getText();
 
                 System.out.println(money.getText());
                 double sum = Double.parseDouble(money.getText());
@@ -156,14 +162,14 @@ public class FillCashBillUI extends Application {
                     moneylist.add(data.get(i));
                 }
                 System.out.println("Step 1");
-                FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
+                FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
                     System.out.println("Step 2");
                     if(billtype=="收款单"){
-                        ResultMessage resultMessage = cashController.summit(financialCash);
+                        ResultMessage resultMessage = receiveController.summit(financialBill);
                     }
                     else{
-                        ResultMessage resultMessage = cashController.summit(financialCash);
+                        ResultMessage resultMessage = payController.summit(financialBill);
                     }
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
@@ -179,17 +185,34 @@ public class FillCashBillUI extends Application {
         });
 
         DraftButton.setOnAction((ActionEvent e) -> {
-            if (TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()){
-                notification.setText("Your message was successfully sent"
-                        + " to " );
-                TypeComboBox.setValue(null);
-                money.clear();
-                text.clear();
+            String billtype = TypeComboBox.getValue().toString();
+            String billID = billNum.getText();
+            String operater = StaffComboBox.getValue().toString();
+            String consumerType =ConsumerTypeComboBox.getValue().toString();
+            String consumerID = consumer.getText();
+            double sum = Double.parseDouble(money.getText());
+            ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+            for (int i=0;i<data.size();i++){
+                data.get(i).setlistNO(billID);
+                moneylist.add(data.get(i));
             }
-            else {
-                notification.setText("You have not selected a recipient!");
+            FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
+            try {
+                if(billtype=="收款单"){
+                    ResultMessage resultMessage = receiveController.saveAsDraft(financialBill);
+                }
+                else{
+                    ResultMessage resultMessage = payController.saveAsDraft(financialBill);
+                }
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
             }
+
+            TypeComboBox.setValue(null);
+            money.clear();
+            text.clear();
+
+
         });
 
         GridPane grid = new GridPane();
@@ -203,11 +226,12 @@ public class FillCashBillUI extends Application {
         grid.add(new Label("操作员："), 4, 0);
         grid.add(StaffComboBox, 5, 0);
 
-        grid.add(new Label("账户编号:"), 0, 1);
-        grid.add(consumer, 1, 1);
+        grid.add(new Label("客户类型："), 0, 1);
+        grid.add(ConsumerTypeComboBox, 1, 1);
+        grid.add(new Label("客户编号:"), 2, 1);
+        grid.add(consumer, 3, 1);
 
-
-        grid.add(new Label("条目列表:"), 0, 2);
+        grid.add(new Label("转账列表:"), 0, 2);
         grid.add(vb, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
         grid.add(money, 1, 3, 4, 1);
@@ -237,7 +261,7 @@ public class FillCashBillUI extends Application {
 
     public static boolean isNumeric(String str){
         for (int i = 0; i < str.length(); i++){
-//            System.out.println(str.charAt(i));
+            System.out.println(str.charAt(i));
             if (!Character.isDigit(str.charAt(i))){
                 return false;
             }
@@ -312,4 +336,5 @@ public class FillCashBillUI extends Application {
             return getItem() == null ? "" : getItem().toString();
         }
     }
+
 }

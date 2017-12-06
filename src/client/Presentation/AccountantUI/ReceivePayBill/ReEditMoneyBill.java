@@ -1,5 +1,4 @@
-package client.Presentation.AccountantUI.BillFill;
-
+package client.Presentation.AccountantUI.ReceivePayBill;
 
 import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
@@ -25,7 +24,7 @@ import shared.ResultMessage;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class FillMoneyBill extends Application {
+public class ReEditMoneyBill extends Application{
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
@@ -58,7 +57,7 @@ public class FillMoneyBill extends Application {
 
         Callback<TableColumn<MoneyList, String>,
                 TableCell<MoneyList, String>> cellFactory
-                = (TableColumn<MoneyList, String> p) -> new EditingCell();
+                = (TableColumn<MoneyList, String> p) -> new ReEditMoneyBill.EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
 
@@ -336,5 +335,4 @@ public class FillMoneyBill extends Application {
             return getItem() == null ? "" : getItem().toString();
         }
     }
-
 }

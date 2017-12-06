@@ -1,12 +1,11 @@
-package client.Presentation.AccountantUI.BillFill;
+package client.Presentation.AccountantUI.ReceivePayBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
-import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -20,9 +19,9 @@ import javafx.stage.Stage;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ReceiveUI extends Application {
+public class PayUI extends Application {
 
-    final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
+    final String[] imageNames = new String[]{"账户列表", "客户列表", "付款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] table = new TableView[5];
 
@@ -57,7 +56,7 @@ public class ReceiveUI extends Application {
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
-    FinancialReceiveController receiveController  = new FinancialReceiveController();
+    FinancialPayController PayController  = new FinancialPayController();
 
     public static void main(String[] args) {
         link.linktoServer();
@@ -65,7 +64,7 @@ public class ReceiveUI extends Application {
     }
 
     @Override public void start(Stage stage) {
-        stage.setTitle("制定收款单");
+        stage.setTitle("制定付款单");
         Scene scene = new Scene(new Group(), 800, 250);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +85,7 @@ public class ReceiveUI extends Application {
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
         try {
-            ArrayList<Account> list =receiveController.getAllAccount();
+            ArrayList<Account> list =PayController.getAllAccount();
             accountdata.clear();
             accountdata.addAll(list);
         } catch (RemoteException e) {
@@ -139,7 +138,7 @@ public class ReceiveUI extends Application {
                 param -> param.getValue().duePay);
 
         try {
-            ArrayList<Consumer> list =receiveController.getAllConsumer();
+            ArrayList<Consumer> list =PayController.getAllConsumer();
             consumerdata.clear();
             consumerdata.addAll(list);
         } catch (RemoteException e) {
@@ -174,12 +173,11 @@ public class ReceiveUI extends Application {
                         editBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                receiveController.ReEditBill(keyno);
+                                PayController.ReEditBill(keyno);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
 
-                            
                         });
                     }
                 }
@@ -190,7 +188,7 @@ public class ReceiveUI extends Application {
 
 
         try {
-            ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
+            ArrayList<AccountBill> list =PayController.getAllDraftPay();
 //            System.out.println("Draft "+list.size()+" "+list.get(0).getKeyno());
             draftbilldata.clear();
             draftbilldata.addAll(list);
@@ -229,7 +227,7 @@ public class ReceiveUI extends Application {
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                receiveController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                PayController.ReEditBill(keyno);/////////////////////////////////////////////////
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -242,9 +240,8 @@ public class ReceiveUI extends Application {
             return cell;
         });
 
-
         try {
-            ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
+            ArrayList<AccountBill> list =PayController.getAllPromotedPay();
 //            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
@@ -281,7 +278,7 @@ public class ReceiveUI extends Application {
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                receiveController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                PayController.ReEditBill(keyno);/////////////////////////////////////////////////
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -295,7 +292,7 @@ public class ReceiveUI extends Application {
         });
 
         try {
-            ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
+            ArrayList<AccountBill> list =PayController.getAllUnderPromotedPay();
 //            System.out.println("Under "+list.size()+" "+list.get(0).getKeyno());
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list);
@@ -343,19 +340,19 @@ public class ReceiveUI extends Application {
 
     public void refresh() {
         try {
-            ArrayList<Account> list1 =receiveController.getAllAccount();
+            ArrayList<Account> list1 =PayController.getAllAccount();
             accountdata.clear();
             accountdata.addAll(list1);
-            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
+            ArrayList<Consumer> list2 =PayController.getAllConsumer();
             consumerdata.clear();
             consumerdata.addAll(list2);
-            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
+            ArrayList<AccountBill> list3 =PayController.getAllDraftPay();
             draftbilldata.clear();
             draftbilldata.addAll(list3);
-            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
+            ArrayList<AccountBill> list4 =PayController.getAllPromotedPay();
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list4);
-            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
+            ArrayList<AccountBill> list5 =PayController.getAllUnderPromotedPay();
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list5);
         } catch (RemoteException e) {
