@@ -78,10 +78,10 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public FinancialBill ReEditBill(String Keyno) throws RemoteException{
 
         List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
-//        System.out.println("edit: "+moneypo.size());
+        System.out.println("po size: "+moneypo.size());
         moneyPO po = moneypo.get(0);
         FinancialBill bill=PoToFinancialBill(po);
-        System.out.println("size: "+bill.getMoneyList().size());
+        System.out.println(" List size: "+bill.getMoneyList().size());
         return bill;
     }
 
@@ -195,7 +195,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
         return moneypo;
     }
-
+//////////////////////////////////////////////////////////////////////////我要投诉///////////////////////////////////////////////////////////////////
     @Override
     public FinancialBill PoToFinancialBill( moneyPO po) throws RemoteException{
         String ID = po.getKeyno();
@@ -205,9 +205,10 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String consumerID=po.getConsumer();
         List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
         ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
+        System.out.println(" list size: "+list.size());
         double sum = po.getSumall();
         FinancialBill bill = new FinancialBill(ID,Billtype,operater,consumerType,consumerID,moneylist,sum);
-        System.out.println("size: "+bill.getMoneyList().size());
+        System.out.println(" potobill size: "+bill.getMoneyList().size());
         return bill;
     }
 
