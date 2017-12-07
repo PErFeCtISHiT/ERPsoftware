@@ -1,6 +1,7 @@
 package client.Presentation.AccountantUI.BillFill;
 
 
+import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
@@ -33,14 +34,14 @@ public class FillMoneyBill extends Application {
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new MoneyList("1","1","A", "B", "C"),
-                    new MoneyList("2","2","Q", "W", "E")
+                    new MoneyList("1","1","123", "12.5", "C"),
+                    new MoneyList("2","2","456", "17.6", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
-    final Label billNum = new Label ("danjubianhao");
+    final Label billNum = new Label ("XXXdanjubianhao");
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
@@ -49,7 +50,7 @@ public class FillMoneyBill extends Application {
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
-
+    FinancialPayController payController = new FinancialPayController();
     @Override public void start(Stage stage) {
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -156,6 +157,7 @@ public class FillMoneyBill extends Application {
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++){
+                    data.get(i).setKeyid(i+"");
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
@@ -163,7 +165,12 @@ public class FillMoneyBill extends Application {
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
                     System.out.println("Step 2");
-                    ResultMessage resultMessage = receiveController.summit(financialBill);
+                    if(billtype=="收款单"){
+                        ResultMessage resultMessage = receiveController.summit(financialBill);
+                    }
+                    else{
+                        ResultMessage resultMessage = payController.summit(financialBill);
+                    }
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
@@ -191,7 +198,12 @@ public class FillMoneyBill extends Application {
             }
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
             try {
-                ResultMessage resultMessage = receiveController.saveAsDraft(financialBill);
+                if(billtype=="收款单"){
+                    ResultMessage resultMessage = receiveController.saveAsDraft(financialBill);
+                }
+                else{
+                    ResultMessage resultMessage = payController.saveAsDraft(financialBill);
+                }
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
@@ -219,7 +231,6 @@ public class FillMoneyBill extends Application {
         grid.add(new Label("客户编号:"), 2, 1);
         grid.add(consumer, 3, 1);
 
-
         grid.add(new Label("转账列表:"), 0, 2);
         grid.add(vb, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
@@ -239,7 +250,7 @@ public class FillMoneyBill extends Application {
 
     public boolean checkMoney(String moneytext){
         boolean re = false;
-        if(moneytext != null || moneytext.isEmpty()){
+        if(moneytext == null || moneytext.isEmpty()){
             notification.setText("Please enter the Money !");
         }
         else if (isNumeric(moneytext)){

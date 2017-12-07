@@ -107,7 +107,7 @@ public class stockexceptionPO implements Serializable {
         this.keyno = keyno;
     }
 
-    public stockexceptionPO(Double kind, String note, String oper, Double ischeck,Double isred, String goodsno, String goodsname, Double numinbase, Double numinsys, String keyno) {
+    public stockexceptionPO(Double kind, String note, String oper, Double ischeck, Double isred, String goodsno, String goodsname, Double numinbase, Double numinsys, String keyno) {
 
         this.kind = kind;
         this.note = note;

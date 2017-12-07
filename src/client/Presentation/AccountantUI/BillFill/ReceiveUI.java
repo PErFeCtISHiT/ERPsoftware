@@ -65,7 +65,7 @@ public class ReceiveUI extends Application {
     }
 
     @Override public void start(Stage stage) {
-        stage.setTitle("TitledPane");
+        stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 800, 250);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,6 +179,7 @@ public class ReceiveUI extends Application {
                                 e.printStackTrace();
                             }
 
+                            
                         });
                     }
                 }
@@ -208,12 +209,39 @@ public class ReceiveUI extends Application {
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol1 =
                 new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillDetailCol1 =
+                new TableColumn<>("详细内容");
         BillIDCol1.setMinWidth(100);
         BillIDCol1.setCellValueFactory(
                 param -> param.getValue().keyno);
         BillTypeCol1.setMinWidth(100);
         BillTypeCol1.setCellValueFactory(
                 param -> param.getValue().kind);
+        BillDetailCol1.setMinWidth(200);
+        BillDetailCol1.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            try {
+                                receiveController.ReEditBill(keyno);/////////////////////////////////////////////////
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
+
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
@@ -224,7 +252,7 @@ public class ReceiveUI extends Application {
             e.printStackTrace();
         }
         AlreadyPromotionbilltable.setItems(AlreadyPromotionbilldata);
-        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol1,BillTypeCol1);
+        AlreadyPromotionbilltable.getColumns().addAll(BillIDCol1,BillTypeCol1,BillDetailCol1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -233,12 +261,38 @@ public class ReceiveUI extends Application {
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol2 =
                 new TableColumn<>("单据类型");
+        TableColumn<AccountBill, String> BillDetailCol2 =
+                new TableColumn<>("详细内容");
         BillIDCol2.setMinWidth(100);
         BillIDCol2.setCellValueFactory(
                 param -> param.getValue().keyno);
         BillTypeCol2.setMinWidth(100);
         BillTypeCol2.setCellValueFactory(
                 param -> param.getValue().kind);
+        BillDetailCol2.setMinWidth(200);
+        BillDetailCol2.setCellFactory((col) -> {
+            TableCell<AccountBill, String> cell = new TableCell<AccountBill, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            try {
+                                receiveController.ReEditBill(keyno);/////////////////////////////////////////////////
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
@@ -249,7 +303,7 @@ public class ReceiveUI extends Application {
             e.printStackTrace();
         }
         UnderPromotionbilltable.setItems(UnderPromotionbilldata);
-        UnderPromotionbilltable.getColumns().addAll(BillIDCol2,BillTypeCol2);
+        UnderPromotionbilltable.getColumns().addAll(BillIDCol2,BillTypeCol2,BillDetailCol2);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,7 +321,7 @@ public class ReceiveUI extends Application {
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
-//            refresh();
+            refresh();
         });
 
         final Button newBill = new Button("新建收款单");
@@ -287,25 +341,25 @@ public class ReceiveUI extends Application {
 
 
 
-//    public void refresh() {
-//        try {
-//            ArrayList<Account> list1 =receiveController.getAllAccount();
-//            accountdata.clear();
-//            accountdata.addAll(list1);
-//            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
-//            consumerdata.clear();
-//            consumerdata.addAll(list2);
-//            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
-//            draftbilldata.clear();
-//            draftbilldata.addAll(list3);
-//            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
-//            AlreadyPromotionbilldata.clear();
-//            AlreadyPromotionbilldata.addAll(list4);
-//            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
-//            UnderPromotionbilldata.clear();
-//            UnderPromotionbilldata.addAll(list5);
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void refresh() {
+        try {
+            ArrayList<Account> list1 =receiveController.getAllAccount();
+            accountdata.clear();
+            accountdata.addAll(list1);
+            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
+            consumerdata.clear();
+            consumerdata.addAll(list2);
+            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
+            draftbilldata.clear();
+            draftbilldata.addAll(list3);
+            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
+            AlreadyPromotionbilldata.clear();
+            AlreadyPromotionbilldata.addAll(list4);
+            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
+            UnderPromotionbilldata.clear();
+            UnderPromotionbilldata.addAll(list5);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }
