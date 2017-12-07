@@ -1,11 +1,13 @@
 package client.Vo;
 
+import java.io.Serializable;
+
 /**
  * @author: pis
  * @description: good good study
  * @date: create in 21:00 2017/12/4
  */
-public class moneyListVO {
+public class moneyListVO implements Serializable{
     private String keyno;
     private String accountname;
     private Double sumall;

@@ -1,6 +1,11 @@
 package client.Presentation.StockmanUI.goodsExceptionUI;
 
 
+import client.BL.Stockman.StockmanOverflowbl.stockExceptionController;
+import client.BL.Stockman.StockmanWarningbl.StockWarningController;
+import client.Presentation.NOgenerator.NOgenerator;
+import client.RMI.link;
+import client.Vo.goodsVO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,121 +14,146 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.hibernate.boot.jaxb.internal.stax.HbmEventReader;
+import server.Po.WarningPO;
+import shared.ResultMessage;
 
-public class goodsExceptionUI extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
-    final Button SummitButton = new Button ("提交单据");
-    final Button DraftButton = new Button("保存草稿");
-    final Label notification = new Label ();
-    /**
-     *todo:单据编号，由日期加其他单据生成
-     */
-    final Label billNum = new Label ();
-    final TextField account = new TextField("");
-    final TextField worker = new TextField("");
-    final TextField money = new TextField("");
-    final TextArea text = new TextArea ("");
+public class goodsExceptionUI {
 
-    final Tooltip tooltipForAccount = new Tooltip("输入商品编号");
-    final Tooltip tooltipForConsumer = new Tooltip("输入商品数量");
-    final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
+
+    final Button SummitButton = new Button("提交单据");
+
+    final Label notification = new Label();
+    final Label billNum = new Label();
+    final Label name = new Label();
+    final Label num = new Label();
+    final Label basenum = new Label();
+    final TextArea text = new TextArea("");
+    final Label Staff = new Label();
+    Stage stage = new Stage();
+
 
     String address = " ";
 
-    @Override public void start(Stage stage) {
+    /**
+    *@author:pis
+    *@description: 警告界面
+    *@date: 22:39 2017/12/5
+    */
+    public void systemWarning(goodsVO goods, String staff,int addnum){
+        Stage systemWarning = new Stage();
+        systemWarning.setTitle("警告");
+        systemWarning.setAlwaysOnTop(true);
+        systemWarning.setHeight(100);
+        systemWarning.setWidth(1000);
+        String mess;
+        int type;
+        if(addnum > 0) {
+            type = 0;
+            mess = "您正准备向系统添加" + goods.getKeyname() + String.valueOf(addnum) + "件,是否创建库存报溢单";
+        }
+        else {
+            type = 1;
+            mess = "您正准备向系统减少" + goods.getKeyname() + String.valueOf(addnum) + "件，是否创建库存报损单";
+        }
+        Label message = new Label(mess);
+        Button yes = new Button("确认");
+        Button no = new Button("取消");
+        no.setOnAction(e -> systemWarning.close());
+        yes.setOnAction(e -> {
+            goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
+            try {
+                goodsExceptionUI.start(goods,staff,type,addnum);
+                systemWarning.close();
+            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e1) {
+                e1.printStackTrace();
+            }
+        });
+        HBox hbox = new HBox();
+        hbox.setSpacing(5);
+        hbox.setPadding(new Insets(10, 0, 0, 10));
+        hbox.getChildren().addAll(message,yes,no);
+        Scene scene = new Scene(hbox);
+        systemWarning.setScene(scene);
+        systemWarning.show();
+    }
+
+    /**
+    *@author:pis
+    *@description: 单据界面
+    *@date: 22:39 2017/12/5
+    */
+    public void start(goodsVO goods, String staff,int billtype,int addnum) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        String nostr = NOgenerator.generate(7);
+        String type;
+        final Label Type = new Label();
+        if(billtype == 0) {
+            type = "KCBYD";
+            Type.setText("库存报溢单");
+        }
+        else{
+            type = "KCBSD";
+            Type.setText("库存报损单");
+        }
+        String no = type + "-" + nostr;
+
+        billNum.setText(no);
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 750, 450);
 
-        final ComboBox TypeComboBox = new ComboBox();
-        TypeComboBox.getItems().addAll(
-                "库存报溢单","库存报警单"
-        );
-        TypeComboBox.setPromptText("库存报溢单");
-        TypeComboBox.setEditable(false);
+        Staff.setText(staff);
 
 
-        final ComboBox AccountComboBox = new ComboBox();
-        AccountComboBox.getItems().addAll(
-                "A账户",
-                "B账户"
-        );
-        AccountComboBox.setValue("A账户");
 
-
-        final ComboBox StaffComboBox = new ComboBox();
-        StaffComboBox.getItems().addAll(
-                "A员工",
-                "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-
-        account.setTooltip(tooltipForAccount);
-        worker.setTooltip(tooltipForConsumer);
-        money.setTooltip(tooltipForMoney);
+        name.setText(goods.getKeyname());
+        num.setText(String.valueOf(goods.getNum()));
+        basenum.setText(String.valueOf(goods.getNum() + addnum));
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()){
-                notification.setText("Your message was successfully sent"
-                        + " to " + address);
-                TypeComboBox.setValue(null);
-                if (AccountComboBox.getValue() != null &&
-                        !AccountComboBox.getValue().toString().isEmpty()){
-                    AccountComboBox.setValue(null);
-                }
-                money.clear();
-                text.clear();
+            stockExceptionController stockExceptionController = new stockExceptionController();
+            try {
+                stockExceptionController.ExceptionMake(goods,goods.getNum() + addnum,staff,text.getText(),no,billtype);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
             }
-            else {
-                notification.setText("You have not selected a recipient!");
-            }
+            stage.close();
         });
 
-        DraftButton.setOnAction((ActionEvent e) -> {
-            if (TypeComboBox.getValue() != null &&
-                    !TypeComboBox.getValue().toString().isEmpty()){
-
-
-                money.clear();
-                text.clear();
-            }
-            else {
-                notification.setText("You have not selected a recipient!");
-            }
-        });
 
         GridPane grid = new GridPane();
         grid.setVgap(4);
         grid.setHgap(10);
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.add(new Label("单据类型："), 0, 0);
-        grid.add(TypeComboBox, 1, 0);
+        grid.add(Type, 1, 0);
         grid.add(new Label("单据编号："), 2, 0);
         grid.add(billNum, 3, 0);
         grid.add(new Label("操作员："), 4, 0);
-        grid.add(StaffComboBox, 5, 0);
-        grid.add(new Label("商品名称:"), 0, 2);
-        grid.add(account,1,1);
-        grid.add(new Label("库存:"), 2, 1);
-        grid.add(worker, 3, 1);
-        grid.add(new Label("商品数量:"), 0, 1);
-        /**
-         *todo:商品名称，由上一级跳转
-         */
-        grid.add(new Label("shangping"), 1, 2, 3, 1);
+        grid.add(Staff, 5, 0);
+        grid.add(new Label("商品名称:"), 0, 1);
+        grid.add(name, 1, 1);
+        grid.add(new Label("系统库存:"), 0, 2);
+        grid.add(num, 1, 2);
+        grid.add(new Label("库房库存:"), 2, 2);
+        grid.add(basenum, 3, 2);
         grid.add(new Label("备注:"), 0, 3);
         grid.add(text, 1, 3, 4, 1);
-        grid.add(DraftButton, 0, 4);
         grid.add(SummitButton, 2, 4);
-        grid.add (notification, 0, 6, 3, 1);
+        grid.add(notification, 0, 6, 3, 1);
 
-        Group root = (Group)scene.getRoot();
+        Group root = (Group) scene.getRoot();
         root.getChildren().add(grid);
         stage.setScene(scene);
         stage.show();
     }
 }
+

@@ -1,7 +1,8 @@
 package client.BL.Stockman.StockmanOverflowbl;
 
-import client.BLservice.Manager.ManagerExamineblservice.ManagerExamine;
-import client.BLservice.Stockman.StockmanOverflowblservice.stockOverflow;
+
+import client.BLservice.Stockman.StockmanExceptionblservice.stockException;
+
 import client.RMI.link;
 import client.Vo.goodsVO;
 import client.Vo.stockexceptionVO;
@@ -14,26 +15,28 @@ import java.rmi.RemoteException;
  * @description: good good study
  * @date: create in 15:41 2017/11/26
  */
-public class stockOverflowController implements stockOverflow {
+public class stockExceptionController implements stockException {
     /**
     *@author:pis
     *@description: 产生单据，总经理审批
     *@date: 15:43 2017/11/26
     */
     @Override
-    public ResultMessage OverflowMake(goodsVO goods, Double actualNum, Double systemNum, String operator,String note,String no) throws RemoteException {
+    public ResultMessage ExceptionMake(goodsVO goods, Double actualNum, String operator,String note,String no,int type) throws RemoteException {
         stockexceptionVO stockOverflow = new stockexceptionVO();
+        if(type == 0)
         stockOverflow.setKind((double) 8);
+        else
+            stockOverflow.setKind((double) 9);
         stockOverflow.setGoodsname(goods.getKeyname());
         stockOverflow.setGoodsno(goods.getKeyno());
         stockOverflow.setIscheck((double) 0);
         stockOverflow.setKeyno(no);
-        stockOverflow.setIsred("NO");
+        stockOverflow.setIsred((double) 0);
         stockOverflow.setNote(note);
         stockOverflow.setNuminbase( actualNum);
-        stockOverflow.setNuminsys(systemNum);
+        stockOverflow.setNuminsys(goods.getNum());
         stockOverflow.setOper(operator);
-        ManagerExamine.acceptBill(stockOverflow);
         return link.getRemoteHelper().getStockOverflowBill().addObject(stockOverflow, 7);
     }
 }
