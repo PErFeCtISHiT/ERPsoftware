@@ -1,9 +1,11 @@
 package client.Presentation.AccountantUI.CashBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialCashbl.FinancialCash;
 import client.BL.Accountant.FinancialCashbl.FinancialCashController;
 import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
+import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -12,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,10 +25,22 @@ import java.util.ArrayList;
 public class CashUI extends Application{
     final String[] imageNames = new String[]{"账户列表", "客户列表", "现金费用单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
-    final TableView[] table = new TableView[5];
+    final TableView[] tablelist = new TableView[5];
+    TitledPane gridTitlePane = new TitledPane();
+
+    final Label TypeComboBox = new Label ();
+    final Label StaffComboBox = new Label ("");
+    final Button OutputButton = new Button("导出单据");
+    final Label notification = new Label ();
+    final Label billNum = new Label ("");
+    final Label consumer = new Label("");
+    final Label money = new Label("");
 
 
 
+    private final TableView<MoneyList> table = new TableView<>();
+    private final ObservableList<MoneyList> data =
+            FXCollections.observableArrayList();
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
             FXCollections.observableArrayList(
@@ -172,10 +187,12 @@ public class CashUI extends Application{
                         editBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                cashController.ReEditBill(keyno);
+                                FinancialCash bill = cashController.ReEditBill(keyno);
+//                                cashController.setDetailInfor(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
+
 
                         });
                     }
@@ -223,9 +240,10 @@ public class CashUI extends Application{
                         Button detailBtn = new Button("详细信息");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
-                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                cashController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                FinancialCash bill = cashController.ReEditBill(keyno);
+                                detail(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -274,9 +292,11 @@ public class CashUI extends Application{
                         Button detailBtn = new Button("详细信息");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
-                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            String keyno = UnderPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                cashController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                FinancialCash bill = cashController.ReEditBill(keyno);
+                                System.out.println("size: "+bill.getMoneyList().size());
+                                detail(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -302,17 +322,66 @@ public class CashUI extends Application{
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-        table[0] = accounttable;
-        table[1] = consumertable;
-        table[2] = draftbilltable;
-        table[3] = AlreadyPromotionbilltable;
-        table[4] = UnderPromotionbilltable;
+        tablelist[0] = accounttable;
+        tablelist[1] = consumertable;
+        tablelist[2] = draftbilltable;
+        tablelist[3] = AlreadyPromotionbilltable;
+        tablelist[4] = UnderPromotionbilltable;
         // --- Accordion
         final Accordion accordion = new Accordion();
         for (int i = 0; i < imageNames.length; i++) {
-            tps[i] = new TitledPane(imageNames[i], table[i]);
+            tps[i] = new TitledPane(imageNames[i], tablelist[i]);
         }
         accordion.getPanes().addAll(tps);
+
+
+        hb.getChildren().setAll(accordion,gridTitlePane);
+        table.setEditable(true);
+        TableColumn<MoneyList,String> AccountCol = new TableColumn<>("条目名称");
+        AccountCol.setMinWidth(100);
+        AccountCol.setCellValueFactory(
+                param -> param.getValue().account);
+
+        TableColumn<MoneyList,String> MoneyListCol = new TableColumn<>("金额");
+        MoneyListCol.setMinWidth(100);
+        MoneyListCol.setCellValueFactory(
+                param -> param.getValue().money);
+
+        TableColumn<MoneyList,String> CommentCol = new TableColumn<>("备注");
+        CommentCol.setMinWidth(100);
+        CommentCol.setCellValueFactory(
+                param -> param.getValue().comment);
+
+        table.setItems(data);
+        table.getColumns().addAll(AccountCol,MoneyListCol,CommentCol);
+
+
+
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setHgap(10);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.add(new Label("单据类型："), 0, 0);
+        grid.add(TypeComboBox, 1, 0);
+        grid.add(new Label("单据编号："), 2, 0);
+        grid.add(billNum, 3, 0);
+        grid.add(new Label("操作员："), 4, 0);
+        grid.add(StaffComboBox, 5, 0);
+        grid.add(new Label("银行账号:"), 2, 1);
+        grid.add(consumer, 3, 1);
+        grid.add(new Label("条目列表:"), 0, 2);
+        grid.add(table, 1, 2, 3, 1);
+        grid.add(new Label("总金额:"), 0, 3);
+        grid.add(money, 1, 3, 4, 1);
+        grid.add(OutputButton, 3, 4);
+        gridTitlePane.setText("详细信息");
+        gridTitlePane.setContent(grid);
+
+
+
+
+
+
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
@@ -326,7 +395,7 @@ public class CashUI extends Application{
         hbox.getChildren().setAll(refresh, newBill);
 
         VBox vb = new VBox();
-        vb.getChildren().setAll(accordion, hbox);
+        vb.getChildren().setAll(hb, hbox);
 
         Group root = (Group) scene.getRoot();
         root.getChildren().add(vb);
@@ -335,6 +404,18 @@ public class CashUI extends Application{
 
     }
 
+
+    public void detail(FinancialCash bill) {
+//            System.out.println(bill.getID());
+
+        TypeComboBox.setText(bill.getBillType());
+        billNum.setText(bill.getID());
+        StaffComboBox.setText(bill.getOperater());
+        consumer.setText(bill.getAccount());
+        data.clear();
+        data.addAll(bill.getMoneyList());
+        money.setText(String.valueOf(bill.getSum()));
+    }
 
     public void refresh() {
         try {

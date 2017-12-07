@@ -7,36 +7,52 @@ import client.Vo.goodsVO;
 import client.Vo.goodskindsVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class FinancialBuildController implements FinancialBuildAccountInterface{
 
     /**
      *
-     * @param goods
-     * @param goodskinds
-     * @param consumer
-     * @param Account
      * @return ResultMessage
      */
-
     @Override
-    public ResultMessage accountbuild(ArrayList<goodsVO> goods, ArrayList<goodskindsVO> goodskinds, ArrayList<consumerVO> consumer, ArrayList<coVO> Account) {
-        return null;
+    public void accountbuild() throws RemoteException{
+
     }
 
     /**
      *
-     * @param goods
-     * @param consumer
-     * @param Account
      * @return ResultMessage
      */
 
     @Override
-    public ResultMessage getPast(ArrayList<goodsVO> goods,
-                                 ArrayList<consumerVO>consumer,
-                                 ArrayList<coVO> Account){
-        return null;
+    public void getPast(String year) throws RemoteException{
+
     }
+
+
 }
+
+
+/**
+ * 银行账户信息——>界面可以显示
+ * 客户信息——>界面可以显示
+ * 商品信息——>界面可以显示
+ *
+ *当前用户（郭丰睿）要早点干呀！！！
+ *
+ * 期初建账类
+ * 包含
+ * 商品信息
+ * 客户信息
+ * 银行账户信息
+ * 当前用户信息
+ *
+ *
+ * 方法包含：
+ * 提交期初建账类
+ *
+ *
+ *
+ */

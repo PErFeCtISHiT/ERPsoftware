@@ -4,9 +4,9 @@
     <root id="1"/>
     <schema id="2" parent="1" name="PIS">
       <ObjectId>85</ObjectId>
-      <IntrospectionTimestamp>2017-12-06.16:17:35</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-12-07.21:44:55</IntrospectionTimestamp>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
-      <ModifiedTimestamp>2017-12-05.22:56:09</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-12-07.19:53:06</ModifiedTimestamp>
       <CommentsHash>9823221767240</CommentsHash>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -138,7 +138,7 @@
       <ObjectId>73645</ObjectId>
       <Comment>..</Comment>
       <CreatedTimestamp>2017-10-23.17:22:46</CreatedTimestamp>
-      <ModifiedTimestamp>2017-12-03.23:32:59</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-12-07.19:53:06</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="40" parent="2" name="GOODSKINDS">
@@ -553,8 +553,8 @@
     </column>
     <column id="112" parent="39" name="BATCHNO">
       <Position>9</Position>
-      <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0</DefaultExpression>
+      <DataType>VARCHAR2(20)|0</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="113" parent="39" name="DAT">
       <Position>10</Position>
@@ -573,7 +573,7 @@
     <column id="116" parent="39" name="WARNINGNUM">
       <Position>13</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>100</DefaultExpression>
+      <DefaultExpression>100 </DefaultExpression>
     </column>
     <index id="117" parent="39" name="SYS_C0010872">
       <ObjectId>73646</ObjectId>

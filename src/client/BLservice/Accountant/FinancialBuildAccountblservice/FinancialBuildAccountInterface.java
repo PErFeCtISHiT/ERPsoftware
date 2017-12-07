@@ -6,18 +6,14 @@ import client.Vo.goodsVO;
 import client.Vo.goodskindsVO;
 import shared.ResultMessage;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface FinancialBuildAccountInterface {
 
 
-    ResultMessage accountbuild(ArrayList<goodsVO> goods,
-                               ArrayList<goodskindsVO> goodskinds,
-                               ArrayList<consumerVO> consumer,
-                               ArrayList<coVO> Account);
+    public void accountbuild() throws RemoteException;
 
-    ResultMessage getPast(ArrayList<goodsVO> goods,
-                          ArrayList<consumerVO> consumer,
-                          ArrayList<coVO> Account);
+    public void getPast(String year) throws RemoteException;
 
 }
