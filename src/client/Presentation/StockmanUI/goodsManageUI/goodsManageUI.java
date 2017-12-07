@@ -1,6 +1,7 @@
 package client.Presentation.StockmanUI.goodsManageUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
+import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
 import client.RMI.link;
 import client.Vo.goodsVO;
@@ -43,7 +44,7 @@ public class goodsManageUI {
 
 
 
-    public VBox start(String kinds) throws RemoteException {
+    public VBox start(String kinds,String staff) throws RemoteException {
         this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
@@ -148,6 +149,7 @@ public class goodsManageUI {
                 (CellEditEvent<Goods, String> t) -> {
                     Goods newgoods =  t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
+                    Double addnum = Double.valueOf(t.getNewValue()) - Double.valueOf(t.getOldValue());
                     newgoods.setGoodsNum(t.getNewValue());
                     goodsVO vo = new goodsVO();
                     vo.setKinds(kinds);
@@ -161,6 +163,9 @@ public class goodsManageUI {
                     vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
                     vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
                     modifygoods(newgoods);
+                    goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
+                    goodsExceptionUI.systemWarning(vo,staff,addnum);
+
                 });
 
         inpriceCol.setMinWidth(50);
@@ -266,10 +271,7 @@ public class goodsManageUI {
                     warninglBtn.setOnMouseClicked((me) -> {
                         goodsWarningUI goodsWarningUI = new goodsWarningUI();
                         try {
-                            /**
-                            *todo: 员工id
-                            */
-                            goodsWarningUI.start(goodsVO,"郭丰睿");
+                            goodsWarningUI.start(goodsVO,staff);
                         } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
