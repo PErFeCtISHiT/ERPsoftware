@@ -216,7 +216,7 @@
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="53" parent="34" name="NOTE">
       <Position>3</Position>
@@ -226,7 +226,7 @@
     <column id="54" parent="34" name="OPER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="55" parent="34" name="ISCHECK">
       <Position>5</Position>
@@ -241,12 +241,12 @@
     <column id="57" parent="34" name="PROVIDER">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="58" parent="34" name="BASE">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="59" parent="34" name="GOODSOUTLIST">
       <Position>9</Position>
@@ -262,7 +262,7 @@
     <column id="61" parent="34" name="ISDRAFT">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="62" parent="34" name="SYS_C0011084">
       <ObjectId>73989</ObjectId>
@@ -284,7 +284,7 @@
     <column id="64" parent="35" name="KEYNAME">
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="65" parent="35" name="SUMALL">
       <Position>2</Position>
@@ -394,7 +394,7 @@
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="84" parent="37" name="LEV">
       <Position>2</Position>
@@ -409,7 +409,7 @@
     <column id="86" parent="37" name="VOUCHER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="87" parent="37" name="PACKNO">
       <Position>5</Position>
@@ -447,53 +447,53 @@
     <column id="92" parent="38" name="OPER">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="93" parent="38" name="ISCHECK">
       <Position>4</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="94" parent="38" name="ISRED">
       <Position>5</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="95" parent="38" name="GOODSNO">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="96" parent="38" name="GOODSNAME">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="97" parent="38" name="CONSUMERNO">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="98" parent="38" name="COMSUMERNAME">
       <Position>9</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="99" parent="38" name="NUM">
       <Position>10</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="100" parent="38" name="KEYNO">
       <Position>11</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="101" parent="38" name="ISDRAFT">
       <Position>12</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="102" parent="38" name="GIFT_NO_PK">
       <ObjectId>74023</ObjectId>
@@ -573,7 +573,7 @@
     <column id="116" parent="39" name="WARNINGNUM">
       <Position>13</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>100 </DefaultExpression>
+      <DefaultExpression>100</DefaultExpression>
     </column>
     <index id="117" parent="39" name="SYS_C0010872">
       <ObjectId>73646</ObjectId>
@@ -634,22 +634,22 @@
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="126" parent="41" name="GOODSNO">
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="127" parent="41" name="GOODSNAME">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="128" parent="41" name="KEYMODEL">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="129" parent="41" name="NUM">
       <Position>5</Position>
@@ -687,33 +687,33 @@
     <column id="134" parent="42" name="ADDDATE">
       <Position>1</Position>
       <DataType>DATE|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="135" parent="42" name="KEYNO">
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="136" parent="42" name="KEYJOB">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="137" parent="42" name="OPERATORNO">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="138" parent="42" name="BILLNO">
       <Position>5</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="139" parent="42" name="OPNO">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="140" parent="42" name="NOTE">
       <Position>7</Position>
@@ -723,17 +723,17 @@
     <column id="141" parent="42" name="GOODSNAME">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="142" parent="42" name="CONSUMER">
       <Position>9</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="143" parent="42" name="BASE">
       <Position>10</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <index id="144" parent="42" name="SYS_C0011122">
       <ObjectId>74042</ObjectId>
@@ -761,7 +761,7 @@
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="148" parent="43" name="NOTE">
       <Position>3</Position>
@@ -776,7 +776,7 @@
     <column id="150" parent="43" name="OPER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="151" parent="43" name="ISCHECK">
       <Position>5</Position>
@@ -791,12 +791,12 @@
     <column id="153" parent="43" name="CONSUMER">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="154" parent="43" name="ACCOUN">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="155" parent="43" name="MONEYLIST">
       <Position>9</Position>
@@ -812,7 +812,7 @@
     <column id="157" parent="43" name="ISDRAFT">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="158" parent="43" name="SYS_C0011112">
       <ObjectId>74021</ObjectId>
@@ -834,12 +834,12 @@
     <column id="160" parent="44" name="KEYNO">
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="161" parent="44" name="ACCOUNTNAME">
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="162" parent="44" name="SUMALL">
       <Position>3</Position>
@@ -855,7 +855,7 @@
       <Position>5</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <index id="165" parent="44" name="MONEYLIST_KEYID_PK">
       <ObjectId>75246</ObjectId>
@@ -876,17 +876,17 @@
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="168" parent="45" name="GOODSNO">
       <Position>2</Position>
       <DataType>VARCHAR2(200)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="169" parent="45" name="GOODSNAME">
       <Position>3</Position>
       <DataType>VARCHAR2(200)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="170" parent="45" name="PRICE">
       <Position>4</Position>
@@ -915,32 +915,32 @@
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="174" parent="46" name="KIND">
       <Position>2</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="175" parent="46" name="LEV">
       <Position>3</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="176" parent="46" name="ACCOUN">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="177" parent="46" name="BASE">
       <Position>5</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="178" parent="46" name="GOODSINLIST">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="179" parent="46" name="GOODSOUTLIST">
       <Position>7</Position>
@@ -950,37 +950,37 @@
     <column id="180" parent="46" name="PRESUM">
       <Position>8</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="181" parent="46" name="CUT">
       <Position>9</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="182" parent="46" name="VOUCHER">
       <Position>10</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="183" parent="46" name="SUMALL">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="184" parent="46" name="DATEANDTIME">
       <Position>12</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="185" parent="46" name="CONSUMER">
       <Position>13</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="186" parent="46" name="OPERATER">
       <Position>14</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <index id="187" parent="46" name="SYS_C0011119">
       <ObjectId>74036</ObjectId>
@@ -1008,7 +1008,7 @@
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="191" parent="47" name="NOTE">
       <Position>3</Position>
@@ -1018,7 +1018,7 @@
     <column id="192" parent="47" name="OPER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="193" parent="47" name="ISCHECK">
       <Position>5</Position>
@@ -1033,17 +1033,17 @@
     <column id="195" parent="47" name="CONSUMER">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="196" parent="47" name="SERVER">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="197" parent="47" name="BASE">
       <Position>9</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="198" parent="47" name="GOODSOUTLIST">
       <Position>10</Position>
@@ -1074,7 +1074,7 @@
     <column id="203" parent="47" name="ISDRAFT">
       <Position>15</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="204" parent="47" name="SYS_C0011085">
       <ObjectId>73991</ObjectId>
@@ -1107,12 +1107,12 @@
     <column id="208" parent="48" name="OPER">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="209" parent="48" name="ISCHECK">
       <Position>4</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="210" parent="48" name="ISRED">
       <Position>5</Position>
@@ -1122,33 +1122,33 @@
     <column id="211" parent="48" name="GOODSNO">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="212" parent="48" name="GOODSNAME">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="213" parent="48" name="NUMINBASE">
       <Position>8</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="214" parent="48" name="NUMINSYS">
       <Position>9</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="215" parent="48" name="KEYNO">
       <Position>10</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="216" parent="48" name="ISDRAFT">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="217" parent="48" name="STOCKEXCEPTION_NO_PK">
       <ObjectId>74025</ObjectId>
@@ -1168,13 +1168,13 @@
     <column id="219" parent="49" name="KEYJOB">
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="220" parent="49" name="KEYNO">
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="221" parent="49" name="LEV">
       <Position>3</Position>
@@ -1184,27 +1184,27 @@
     <column id="222" parent="49" name="KEYNAME">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="223" parent="49" name="TEL">
       <Position>5</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="224" parent="49" name="ADDRESS">
       <Position>6</Position>
       <DataType>VARCHAR2(50)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="225" parent="49" name="POSTCODE">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="226" parent="49" name="EMAIL">
       <Position>8</Position>
       <DataType>VARCHAR2(50)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="227" parent="49" name="KEYYEAR">
       <Position>9</Position>
@@ -1241,17 +1241,17 @@
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="233" parent="50" name="NOTE">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="234" parent="50" name="OPER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="235" parent="50" name="ISCHECK">
       <Position>5</Position>
@@ -1266,12 +1266,12 @@
     <column id="237" parent="50" name="GOODSNO">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="238" parent="50" name="GOODSNAME">
       <Position>8</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="239" parent="50" name="NUM">
       <Position>9</Position>
@@ -1287,7 +1287,7 @@
     <column id="241" parent="50" name="ISDRAFT">
       <Position>11</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="242" parent="50" name="SYS_C0011115">
       <ObjectId>74028</ObjectId>
