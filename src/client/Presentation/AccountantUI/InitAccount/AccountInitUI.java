@@ -257,6 +257,7 @@ public class AccountInitUI extends Application {
         stage.show();
     }
 
+    
     public static class AccountList {
 
         private final SimpleStringProperty year;
