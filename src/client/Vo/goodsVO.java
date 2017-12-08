@@ -1,7 +1,7 @@
 package client.Vo;
 
 import java.io.Serializable;
-import java.sql.Time;
+import java.sql.Date;
 
 public class goodsVO implements Serializable{
 	private String keyno;
@@ -13,8 +13,8 @@ public class goodsVO implements Serializable{
 	private Double receprice;
 	private Double receoutprice;
 	private String keybatch;
-	private Double batchno;
-	private Time dat;
+	private String batchno;
+	private Date dat;
 	private String kinds;
 	private Double warningnum;
 
@@ -102,19 +102,19 @@ public class goodsVO implements Serializable{
 		this.keybatch = keybatch;
 	}
 
-	public Double getBatchno() {
+	public String getBatchno() {
 		return batchno;
 	}
 
-	public void setBatchno(Double batchno) {
+	public void setBatchno(String  batchno) {
 		this.batchno = batchno;
 	}
 
-	public Time getDat() {
+	public Date getDat() {
 		return dat;
 	}
 
-	public void setDat(Time dat) {
+	public void setDat(Date dat) {
 		this.dat = dat;
 	}
 
@@ -126,7 +126,7 @@ public class goodsVO implements Serializable{
 		this.kinds = kinds;
 	}
 
-	public goodsVO(String keyno, String keyname, String keymodel, Double num, Double inprice, Double outprice, Double receprice, Double receoutprice, String keybatch, Double batchno, Time dat, String kinds) {
+	public goodsVO(String keyno, String keyname, String keymodel, Double num, Double inprice, Double outprice, Double receprice, Double receoutprice, String keybatch, String batchno, Date dat, String kinds) {
 
 		this.keyno = keyno;
 		this.keyname = keyname;

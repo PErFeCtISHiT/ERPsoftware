@@ -2,6 +2,7 @@ package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
 import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -138,7 +139,7 @@ public class goodsKindsManageUI extends Application{
 
             }
         });
-
+        goodsCheckUI goodsCheckUI = new goodsCheckUI();
 
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);

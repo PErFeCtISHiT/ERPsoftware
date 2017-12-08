@@ -104,8 +104,8 @@ public class goodsExceptionUI {
 
 
         name.setText(goods.getKeyname());
-        num.setText(String.valueOf(goods.getNum() - addnum));
-        basenum.setText(String.valueOf(goods.getNum()));
+        num.setText(String.valueOf(goods.getNum()));
+        basenum.setText(String.valueOf(goods.getNum() + addnum));
 
         SummitButton.setOnAction((ActionEvent e) -> {
             stockExceptionController stockExceptionController = new stockExceptionController();
