@@ -3,10 +3,12 @@ package client.BL.Saleman.SalemanConsumerManageblservice;
 import client.BLservice.Saleman.SalemanConsumerManageblservice.ConsumerManageInterface;
 import client.RMI.link;
 import client.Vo.consumerVO;
+import server.Po.consumerPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Leonarda on 2017/12/2.
@@ -18,8 +20,8 @@ public class ConsumerManageController implements ConsumerManageInterface{
     }
 
     @Override
-    public ArrayList<consumerVO> show() {
-        return null;
+    public List show() throws RemoteException {
+        return link.getRemoteHelper().getConsumer().findAll(2);
     }
 
     @Override
@@ -36,6 +38,11 @@ public class ConsumerManageController implements ConsumerManageInterface{
     @Override
     public ResultMessage modifyConsumer(consumerVO consumer) throws RemoteException {
         return link.getRemoteHelper().getConsumer().modifyObject(consumer,2);
+    }
+
+
+    public List findbyid(String id) throws RemoteException{
+        return link.getRemoteHelper().getConsumer().findbyNO(2,id);
     }
 
     @Override

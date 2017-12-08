@@ -70,7 +70,7 @@ public class FinancialPayController implements FinancialPayInterface{
     }
 
     @Override
-    public Consumer PoToConsumer(consumerPO po) throws RemoteException{
+    public Consumer PoToConsumer(consumerPO po) {
         Consumer con = new Consumer();
         con.setconsumerID(po.getKeyno());
         con.setconsumerName(po.getKeyname());

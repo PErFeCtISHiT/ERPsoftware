@@ -122,23 +122,23 @@ public class Accountant {
 
     private static void setdefaultConstraints(GridPane gridPane) {//默认布局器
 
-        gridPane.setConstraints(Workplace, 1, 1);
+        GridPane.setConstraints(Workplace, 1, 1);
 
-        gridPane.setConstraints(accountManagement, 1, 2);
+        GridPane.setConstraints(accountManagement, 1, 2);
 
-        gridPane.setConstraints(receiveBill, 1, 3);
+        GridPane.setConstraints(receiveBill, 1, 3);
 
-        gridPane.setConstraints(payBill, 1, 4);
+        GridPane.setConstraints(payBill, 1, 4);
 
-        gridPane.setConstraints(cashBill, 1, 5);
+        GridPane.setConstraints(cashBill, 1, 5);
 
-        gridPane.setConstraints(salesDetails, 1, 6);
+        GridPane.setConstraints(salesDetails, 1, 6);
 
-        gridPane.setConstraints(checkProgress, 1, 7);
+        GridPane.setConstraints(checkProgress, 1, 7);
 
-        gridPane.setConstraints(checkSituation, 1, 8);
+        GridPane.setConstraints(checkSituation, 1, 8);
 
-        gridPane.setConstraints(accountInit, 1, 9);
+        GridPane.setConstraints(accountInit, 1, 9);
 
 
 
@@ -172,7 +172,7 @@ public class Accountant {
 
         goodsTreeView.setMinSize(700,500);
 
-        accountPane.setConstraints(goodsTreeView,2,1);
+        GridPane.setConstraints(goodsTreeView,2,1);
 
         accountPane.getChildren().addAll(Workplace, accountManagement, payBill, cashBill, salesDetails, checkProgress,goodsTreeView);
 

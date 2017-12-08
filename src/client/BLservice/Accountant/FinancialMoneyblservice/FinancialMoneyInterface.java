@@ -11,19 +11,19 @@ import java.util.ArrayList;
 
 public interface FinancialMoneyInterface {
 
-    public ResultMessage getMoneyID();
+    ResultMessage getMoneyID();
 
-    public moneyVO find(String iD);
+    moneyVO find(String iD);
 
-    public ResultMessage addBill(moneyVO vo);
+    ResultMessage addBill(moneyVO vo);
 
-    public moneyVO summit();
+    moneyVO summit();
 
-    public ResultMessage getSum();
+    ResultMessage getSum();
 
-    public ArrayList<Account> getAllAccount() throws RemoteException;
+    ArrayList<Account> getAllAccount() throws RemoteException;
 
-    public ArrayList<Consumer> getAllConsumer() throws RemoteException;
+    ArrayList<Consumer> getAllConsumer() throws RemoteException;
 
-    public Consumer PoToConsumer(consumerPO po) throws RemoteException;
+    Consumer PoToConsumer(consumerPO po) throws RemoteException;
 }

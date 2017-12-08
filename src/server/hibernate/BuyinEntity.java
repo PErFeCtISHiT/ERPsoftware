@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "BUYIN", schema = "PIS", catalog = "")
+@Table(name = "BUYIN", schema = "PIS")
 public class BuyinEntity {
     private Double kind;
     private String keyno;
@@ -15,7 +15,16 @@ public class BuyinEntity {
     private String base;
     private String goodsoutlist;
     private Double sumall;
+    private Double isDraft;
+    @Basic
+    @Column(name = "ISDRAFT", nullable = true, precision = 0)
+    public Double getIsDraft() {
+        return isDraft;
+    }
 
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
     public Double getKind() {
@@ -132,9 +141,7 @@ public class BuyinEntity {
         if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
         if (base != null ? !base.equals(that.base) : that.base != null) return false;
         if (goodsoutlist != null ? !goodsoutlist.equals(that.goodsoutlist) : that.goodsoutlist != null) return false;
-        if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-
-        return true;
+        return sumall != null ? sumall.equals(that.sumall) : that.sumall == null;
     }
 
     @Override

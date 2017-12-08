@@ -156,17 +156,16 @@ public class goodsKindsManageUI extends Application{
         String type = "SPFL";
         goodskindsPO.setKeyno(type + "-" + no);
         goodskindsPO.setKeyname(text);
-        String father = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
-
-        if(father != null) {
+        if(goodsTreeView.getSelectionModel().getSelectedItem() != null) {
+            String father = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
             goodskindsPO.setFather(father);
             List temp = link.getRemoteHelper().getGoodsKinds().goodsKindsFind(father);
-            goodskindsPO goodskindsPO1 = ((goodskindsPO)temp.get(0));
-            if(goodskindsPO1.getSon() != null)
-            goodskindsPO1.setSon(goodskindsPO1.getSon() + text + ",");
+            goodskindsPO goodskindsPO1 = ((goodskindsPO) temp.get(0));
+            if (goodskindsPO1.getSon() != null)
+                goodskindsPO1.setSon(goodskindsPO1.getSon() + text + ",");
             else
                 goodskindsPO1.setSon(text + ",");
-            link.getRemoteHelper().getPub().modifyObject(goodskindsPO1,1);
+            link.getRemoteHelper().getPub().modifyObject(goodskindsPO1, 1);
             goodsTreeView.getSelectionModel().getSelectedItem().getChildren().add(new TreeItem<>(text));
         }
         else

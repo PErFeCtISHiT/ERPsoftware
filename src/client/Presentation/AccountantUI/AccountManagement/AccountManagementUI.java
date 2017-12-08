@@ -80,9 +80,8 @@ public class AccountManagementUI extends Application {
         IDCol.setCellFactory(cellFactory);
         IDCol.setOnEditCommit(
                 (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setaccountID(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setaccountID(t.getNewValue());
 
                     Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     modifyAccount(acc);
@@ -95,9 +94,8 @@ public class AccountManagementUI extends Application {
         NameCol.setCellFactory(cellFactory);
         NameCol.setOnEditCommit(
                 (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setaccountName(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setaccountName(t.getNewValue());
                     Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     modifyAccount(acc);
 
@@ -109,7 +107,7 @@ public class AccountManagementUI extends Application {
         MoneyCol.setCellFactory(cellFactory);
         MoneyCol.setOnEditCommit(
                 (CellEditEvent<Account, String> t) -> {
-                    ((Account) t.getTableView().getItems().get(t.getTablePosition().getRow())).setmoney(t.getNewValue());
+                    t.getTableView().getItems().get(t.getTablePosition().getRow()).setmoney(t.getNewValue());
                     Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     modifyAccount(acc);
                 });
@@ -237,7 +235,7 @@ public class AccountManagementUI extends Application {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText((String) getItem());
+            setText(getItem());
             setGraphic(null);
         }
 

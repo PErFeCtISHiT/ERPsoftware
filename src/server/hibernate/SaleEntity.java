@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @date: create in 11:44 2017/12/2
  */
 @Entity
-@Table(name = "SALE", schema = "PIS", catalog = "")
+@Table(name = "SALE", schema = "PIS")
 public class SaleEntity {
     private String keyno;
     private Double kind;
@@ -184,9 +184,7 @@ public class SaleEntity {
         if (cut != null ? !cut.equals(that.cut) : that.cut != null) return false;
         if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-        if (dateandtime != null ? !dateandtime.equals(that.dateandtime) : that.dateandtime != null) return false;
-
-        return true;
+        return dateandtime != null ? dateandtime.equals(that.dateandtime) : that.dateandtime == null;
     }
 
     @Override

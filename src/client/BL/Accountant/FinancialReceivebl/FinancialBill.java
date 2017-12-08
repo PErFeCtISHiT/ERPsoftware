@@ -41,62 +41,61 @@ public class FinancialBill {
 
     }
 
-    public String getID() throws RemoteException{
-        return null;
+    public String getID() {
+        return this.ID;
     }
 
-    public void setID(String ID) throws RemoteException{
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public  String getBillType() throws RemoteException{
-        return null;
+    public  String getBillType() {
+        return this.Billtype;
     }
 
-    public void setBilltype(String billtype) throws RemoteException{
+    public void setBilltype(String billtype) {
         this.Billtype =billtype;
     }
 
-    public String getOperater() throws RemoteException{
-        return null;
+    public String getOperater() {
+        return this.operater;
     }
 
-    public void setOperater(String operater) throws RemoteException{
+    public void setOperater(String operater) {
         this.operater = operater;
     }
 
 
-    public String getConsumerType() throws RemoteException{
-        return null;
+    public String getConsumerType() {
+        return this.consumerType;
     }
 
-    public void setConsumerType(String consumerType) throws RemoteException{
+    public void setConsumerType(String consumerType) {
         this.consumerType = consumerType;
     }
 
-    public String getConsumerID() throws  RemoteException{
-        return null;
+    public String getConsumerID() {
+        return this.consumerID;
     }
 
-    public void setConsumerID(String consumerID) throws RemoteException{
+    public void setConsumerID(String consumerID) {
         this.consumerID = consumerID;
     }
 
 
-    public ArrayList<MoneyList> getMoneyList() throws RemoteException{
-        return null;
+    public ArrayList<MoneyList> getMoneyList() {
+        return this.moneyList;
     }
 
-    public void setMoneyList(ArrayList<MoneyList> moneyList) throws RemoteException{
+    public void setMoneyList(ArrayList<MoneyList> moneyList) {
         this.moneyList = moneyList;
     }
 
-    public Double getSum() throws RemoteException{
-        return null;
+    public Double getSum() {
+        return this.sum;
     }
 
-    public void setSum(double sum) throws RemoteException{
-
+    public void setSum(double sum) {
         this.sum = sum;
     }
 

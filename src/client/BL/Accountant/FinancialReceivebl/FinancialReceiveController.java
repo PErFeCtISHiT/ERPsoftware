@@ -21,6 +21,9 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
 
 
+
+    
+
     @Override
     public ResultMessage getReceiveID(){
         return null;
@@ -31,15 +34,74 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return null;
     }
 
+
     @Override
-    public ResultMessage addBill(moneyVO vo){
+    public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+
+        System.out.println("summit");
+        System.out.println(moneypo.getKind());
+        System.out.println(moneypo.getConsumer());
+        System.out.println(moneypo.getIsred());
+        System.out.println(moneypo.getSumall());
+        System.out.println(moneypo.getMoneyList());
+
+
+
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
 
     @Override
-    public moneyVO summit(){
+    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException{
+        ArrayList<MoneyList> moneyLists = financialBill.getMoneyList();
+        saveMoneyList(moneyLists);
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(1.0);
+        System.out.println("draft");
+
+        link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
+    @Override
+    public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
+//        link.getRemoteHelper().getmoneyList().addObject()
+
+
+
+    }
+
+
+
+
+
+    @Override
+    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException {
+        moneyPO moneypo = new moneyPO();
+        String billtype = financialBill.getBillType();
+        String billID = financialBill.getID();
+        String operater = financialBill.getOperater();
+        String consumerType = financialBill.getConsumerType();
+        String consumerID = financialBill.getConsumerID();
+        double sum = financialBill.getSum();
+        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+
+
+        moneypo.setKind(1.0);
+        moneypo.setKeyno(billID);
+        moneypo.setAccoun("");
+        moneypo.setConsumer(consumerID);
+        moneypo.setConsumertype(consumerType);
+        moneypo.setIscheck(0.0);
+        moneypo.setIsred(0.0);
+        moneypo.setIsDraft(0.0);
+        moneypo.setOper(operater);
+        moneypo.setMoneyList(moneylistNO);
+        moneypo.setSumall(sum);
+
+        return moneypo;
+    }
+
 
     @Override
     public ArrayList<Account> getAllAccount() throws RemoteException {
@@ -55,8 +117,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return colist;
     }
 
-
-
     @Override
     public ArrayList<Consumer> getAllConsumer() throws RemoteException {
 
@@ -71,7 +131,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     }
 
     @Override
-    public Consumer PoToConsumer(consumerPO po) throws RemoteException{
+    public Consumer PoToConsumer(consumerPO po) {
         Consumer con = new Consumer();
         con.setconsumerID(po.getKeyno());
         con.setconsumerName(po.getKeyname());

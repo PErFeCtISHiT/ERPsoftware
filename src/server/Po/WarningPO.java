@@ -14,6 +14,16 @@ public class WarningPO implements Serializable {
     private Double num;
     private Double warningnum;
 
+    private Double isDraft;
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
     public WarningPO() {
 
     }

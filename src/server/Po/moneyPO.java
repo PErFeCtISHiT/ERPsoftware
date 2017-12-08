@@ -9,9 +9,9 @@ public class moneyPO implements Serializable{
 	private String oper;
 	private Double ischeck;
 	private Double isred;
+	private Double isDraft;
 	private String consumer;
 	private String accoun;
-	private Double num;
 	private Double sumall;
 	private String moneyList;
 
@@ -19,7 +19,8 @@ public class moneyPO implements Serializable{
 
     }
 
-	public String getConsumertype() {
+
+    public String getConsumertype() {
 		return consumertype;
 	}
 
@@ -75,6 +76,15 @@ public class moneyPO implements Serializable{
 		this.isred = isred;
 	}
 
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
+
 	public String getConsumer() {
 		return consumer;
 	}
@@ -91,13 +101,6 @@ public class moneyPO implements Serializable{
 		this.accoun = accoun;
 	}
 
-	public Double getNum() {
-		return num;
-	}
-
-	public void setNum(Double num) {
-		this.num = num;
-	}
 
 	public Double getSumall() {
 		return sumall;
@@ -107,16 +110,16 @@ public class moneyPO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, String consumer, String accoun, Double num, Double sumall) {
+	public moneyPO(Double kind, String keyno, String oper, Double ischeck, Double isred, Double isDraft, String consumer, String accoun, Double sumall) {
 
 		this.kind = kind;
 		this.keyno = keyno;
 		this.oper = oper;
 		this.ischeck = ischeck;
 		this.isred = isred;
+		this.isDraft = isDraft;
 		this.consumer = consumer;
 		this.accoun = accoun;
-		this.num = num;
 		this.sumall = sumall;
 	}
 }

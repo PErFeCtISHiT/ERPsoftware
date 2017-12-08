@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @date: create in 12:08 2017/12/2
  */
 @Entity
-@Table(name = "CO", schema = "PIS", catalog = "")
+@Table(name = "CO", schema = "PIS")
 public class CoEntity {
     private String keyname;
     private Double sumall;
@@ -53,9 +53,7 @@ public class CoEntity {
 
         if (keyname != null ? !keyname.equals(coEntity.keyname) : coEntity.keyname != null) return false;
         if (sumall != null ? !sumall.equals(coEntity.sumall) : coEntity.sumall != null) return false;
-        if (keyno != null ? !keyno.equals(coEntity.keyno) : coEntity.keyno != null) return false;
-
-        return true;
+        return keyno != null ? keyno.equals(coEntity.keyno) : coEntity.keyno == null;
     }
 
     @Override

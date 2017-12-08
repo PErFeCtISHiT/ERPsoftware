@@ -14,6 +14,15 @@ public class buyinPO implements Serializable{
 	private String goodsoutlist;
 	private Double sumall;
 
+	private Double isDraft;
+
+	public Double getIsDraft() {
+		return isDraft;
+	}
+
+	public void setIsDraft(Double isDraft) {
+		this.isDraft = isDraft;
+	}
 
 	public buyinPO() {
 

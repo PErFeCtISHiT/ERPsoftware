@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CUT", schema = "PIS", catalog = "")
+@Table(name = "CUT", schema = "PIS")
 public class CutEntity {
     private String keyno;
     private Double lev;
@@ -72,9 +72,7 @@ public class CutEntity {
         if (lev != null ? !lev.equals(cutEntity.lev) : cutEntity.lev != null) return false;
         if (cut != null ? !cut.equals(cutEntity.cut) : cutEntity.cut != null) return false;
         if (voucher != null ? !voucher.equals(cutEntity.voucher) : cutEntity.voucher != null) return false;
-        if (packno != null ? !packno.equals(cutEntity.packno) : cutEntity.packno != null) return false;
-
-        return true;
+        return packno != null ? packno.equals(cutEntity.packno) : cutEntity.packno == null;
     }
 
     @Override

@@ -17,21 +17,21 @@ public interface FinancialAccountInterface {
      * @param vo
      * @return
      */
-    public ResultMessage addAccount(coVO vo) throws RemoteException;
+    ResultMessage addAccount(coVO vo) throws RemoteException;
     /**
      * Delete account
      *
      * @param vo
      * @return
      */
-    public ResultMessage deleteAccount(coVO vo) throws RemoteException;
+    ResultMessage deleteAccount(coVO vo) throws RemoteException;
     /**
      * Modify account
      *
      * @param vo
      * @return
      */
-    public ResultMessage modifyAccount(coVO vo)throws RemoteException;
+    ResultMessage modifyAccount(coVO vo)throws RemoteException;
 
     /**
      * Find accounts
@@ -39,7 +39,7 @@ public interface FinancialAccountInterface {
      * @param key
      * @return
      */
-    public ArrayList<coVO> findAccount(String key) throws RemoteException;
+    ArrayList<coVO> findAccount(String key) throws RemoteException;
 
     /**
      * show accounts
@@ -47,15 +47,15 @@ public interface FinancialAccountInterface {
      * @param
      * @return
      */
-    public List<coPO> show() throws RemoteException;
+    List<coPO> show() throws RemoteException;
 
-    public Account VoToAccount(coVO co) throws RemoteException;
+    Account VoToAccount(coVO co) throws RemoteException;
 
-    public coVO AccountToVo(Account account) throws RemoteException;
+    coVO AccountToVo(Account account) throws RemoteException;
 
-    public coVO PoToVo(coPO po) throws RemoteException;
+    coVO PoToVo(coPO po) throws RemoteException;
 
-    public coPO VoToPo(coVO vo) throws RemoteException;
+    coPO VoToPo(coVO vo) throws RemoteException;
 
 
     }

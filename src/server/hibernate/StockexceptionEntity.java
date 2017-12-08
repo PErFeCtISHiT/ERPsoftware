@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "STOCKEXCEPTION", schema = "PIS", catalog = "")
+@Table(name = "STOCKEXCEPTION", schema = "PIS")
 public class StockexceptionEntity {
     private Double kind;
     private String note;
@@ -15,6 +15,17 @@ public class StockexceptionEntity {
     private Double numinbase;
     private Double numinsys;
     private String keyno;
+
+    private Double isDraft;
+    @Basic
+    @Column(name = "ISDRAFT", nullable = true, precision = 0)
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
@@ -132,9 +143,7 @@ public class StockexceptionEntity {
         if (goodsname != null ? !goodsname.equals(that.goodsname) : that.goodsname != null) return false;
         if (numinbase != null ? !numinbase.equals(that.numinbase) : that.numinbase != null) return false;
         if (numinsys != null ? !numinsys.equals(that.numinsys) : that.numinsys != null) return false;
-        if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
-
-        return true;
+        return keyno != null ? keyno.equals(that.keyno) : that.keyno == null;
     }
 
     @Override

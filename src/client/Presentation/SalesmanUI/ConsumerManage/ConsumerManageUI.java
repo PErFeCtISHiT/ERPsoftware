@@ -29,6 +29,9 @@ import java.rmi.RemoteException;
 public class ConsumerManageUI extends Application {
 
     private final TableView<Consumer> table=new TableView<>();
+
+    private static TreeView<String> treeView;
+    private static TreeItem<String> root;
     private final ObservableList<Consumer> data=
             FXCollections.observableArrayList(
                     new Consumer("a","b","c","d","e","f","g","h","i","j","k","l","m"),
@@ -38,8 +41,8 @@ public class ConsumerManageUI extends Application {
 
     public static void main(String[] args){
         link.linktoServer();
-        launch(args);}
-
+        launch(args);
+    }
 
     public void start(Stage stage){
         Scene scene=new Scene(new Group());
@@ -49,6 +52,8 @@ public class ConsumerManageUI extends Application {
 
         final Label label=new Label("客户列表");
         label.setFont(new Font("Arial",20));
+
+
 
         table.setEditable(true);
 
@@ -76,9 +81,8 @@ public class ConsumerManageUI extends Application {
         IDcol.setCellFactory(cellFactory);
         IDcol.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerID(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerID(t.getNewValue());
         });
 
         jinhuoshang.setMinWidth(30);
@@ -86,18 +90,16 @@ public class ConsumerManageUI extends Application {
         jinhuoshang.setCellFactory(cellFactory);
         jinhuoshang.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerStockin(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerStockin(t.getNewValue());
                 });
         xiaoshoushang.setMinWidth(30);
         xiaoshoushang.setCellValueFactory(param -> param.getValue().ConsumerSell);
         xiaoshoushang.setCellFactory(cellFactory);
         xiaoshoushang.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerSell(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerSell(t.getNewValue());
                 });
 
         level.setMinWidth(30);
@@ -105,9 +107,8 @@ public class ConsumerManageUI extends Application {
         level.setCellFactory(cellFactory);
         level.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerLevel(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerLevel(t.getNewValue());
                 });
 
         phone.setMinWidth(30);
@@ -115,9 +116,8 @@ public class ConsumerManageUI extends Application {
         phone.setCellFactory(cellFactory);
         phone.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerPhone(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerPhone(t.getNewValue());
                 });
 
         name.setMinWidth(30);
@@ -125,9 +125,8 @@ public class ConsumerManageUI extends Application {
         name.setCellFactory(cellFactory);
         name.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerName(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerName(t.getNewValue());
                 });
 
         address.setMinWidth(30);
@@ -135,9 +134,8 @@ public class ConsumerManageUI extends Application {
         address.setCellFactory(cellFactory);
         address.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerAddress(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerAddress(t.getNewValue());
                 });
 
         youbian.setMinWidth(30);
@@ -145,9 +143,8 @@ public class ConsumerManageUI extends Application {
         youbian.setCellFactory(cellFactory);
         youbian.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerMail(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerMail(t.getNewValue());
                 });
 
         email.setMinWidth(30);
@@ -155,9 +152,8 @@ public class ConsumerManageUI extends Application {
         email.setCellFactory(cellFactory);
         email.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerEmail(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerEmail(t.getNewValue());
                 });
 
         yingshouedu.setMinWidth(30);
@@ -165,9 +161,8 @@ public class ConsumerManageUI extends Application {
         yingshouedu.setCellFactory(cellFactory);
         yingshouedu.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerReveiveMoney(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerReveiveMoney(t.getNewValue());
                 });
 
         yingshou.setMinWidth(30);
@@ -175,9 +170,8 @@ public class ConsumerManageUI extends Application {
         yingshou.setCellFactory(cellFactory);
         yingshou.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerReceive(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerReceive(t.getNewValue());
                 });
 
         yingfu.setMinWidth(30);
@@ -185,9 +179,8 @@ public class ConsumerManageUI extends Application {
         yingfu.setCellFactory(cellFactory);
         yingfu.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setConsumerPay(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setConsumerPay(t.getNewValue());
                 });
 
         yewuyuan.setMinWidth(30);
@@ -195,9 +188,8 @@ public class ConsumerManageUI extends Application {
         yewuyuan.setCellFactory(cellFactory);
         yewuyuan.setOnEditCommit(
                 (CellEditEvent<Consumer, String> t) -> {
-                    ((Consumer) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    ).setSalesman(t.getNewValue());
+                    t.getTableView().getItems().get(
+                            t.getTablePosition().getRow()).setSalesman(t.getNewValue());
                 });
 
         candelete.setCellFactory((col) -> {
@@ -383,7 +375,7 @@ public class ConsumerManageUI extends Application {
         public void cancelEdit() {
             super.cancelEdit();
 
-            setText((String) getItem());
+            setText(getItem());
             setGraphic(null);
         }
 

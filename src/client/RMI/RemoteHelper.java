@@ -7,6 +7,7 @@ import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
 import server.Dataservice.Financedataservice.goodsoutList;
+import server.Dataservice.Financedataservice.moneyList;
 import server.Dataservice.Financedataservice.sale;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
@@ -106,6 +107,10 @@ public class RemoteHelper {
     public sale getSale(){return (sale)remote;}
 
     public goodsoutList getgoodsoutList(){return (goodsoutList)remote;}
+
+    public moneyList getmoneyList(){
+        return (moneyList)remote;
+    }
 
 
 }

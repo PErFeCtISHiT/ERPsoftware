@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @date: create in 11:05 2017/11/30
  */
 @Entity
-@Table(name = "MONEYLIST", schema = "PIS", catalog = "")
+@Table(name = "MONEYLIST", schema = "PIS")
 public class MoneylistEntity {
     private String keyid;
     private String keyno;
@@ -77,9 +77,7 @@ public class MoneylistEntity {
         if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
         if (accountname != null ? !accountname.equals(that.accountname) : that.accountname != null) return false;
         if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-        if (note != null ? !note.equals(that.note) : that.note != null) return false;
-
-        return true;
+        return note != null ? note.equals(that.note) : that.note == null;
     }
 
     @Override

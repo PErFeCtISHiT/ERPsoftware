@@ -20,7 +20,6 @@ import java.rmi.RemoteException;
 public class start extends Application {
 
 
-
     private Stage login;
     private static RemoteHelper remoteHelper;
 
@@ -28,14 +27,13 @@ public class start extends Application {
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
-        
-    }
 
+    }
 
 
     @Override
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         login = new Stage();
 
@@ -44,23 +42,14 @@ public class start extends Application {
         Button turnToStockman = new Button("turn to stockman");
 
         turnToStockman.setOnAction(e -> {
-            try {
-                turntoStockman();
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
+            turntoStockman();
         });
 
         Button turnToAccountant = new Button("turn to Accountant");
 
         turnToAccountant.setOnAction(e -> {
-            try {
-                turntoAccountant();
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
+            turntoAccountant();
         });
-
 
 
         v.getChildren().add(turnToStockman);
@@ -79,8 +68,7 @@ public class start extends Application {
     }
 
 
-
-    private void turntoStockman() throws RemoteException{
+    private void turntoStockman() {
 
         //Stockman.start();
 
@@ -89,17 +77,13 @@ public class start extends Application {
     }
 
 
-
-    private void turntoAccountant() throws RemoteException{
+    private void turntoAccountant() {
 
         Accountant.start();
 
         login.close();
 
     }
-
-
-
 
 
 }

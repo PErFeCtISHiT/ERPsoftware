@@ -9,11 +9,12 @@ public class moneyVO implements Serializable{
 	private String oper;
 	private Double ischeck;
 	private Double isred;
+	private Double isDraft;
 	private String consumer;
 	private String accoun;
-	private Double num;
 	private Double sumall;
 	private String moneyList;
+
 
 	public String getConsumertype() {
 		return consumertype;
@@ -47,7 +48,6 @@ public class moneyVO implements Serializable{
 		this.keyno = keyno;
 	}
 
-
 	public String getOper() {
 		return oper;
 	}
@@ -72,6 +72,14 @@ public class moneyVO implements Serializable{
 		this.isred = isred;
 	}
 
+	public Double getIsDraft() {
+		return isDraft;
+	}
+
+	public void setIsDraft(Double isDraft) {
+		this.isDraft = isDraft;
+	}
+
 	public String getConsumer() {
 		return consumer;
 	}
@@ -86,14 +94,6 @@ public class moneyVO implements Serializable{
 
 	public void setAccoun(String accoun) {
 		this.accoun = accoun;
-	}
-
-	public Double getNum() {
-		return num;
-	}
-
-	public void setNum(Double num) {
-		this.num = num;
 	}
 
 	public Double getSumall() {

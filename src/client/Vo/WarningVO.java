@@ -13,6 +13,15 @@ public class WarningVO implements Serializable {
     private String goodsname;
     private Double num;
     private Double warningnum;
+    private Double isDraft;
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
 
     public WarningVO() {
 

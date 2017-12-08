@@ -38,5 +38,8 @@
         <property name="num">
             <column name="NUM" sql-type="number(*)" precision="2147483646" />
         </property>
+        <property name="isDraft">
+            <column name="ISDRAFT" sql-type="number(*)" precision="2147483646" />
+        </property>
     </class>
 </hibernate-mapping>

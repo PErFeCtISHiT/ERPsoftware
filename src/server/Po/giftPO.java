@@ -13,6 +13,16 @@ public class giftPO implements Serializable{
     private Double num;
     private String keyno;
 
+    private Double isDraft;
+
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
+
     public giftPO() {
 
     }

@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PACK", schema = "PIS", catalog = "")
+@Table(name = "PACK", schema = "PIS")
 public class PackEntity {
     private String keyno;
     private String goodsno;
@@ -60,9 +60,7 @@ public class PackEntity {
         if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
         if (goodsno != null ? !goodsno.equals(that.goodsno) : that.goodsno != null) return false;
         if (goodsname != null ? !goodsname.equals(that.goodsname) : that.goodsname != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-
-        return true;
+        return price != null ? price.equals(that.price) : that.price == null;
     }
 
     @Override

@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CONSUMER", schema = "PIS", catalog = "")
+@Table(name = "CONSUMER", schema = "PIS")
 public class ConsumerEntity {
     private String keyno;
     private Double kinds;
@@ -156,9 +156,7 @@ public class ConsumerEntity {
         if (receive != null ? !receive.equals(that.receive) : that.receive != null) return false;
         if (pay != null ? !pay.equals(that.pay) : that.pay != null) return false;
         if (server != null ? !server.equals(that.server) : that.server != null) return false;
-        if (accoun != null ? !accoun.equals(that.accoun) : that.accoun != null) return false;
-
-        return true;
+        return accoun != null ? accoun.equals(that.accoun) : that.accoun == null;
     }
 
     @Override

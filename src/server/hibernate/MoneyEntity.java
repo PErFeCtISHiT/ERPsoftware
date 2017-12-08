@@ -3,7 +3,7 @@ package server.hibernate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MONEY", schema = "PIS", catalog = "")
+@Table(name = "MONEY", schema = "PIS")
 public class MoneyEntity {
     private Double kind;
     private String keyno;
@@ -15,6 +15,17 @@ public class MoneyEntity {
     private String moneyList;
     private Double sumall;
     private String consumertype;
+
+    private Double isDraft;
+    @Basic
+    @Column(name = "ISDRAFT", nullable = true, precision = 0)
+    public Double getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(Double isDraft) {
+        this.isDraft = isDraft;
+    }
 
     @Basic
     @Column(name = "KIND", nullable = true, precision = 0)
@@ -132,9 +143,7 @@ public class MoneyEntity {
         if (consumer != null ? !consumer.equals(that.consumer) : that.consumer != null) return false;
         if (accoun != null ? !accoun.equals(that.accoun) : that.accoun != null) return false;
         if (moneyList != null ? !moneyList.equals(that.moneyList) : that.moneyList != null) return false;
-        if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
-
-        return true;
+        return sumall != null ? sumall.equals(that.sumall) : that.sumall == null;
     }
 
     @Override
