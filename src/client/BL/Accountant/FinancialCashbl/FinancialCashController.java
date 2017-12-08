@@ -63,9 +63,47 @@ public class FinancialCashController implements FinancialCashInterface {
     }
 
     @Override
-    public void ReEditBill(String Keyno) throws RemoteException{
+    public FinancialCash ReEditBill(String Keyno) throws RemoteException{
+
+        List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
+        System.out.println("po size: "+moneypo.size());
+        moneyPO po = moneypo.get(0);
+        FinancialCash bill=PoToFinancialCash(po);
+        System.out.println(" List size: "+bill.getMoneyList().size());
+        return bill;
+
+    }
+
+    @Override
+    public FinancialCash PoToFinancialCash( moneyPO po) throws RemoteException{
+        String ID = po.getKeyno();
+        String Billtype = String.valueOf(po.getKind());
+        String operater=po.getOper();
+        String account=po.getAccoun();
+        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
+        ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
+        System.out.println(" list size: "+list.size());
+        double sum = po.getSumall();
+        FinancialCash bill = new FinancialCash(ID,Billtype,operater,account,moneylist,sum);
+        System.out.println(" potobill size: "+bill.getMoneyList().size());
+        return bill;
+    }
 
 
+    @Override
+    public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException{
+        ArrayList<MoneyList> newlist= new ArrayList<>();
+        for (int i=0; i<list.size(); i++){
+            MoneyList newml= new MoneyList();
+            newml.setKeyid(list.get(i).getKeyid());
+            newml.setlistNO(list.get(i).getKeyno());
+            newml.setAccount(list.get(i).getAccountname());
+            newml.setMoney(String.valueOf(list.get(i).getSumall()));
+            newml.setComment(list.get(i).getNote());
+            newlist.add(newml);
+
+        }
+        return newlist;
     }
 
     @Override

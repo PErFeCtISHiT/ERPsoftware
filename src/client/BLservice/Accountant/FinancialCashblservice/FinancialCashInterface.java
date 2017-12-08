@@ -9,6 +9,7 @@ import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.Vo.moneyVO;
 import server.Po.coPO;
 import server.Po.consumerPO;
+import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
@@ -22,7 +23,11 @@ public interface FinancialCashInterface {
 
     public ResultMessage saveAsDraft (FinancialCash financialCash) throws RemoteException;
 
-    public void ReEditBill(String Keyno) throws RemoteException;
+    public FinancialCash ReEditBill(String Keyno) throws RemoteException;
+
+    public FinancialCash PoToFinancialCash( moneyPO po) throws RemoteException;
+
+    public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException;
 
     public ArrayList<AccountBill> getAllPromotedCash() throws RemoteException;
 
