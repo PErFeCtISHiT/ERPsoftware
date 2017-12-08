@@ -1,4 +1,4 @@
-package client.Presentation;
+package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
 import client.RMI.link;
