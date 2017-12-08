@@ -151,4 +151,9 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     public List findbySaleVO(saleVO saleVO) throws RemoteException {
         return sale.findbySaleVO(saleVO);
     }
+
+    @Override
+    public List login(String username, String password) throws RemoteException{
+        return user.login(username,password);
+    }
 }

@@ -2,6 +2,7 @@ package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
 import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -29,6 +30,10 @@ import static javafx.application.Application.launch;
  * @date: create in 14:57 2017/12/2
  */
 public class goodsKindsManageUI extends Application{
+    /**
+     *todo: staff
+     */
+    String staff = "core";
 
 
     private GoodsKindsController goodsKindsController = new GoodsKindsController();
@@ -105,7 +110,7 @@ public class goodsKindsManageUI extends Application{
             if (newValue.isLeaf()) {
                 modifybtn.setDisable(false);
                 try {
-                    VBox vBox = goodsManageUI.start(newValue.getValue());
+                    VBox vBox = goodsManageUI.start(newValue.getValue(),staff);
                     if(((TableView)vBox.getChildren().get(1)).getItems().size() != 0){
                         addbtn.setDisable(true);
                         delbtn.setDisable(true);
@@ -134,7 +139,7 @@ public class goodsKindsManageUI extends Application{
 
             }
         });
-
+        goodsCheckUI goodsCheckUI = new goodsCheckUI();
 
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);

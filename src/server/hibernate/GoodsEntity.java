@@ -1,7 +1,7 @@
 package server.hibernate;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
 
 @Entity
 @Table(name = "GOODS", schema = "PIS")
@@ -15,8 +15,8 @@ public class GoodsEntity {
     private Double receprice;
     private Double receoutprice;
     private String keybatch;
-    private Double batchno;
-    private Time dat;
+    private String batchno;
+    private Date dat;
     private String kinds;
     private Double warningnum;
 
@@ -112,21 +112,21 @@ public class GoodsEntity {
 
     @Basic
     @Column(name = "BATCHNO", nullable = true, precision = 0)
-    public Double getBatchno() {
+    public String getBatchno() {
         return batchno;
     }
 
-    public void setBatchno(Double batchno) {
+    public void setBatchno(String batchno) {
         this.batchno = batchno;
     }
 
     @Basic
     @Column(name = "DAT", nullable = true)
-    public Time getDat() {
+    public Date getDat() {
         return dat;
     }
 
-    public void setDat(Time dat) {
+    public void setDat(Date dat) {
         this.dat = dat;
     }
 
