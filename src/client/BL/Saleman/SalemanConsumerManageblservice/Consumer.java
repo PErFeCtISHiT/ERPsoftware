@@ -7,19 +7,21 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by Leonarda on 2017/12/2.
  */
 public class Consumer {
-    public final SimpleStringProperty ConsumerID;
-    public final SimpleStringProperty ConsumerStockin;
-    public final SimpleStringProperty ConsumerSell;
-    public final SimpleStringProperty ConsumerLevel;
-    public final SimpleStringProperty ConsumerName;
-    public final SimpleStringProperty ConsumerPhone;
-    public final SimpleStringProperty ConsumerAddress;
-    public final SimpleStringProperty ConsumerMail;
-    public final SimpleStringProperty ConsumerEmail;
-    public final SimpleStringProperty ConsumerReveiveMoney;
-    public final SimpleStringProperty ConsumerReceive;
-    public final SimpleStringProperty ConsumerPay;
-    public final SimpleStringProperty Salesman;
+    public SimpleStringProperty ConsumerID;
+    public SimpleStringProperty ConsumerStockin;
+    public SimpleStringProperty ConsumerSell;
+    public SimpleStringProperty ConsumerLevel;
+    public SimpleStringProperty ConsumerName;
+    public SimpleStringProperty ConsumerPhone;
+    public SimpleStringProperty ConsumerAddress;
+    public SimpleStringProperty ConsumerMail;
+    public SimpleStringProperty ConsumerEmail;
+    public SimpleStringProperty ConsumerReveiveMoney;
+    public SimpleStringProperty ConsumerReceive;
+    public SimpleStringProperty ConsumerPay;
+    public SimpleStringProperty Salesman;
+    public String name;
+    public String level;
 
     public Consumer(String a,String b,String c,String d,String e,String f,String g,String h,String i,String j,String k,String l,String m){
         this.ConsumerID=new SimpleStringProperty(a);
@@ -35,6 +37,27 @@ public class Consumer {
         this.ConsumerReceive=new SimpleStringProperty(k);
         this.ConsumerPay=new SimpleStringProperty(l);
         this.Salesman=new SimpleStringProperty(m);
+    }
+
+    public Consumer(String a,String b){
+        this.name=a;
+        this.level=b;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setConsumerID(String consumerID) {
