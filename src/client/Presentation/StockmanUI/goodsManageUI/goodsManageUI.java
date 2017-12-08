@@ -5,6 +5,7 @@ import client.Presentation.NOgenerator.NOgenerator;
 import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
 import client.Vo.goodsVO;
+import client.Vo.stockGoodsVO;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -163,8 +164,27 @@ public class goodsManageUI {
                     vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
                     vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
                     modifygoods(newgoods);
+
+
+                    stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+                    try {
+                        stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+                    } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                    stockGoodsVO.setGoodsname(vo.getKeyname());
+                    stockGoodsVO.setGoodsno(vo.getKeyno());
+                    stockGoodsVO.setKeynum(addnum);
+                    stockGoodsVO.setSumall(addnum * vo.getReceprice());
+                    try {
+                        goodsController.stockGoods(stockGoodsVO);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
                     goodsExceptionUI.systemWarning(vo,staff,addnum);
+
 
                 });
 
@@ -401,6 +421,23 @@ public class goodsManageUI {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
+            stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+            try {
+                stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+            } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                e1.printStackTrace();
+            }
+            stockGoodsVO.setGoodsname(vo.getKeyname());
+            stockGoodsVO.setGoodsno(vo.getKeyno());
+            stockGoodsVO.setKeynum(vo.getNum());
+            stockGoodsVO.setSumall(vo.getNum() * vo.getReceprice());
+            try {
+                goodsController.stockGoods(stockGoodsVO);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
             addName.clear();
             addModel.clear();
             addNum.clear();

@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import server.Dataservice.Financedataservice.moneyList;
 import server.Po.goodskindsPO;
 
 import java.beans.IntrospectionException;
@@ -41,7 +42,7 @@ public class goodsKindsManageUI extends Application{
     private static TreeView<String> goodsTreeView;
     private static TreeItem<String> root;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
         link.linktoServer();
         launch(args);
     }

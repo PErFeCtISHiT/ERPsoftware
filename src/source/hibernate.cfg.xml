@@ -50,9 +50,11 @@
     <mapping class="server.hibernate.LogEntity"/>
     <mapping class="server.hibernate.SaleEntity"/>
     <mapping resource="server/hibernate/SaleEntity.hbm.xml"/>
+      <mapping class="server.hibernate.StockgoodsEntity"/>
+      <mapping resource="server/hibernate/StockgoodsEntity.hbm.xml"/>
 
 
-    <!-- DB schema will be updated if needed -->
+      <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>
