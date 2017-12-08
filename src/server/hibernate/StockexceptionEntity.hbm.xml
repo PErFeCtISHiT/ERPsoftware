@@ -21,7 +21,7 @@
             <column name="ISCHECK" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="isred">
-            <column name="ISRED" sql-type="varchar2(20)" length="20" />
+            <column name="ISRED" sql-type="number(*)" precision="2147483646" />
         </property>
         <property name="goodsno">
             <column name="GOODSNO" sql-type="varchar2(20)" length="20" />

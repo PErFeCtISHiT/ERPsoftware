@@ -62,15 +62,19 @@ public class StartUI extends Application{
         btn1.setOnAction((ActionEvent e)->{
             String username=tfName.getText();
             String password=pfPwd.getText();
-            int type=1;
-
+            System.out.println(username);
+            System.out.println(password);
             try{
                 List<userPO> userPOList;
-                userPOList=controller.getAlluser(username,1);
+                userPOList=controller.getAlluser(username,15);
+
+                System.out.println(userPOList.size());
 
                 boolean isright=false;
                 userPO thisPO;
                 for(userPO users:userPOList){
+                    System.out.println(users.getKeyname());
+                    System.out.println(users.getPasswor());
                     if(users.getPasswor().equals(password)&&users.getKeyname().equals(username)){
                         isright=true;
                         thisPO=users;
@@ -79,13 +83,9 @@ public class StartUI extends Application{
                 }
 
                 if(isright==true){
-                    if(type==1){
                         goodsKindsManageUI stockman=new goodsKindsManageUI();
                         stockman.start(new Stage());
                         stage.close();
-                    }
-
-
                 }
                 else{
                     pfPwd.clear();
@@ -96,10 +96,10 @@ public class StartUI extends Application{
                     failpane.getChildren().add(label);
                     ((Group)failscene.getRoot()).getChildren().add(failpane);
                     failstage.setScene(failscene);
-                    stage.setWidth(200);
-                    stage.setHeight(90);
-                    stage.setTitle("登录失败");
-                    stage.show();
+                    failstage.setWidth(200);
+                    failstage.setHeight(90);
+                    failstage.setTitle("登录失败");
+                    failstage.show();
                 }
             }catch(RemoteException e2){
                 e2.printStackTrace();

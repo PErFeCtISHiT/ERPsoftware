@@ -16,19 +16,19 @@ import java.rmi.RemoteException;
  */
 public class StockWarningController implements stockWarning {
     @Override
-    public ResultMessage warningMake(goodsVO goods, Double warningnum, String operator, String note,String no) throws RemoteException {
+    public ResultMessage warningMake(goodsVO goods, String operator, String note,String no) throws RemoteException {
         WarningVO warningBill = new WarningVO();
         warningBill.setKind((double) 10);
         warningBill.setGoodsname(goods.getKeyname());
         warningBill.setGoodsno(goods.getKeyno());
         warningBill.setIsred((double) 0);
         warningBill.setNote(note);
-        warningBill.setWarningnum(warningnum);
+        warningBill.setWarningnum(goods.getWarningnum());
         warningBill.setNum(goods.getNum());
         warningBill.setOper(operator);
         warningBill.setIscheck((double) 0);
         warningBill.setKeyno(no);
-        ManagerExamine.acceptBill(warningBill);
+        warningBill.setIsDraft((double) 0);
         return link.getRemoteHelper().getStockwarningBill().addObject(warningBill,9);
     }
 }

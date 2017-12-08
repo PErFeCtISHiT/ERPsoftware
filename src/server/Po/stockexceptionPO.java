@@ -6,7 +6,7 @@ public class stockexceptionPO implements Serializable {
     private String note;
     private String oper;
     private Double ischeck;
-    private String isred;
+    private Double isred;
     private String goodsno;
     private String goodsname;
     private Double numinbase;
@@ -59,11 +59,11 @@ public class stockexceptionPO implements Serializable {
         this.ischeck = ischeck;
     }
 
-    public String getIsred() {
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(String isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 
@@ -107,7 +107,7 @@ public class stockexceptionPO implements Serializable {
         this.keyno = keyno;
     }
 
-    public stockexceptionPO(Double kind, String note, String oper, Double ischeck, String isred, String goodsno, String goodsname, Double numinbase, Double numinsys, String keyno) {
+    public stockexceptionPO(Double kind, String note, String oper, Double ischeck, Double isred, String goodsno, String goodsname, Double numinbase, Double numinsys, String keyno) {
 
         this.kind = kind;
         this.note = note;

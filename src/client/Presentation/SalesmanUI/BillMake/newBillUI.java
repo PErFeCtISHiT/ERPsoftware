@@ -6,6 +6,7 @@ import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.BL.Saleman.SalemanSaleblservice.SelloutBillMakeController;
 import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import client.BL.Saleman.SalemanStockinblservice.StockinBillMakeController;
+import client.RMI.link;
 import server.Po.consumerPO;
 import server.Po.buyinPO;
 import server.Po.selloutPO;
@@ -49,7 +50,7 @@ public class newBillUI extends Application{
 
 
     public static void main(String[] args){
-
+        link.linktoServer();
         launch(args);
     }
 
@@ -76,7 +77,7 @@ public class newBillUI extends Application{
 
             consumerNode.setExpanded(true);
             for(consumerPO consumer:consumerList){
-                TreeItem<String> empleaf=new TreeItem<>(consumer.getKeyname());
+                TreeItem<String> empleaf=new TreeItem<>(consumer.getKeyno());
                 boolean isfound=false;
                 for(TreeItem<String> depNode:consumerNode.getChildren()){
                     if(depNode.getValue().contentEquals(String.valueOf(consumer.getLev()))){
@@ -337,8 +338,6 @@ public class newBillUI extends Application{
                 b10.setPromptText(a10);
                 b10.setMinSize(50,5);
                 gridPane.add(b10,12,3);
-
-                
 
             });
 

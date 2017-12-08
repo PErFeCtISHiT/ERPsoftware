@@ -1,6 +1,7 @@
-package client.BLservice.Accountant.FinancialPayblservice;
+package client.BLservice.Accountant.FinancialCashblservice;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialCashbl.FinancialCash;
 import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
@@ -16,31 +17,31 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface FinancialPayInterface {
+public interface FinancialCashInterface {
 
-    public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
+    public ResultMessage summit(FinancialCash financialCash) throws RemoteException;
 
-    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
+    public ResultMessage saveAsDraft (FinancialCash financialCash) throws RemoteException;
 
-    public FinancialBill ReEditBill(String Keyno) throws RemoteException;
+    public FinancialCash ReEditBill(String Keyno) throws RemoteException;
 
-    public FinancialBill PoToFinancialBill( moneyPO po) throws RemoteException;
+    public FinancialCash PoToFinancialCash( moneyPO po) throws RemoteException;
 
     public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException;
 
-    public ArrayList<AccountBill> getAllPromotedPay() throws RemoteException;
+    public ArrayList<AccountBill> getAllPromotedCash() throws RemoteException;
 
-    public ArrayList<AccountBill> getAllUnderPromotedPay() throws RemoteException;
+    public ArrayList<AccountBill> getAllUnderPromotedCash() throws RemoteException;
 
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException;
 
-    public ArrayList<AccountBill> getAllDraftPay() throws RemoteException;
+    public ArrayList<AccountBill> getAllDraftCash() throws RemoteException;
 
     public AccountBill PoToAccountBill(moneyPO po) throws RemoteException;
 
-    public ArrayList<moneyPO> PickDraftPay(List<moneyPO> pos) throws RemoteException;
+    public ArrayList<moneyPO> PickDraftCash(List<moneyPO> pos) throws RemoteException;
 
-    public moneyPO FinancialBillToMoneyPO(FinancialBill financialBill) throws RemoteException;
+    public moneyPO FinancialCashToMoneyPO(FinancialCash financialCash) throws RemoteException;
 
     public ArrayList<Account> getAllAccount() throws RemoteException;
 

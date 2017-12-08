@@ -1,5 +1,11 @@
 package client.BL.Accountant.FinancialReceivebl;
 
+import client.RMI.link;
+import client.Vo.moneyVO;
+import client.Vo.moneyListVO;
+import shared.ResultMessage;
+
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class FinancialBill {
