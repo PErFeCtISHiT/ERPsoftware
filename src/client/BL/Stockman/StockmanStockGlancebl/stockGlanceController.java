@@ -2,13 +2,15 @@ package client.BL.Stockman.StockmanStockGlancebl;
 
 import client.BLservice.Stockman.StockmanStockGlanceblservevice.stockGlance;
 import client.RMI.link;
-import client.Vo.buyinVO;
-import client.Vo.selloutVO;
-import server.Po.buyinPO;
-import server.Po.selloutPO;
+import server.Po.goodsOutListPO;
+import server.Po.stockGoodsPO;
 
 import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,29 +19,44 @@ import java.util.List;
  * @date: create in 10:11 2017/11/26
  */
 public class stockGlanceController implements stockGlance {
-    private List<buyinPO> withBase = new ArrayList<>();
-    private List<selloutPO> withConsumer = new ArrayList<>();
+    private List<stockGoodsPO> withBase;
+    private List<goodsOutListPO> withConsumer;
+    private List<stockGoodsPO> Basetoadd;
+    private List<goodsOutListPO> Consumertoadd;
 
 
     /**
     *@author:pis
     *@description: 库存查看
     *@date: 10:11 2017/11/26
+     * @param from
+     * @param to
     */
     @Override
-    public List stockglance(String from,String to) throws RemoteException {
-        List<String> billNo = link.getRemoteHelper().getLog().logstockGlance(from,to);
-        for (String s : billNo) {
-            List temp = link.getRemoteHelper().getBuyinBill().findbyNO(3,s);
-            if(!temp.isEmpty())
-                withBase.add((buyinPO) temp.get(0));
-            temp = link.getRemoteHelper().getBuyinBill().findbyNO(4,s);
-            if(!temp.isEmpty())
-                withConsumer.add((selloutPO) temp.get(0));
+    public List stockglance(LocalDate from, LocalDate to) throws RemoteException, ParseException {
+        withBase = link.getRemoteHelper().getstockGoods().findAll(19);
+        withConsumer = link.getRemoteHelper().getgoodsoutList().findAll(17);
+        Basetoadd = new ArrayList<>();
+        Consumertoadd = new ArrayList<>();
+        for(stockGoodsPO i : withBase){
+            String temp = i.getKeyno();
+            String dat = temp.split("-")[1];
+            dat = dat.substring(0,4) + "-" + dat.substring(4,6) + "-" + dat.substring(6);
+            LocalDate between = LocalDate.parse(dat);
+            if(between.compareTo(from) >= 0 && between.compareTo(to) <= 0)
+                Basetoadd.add(i);
+        }
+        for(goodsOutListPO i : withConsumer){
+            String temp = i.getKeyno();
+            String dat = temp.split("-")[1];
+            dat = dat.substring(0,4) + "-" + dat.substring(4,6) + "-" + dat.substring(6);
+            LocalDate between = LocalDate.parse(dat);
+            if(between.compareTo(from) >= 0 && between.compareTo(to) <= 0)
+                Consumertoadd.add(i);
         }
         List<Object> ret = new ArrayList<>();
-        ret.add(withBase);
-        ret.add(withConsumer);
+        ret.add(Basetoadd);
+        ret.add(Consumertoadd);
         return ret;
     }
 }

@@ -262,6 +262,24 @@ public class goodsManageUI {
                     this.setGraphic(delBtn);
                     delBtn.setOnMouseClicked((me) -> {
                         goodsVO vo = createGoodsVO(this);
+
+                        stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+                        try {
+                            stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+                        } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                            e1.printStackTrace();
+                        }
+                        stockGoodsVO.setGoodsname(vo.getKeyname());
+                        stockGoodsVO.setGoodsno(vo.getKeyno());
+                        stockGoodsVO.setKeynum(-vo.getNum());
+                        stockGoodsVO.setSumall(-vo.getNum() * vo.getReceprice());
+                        try {
+                            goodsController.stockGoods(stockGoodsVO);
+                        } catch (RemoteException e1) {
+                            e1.printStackTrace();
+                        }
+
                         data.remove(this.getIndex());
                         try {
                             goodsController.deleteGoods(vo);
@@ -381,6 +399,11 @@ public class goodsManageUI {
             }
             String type = "SP";
             no = type + "-" + no;
+            String dat = "";
+            if(makeDate.getValue() != null)
+                dat = makeDate.getValue().toString();
+            else
+                dat = null;
             Goods newgoods = new Goods(
                     no,
                     addName.getText(),
@@ -390,7 +413,7 @@ public class goodsManageUI {
                     addoutprice.getText(),
                     addreceinprice.getText(),
                     addreceoutprice.getText(),
-                    "100", addbatch.getText(), addbatchno.getText(), makeDate.getValue().toString());
+                    "100", addbatch.getText(), addbatchno.getText(), dat);
 
             data.add(newgoods);
             goodsVO vo = new goodsVO();
