@@ -3,42 +3,35 @@ package client.Presentation.StockmanUI.goodsWarningUI;
 
 import client.BL.Stockman.StockmanWarningbl.StockWarningController;
 import client.Presentation.NOgenerator.NOgenerator;
-import client.RMI.link;
 import client.Vo.goodsVO;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import server.Po.WarningPO;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 public class goodsWarningUI {
 
 
-    final Button SummitButton = new Button("提交单据");
+    private final Button SummitButton = new Button("提交单据");
 
-    final Label notification = new Label();
-    final Label billNum = new Label();
-    final Label name = new Label();
-    final Label num = new Label();
-    final Label warningnum = new Label();
-    final TextArea text = new TextArea("");
-    final Label Staff = new Label();
-    Stage stage = new Stage();
+    private final Label notification = new Label();
+    private final Label billNum = new Label();
+    private final Label name = new Label();
+    private final Label num = new Label();
+    private final Label warningnum = new Label();
+    private final TextArea text = new TextArea("");
+    private final Label Staff = new Label();
+    private Stage stage = new Stage();
 
-
-    String address = " ";
 
     public void start(goodsVO goods, String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String nostr = NOgenerator.generate(9);
@@ -61,7 +54,7 @@ public class goodsWarningUI {
             StockWarningController stockWarningController = new StockWarningController();
             try {
                 stockWarningController.warningMake(goods, staff, text.getText(), no);
-            } catch (RemoteException e1) {
+            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e1) {
                 e1.printStackTrace();
             }
             stage.close();

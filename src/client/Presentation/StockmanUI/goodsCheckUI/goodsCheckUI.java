@@ -3,21 +3,16 @@ package client.Presentation.StockmanUI.goodsCheckUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanStockCheckbl.stockCheckController;
 import client.Presentation.StockmanUI.goodsManageUI.goodsManageUI;
-import client.RMI.link;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.goodsPO;
 
 import java.rmi.RemoteException;
 import java.util.List;
-
-import static javafx.application.Application.launch;
 
 /**
  * @author: pis
@@ -27,15 +22,12 @@ import static javafx.application.Application.launch;
 public class goodsCheckUI {
 
 
-    private ObservableList<Goods> data;
-
-
     private stockCheckController stockCheckController = new stockCheckController();
 
 
     public VBox start() throws RemoteException {
 
-        data = FXCollections.observableArrayList();
+        ObservableList<Goods> data = FXCollections.observableArrayList();
 
 
         Callback<TableColumn<Goods, String>,

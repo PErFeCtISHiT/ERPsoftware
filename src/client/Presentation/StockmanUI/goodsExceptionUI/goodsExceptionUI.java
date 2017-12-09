@@ -19,19 +19,18 @@ import java.rmi.RemoteException;
 
 public class goodsExceptionUI {
 
-    final Button SummitButton = new Button("提交单据");
+    private final Button SummitButton = new Button("提交单据");
 
-    final Label notification = new Label();
-    final Label billNum = new Label();
-    final Label name = new Label();
-    final Label num = new Label();
-    final Label basenum = new Label();
-    final TextArea text = new TextArea("");
-    final Label Staff = new Label();
-    Stage stage = new Stage();
+    private final Label notification = new Label();
+    private final Label billNum = new Label();
+    private final Label name = new Label();
+    private final Label num = new Label();
+    private final Label basenum = new Label();
+    private final TextArea text = new TextArea("");
+    private final Label Staff = new Label();
+    private Stage stage = new Stage();
 
 
-    String address = " ";
 
     /**
     *@author:pis
@@ -111,7 +110,7 @@ public class goodsExceptionUI {
             stockExceptionController stockExceptionController = new stockExceptionController();
             try {
                 stockExceptionController.ExceptionMake(goods,goods.getNum() + addnum,staff,text.getText(),no,billtype);
-            } catch (RemoteException e1) {
+            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e1) {
                 e1.printStackTrace();
             }
             stage.close();

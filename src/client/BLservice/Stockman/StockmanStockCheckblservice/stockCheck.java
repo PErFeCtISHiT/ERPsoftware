@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface stockCheck {
     List stockCheck() throws RemoteException;
+
 }

@@ -1,13 +1,11 @@
 package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
-import client.RMI.link;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
-import server.Po.userPO;
+import client.RMI.link;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,8 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import server.Po.userPO;
 
 import java.rmi.RemoteException;
 import java.util.List;

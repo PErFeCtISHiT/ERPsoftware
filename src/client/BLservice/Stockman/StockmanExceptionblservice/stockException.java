@@ -3,6 +3,8 @@ package client.BLservice.Stockman.StockmanExceptionblservice;
 import client.Vo.goodsVO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
 /**
@@ -11,5 +13,5 @@ import java.rmi.RemoteException;
  * @date: create in 15:35 2017/11/26
  */
 public interface stockException {
-    ResultMessage ExceptionMake(goodsVO goods, Double actualNum, String operator,String note,String no,int type) throws RemoteException;
+    ResultMessage ExceptionMake(goodsVO goods, Double actualNum, String operator,String note,String no,int type) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException;
 }

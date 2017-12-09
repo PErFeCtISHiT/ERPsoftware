@@ -1,10 +1,13 @@
 package client.Presentation.StockmanUI.goodsManageUI;
+
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
+import client.RMI.link;
 import client.Vo.goodsVO;
+import client.Vo.logVO;
 import client.Vo.stockGoodsVO;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,7 +27,6 @@ import shared.praseDouble;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,15 +36,16 @@ import java.util.List;
 public class goodsManageUI {
     private ObservableList<Goods> data;
     private String kinds;
-
+    private String staff;
     private GoodsController goodsController = new GoodsController();
-    int warningnum = 100;
+
 
 
 
 
 
     public VBox start(String kinds,String staff) throws RemoteException {
+        this.staff = staff;
         this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
@@ -263,6 +266,22 @@ public class goodsManageUI {
                     delBtn.setOnMouseClicked((me) -> {
                         goodsVO vo = createGoodsVO(this);
 
+                        logVO logVO = null;
+                        try {
+                            logVO = new logVO();
+                        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+                            e.printStackTrace();
+                        }
+                        logVO.setOpno("删除商品");
+                        logVO.setOperatorno(staff);
+                        logVO.setGoodsname(vo.getKeyname());
+                        logVO.setKeyjob("库存管理");
+                        try {
+                            link.getRemoteHelper().getLog().addObject(logVO, 13);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
                         stockGoodsVO stockGoodsVO = new stockGoodsVO();
 
                         try {
@@ -470,6 +489,22 @@ public class goodsManageUI {
             addreceoutprice.clear();
             addbatch.clear();
             addbatchno.clear();
+            logVO logVO = null;
+            try {
+                logVO = new logVO();
+            } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e1) {
+                e1.printStackTrace();
+            }
+            logVO.setOpno("增加商品");
+            logVO.setOperatorno(staff);
+            logVO.setGoodsname(vo.getKeyname());
+            logVO.setKeyjob("库存管理");
+            try {
+                link.getRemoteHelper().getLog().addObject(logVO,13);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
         });
 
         hb.getChildren().addAll( addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice,addbatch,addbatchno,makeDate, addButton);
@@ -564,8 +599,25 @@ public class goodsManageUI {
         return goodsVO;
     }
 
-    private void modifygoods(Goods newgoods){
+    private void modifygoods(Goods newgoods)  {
         goodsVO vo = new goodsVO();
+
+        logVO logVO = null;
+        try {
+            logVO = new logVO();
+        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+            e.printStackTrace();
+        }
+        assert logVO != null;
+        logVO.setOpno("修改商品");
+        logVO.setOperatorno(staff);
+        logVO.setGoodsname(vo.getKeyname());
+        logVO.setKeyjob("库存管理");
+        try {
+            link.getRemoteHelper().getLog().addObject(logVO,13);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         vo.setKinds(kinds);
         vo.setKeyno(newgoods.getGoodsID());
         vo.setKeyname(newgoods.getGoodsName());
