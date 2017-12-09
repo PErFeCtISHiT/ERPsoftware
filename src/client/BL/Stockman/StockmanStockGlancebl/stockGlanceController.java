@@ -7,10 +7,8 @@ import server.Po.stockGoodsPO;
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +17,6 @@ import java.util.List;
  * @date: create in 10:11 2017/11/26
  */
 public class stockGlanceController implements stockGlance {
-    private List<stockGoodsPO> withBase;
-    private List<goodsOutListPO> withConsumer;
-    private List<stockGoodsPO> Basetoadd;
     private List<goodsOutListPO> Consumertoadd;
 
 
@@ -34,9 +29,9 @@ public class stockGlanceController implements stockGlance {
     */
     @Override
     public List stockglance(LocalDate from, LocalDate to) throws RemoteException, ParseException {
-        withBase = link.getRemoteHelper().getstockGoods().findAll(19);
-        withConsumer = link.getRemoteHelper().getgoodsoutList().findAll(17);
-        Basetoadd = new ArrayList<>();
+        List<stockGoodsPO> withBase = link.getRemoteHelper().getstockGoods().findAll(19);
+        List<goodsOutListPO> withConsumer = link.getRemoteHelper().getgoodsoutList().findAll(17);
+        List<stockGoodsPO> basetoadd = new ArrayList<>();
         Consumertoadd = new ArrayList<>();
         for(stockGoodsPO i : withBase){
             String temp = i.getKeyno();
@@ -44,7 +39,7 @@ public class stockGlanceController implements stockGlance {
             dat = dat.substring(0,4) + "-" + dat.substring(4,6) + "-" + dat.substring(6);
             LocalDate between = LocalDate.parse(dat);
             if(between.compareTo(from) >= 0 && between.compareTo(to) <= 0)
-                Basetoadd.add(i);
+                basetoadd.add(i);
         }
         for(goodsOutListPO i : withConsumer){
             String temp = i.getKeyno();
@@ -55,7 +50,7 @@ public class stockGlanceController implements stockGlance {
                 Consumertoadd.add(i);
         }
         List<Object> ret = new ArrayList<>();
-        ret.add(Basetoadd);
+        ret.add(basetoadd);
         ret.add(Consumertoadd);
         return ret;
     }

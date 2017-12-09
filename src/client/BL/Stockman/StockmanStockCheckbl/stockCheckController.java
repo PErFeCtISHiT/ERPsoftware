@@ -21,4 +21,6 @@ public class stockCheckController implements stockCheck {
     public List stockCheck()throws RemoteException {
         return link.getRemoteHelper().getGoods().findAll(0);
     }
+
+
 }

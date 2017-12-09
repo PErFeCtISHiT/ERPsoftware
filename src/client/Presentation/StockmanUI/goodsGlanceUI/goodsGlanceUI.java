@@ -4,28 +4,22 @@ import client.BL.Stockman.StockmanStockGlancebl.BaseGoods;
 import client.BL.Stockman.StockmanStockGlancebl.ConsumerGoods;
 import client.BL.Stockman.StockmanStockGlancebl.stockGlanceController;
 import client.RMI.link;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import server.Po.*;
+import server.Po.goodsOutListPO;
+import server.Po.goodsPO;
+import server.Po.stockGoodsPO;
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javafx.application.Application.launch;
 
 /**
  * @author: pis
@@ -33,7 +27,7 @@ import static javafx.application.Application.launch;
  * @date: create in 16:49 2017/12/2
  */
 public class goodsGlanceUI{
-    stockGlanceController stockGlanceController = new stockGlanceController();
+    private stockGlanceController stockGlanceController = new stockGlanceController();
 
     private final TableView<BaseGoods> table1 = new TableView<>();
     private final ObservableList<BaseGoods> data1 = FXCollections.observableArrayList();
