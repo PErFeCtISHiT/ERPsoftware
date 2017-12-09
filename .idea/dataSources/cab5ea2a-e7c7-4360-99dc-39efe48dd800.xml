@@ -579,7 +579,7 @@
     <column id="117" parent="39" name="WARNINGNUM">
       <Position>13</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>100 </DefaultExpression>
+      <DefaultExpression>100</DefaultExpression>
     </column>
     <index id="118" parent="39" name="SYS_C0010872">
       <ObjectId>73646</ObjectId>
@@ -1174,12 +1174,12 @@
     <column id="220" parent="49" name="GOODSNO">
       <Position>2</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="221" parent="49" name="GOODSNAME">
       <Position>3</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="222" parent="49" name="KEYNUM">
       <Position>4</Position>
