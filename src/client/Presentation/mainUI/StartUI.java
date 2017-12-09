@@ -82,7 +82,7 @@ public class StartUI extends Application{
 
                 if(isright==true){
                         goodsKindsManageUI stockman=new goodsKindsManageUI();
-                        stockman.start(new Stage());
+                        //stockman.start(new Stage());
                         stage.close();
                 }
                 else{

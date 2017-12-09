@@ -1,8 +1,16 @@
 package server.Po;
 
+import client.Presentation.NOgenerator.NOgenerator;
+
+import java.beans.IntrospectionException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
 import java.sql.Date;
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 
 public class logPO implements Serializable{
 	private Date adddate;
@@ -15,6 +23,10 @@ public class logPO implements Serializable{
 	private String goodsname;
 	private String consumer;
 	private String base;
+
+	public logPO() {
+
+	}
 
 	public String getGoodsname() {
 		return goodsname;
@@ -40,9 +52,6 @@ public class logPO implements Serializable{
 		this.base = base;
 	}
 
-	public logPO() {
-
-    }
 
     public Date getAdddate() {
 		return adddate;

@@ -2,7 +2,6 @@ package server.hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Time;
 
 /**
  * @author: pis

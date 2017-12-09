@@ -25,10 +25,8 @@ import java.util.List;
  * @description: good good study
  * @date: create in 14:57 2017/12/2
  */
-public class goodsKindsManageUI extends Application{
-    /**
-     *todo: staff
-     */
+public class goodsKindsManageUI {
+
     String staff = "core";
 
 
@@ -37,18 +35,9 @@ public class goodsKindsManageUI extends Application{
     private static TreeView<String> goodsTreeView;
     private static TreeItem<String> root;
 
-    public static void main(String[] args) throws RemoteException {
-        link.linktoServer();
-        launch(args);
-    }
 
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("商品分类管理");
-        stage.setWidth(1400);
-        stage.setHeight(750);
+    public HBox start(String staff) throws Exception {
+        this.staff = staff;
 
         root = new TreeItem<>();
         root.setExpanded(true);
@@ -136,11 +125,7 @@ public class goodsKindsManageUI extends Application{
             }
         });
 
-
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return vbox;
 
     }
 

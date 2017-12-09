@@ -7,10 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.goodsPO;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class goodsCheckUI {
     private stockCheckController stockCheckController = new stockCheckController();
 
 
-    public VBox start() throws RemoteException {
+    public HBox start() throws RemoteException {
 
         ObservableList<Goods> data = FXCollections.observableArrayList();
 
@@ -126,9 +130,14 @@ public class goodsCheckUI {
         datecol.setCellValueFactory(
                 param -> param.getValue().outdate);
         Button exportButton = new Button("导出到excel");
-        /**
-         *todo:导出excel
-         */
+
+        exportButton.setOnAction(e -> {
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xlsx)", "*.xlsx");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showSaveDialog(new Stage());
+
+        });
         TableView<Goods> table = new TableView<>();
         table.setEditable(false);
         table.setItems(data);
@@ -137,8 +146,12 @@ public class goodsCheckUI {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, exportButton);
+        HBox ret = new HBox();
+        ret.setSpacing(5);
+        ret.setPadding(new Insets(10, 0, 0, 10));
+        ret.getChildren().add(vbox);
 
-        return vbox;
+        return ret;
     }
 
 }
