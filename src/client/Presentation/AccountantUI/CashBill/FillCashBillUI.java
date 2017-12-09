@@ -137,7 +137,7 @@ public class FillCashBillUI extends Application {
                 System.out.println(TypeComboBox.getValue());
 
                 String billtype = TypeComboBox.getValue();
-                String billID = "TxTx";//billNum.getText();
+                String billID = "TxTx11";//billNum.getText();
                 String operater = StaffComboBox.getValue();
                 String Account = account.getText();
 
@@ -177,7 +177,7 @@ public class FillCashBillUI extends Application {
                 System.out.println(TypeComboBox.getValue());
 
                 String billtype = TypeComboBox.getValue();
-                String billID = "TxT";//billNum.getText();
+                String billID = "TxTx";//billNum.getText();
                 String operater = StaffComboBox.getValue();
                 String Account = account.getText();
 
