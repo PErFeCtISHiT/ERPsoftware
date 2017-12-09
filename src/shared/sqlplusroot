@@ -1,9 +1,7 @@
---get_tables.sql
-select * from all_objects where rownum<=1000;
 set linesize 200
 set term off verify off feedback off pagesize 999
 set markup html on entmap ON spool on preformat off
-spool test_tables.xls
-@get_tables.sql
+spool g://test_tables.xls
+@src/shared/goodsToExcel
 spool off
 exit

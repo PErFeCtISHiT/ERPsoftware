@@ -1,0 +1,1 @@
+select * from goods where rownum<=1000;
