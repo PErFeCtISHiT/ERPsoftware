@@ -1,9 +1,8 @@
-package client.Presentation.AccountantUI.BillFill;
+package client.Presentation.AccountantUI.Test;
 
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.RMI.link;
-import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

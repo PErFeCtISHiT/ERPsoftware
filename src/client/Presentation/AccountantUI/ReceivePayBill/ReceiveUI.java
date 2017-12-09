@@ -1,19 +1,16 @@
-package client.Presentation.AccountantUI.BillFill;
+package client.Presentation.AccountantUI.ReceivePayBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
-import client.BL.Accountant.FinancialPaybl.FinancialPayController;
-import client.BL.Accountant.FinancialReceivebl.AccountBill;
-import client.BL.Accountant.FinancialReceivebl.Consumer;
-import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
+import client.BL.Accountant.FinancialReceivebl.*;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,13 +18,25 @@ import javafx.stage.Stage;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class PayUI extends Application {
+public class ReceiveUI extends Application {
 
-    final String[] imageNames = new String[]{"账户列表", "客户列表", "付款单草稿","已审批","正在审批"};
+    final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
-    final TableView[] table = new TableView[5];
+    final TableView[] tablelist = new TableView[5];
+    TitledPane gridTitlePane = new TitledPane();
 
+    final Label TypeComboBox = new Label ();
+    final Label StaffComboBox = new Label ("");
+    final Label ConsumerTypeComboBox = new Label("");
+    final Button OutputButton = new Button("导出单据");
+    final Label notification = new Label ();
+    final Label billNum = new Label ("");
+    final Label consumer = new Label("");
+    final Label money = new Label("");
 
+    private final TableView<MoneyList> table = new TableView<>();
+    private final ObservableList<MoneyList> data =
+            FXCollections.observableArrayList();
 
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
@@ -58,7 +67,7 @@ public class PayUI extends Application {
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
-    FinancialPayController PayController  = new FinancialPayController();
+    FinancialReceiveController receiveController  = new FinancialReceiveController();
 
     public static void main(String[] args) {
         link.linktoServer();
@@ -66,8 +75,8 @@ public class PayUI extends Application {
     }
 
     @Override public void start(Stage stage) {
-        stage.setTitle("制定付款单");
-        Scene scene = new Scene(new Group(), 800, 250);
+        stage.setTitle("制定收款单");
+        Scene scene = new Scene(new Group(), 1350, 750);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
@@ -87,7 +96,7 @@ public class PayUI extends Application {
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
         try {
-            ArrayList<Account> list =PayController.getAllAccount();
+            ArrayList<Account> list =receiveController.getAllAccount();
             accountdata.clear();
             accountdata.addAll(list);
         } catch (RemoteException e) {
@@ -140,7 +149,7 @@ public class PayUI extends Application {
                 param -> param.getValue().duePay);
 
         try {
-            ArrayList<Consumer> list =PayController.getAllConsumer();
+            ArrayList<Consumer> list =receiveController.getAllConsumer();
             consumerdata.clear();
             consumerdata.addAll(list);
         } catch (RemoteException e) {
@@ -175,10 +184,12 @@ public class PayUI extends Application {
                         editBtn.setOnMouseClicked((me) -> {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                PayController.ReEditBill(keyno);
+                                FinancialBill bill = receiveController.ReEditBill(keyno);
+                                receiveController.setDetailInfor(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
+
 
                         });
                     }
@@ -190,7 +201,7 @@ public class PayUI extends Application {
 
 
         try {
-            ArrayList<AccountBill> list =PayController.getAllDraftPay();
+            ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
 //            System.out.println("Draft "+list.size()+" "+list.get(0).getKeyno());
             draftbilldata.clear();
             draftbilldata.addAll(list);
@@ -227,9 +238,10 @@ public class PayUI extends Application {
                         Button detailBtn = new Button("详细信息");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
-                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                PayController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                FinancialBill bill = receiveController.ReEditBill(keyno);
+                                detail(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -242,8 +254,9 @@ public class PayUI extends Application {
             return cell;
         });
 
+
         try {
-            ArrayList<AccountBill> list =PayController.getAllPromotedPay();
+            ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
 //            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
@@ -278,9 +291,11 @@ public class PayUI extends Application {
                         Button detailBtn = new Button("详细信息");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
-                            String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
+                            String keyno = UnderPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
-                                PayController.ReEditBill(keyno);/////////////////////////////////////////////////
+                                FinancialBill bill = receiveController.ReEditBill(keyno);
+                                System.out.println("size: "+bill.getMoneyList().size());
+                                detail(bill);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -294,7 +309,7 @@ public class PayUI extends Application {
         });
 
         try {
-            ArrayList<AccountBill> list =PayController.getAllUnderPromotedPay();
+            ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
 //            System.out.println("Under "+list.size()+" "+list.get(0).getKeyno());
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list);
@@ -306,17 +321,78 @@ public class PayUI extends Application {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-        table[0] = accounttable;
-        table[1] = consumertable;
-        table[2] = draftbilltable;
-        table[3] = AlreadyPromotionbilltable;
-        table[4] = UnderPromotionbilltable;
+        tablelist[0] = accounttable;
+        tablelist[1] = consumertable;
+        tablelist[2] = draftbilltable;
+        tablelist[3] = AlreadyPromotionbilltable;
+        tablelist[4] = UnderPromotionbilltable;
         // --- Accordion
         final Accordion accordion = new Accordion ();
         for (int i = 0; i < imageNames.length; i++) {
-            tps[i] = new TitledPane(imageNames[i],table[i]);
+            tps[i] = new TitledPane(imageNames[i],tablelist[i]);
         }
         accordion.getPanes().addAll(tps);
+
+
+        hb.getChildren().setAll(accordion,gridTitlePane);
+        table.setEditable(true);
+        TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
+        AccountCol.setMinWidth(100);
+        AccountCol.setCellValueFactory(
+                param -> param.getValue().account);
+
+        TableColumn<MoneyList,String> MoneyListCol = new TableColumn<>("转账金额");
+        MoneyListCol.setMinWidth(100);
+        MoneyListCol.setCellValueFactory(
+                param -> param.getValue().money);
+
+        TableColumn<MoneyList,String> CommentCol = new TableColumn<>("备注");
+        CommentCol.setMinWidth(100);
+        CommentCol.setCellValueFactory(
+                param -> param.getValue().comment);
+
+        table.setItems(data);
+        table.getColumns().addAll(AccountCol,MoneyListCol,CommentCol);
+
+
+//        try {
+//            FinancialBill bill= receiveController.getDetailInfor();
+//            System.out.println(bill.getID());
+//            //TypeComboBox.setValue(bill.getBillType());
+//            billNum.setText(bill.getID());
+//            StaffComboBox.setText(bill.getOperater());
+//            ConsumerTypeComboBox.setText(bill.getConsumerType());
+//            consumer.setText(bill.getConsumerID());
+//            data.clear();
+//            data.addAll(bill.getMoneyList());
+//            money.setText(String.valueOf(bill.getSum()));
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+
+
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setHgap(10);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.add(new Label("单据类型："), 0, 0);
+        grid.add(TypeComboBox, 1, 0);
+        grid.add(new Label("单据编号："), 2, 0);
+        grid.add(billNum, 3, 0);
+        grid.add(new Label("操作员："), 4, 0);
+        grid.add(StaffComboBox, 5, 0);
+        grid.add(new Label("客户类型："), 0, 1);
+        grid.add(ConsumerTypeComboBox, 1, 1);
+        grid.add(new Label("客户编号:"), 2, 1);
+        grid.add(consumer, 3, 1);
+        grid.add(new Label("转账列表:"), 0, 2);
+        grid.add(table, 1, 2, 3, 1);
+        grid.add(new Label("总金额:"), 0, 3);
+        grid.add(money, 1, 3, 4, 1);
+        grid.add(OutputButton, 3, 4);
+        gridTitlePane.setText("详细信息");
+        gridTitlePane.setContent(grid);
+
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
@@ -330,7 +406,7 @@ public class PayUI extends Application {
         hbox.getChildren().setAll(refresh,newBill);
 
         VBox vb = new VBox();
-        vb.getChildren().setAll(accordion,hbox);
+        vb.getChildren().setAll(hb,hbox);
 
         Group root = (Group)scene.getRoot();
         root.getChildren().add(vb);
@@ -339,22 +415,35 @@ public class PayUI extends Application {
     }
 
 
+    public void detail(FinancialBill bill) {
+//            System.out.println(bill.getID());
+
+            TypeComboBox.setText(bill.getBillType());
+            billNum.setText(bill.getID());
+            StaffComboBox.setText(bill.getOperater());
+            ConsumerTypeComboBox.setText(bill.getConsumerType());
+            consumer.setText(bill.getConsumerID());
+            data.clear();
+            data.addAll(bill.getMoneyList());
+            money.setText(String.valueOf(bill.getSum()));
+    }
+
 
     public void refresh() {
         try {
-            ArrayList<Account> list1 =PayController.getAllAccount();
+            ArrayList<Account> list1 =receiveController.getAllAccount();
             accountdata.clear();
             accountdata.addAll(list1);
-            ArrayList<Consumer> list2 =PayController.getAllConsumer();
+            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
             consumerdata.clear();
             consumerdata.addAll(list2);
-            ArrayList<AccountBill> list3 =PayController.getAllDraftPay();
+            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
             draftbilldata.clear();
             draftbilldata.addAll(list3);
-            ArrayList<AccountBill> list4 =PayController.getAllPromotedPay();
+            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list4);
-            ArrayList<AccountBill> list5 =PayController.getAllUnderPromotedPay();
+            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list5);
         } catch (RemoteException e) {

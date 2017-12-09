@@ -9,7 +9,7 @@ public class StockexceptionEntity {
     private String note;
     private String oper;
     private Double ischeck;
-    private String isred;
+    private Double isred;
     private String goodsno;
     private String goodsname;
     private Double numinbase;
@@ -68,12 +68,12 @@ public class StockexceptionEntity {
     }
 
     @Basic
-    @Column(name = "ISRED", nullable = true, length = 20)
-    public String getIsred() {
+    @Column(name = "ISRED", nullable = true, precision = 0)
+    public Double getIsred() {
         return isred;
     }
 
-    public void setIsred(String isred) {
+    public void setIsred(Double isred) {
         this.isred = isred;
     }
 

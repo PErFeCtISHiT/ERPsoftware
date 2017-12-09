@@ -37,9 +37,6 @@ public class goodsManageUI {
     private String kinds;
 
     private GoodsController goodsController = new GoodsController();
-    /**
-    *todo:警戒数量，报警
-    */
     int warningnum = 100;
 
 
@@ -152,10 +149,21 @@ public class goodsManageUI {
                     Goods newgoods =  t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsNum(t.getNewValue());
+                    goodsVO vo = new goodsVO();
+                    vo.setKinds(kinds);
+                    vo.setKeyno(newgoods.getGoodsID());
+                    vo.setKeyname(newgoods.getGoodsName());
+                    vo.setKeymodel(newgoods.getGoodsModel());
+                    vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+                    vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
+                    vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
+                    vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
+                    vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
+                    vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
                     modifygoods(newgoods);
                 });
 
-        inpriceCol.setMinWidth(100);
+        inpriceCol.setMinWidth(50);
         inpriceCol.setCellValueFactory(
                 param -> param.getValue().goodsInprice);
         inpriceCol.setCellFactory(cellFactory);
@@ -167,7 +175,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        outpriceCol.setMinWidth(100);
+        outpriceCol.setMinWidth(50);
         outpriceCol.setCellValueFactory(
                 param -> param.getValue().goodsOutprice);
         outpriceCol.setCellFactory(cellFactory);
@@ -176,10 +184,11 @@ public class goodsManageUI {
                     Goods newgoods =  t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsOutprice(t.getNewValue());
+
                     modifygoods(newgoods);
                 });
 
-        receinpriceCol.setMinWidth(100);
+        receinpriceCol.setMinWidth(50);
         receinpriceCol.setCellValueFactory(
                 param -> param.getValue().goodsReceinprice);
         receinpriceCol.setCellFactory(cellFactory);
@@ -191,7 +200,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        receoutpriceCol.setMinWidth(100);
+        receoutpriceCol.setMinWidth(50);
         receoutpriceCol.setCellValueFactory(
                 param -> param.getValue().goodsReceoutprice);
         receoutpriceCol.setCellFactory(cellFactory);
@@ -203,7 +212,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
-        warningnumcol.setMinWidth(100);
+        warningnumcol.setMinWidth(50);
         warningnumcol.setCellValueFactory(
                 param -> param.getValue().goodsWarningnum);
         warningnumcol.setCellFactory(cellFactory);
@@ -257,7 +266,10 @@ public class goodsManageUI {
                     warninglBtn.setOnMouseClicked((me) -> {
                         goodsWarningUI goodsWarningUI = new goodsWarningUI();
                         try {
-                            goodsWarningUI.start(goodsVO);
+                            /**
+                            *todo: 员工id
+                            */
+                            goodsWarningUI.start(goodsVO,"郭丰睿");
                         } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
