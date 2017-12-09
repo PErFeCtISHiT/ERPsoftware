@@ -29,6 +29,9 @@ import java.rmi.RemoteException;
 public class ConsumerManageUI extends Application {
 
     private final TableView<Consumer> table=new TableView<>();
+
+    private static TreeView<String> treeView;
+    private static TreeItem<String> root;
     private final ObservableList<Consumer> data=
             FXCollections.observableArrayList(
                     new Consumer("a","b","c","d","e","f","g","h","i","j","k","l","m"),
@@ -38,17 +41,19 @@ public class ConsumerManageUI extends Application {
 
     public static void main(String[] args){
         link.linktoServer();
-        launch(args);}
-
+        launch(args);
+    }
 
     public void start(Stage stage){
         Scene scene=new Scene(new Group());
         stage.setTitle("客户管理");
-        stage.setWidth(1200);
+        stage.setWidth(1500);
         stage.setHeight(600);
 
         final Label label=new Label("客户列表");
         label.setFont(new Font("Arial",20));
+
+
 
         table.setEditable(true);
 

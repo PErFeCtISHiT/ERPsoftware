@@ -12,25 +12,37 @@ import java.util.ArrayList;
 
 public class FinancialBuildController implements FinancialBuildAccountInterface{
 
-    /**
-     *
-     * @return ResultMessage
-     */
-    @Override
-    public void accountbuild() throws RemoteException{
-
-    }
-
-    /**
-     *
-     * @return ResultMessage
-     */
 
     @Override
-    public void getPast(String year) throws RemoteException{
+    public AccountBuild accountbuild() throws RemoteException{
 
+        return null;
     }
 
+
+    @Override
+    public AccountBuild getPast(String year) throws RemoteException{
+
+
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException {
+        return null;
+    }
+
+
+    @Override
+    public ArrayList<AccountBuild_consumer> getPastConsumer(String year) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException {
+        return null;
+    }
 
 }
 

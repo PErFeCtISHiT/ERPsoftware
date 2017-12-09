@@ -3,6 +3,7 @@ package client.BL.Stockman.StockmanGoodsbl;
 import client.BLservice.Stockman.StockmanGoodsblservice.GoodsListInterface;
 import client.RMI.link;
 import client.Vo.goodsVO;
+import client.Vo.stockGoodsVO;
 import server.Po.goodsPO;
 import shared.ResultMessage;
 import shared.copyclass;
@@ -79,5 +80,10 @@ public class GoodsController implements GoodsListInterface {
     @Override
     public List findAll() throws RemoteException{
         return link.getRemoteHelper().getGoods().findAll(1);
+    }
+
+    @Override
+    public ResultMessage stockGoods(stockGoodsVO stockGoodsVO) throws RemoteException {
+        return link.getRemoteHelper().getstockGoods().addObject(stockGoodsVO,19);
     }
 }

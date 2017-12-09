@@ -1,14 +1,10 @@
 package client.Presentation.StockmanUI.goodsExceptionUI;
 
 
-import client.BL.Stockman.StockmanOverflowbl.stockExceptionController;
-import client.BL.Stockman.StockmanWarningbl.StockWarningController;
+import client.BL.Stockman.StockmanExceptionbl.stockExceptionController;
 import client.Presentation.NOgenerator.NOgenerator;
-import client.RMI.link;
 import client.Vo.goodsVO;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,19 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.hibernate.boot.jaxb.internal.stax.HbmEventReader;
-import server.Po.WarningPO;
-import shared.ResultMessage;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 public class goodsExceptionUI {
-
 
     final Button SummitButton = new Button("提交单据");
 
@@ -49,7 +38,7 @@ public class goodsExceptionUI {
     *@description: 警告界面
     *@date: 22:39 2017/12/5
     */
-    public void systemWarning(goodsVO goods, String staff,int addnum){
+    public void systemWarning(goodsVO goods, String staff, Double addnum){
         Stage systemWarning = new Stage();
         systemWarning.setTitle("警告");
         systemWarning.setAlwaysOnTop(true);
@@ -59,11 +48,11 @@ public class goodsExceptionUI {
         int type;
         if(addnum > 0) {
             type = 0;
-            mess = "您正准备向系统添加" + goods.getKeyname() + String.valueOf(addnum) + "件,是否创建库存报溢单";
+            mess = "您正准备向系统添加" + goods.getKeyname()+ " " + String.valueOf(addnum) + "件,是否创建库存报溢单";
         }
         else {
             type = 1;
-            mess = "您正准备向系统减少" + goods.getKeyname() + String.valueOf(addnum) + "件，是否创建库存报损单";
+            mess = "您正准备向系统减少" + goods.getKeyname() +" "+ String.valueOf(-addnum) + "件，是否创建库存报损单";
         }
         Label message = new Label(mess);
         Button yes = new Button("确认");
@@ -92,7 +81,7 @@ public class goodsExceptionUI {
     *@description: 单据界面
     *@date: 22:39 2017/12/5
     */
-    public void start(goodsVO goods, String staff,int billtype,int addnum) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void start(goodsVO goods, String staff, int billtype, Double addnum) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String nostr = NOgenerator.generate(7);
         String type;
         final Label Type = new Label();

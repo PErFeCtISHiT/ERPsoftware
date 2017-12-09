@@ -18,7 +18,10 @@ public class StockinBill {
     public final SimpleStringProperty BuyinTips;
     public final SimpleStringProperty BuyinSum;
 
-    public StockinBill(String a,String b,String c,String d,String e,String f,String g){
+    public final SimpleStringProperty BuyinKinds;
+
+
+    public StockinBill(String a,String b,String c,String d,String e,String f,String g,String h){
         this.BuyinID=new SimpleStringProperty(a);
         this.BuyinOffer=new SimpleStringProperty(b);
         this.BuyinStoreHouse=new SimpleStringProperty(c);
@@ -26,6 +29,19 @@ public class StockinBill {
         this.BuyinGoodsList=new SimpleStringProperty(e);
         this.BuyinTips=new SimpleStringProperty(f);
         this.BuyinSum=new SimpleStringProperty(g);
+        this.BuyinKinds=new SimpleStringProperty(h);
+    }
+
+    public void setBuyinKinds(String buyinKinds) {
+        this.BuyinKinds.set(buyinKinds);
+    }
+
+    public String getBuyinKinds() {
+        return BuyinKinds.get();
+    }
+
+    public String getBuyinSum() {
+        return BuyinSum.get();
     }
 
     public void setBuyinGoodsList(String buyinGoodsList) {

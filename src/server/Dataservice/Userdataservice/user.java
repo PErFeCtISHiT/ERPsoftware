@@ -11,5 +11,6 @@ import java.util.List;
  * @date: create in 19:04 2017/11/27
  */
 public interface user extends pub {
+    public List login(String username,String password) throws RemoteException;
 
 }

@@ -1,4 +1,4 @@
-package client.BL.Stockman.StockmanOverflowbl;
+package client.BL.Stockman.StockmanExceptionbl;
 
 
 import client.BLservice.Stockman.StockmanExceptionblservice.stockException;

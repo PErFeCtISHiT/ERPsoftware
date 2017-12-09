@@ -1,35 +1,34 @@
 package client.Presentation.StockmanUI.goodsManageUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
+import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
-import client.RMI.link;
 import client.Vo.goodsVO;
-import javafx.application.Application;
+import client.Vo.stockGoodsVO;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import server.Po.goodsPO;
 import shared.praseDouble;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class goodsManageUI {
@@ -43,7 +42,7 @@ public class goodsManageUI {
 
 
 
-    public VBox start(String kinds) throws RemoteException {
+    public VBox start(String kinds,String staff) throws RemoteException {
         this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
@@ -66,7 +65,10 @@ public class goodsManageUI {
                     String.valueOf(i.getOutprice()),
                     String.valueOf(i.getReceprice()),
                     String.valueOf(i.getReceoutprice()),
-                    String.valueOf(i.getWarningnum()));
+                    String.valueOf(i.getWarningnum()),
+                    String .valueOf(i.getKeybatch()),
+                    String .valueOf(i.getBatchno()),
+                    String .valueOf(i.getDat()));
             data.add(newgoods);
 
         }
@@ -148,19 +150,42 @@ public class goodsManageUI {
                 (CellEditEvent<Goods, String> t) -> {
                     Goods newgoods =  t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
+                    Double addnum = Double.valueOf(t.getNewValue()) - Double.valueOf(t.getOldValue());
                     newgoods.setGoodsNum(t.getNewValue());
                     goodsVO vo = new goodsVO();
                     vo.setKinds(kinds);
                     vo.setKeyno(newgoods.getGoodsID());
                     vo.setKeyname(newgoods.getGoodsName());
                     vo.setKeymodel(newgoods.getGoodsModel());
-                    vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+                    vo.setNum(praseDouble.prase(newgoods.getGoodsNum()) - addnum);
                     vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
                     vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
                     vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
                     vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
                     vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
                     modifygoods(newgoods);
+
+
+                    stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+                    try {
+                        stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+                    } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                    stockGoodsVO.setGoodsname(vo.getKeyname());
+                    stockGoodsVO.setGoodsno(vo.getKeyno());
+                    stockGoodsVO.setKeynum(addnum);
+                    stockGoodsVO.setSumall(addnum * vo.getReceprice());
+                    try {
+                        goodsController.stockGoods(stockGoodsVO);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
+                    goodsExceptionUI.systemWarning(vo,staff,addnum);
+
+
                 });
 
         inpriceCol.setMinWidth(50);
@@ -266,10 +291,7 @@ public class goodsManageUI {
                     warninglBtn.setOnMouseClicked((me) -> {
                         goodsWarningUI goodsWarningUI = new goodsWarningUI();
                         try {
-                            /**
-                            *todo: 员工id
-                            */
-                            goodsWarningUI.start(goodsVO,"郭丰睿");
+                            goodsWarningUI.start(goodsVO,staff);
                         } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
@@ -284,9 +306,6 @@ public class goodsManageUI {
         table.setItems(data);
         table.getColumns().addAll(IDCol, NameCol,ModelCol,NumCol,inpriceCol,outpriceCol,receinpriceCol,receoutpriceCol,warningnumcol,delCol,warningCol);
 
-        final TextField addID = new TextField();
-        addID.setPromptText("ID");
-        addID.setMaxWidth(IDCol.getPrefWidth());
 
         final TextField addName = new TextField();
         addName.setMaxWidth(NameCol.getPrefWidth());
@@ -316,12 +335,54 @@ public class goodsManageUI {
         addreceoutprice.setMaxWidth(ModelCol.getPrefWidth());
         addreceoutprice.setPromptText("最近零售价");
 
+        final TextField addbatch = new TextField();
+        addbatch.setMaxWidth(ModelCol.getPrefWidth());
+        addbatch.setPromptText("批次");
+
+        final TextField addbatchno = new TextField();
+        addbatchno.setMaxWidth(ModelCol.getPrefWidth());
+        addbatchno.setPromptText("批号");
+
+        DatePicker makeDate = new DatePicker();
+        String pattern = "yyyyMMdd";
+        makeDate.setPromptText(pattern);
+        StringConverter converter = new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter =
+                    DateTimeFormatter.ofPattern(pattern);
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };
+        makeDate.setConverter(converter);
+
+
 
 
         final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
+            String no = "";
+            try {
+                no = NOgenerator.generate(0);
+            } catch (RemoteException | IllegalAccessException | InvocationTargetException | IntrospectionException e1) {
+                e1.printStackTrace();
+            }
+            String type = "SP";
+            no = type + "-" + no;
             Goods newgoods = new Goods(
-                    addID.getText(),
+                    no,
                     addName.getText(),
                     addModel.getText(),
                     addNum.getText(),
@@ -329,10 +390,11 @@ public class goodsManageUI {
                     addoutprice.getText(),
                     addreceinprice.getText(),
                     addreceoutprice.getText(),
-                    "100");
+                    "100", addbatch.getText(), addbatchno.getText(), makeDate.getValue().toString());
 
             data.add(newgoods);
             goodsVO vo = new goodsVO();
+            vo.setKeyno(no);
             vo.setKinds(kinds);
             vo.setKeyno(newgoods.getGoodsID());
             vo.setKeyname(newgoods.getGoodsName());
@@ -343,12 +405,39 @@ public class goodsManageUI {
             vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
             vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
             vo.setWarningnum((double) 100);
+            vo.setKeybatch(newgoods.getBatch());
+            vo.setBatchno(newgoods.getBatchno());
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date= null;
+            try {
+                date = sdf.parse(makeDate.getValue().toString());
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            java.sql.Date sqldate = new java.sql.Date(date.getTime());
+            vo.setDat(sqldate);
             try {
                 goodsController.addGoods(vo);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-            addID.clear();
+            stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+            try {
+                stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+            } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                e1.printStackTrace();
+            }
+            stockGoodsVO.setGoodsname(vo.getKeyname());
+            stockGoodsVO.setGoodsno(vo.getKeyno());
+            stockGoodsVO.setKeynum(vo.getNum());
+            stockGoodsVO.setSumall(vo.getNum() * vo.getReceprice());
+            try {
+                goodsController.stockGoods(stockGoodsVO);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
             addName.clear();
             addModel.clear();
             addNum.clear();
@@ -356,9 +445,11 @@ public class goodsManageUI {
             addoutprice.clear();
             addreceinprice.clear();
             addreceoutprice.clear();
+            addbatch.clear();
+            addbatchno.clear();
         });
 
-        hb.getChildren().addAll(addID, addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice, addButton);
+        hb.getChildren().addAll( addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice,addbatch,addbatchno,makeDate, addButton);
         hb.setSpacing(3);
 
         VBox vbox = new VBox();
@@ -371,11 +462,11 @@ public class goodsManageUI {
 
 
 
-    class EditingCell extends TableCell<Goods, String> {
+    public static class EditingCell extends TableCell<Goods, String> {
 
         private TextField textField;
 
-        EditingCell() {
+        public EditingCell() {
         }
 
         @Override

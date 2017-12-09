@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="server.hibernate.StockgoodsEntity" table="STOCKGOODS" schema="PIS">
+        <id name="keyno">
+            <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
+        </id>
+        <property name="goodsno">
+            <column name="GOODSNO" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="goodsname">
+            <column name="GOODSNAME" sql-type="varchar2(20)" length="20" />
+        </property>
+        <property name="keynum">
+            <column name="KEYNUM" sql-type="number(*)" precision="2147483646" />
+        </property>
+        <property name="sumall">
+            <column name="SUMALL" sql-type="number(*)" precision="2147483646" />
+        </property>
+    </class>
+</hibernate-mapping>

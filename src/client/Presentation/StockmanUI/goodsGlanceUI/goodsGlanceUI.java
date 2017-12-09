@@ -3,6 +3,7 @@ package client.Presentation.StockmanUI.goodsGlanceUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanStockGlancebl.goodsinManager;
 import client.BL.Stockman.StockmanStockGlancebl.stockGlanceController;
+import client.Presentation.StockmanUI.goodsManageUI.goodsManageUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -10,11 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import server.Po.buyinPO;
 import server.Po.selloutPO;
 
@@ -33,6 +36,8 @@ public class goodsGlanceUI extends Application{
 
     private final TableView<buyinPO> table1 = new TableView<>();
     private final ObservableList<buyinPO> data1 = FXCollections.observableArrayList();
+
+
 
     private final TableView<buyinPO> table2 = new TableView<>();
     private final ObservableList<selloutPO> data2 = FXCollections.observableArrayList();
@@ -70,11 +75,12 @@ public class goodsGlanceUI extends Application{
         final Label label2 = new Label("销售进货清单");
         label2.setFont(new Font("Arial", 20));
 
-        table2.setEditable(true);
+        table2.setEditable(false);
 
         TableColumn<goodsinManager, String> nameCol1 =
                 new TableColumn<>("名称");
         nameCol1.setMinWidth(100);
+        //nameCol1.setCellValueFactory(param -> param.getValue());
         TableColumn<goodsinManager, String> outnumCol1 =
                 new TableColumn<>("出库数量");
         outnumCol1.setMinWidth(100);
@@ -90,5 +96,6 @@ public class goodsGlanceUI extends Application{
         TableColumn<goodsinManager,String> allCol1 =
                 new TableColumn<>("库存合计");
         allCol1.setMinWidth(100);
+
     }
 }

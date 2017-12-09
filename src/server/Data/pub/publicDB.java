@@ -200,6 +200,13 @@ public class publicDB implements pub {
                 obj = new MoneylistEntity();
                 po = new moneyListPO();
                 hql = "from MoneylistEntity ";
+                break;
+            }
+            case 19:{
+                obj = new StockgoodsEntity();
+                po = new stockGoodsPO();
+                hql = "from StockgoodsEntity ";
+                break;
             }
         }
     }

@@ -26,8 +26,8 @@ public class StockinBillUI extends Application{
     private final TableView<StockinBill> table=new TableView<>();
     private final ObservableList<StockinBill> tableData=
             FXCollections.observableArrayList(
-                    new StockinBill("A","B","C","D","E","F","G"),
-                    new StockinBill("a","b","c","d","e","f","g")
+                    new StockinBill("A","B","C","D","E","F","G","0"),
+                    new StockinBill("a","b","c","d","e","f","g","0")
             );
     final HBox hb=new HBox();
     final VBox vb=new VBox();

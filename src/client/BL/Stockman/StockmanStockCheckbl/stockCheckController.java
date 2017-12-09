@@ -19,6 +19,6 @@ public class stockCheckController implements stockCheck {
     */
     @Override
     public List stockCheck()throws RemoteException {
-        return link.getRemoteHelper().getGoods().findAll(1);
+        return link.getRemoteHelper().getGoods().findAll(0);
     }
 }
