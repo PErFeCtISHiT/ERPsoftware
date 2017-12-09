@@ -1,6 +1,8 @@
 package client.Presentation.ManageUI;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
+import client.BL.Accountant.FinancialCashbl.FinancialCash;
+import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
 import client.RMI.link;
 import client.Vo.coVO;
@@ -76,7 +78,32 @@ public class CheckProgressUI extends Application {
                 new TableColumn<>("审批状态");
         TableColumn<Billgotten, String> StockCol =
                 new TableColumn<>("是否红冲");
+        TableColumn<Billgotten, String> BillDetailCol =
+                new TableColumn<>("详细信息");
 
+        BillDetailCol.setCellFactory((col) -> {
+            TableCell<Billgotten, String> cell = new TableCell<Billgotten, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = data.get(this.getIndex()).getId();
+                            try {
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
         IdCol.setMinWidth(100);
         IdCol.setCellValueFactory(
                 param -> param.getValue().Type);
@@ -100,7 +127,7 @@ public class CheckProgressUI extends Application {
 
 
         table.setItems(data);
-        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol);
+        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol);
 
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
@@ -179,7 +206,7 @@ public class CheckProgressUI extends Application {
         try {
             List<selloutPO> list2 =controller.showselloutPO();
             for (int i=0;i<list2.size();i++){
-
+System.out.println(list2.get(0).getIscheck());
                 data.add(new Billgotten("销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
             }
             List<buyinPO> list =controller.showbyingPO();
