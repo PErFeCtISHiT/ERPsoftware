@@ -11,4 +11,5 @@ public interface GoodsListInterface {
     List findGoods(String keyword) throws RemoteException;
     List findByKind(String kind) throws RemoteException;
     List findAll() throws RemoteException;
+    ResultMessage stockGoods(stockGoodsVO stockGoodsVO) throws RemoteException;
 }

@@ -1,11 +1,8 @@
 package client.Presentation.ManageUI;
 
-import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
 import client.RMI.link;
-import client.Vo.coVO;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +73,67 @@ public class CheckProgressUI extends Application {
                 new TableColumn<>("审批状态");
         TableColumn<Billgotten, String> StockCol =
                 new TableColumn<>("是否红冲");
+        TableColumn<Billgotten, String> BillDetailCol =
+                new TableColumn<>("详细信息");
 
+        BillDetailCol.setCellFactory((col) -> {
+            TableCell<Billgotten, String> cell = new TableCell<Billgotten, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button detailBtn = new Button("详细信息");
+                        this.setGraphic(detailBtn);
+                        detailBtn.setOnMouseClicked((me) -> {
+                            String keyno = data.get(this.getIndex()).getId();
+                            int  kind =data.get(this.getIndex()).getPrecisetype();
+                            try {
+                                switch (kind){
+                                    case 3:{
+                                      buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
+                                      break;
+                                    }
+                                    case 4:{
+                                        selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
+
+                                    }
+                                    case 5:{
+                                        moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+
+                                    }
+                                    case 6:{
+                                        giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+
+                                    }
+                                    case 7:{
+                                        //need to test
+                                        stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+
+                                    }
+                                    case 9:{
+                                         WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
         IdCol.setMinWidth(100);
         IdCol.setCellValueFactory(
                 param -> param.getValue().Type);
@@ -100,7 +157,7 @@ public class CheckProgressUI extends Application {
 
 
         table.setItems(data);
-        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol);
+        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol);
 
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
@@ -179,33 +236,33 @@ public class CheckProgressUI extends Application {
         try {
             List<selloutPO> list2 =controller.showselloutPO();
             for (int i=0;i<list2.size();i++){
-
-                data.add(new Billgotten("销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
+System.out.println(list2.get(0).getIscheck());
+                data.add(new Billgotten(4, "销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
             }
             List<buyinPO> list =controller.showbyingPO();
             for (int i=0;i<list.size();i++){
 
-                data.add(new Billgotten("进货类单据",list.get(i).getKeyno(),list.get(i).getOper(),getState(list.get(i).getIscheck()),getIsRed(list.get(i).getIsred())));
+                data.add(new Billgotten(3, "进货类单据",list.get(i).getKeyno(),list.get(i).getOper(),getState(list.get(i).getIscheck()),getIsRed(list.get(i).getIsred())));
             }
             List<moneyPO> list3 =controller.showmoneyPO();
             for (int i=0;i<list3.size();i++){
 
-                data.add(new Billgotten("财务类单据",list3.get(i).getKeyno(),list3.get(i).getOper(),getState(list3.get(i).getIscheck()),getIsRed(list3.get(i).getIsred())));
+                data.add(new Billgotten(5, "财务类单据",list3.get(i).getKeyno(),list3.get(i).getOper(),getState(list3.get(i).getIscheck()),getIsRed(list3.get(i).getIsred())));
             }
             List<stockexceptionPO> list4 =controller.showstockexceptionPO();
             for (int i=0;i<list4.size();i++){
 
-                data.add(new Billgotten("库存类单据",list4.get(i).getKeyno(),list4.get(i).getOper(),getState(list4.get(i).getIscheck()),getIsRed(list4.get(i).getIsred())));
+                data.add(new Billgotten(7, "库存类单据",list4.get(i).getKeyno(),list4.get(i).getOper(),getState(list4.get(i).getIscheck()),getIsRed(list4.get(i).getIsred())));
             }
             List<WarningPO> list5 =controller.showwarningPO();
             for (int i=0;i<list5.size();i++){
 
-                data.add(new Billgotten("库存类单据",list5.get(i).getKeyno(),list5.get(i).getOper(),getState(list5.get(i).getIscheck()),getIsRed(list5.get(i).getIsred())));
+                data.add(new Billgotten(9, "库存类单据",list5.get(i).getKeyno(),list5.get(i).getOper(),getState(list5.get(i).getIscheck()),getIsRed(list5.get(i).getIsred())));
             }
             List<giftPO> list6 =controller.showgiftPO();
             for (int i=0;i<list6.size();i++){
 
-                data.add(new Billgotten("库存类单据",list6.get(i).getKeyno(),list6.get(i).getOper(),getState(list6.get(i).getIscheck()),getIsRed(list6.get(i).getIsred())));
+                data.add(new Billgotten(6, "库存类单据",list6.get(i).getKeyno(),list6.get(i).getOper(),getState(list6.get(i).getIscheck()),getIsRed(list6.get(i).getIsred())));
             }
 
 

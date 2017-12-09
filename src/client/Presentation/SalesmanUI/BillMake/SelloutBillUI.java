@@ -25,8 +25,8 @@ public class SelloutBillUI extends Application{
     private final TableView<SelloutBill> table=new TableView<>();
     private final ObservableList<SelloutBill> tableData=
             FXCollections.observableArrayList(
-                    new SelloutBill("A","B","C","D","E","F","G","H","I","J","K"),
-                    new SelloutBill("a","b","c","d","e","f","g","h","i","j","k")
+                    new SelloutBill("A","B","C","D","E","F","G","H","I","J","K","0"),
+                    new SelloutBill("a","b","c","d","e","f","g","h","i","j","k","0")
             );
     final HBox hb=new HBox();
     final VBox vb=new VBox();

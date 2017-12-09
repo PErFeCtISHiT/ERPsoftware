@@ -18,7 +18,9 @@ public class SelloutBill {
     public final SimpleStringProperty selloutSum;
     public final SimpleStringProperty selloutTip;
 
-    public SelloutBill(String a1,String a2,String a3,String a4,String warehouse,String a5,String a6,String a7,String a8,String a9,String a10){
+    public final SimpleStringProperty selloutkinds;
+
+    public SelloutBill(String a1,String a2,String a3,String a4,String warehouse,String a5,String a6,String a7,String a8,String a9,String a10,String a11){
         this.selloutID=new SimpleStringProperty(a1);
         this.selloutConsumer=new SimpleStringProperty(a2);
         this.selloutServer=new SimpleStringProperty(a3);
@@ -30,6 +32,15 @@ public class SelloutBill {
         this.selloutCard=new SimpleStringProperty(a8);
         this.selloutSum=new SimpleStringProperty(a9);
         this.selloutTip=new SimpleStringProperty(a10);
+        this.selloutkinds=new SimpleStringProperty(a11);
+    }
+
+    public void setSelloutkinds(String selloutkinds) {
+        this.selloutkinds.set(selloutkinds);
+    }
+
+    public String getSelloutkinds() {
+        return selloutkinds.get();
     }
 
     public void setSelloutWarehouse(String selloutWarehouse) {
