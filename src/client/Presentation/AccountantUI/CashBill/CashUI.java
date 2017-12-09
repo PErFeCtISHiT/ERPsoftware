@@ -376,6 +376,7 @@ public class CashUI extends Application{
         grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
+       // gridTitlePane.setVisible(false);
 
 
 

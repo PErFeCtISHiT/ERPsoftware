@@ -1,11 +1,14 @@
 package client.BL.Manager.ManagerCheckProcessService;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import javafx.beans.property.SimpleStringProperty;
-import sun.nio.cs.ext.ISCII91;
 
 public class Billgotten {
     //类型 编号 操作员 审批状态 是否红冲
+    //新增属性 账单类型
+    /**
+     * precisetype int 详细可见信息视角
+     */
+    private  int Precisetype;
     public final SimpleStringProperty Type;
     public final SimpleStringProperty Id;
     public final SimpleStringProperty Operator;
@@ -14,7 +17,8 @@ public class Billgotten {
 
 
 
-    public Billgotten(String type, String id, String operator, String state,String ishongchong ){
+    public Billgotten(int precisetype, String type, String id, String operator, String state, String ishongchong){
+        this.Precisetype = precisetype;
         this.Type = new SimpleStringProperty(type);
         this.Id =new SimpleStringProperty(id);
         this.Operator =new SimpleStringProperty(operator);
@@ -22,6 +26,12 @@ public class Billgotten {
         this.IsHongChong =new SimpleStringProperty(ishongchong);
     }
 
+    public int getPrecisetype(){
+        return this.Precisetype;
+    }
+    public void setPrecisetype(int PreciseType){
+        this.Precisetype =PreciseType;
+    }
     public String getType() {
         return Type.get();
     }
