@@ -214,6 +214,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         return bill;
     }
 
+
     @Override
     public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException{
         ArrayList<MoneyList> newlist= new ArrayList<>();
