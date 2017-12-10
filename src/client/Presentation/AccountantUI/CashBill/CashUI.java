@@ -360,6 +360,8 @@ public class CashUI extends Application{
         GridPane grid = new GridPane();
         grid.setVgap(4);
         grid.setHgap(10);
+
+
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.add(new Label("单据类型："), 0, 0);
         grid.add(TypeComboBox, 1, 0);
@@ -376,6 +378,7 @@ public class CashUI extends Application{
         grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
+
        // gridTitlePane.setVisible(false);
 
 
