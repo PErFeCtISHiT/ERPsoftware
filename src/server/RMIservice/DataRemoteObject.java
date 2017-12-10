@@ -35,7 +35,9 @@ import server.Po.selloutPO;
 import shared.ResultMessage;
 
 
+import java.beans.IntrospectionException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
 import java.rmi.server.UnicastRemoteObject;
@@ -184,5 +186,10 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     @Override
     public List getPastGoods(String year) throws RemoteException {
         return accountInit.getPastGoods(year);
+    }
+
+    @Override
+    public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        accountInit.Build(year);
     }
 }
