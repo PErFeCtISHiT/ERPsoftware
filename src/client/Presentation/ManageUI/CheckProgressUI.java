@@ -3,6 +3,7 @@ package client.Presentation.ManageUI;
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
 import client.RMI.link;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +21,6 @@ import javafx.stage.Stage;
 import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import javafx.util.Callback;
 import server.Po.*;
-
-
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +31,29 @@ public class CheckProgressUI extends Application {
     private final TableView<Billgotten> table = new TableView<>();
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
+    //所有单据共有属性
+    final Label Type =new Label();
+    final Label Id =new Label();
+    final Label Operator =new Label();
+    final Label IsHongChong =new Label();
+
+    //buyingPO 属性
+    final Label kind =new Label();
+    final Label note =new Label();
+    final Label ischeck =new Label();
+    final Label provider =new Label();
+    final Label base =new Label();
+    final Label goodsoutlist =new Label();
+    final Label sumall =new Label();
+
+
+
+
+
+
+    private Double isDraft;
+
+
     BillgottenController controller = new BillgottenController();
 
     private final ObservableList<Billgotten> data =
@@ -91,6 +113,7 @@ public class CheckProgressUI extends Application {
                                 switch (kind){
                                     case 3:{
                                       buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
+
                                       break;
                                     }
                                     case 4:{
@@ -158,6 +181,30 @@ public class CheckProgressUI extends Application {
 
         table.setItems(data);
         table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol);
+
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+
+
+        grid3.setPadding(new Insets(5, 5, 5, 5));
+        grid3.add(new Label("单据类型："), 0, 0);
+       // grid3.add(TypeComboBox, 1, 0);
+        grid3.add(new Label("单据编号："), 2, 0);
+        //grid3.add(billNum, 3, 0);
+        grid3.add(new Label("操作员："), 4, 0);
+       // grid3.add(StaffComboBox, 5, 0);
+        grid3.add(new Label("银行账号:"), 2, 1);
+       // grid3.add(consumer, 3, 1);
+        grid3.add(new Label("条目列表:"), 0, 2);
+        grid3.add(table, 1, 2, 3, 1);
+        grid3.add(new Label("总金额:"), 0, 3);
+        //grid3.add(money, 1, 3, 4, 1);
+        //grid3.add(OutputButton, 3, 4);
+        //gridTitlePane.setText("详细信息");
+
+
+       // gridTitlePane.setContent(grid);
 
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
