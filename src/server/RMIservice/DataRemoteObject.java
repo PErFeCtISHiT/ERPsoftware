@@ -4,6 +4,7 @@ import server.Data.Billdata.*;
 import server.Data.Codata.CoaccountDB;
 import server.Data.Consumerdata.ConsumerDB;
 import server.Data.Cutdata.cutDB;
+import server.Data.Financedata.accountInitDB;
 import server.Data.Financedata.goodsoutListDB;
 import server.Data.Financedata.moneyListDB;
 import server.Data.Financedata.saleDB;
@@ -18,6 +19,7 @@ import server.Dataservice.Billdataservice.*;
 import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
+import server.Dataservice.Financedataservice.accountInit;
 import server.Dataservice.Financedataservice.goodsoutList;
 import server.Dataservice.Financedataservice.moneyList;
 import server.Dataservice.Financedataservice.sale;
@@ -40,7 +42,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 
-public class DataRemoteObject extends UnicastRemoteObject implements
+public class DataRemoteObject extends UnicastRemoteObject implements accountInit,
         moneyBill, selloutBill,stockOverflowBill,stockwarningBill,moneyList,stockGoods,
         Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub ,sale,goodsoutList {
 
@@ -70,6 +72,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     private goodsoutList goodsoutList;
     private sale sale;
     private stockGoods stockGoods;
+    private accountInit accountInit;
 
     DataRemoteObject() throws RemoteException {
 
@@ -92,6 +95,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements
         goodsoutList = new goodsoutListDB() ;
         sale = new saleDB();
         stockGoods = new stockGoodsDB();
+        accountInit = new accountInitDB();
 
 
 
@@ -159,5 +163,20 @@ public class DataRemoteObject extends UnicastRemoteObject implements
     @Override
     public List login(String username, String password) throws RemoteException{
         return user.login(username,password);
+    }
+
+    @Override
+    public List getPastAccount(String year) throws RemoteException {
+        return accountInit.getPastAccount(year);
+    }
+
+    @Override
+    public List getPastConsumer(String year) throws RemoteException {
+        return accountInit.getPastConsumer(year);
+    }
+
+    @Override
+    public List getPastGoods(String year) throws RemoteException {
+        return accountInit.getPastGoods(year);
     }
 }
