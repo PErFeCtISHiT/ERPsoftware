@@ -35,6 +35,7 @@ import server.Po.selloutPO;
 import shared.ResultMessage;
 
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 
 import java.rmi.server.UnicastRemoteObject;
@@ -152,6 +153,11 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     @Override
     public List findbyNO(int type, String no) throws RemoteException {
         return pub.findbyNO(type,no);
+    }
+
+    @Override
+    public ResultMessage exportToExcel(int type, String path) throws RemoteException,IOException {
+        return pub.exportToExcel(type,path);
     }
 
 

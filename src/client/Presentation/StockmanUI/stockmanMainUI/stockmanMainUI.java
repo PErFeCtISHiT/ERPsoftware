@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 
@@ -28,7 +29,7 @@ public class stockmanMainUI extends Application{
     String staffno;
     private HBox right ;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         link.linktoServer();
         launch(args);
     }

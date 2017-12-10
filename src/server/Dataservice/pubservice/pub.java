@@ -2,6 +2,8 @@ package server.Dataservice.pubservice;
 
 import shared.ResultMessage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -17,4 +19,5 @@ public interface pub extends Remote{
     ResultMessage modifyObject(Object object,int type) throws RemoteException;
     List findAll(int type)throws RemoteException;
     List findbyNO(int type,String no)throws RemoteException;
+    ResultMessage exportToExcel(int type,String path) throws RemoteException,IOException;
 }
