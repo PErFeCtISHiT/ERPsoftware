@@ -12,7 +12,7 @@
       <property name="hbm2ddl.auto">update</property>
     <property name="connection.username">pis</property>
     <property name="connection.password">liuyitong</property>
-      <mapping class="server.hibernate.BuyinEntity"/>
+    <mapping class="server.hibernate.BuyinEntity"/>
     <mapping resource="server/hibernate/BuyinEntity.hbm.xml"/>
     <mapping class="server.hibernate.CoEntity"/>
     <mapping resource="server/hibernate/CoEntity.hbm.xml"/>
@@ -52,9 +52,11 @@
     <mapping resource="server/hibernate/SaleEntity.hbm.xml"/>
       <mapping class="server.hibernate.StockgoodsEntity"/>
       <mapping resource="server/hibernate/StockgoodsEntity.hbm.xml"/>
+    <mapping class="server.hibernate.AccountInitEntity"/>
+    <mapping resource="server/hibernate/AccountInitEntity.hbm.xml"/>
 
 
-      <!-- DB schema will be updated if needed -->
+    <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>
