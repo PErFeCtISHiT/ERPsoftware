@@ -205,7 +205,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String consumerID=po.getConsumer();
         System.out.println("po ID: "+po.getKeyno());
         System.out.println(" KeyNO: "+po.getMoneyList());
-        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,"123");
+        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
         ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
         System.out.println(" list size: "+link.getRemoteHelper().getmoneyList().findbyNO(18,"123").size());
         double sum = po.getSumall();
