@@ -85,8 +85,8 @@ public class CheckProgressUI extends Application {
         Scene scene = new Scene(new Group());
         stage.setTitle("经营历程表");
 
-        stage.setWidth(1250);
-        stage.setHeight(850);
+        stage.setWidth(1550);
+        stage.setHeight(1150);
 
 
 
@@ -105,6 +105,11 @@ public class CheckProgressUI extends Application {
                 new TableColumn<>("是否红冲");
         TableColumn<Billgotten, String> BillDetailCol =
                 new TableColumn<>("详细信息");
+        TableColumn<Billgotten, String> RedCol =
+                new TableColumn<>("红冲");
+        TableColumn<Billgotten,String>RedAndCopyCol =
+                new TableColumn<>("红冲复制");
+
 
         BillDetailCol.setCellFactory((col) -> {
             TableCell<Billgotten, String> cell = new TableCell<Billgotten, String>() {
@@ -148,6 +153,166 @@ public class CheckProgressUI extends Application {
                                     case 9:{
                                          WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
                                         detail9(keyno);
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
+        RedCol.setCellFactory((col) -> {
+            TableCell<Billgotten, String> cell = new TableCell<Billgotten, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button isredbutton = new Button("红冲");
+                        this.setGraphic(isredbutton);
+                        isredbutton.setOnMouseClicked((me) -> {
+                            String keyno = data.get(this.getIndex()).getId();
+                            int  kind =data.get(this.getIndex()).getPrecisetype();
+                            //新生成的单据的编号可能存在问题
+                            try {
+                                switch (kind){
+                                    case 3:{
+                                        buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
+                                        buying.setSumall(-buying.getSumall());
+                                        link.getRemoteHelper().getBuyinBill().addObject(buying,3);
+
+                                        break;
+                                    }
+                                    case 4:{
+                                        selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
+                                        //wait for dage...
+                                    }
+                                    case 5:{
+                                        moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+                                        money.setSumall(-money.getSumall());
+                                        link.getRemoteHelper().getMoneyBill().addObject(money,5);
+                                    }
+                                    case 6:{
+                                        giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+                                        gift.setNum(-gift.getNum());
+                                        link.getRemoteHelper().getGiftBill().addObject(gift,6);
+
+
+                                    }
+                                    case 7:{
+
+                                        stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+                                        stockexception.setNuminbase(-stockexception.getNuminbase());
+                                        link.getRemoteHelper().getStockOverflowBill().addObject(stockexception,7);
+
+                                    }
+                                    case 9:{
+                                        WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+                                        warning.setNum(-warning.getNum());
+                                        link.getRemoteHelper().getStockwarningBill().addObject(warning,9);
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
+        RedAndCopyCol.setCellFactory((col) -> {
+            TableCell<Billgotten, String> cell = new TableCell<Billgotten, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        Button isredbutton2 = new Button("红冲复制");
+                        this.setGraphic(isredbutton2);
+                        isredbutton2.setOnMouseClicked((me) -> {
+                            String keyno = data.get(this.getIndex()).getId();
+                            int  kind =data.get(this.getIndex()).getPrecisetype();
+                            //新生成的单据的编号可能存在问题
+                            try {
+                                switch (kind){
+                                    case 3:{
+                                        buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
+                                        buyinPO buying2 =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
+
+                                        buying.setSumall(-buying.getSumall());
+                                        buying2.setIsDraft(1.0);
+                                        link.getRemoteHelper().getBuyinBill().addObject(buying,3);
+                                        link.getRemoteHelper().getBuyinBill().addObject(buying2,3);
+
+
+                                        break;
+                                    }
+                                    case 4:{
+                                        selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
+                                        //wait for dage...
+                                    }
+                                    case 5:{
+                                        moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+                                        moneyPO money1 =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+
+                                        money.setSumall(-money.getSumall());
+                                        money1.setIsDraft(1.0);
+                                        link.getRemoteHelper().getMoneyBill().addObject(money,5);
+                                        link.getRemoteHelper().getMoneyBill().addObject(money1,5);
+
+                                    }
+                                    case 6:{
+                                        giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+                                        giftPO gift1 =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+                                        gift.setNum(-gift.getNum());
+                                        gift1.setIsDraft(1.0);
+                                        link.getRemoteHelper().getGiftBill().addObject(gift,6);
+                                        link.getRemoteHelper().getGiftBill().addObject(gift1,6);
+
+                                    }
+                                    case 7:{
+
+                                        stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+                                        stockexceptionPO stockexception1 =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+
+                                        stockexception.setNuminbase(-stockexception.getNuminbase());
+                                        stockexception1.setIsDraft(1.0);
+                                        link.getRemoteHelper().getStockOverflowBill().addObject(stockexception,7);
+                                        link.getRemoteHelper().getStockOverflowBill().addObject(stockexception1,7);
+
+                                    }
+                                    case 9:{
+                                        WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+                                        WarningPO warning1 =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+
+                                        warning.setNum(-warning.getNum());
+                                        warning1.setIsDraft(1.0);
+                                        link.getRemoteHelper().getStockwarningBill().addObject(warning,9);
+                                        link.getRemoteHelper().getStockwarningBill().addObject(warning1,9);
 
                                     }
 
@@ -228,7 +393,7 @@ public class CheckProgressUI extends Application {
         }
 
         table.setItems(data);
-        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol);
+        table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol,RedCol,RedAndCopyCol);
 
 
         gridTitlePane.setText("详细信息");
