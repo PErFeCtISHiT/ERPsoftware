@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import server.Po.goodsPO;
 
 import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -133,11 +134,15 @@ public class goodsCheckUI {
 
         exportButton.setOnAction(e -> {
                 FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xlsx)", "*.xlsx");
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
                 fileChooser.getExtensionFilters().add(extFilter);
                 File file = fileChooser.showSaveDialog(new Stage());
-                System.out.print(file);
-
+            try {
+                if(file != null)
+                stockCheckController.exportToExcel(0,file.toString());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
         TableView<Goods> table = new TableView<>();
         table.setEditable(false);
