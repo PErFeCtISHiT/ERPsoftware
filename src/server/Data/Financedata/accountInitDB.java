@@ -89,7 +89,7 @@ public class accountInitDB extends publicDB implements accountInit {
         hibtools.tx = hibtools.session.beginTransaction();
         AccountInitPO accountInitPO = new AccountInitPO();
         accountInitPO.setKeyyear(year);
-        accountInitPO.setKeyno(NOgenerator.generate(20));
+        accountInitPO.setKeyno("QCJZ-" + NOgenerator.generate(20));
         List<goodsPO> goodsPOS = publicDB.findAll(0);
         StringBuilder goodsList = new StringBuilder();
         for(goodsPO i : goodsPOS){
