@@ -1,8 +1,6 @@
 package client.Presentation.AccountantUI.InitAccount;
 
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_account;
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_consumer;
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_good;
+import client.BL.Accountant.FinancialBuildAccountbl.*;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -52,7 +50,7 @@ public class AccountInitUI extends Application {
                     new AccountBuild_good("b", "B", "C","A", "B", "C", "B", "C"));
 
 
-
+    private FinancialBuildController builder= new FinancialBuildController();
 
 
 
@@ -61,7 +59,7 @@ public class AccountInitUI extends Application {
     final HBox hb = new HBox();
 
     public static void main(String[] args) {
-//        link.linktoServer();
+        link.linktoServer();
         launch(args);
     }
     @Override
@@ -94,7 +92,15 @@ public class AccountInitUI extends Application {
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String year = data.get(this.getIndex()).getYear();
+                            try {
+                                AccountBuild accountBuild = builder.getPast(year);
+                                accountdata.addAll(accountBuild.getAccountlist());
+                                consumerdata.addAll(accountBuild.getConsumerlist());
+                                goodsdata.addAll(accountBuild.getGoodslist());
 
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
                         });
                     }
                 }
@@ -241,7 +247,14 @@ public class AccountInitUI extends Application {
 
         final Button InitButton = new Button("期初建账");
         InitButton.setOnAction((ActionEvent e) -> {
-
+            try {
+                AccountBuild accountBuild = builder.accountbuild();
+                accountdata.addAll(accountBuild.getAccountlist());
+                consumerdata.addAll(accountBuild.getConsumerlist());
+                goodsdata.addAll(accountBuild.getGoodslist());
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
         });
 
 
