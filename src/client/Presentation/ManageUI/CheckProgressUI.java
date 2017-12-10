@@ -1,6 +1,7 @@
 package client.Presentation.ManageUI;
 
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
+import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,11 +32,14 @@ public class CheckProgressUI extends Application {
     private final TableView<Billgotten> table = new TableView<>();
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
+    TitledPane gridTitlePane = new TitledPane();
+    final HBox fhb =new HBox();
     //所有单据共有属性
     final Label Type =new Label();
     final Label Id =new Label();
     final Label Operator =new Label();
     final Label IsHongChong =new Label();
+    final Label state =new Label();
 
     //buyingPO 属性
     final Label kind =new Label();
@@ -113,28 +117,33 @@ public class CheckProgressUI extends Application {
                                 switch (kind){
                                     case 3:{
                                       buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
-
+                                      detail3(keyno);
+                                      System.out.println("haha");
                                       break;
                                     }
                                     case 4:{
                                         selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
-
+                                        detail4(keyno);
                                     }
                                     case 5:{
                                         moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+                                        detail5(keyno);
 
                                     }
                                     case 6:{
                                         giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+                                        detail6(keyno);
 
                                     }
                                     case 7:{
                                         //need to test
                                         stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+                                        detail7(keyno);
 
                                     }
                                     case 9:{
                                          WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+                                        detail9(keyno);
 
                                     }
 
@@ -182,29 +191,12 @@ public class CheckProgressUI extends Application {
         table.setItems(data);
         table.getColumns().addAll(IdCol,TypeCol,NameCol,AccountCol,StockCol,BillDetailCol);
 
-        GridPane grid3 = new GridPane();
-        grid3.setVgap(4);
-        grid3.setHgap(10);
 
-
-        grid3.setPadding(new Insets(5, 5, 5, 5));
-        grid3.add(new Label("单据类型："), 0, 0);
-       // grid3.add(TypeComboBox, 1, 0);
-        grid3.add(new Label("单据编号："), 2, 0);
-        //grid3.add(billNum, 3, 0);
-        grid3.add(new Label("操作员："), 4, 0);
-       // grid3.add(StaffComboBox, 5, 0);
-        grid3.add(new Label("银行账号:"), 2, 1);
-       // grid3.add(consumer, 3, 1);
-        grid3.add(new Label("条目列表:"), 0, 2);
-        grid3.add(table, 1, 2, 3, 1);
-        grid3.add(new Label("总金额:"), 0, 3);
         //grid3.add(money, 1, 3, 4, 1);
         //grid3.add(OutputButton, 3, 4);
-        //gridTitlePane.setText("详细信息");
+        gridTitlePane.setText("详细信息");
 
 
-       // gridTitlePane.setContent(grid);
 
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
@@ -249,7 +241,6 @@ public class CheckProgressUI extends Application {
 
         final Button button1 = new Button("红冲操作");
         button1.setOnAction((ActionEvent e) -> {
-
 
         });
         final Button button2 = new Button("红冲复制");
@@ -324,9 +315,9 @@ System.out.println(list2.get(0).getIscheck());
         final VBox vbox1 = new VBox();
         vbox1.setSpacing(5);
         vbox1.setPadding(new Insets(10, 0, 0, 10));
-        vbox1.getChildren().addAll(label, table, hb,hb2,BillType,client,salesman,storehouse);
-
-        ((Group) scene.getRoot()).getChildren().addAll(vbox1);
+        vbox1.getChildren().addAll(label, table, hb,BillType,client,salesman,storehouse);
+        hb2.getChildren().addAll(vbox1,gridTitlePane);
+        ((Group) scene.getRoot()).getChildren().addAll(hb2);
 
         stage.setScene(scene);
         stage.show();
@@ -417,6 +408,199 @@ System.out.println(list2.get(0).getIscheck());
         }
         else{
             return"红冲账单";
+        }
+    }
+    public void detail3(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        System.out.println("get");
+        try {
+            System.out.println(keyno);
+            buyinPO po = (buyinPO)link.getRemoteHelper().getMoneyBill().findbyNO(3,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+            grid3.add(new Label("总金额:"), 5, 0);
+            sumall.setText(po.getSumall().toString());
+            grid3.add(sumall,5,1);
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public void detail4(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        try {
+
+            selloutPO po = (selloutPO) link.getRemoteHelper().getMoneyBill().findbyNO(4,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+            grid3.add(new Label("总金额:"), 5, 0);
+            sumall.setText(po.getSumall().toString());
+            grid3.add(sumall,5,1);
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+    public void detail5(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        try {
+
+            moneyPO po = (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+            grid3.add(new Label("总金额:"), 5, 0);
+            sumall.setText(po.getSumall().toString());
+            grid3.add(sumall,5,1);
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+    public void detail6(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        try {
+
+            giftPO po = (giftPO) link.getRemoteHelper().getMoneyBill().findbyNO(6,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+    public void detail7(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        try {
+
+            stockexceptionPO po = (stockexceptionPO) link.getRemoteHelper().getMoneyBill().findbyNO(7,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+    public void detail9(String keyno) {
+        GridPane grid3 = new GridPane();
+        grid3.setVgap(4);
+        grid3.setHgap(10);
+        try {
+
+            WarningPO po = (WarningPO) link.getRemoteHelper().getMoneyBill().findbyNO(9,keyno).get(0);
+            grid3.setPadding(new Insets(5, 5, 5, 5));
+            grid3.add(new Label("单据类型："), 0, 0);
+            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
+            grid3.add(Type, 0, 1);
+            grid3.add(new Label("单据编号："), 1, 0);
+            Id.setText(po.getKeyno());
+            grid3.add(Id, 1, 1);
+            grid3.add(new Label("操作员："), 2, 0);
+            Operator.setText(po.getOper());
+            grid3.add(Operator, 2, 1);
+            grid3.add(new Label("审批状态:"), 3, 0);
+            state.setText(getState(po.getIscheck()));
+            grid3.add(state, 3, 1);
+            grid3.add(new Label("是否红冲:"), 4, 0);
+            IsHongChong.setText(getIsRed(po.getIsred()));
+            grid3.add(IsHongChong, 4, 1);
+
+
+
+            gridTitlePane.setContent(grid3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 }
