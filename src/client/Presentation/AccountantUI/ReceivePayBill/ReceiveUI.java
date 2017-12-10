@@ -190,7 +190,6 @@ public class ReceiveUI extends Application {
 
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
                                 reeditmoneybill.start(bill);
-                                receiveController.setDetailInfor(bill);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }

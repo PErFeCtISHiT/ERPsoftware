@@ -1,10 +1,8 @@
 package client.Presentation.ManageUI;
 
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
-import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.RMI.link;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -84,8 +82,8 @@ public class CheckProgressUI extends Application {
         stage.setWidth(1250);
         stage.setHeight(850);
 
-        final Label label = new Label("单据列表");
-        label.setFont(new Font("Arial", 20));
+
+
 
         table.setEditable(true);
 
@@ -315,7 +313,7 @@ System.out.println(list2.get(0).getIscheck());
         final VBox vbox1 = new VBox();
         vbox1.setSpacing(5);
         vbox1.setPadding(new Insets(10, 0, 0, 10));
-        vbox1.getChildren().addAll(label, table, hb,BillType,client,salesman,storehouse);
+        vbox1.getChildren().addAll( table, hb,BillType,client,salesman,storehouse);
         hb2.getChildren().addAll(vbox1,gridTitlePane);
         ((Group) scene.getRoot()).getChildren().addAll(hb2);
 
@@ -416,27 +414,37 @@ System.out.println(list2.get(0).getIscheck());
         grid3.setHgap(10);
         System.out.println("get");
         try {
+            /**
+             * 进货/退货单(buyinPO/antibuyin)：供应商，仓库，入库商品列表（存储清单编号，用逗号隔开），总额合计。
+             */
             System.out.println(keyno);
             buyinPO po = (buyinPO)link.getRemoteHelper().getMoneyBill().findbyNO(3,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
             if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
-            grid3.add(new Label("总金额:"), 5, 0);
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("总金额:"), 0, 5);
             sumall.setText(po.getSumall().toString());
-            grid3.add(sumall,5,1);
+            grid3.add(sumall,1,5);
+            grid3.add(new Label("供应商"),0,6);
+            grid3.add(new Label(po.getProvider()),1,6);
+            grid3.add(new Label("仓库"),0,7);
+            grid3.add(new Label(po.getBase()),1,7);
+            grid3.add(new Label("入库商品列表"),0,8);
+            grid3.add(new Label(po.getGoodsoutlist()),1,8);
+
 
 
             gridTitlePane.setContent(grid3);
@@ -446,6 +454,11 @@ System.out.println(list2.get(0).getIscheck());
 
 
     }
+
+    /**
+     * 销售/退货单（selloutPO/antiSellout）：单据客户（仅显示销售商），业务员（和这个客户打交道的公司员工，可以设置一个客户的默认业务员），仓库，出货商品清单（存储清单编号，用逗号隔开），折让前总额，折让，使用代金卷金额，折让后总额
+     * @param keyno
+     */
     public void detail4(String keyno) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -455,30 +468,47 @@ System.out.println(list2.get(0).getIscheck());
             selloutPO po = (selloutPO) link.getRemoteHelper().getMoneyBill().findbyNO(4,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
-            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            if(po.getKind()==0){Type.setText("销售单");}else{Type.setText("销售退货单");}
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
-            grid3.add(new Label("总金额:"), 5, 0);
-            sumall.setText(po.getSumall().toString());
-            grid3.add(sumall,5,1);
-
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("单据客户"),0,5);
+            grid3.add(new Label(po.getConsumer()),1,5);
+            grid3.add(new Label("业务员"),0,6);
+            grid3.add(new Label(po.getServer()),1,6);
+            grid3.add(new Label("仓库"),0,7);
+            grid3.add(new Label(po.getBase()),1,7);
+            grid3.add(new Label("出货商品清单"),0,8);
+            grid3.add(new Label(po.getGoodsoutlist()),1,8);
+            grid3.add(new Label("折让前总额"),0,9);
+            grid3.add(new Label(po.getSumall().toString()),1,9);
+            grid3.add(new Label("折让"),0,10);
+            grid3.add(new Label(po.getCut().toString()),1,10);
+            grid3.add(new Label("代金券金额"),0,11);
+            grid3.add(new Label(po.getVoucher().toString()),1,11);
+            grid3.add(new Label("折让后总金额"),0,12);
+            grid3.add(new Label(po.getFinalsum().toString()),1,12);
 
             gridTitlePane.setContent(grid3);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     收/付款单（moneyPO/pay）：客户（同时包含供应商和销售商），银行账户，清单名称（moneylist），总额汇总。
+     * @param keyno
+     */
     public void detail5(String keyno) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -488,23 +518,32 @@ System.out.println(list2.get(0).getIscheck());
             moneyPO po = (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
-            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            if(po.getKind()==0){Type.setText("收款单");}else{Type.setText("付款单");}
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
-            grid3.add(new Label("总金额:"), 5, 0);
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("总金额:"), 0, 5);
             sumall.setText(po.getSumall().toString());
-            grid3.add(sumall,5,1);
+            grid3.add(sumall,1,5);
+            grid3.add(new Label("供应商:"),0,6);
+            grid3.add(new Label(po.getConsumer()),1,6);
+            grid3.add(new Label("银行账户"),0,7);
+            grid3.add(new Label(po.getAccoun()),1,7);
+            grid3.add(new Label("清单名称"),0,8);
+            grid3.add(new Label(po.getMoneyList()),1,8);
+            grid3.add(new Label("总额汇总"),0,9);
+            grid3.add(new Label(po.getSumall().toString()),1,9);
+
 
 
             gridTitlePane.setContent(grid3);
@@ -512,6 +551,11 @@ System.out.println(list2.get(0).getIscheck());
             e.printStackTrace();
         }
     }
+
+    /**
+     * 库存赠送单（giftPO）：商品编号，商品名称，客户编号，客户名称，数量。
+     * @param keyno
+     */
     public void detail6(String keyno) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -521,20 +565,31 @@ System.out.println(list2.get(0).getIscheck());
             giftPO po = (giftPO) link.getRemoteHelper().getMoneyBill().findbyNO(6,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
-            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            if(po.getKind()==0){Type.setText("库存赠送单");}else{Type.setText("库存赠送单");}
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("商品编号："),0,5);
+            grid3.add(new Label(po.getGoodsno()),1,5);
+            grid3.add(new Label("商品名称"),0,6);
+            grid3.add(new Label(po.getGoodsname()),1,6);
+            grid3.add(new Label("客户编号"),0,7);
+            grid3.add(new Label(po.getConsumerno()),1,7);
+            grid3.add(new Label("客户名称"),0,8);
+            grid3.add(new Label(po.getGoodsname()),1,8);
+            grid3.add(new Label("数量"),0,9);
+            grid3.add(new Label(po.getNum().toString()),1,9);
+
 
 
             gridTitlePane.setContent(grid3);
@@ -542,6 +597,11 @@ System.out.println(list2.get(0).getIscheck());
             e.printStackTrace();
         }
     }
+
+    /**
+     * 库存报溢/损单（stockexceptionPO/damage）：商品编号，商品名称，库房数量，系统数量
+     * @param keyno
+     */
     public void detail7(String keyno) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -551,27 +611,39 @@ System.out.println(list2.get(0).getIscheck());
             stockexceptionPO po = (stockexceptionPO) link.getRemoteHelper().getMoneyBill().findbyNO(7,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
-            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            if(po.getKind()==0){Type.setText("库存报溢单");}else{Type.setText("库存报损单");}
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
-
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("商品编号"),0,5);
+            grid3.add(new Label(po.getGoodsno()),1,5);
+            grid3.add(new Label("商品名称"),0,6);
+            grid3.add(new Label(po.getGoodsname()),1,6);
+            grid3.add(new Label("库房数量"),0,7);
+            grid3.add(new Label(po.getNuminbase().toString()),1,7);
+            grid3.add(new Label("系统数量"),0,8);
+            grid3.add(new Label(po.getNuminsys().toString()),1,8);
 
             gridTitlePane.setContent(grid3);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 库存报警单（warningPO）：商品编号，商品名称，库存数量，警戒值。
+     * @param keyno
+     */
     public void detail9(String keyno) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -581,21 +653,28 @@ System.out.println(list2.get(0).getIscheck());
             WarningPO po = (WarningPO) link.getRemoteHelper().getMoneyBill().findbyNO(9,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
-            if(po.getKind()==0){Type.setText("进货单");}else{Type.setText("进货退货单");}
-            grid3.add(Type, 0, 1);
-            grid3.add(new Label("单据编号："), 1, 0);
+            if(po.getKind()==0){Type.setText("库存报警单");}else{Type.setText("库存报警单");}
+            grid3.add(Type, 1, 0);
+            grid3.add(new Label("单据编号："), 0, 1);
             Id.setText(po.getKeyno());
             grid3.add(Id, 1, 1);
-            grid3.add(new Label("操作员："), 2, 0);
+            grid3.add(new Label("操作员："), 0, 2);
             Operator.setText(po.getOper());
-            grid3.add(Operator, 2, 1);
-            grid3.add(new Label("审批状态:"), 3, 0);
+            grid3.add(Operator, 1, 2);
+            grid3.add(new Label("审批状态:"), 0, 3);
             state.setText(getState(po.getIscheck()));
-            grid3.add(state, 3, 1);
-            grid3.add(new Label("是否红冲:"), 4, 0);
+            grid3.add(state, 1, 3);
+            grid3.add(new Label("是否红冲:"), 0, 4);
             IsHongChong.setText(getIsRed(po.getIsred()));
-            grid3.add(IsHongChong, 4, 1);
-
+            grid3.add(IsHongChong, 1, 4);
+            grid3.add(new Label("商品编号"),0,5);
+            grid3.add(new Label(po.getGoodsno()),1,5);
+            grid3.add(new Label("商品名称"),0,6);
+            grid3.add(new Label(po.getGoodsname()),1,6);
+            grid3.add(new Label("库存数量"),0,7);
+            grid3.add(new Label(po.getNum().toString()),1,7);
+            grid3.add(new Label("警戒值"),0,8);
+            grid3.add(new Label(po.getWarningnum().toString()),1,8);
 
 
             gridTitlePane.setContent(grid3);
