@@ -2,6 +2,8 @@ package server.Dataservice.Financedataservice;
 
 import server.Dataservice.pubservice.pub;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -14,4 +16,5 @@ public interface accountInit extends pub {
     List getPastAccount(String year) throws RemoteException;
     List getPastConsumer(String year) throws RemoteException;
     List getPastGoods(String year) throws RemoteException;
+    void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException;
 }
