@@ -109,11 +109,11 @@ public class MoneyEntity {
 
     @Basic
     @Column(name = "moneylist", nullable = true, length = 2000)
-    public String getNum() {
+    public String getMoneyList() {
         return moneyList;
     }
 
-    public void setNum(String moneyList) {
+    public void setMoneyList(String moneyList) {
         this.moneyList = moneyList;
     }
 

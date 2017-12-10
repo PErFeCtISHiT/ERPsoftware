@@ -9,12 +9,23 @@ import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FinancialBuildController implements FinancialBuildAccountInterface{
 
 
     @Override
     public AccountBuild accountbuild() throws RemoteException{
+
+        Calendar c = Calendar.getInstance();
+        int yearint = c.get(Calendar.YEAR);
+        String year=yearint+"";
+        ArrayList<AccountBuild_account> accountlist = getPastAccount(year);
+        ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
+        ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
+
+
 
         return null;
     }
@@ -41,6 +52,7 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 
     @Override
     public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException {
+
         return null;
     }
 

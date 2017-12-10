@@ -38,15 +38,12 @@ public class goodsGlanceUI{
     private final ObservableList<ConsumerGoods> data2 = FXCollections.observableArrayList();
 
 
-    public VBox start(Stage stage) throws RemoteException, ParseException {
+    public HBox start() throws RemoteException, ParseException {
 
         VBox vbox = new VBox();
         HBox hbox = new HBox();
         HBox hbox1 = new HBox();
 
-        stage.setTitle("库存查看");
-        stage.setWidth(1000);
-        stage.setHeight(550);
 
         DatePicker fromDate = new DatePicker();
         fromDate.setPromptText("始");
@@ -261,7 +258,11 @@ public class goodsGlanceUI{
 
         vbox.getChildren().addAll(hbox,hbox1);
 
-        return vbox;
+        HBox ret = new HBox();
+        ret.setSpacing(5);
+        ret.setPadding(new Insets(10, 0, 0, 10));
+        ret.getChildren().add(vbox);
+        return ret;
 
 
 

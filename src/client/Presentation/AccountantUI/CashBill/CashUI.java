@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -182,14 +184,15 @@ public class CashUI extends Application{
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {
-                        Button editBtn = new Button("编辑收款单");
+                        Button editBtn = new Button("编辑现金费用单");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
+                            ReEditCashBill reEditCashBill = new ReEditCashBill();
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
-//                                cashController.setDetailInfor(bill);
-                            } catch (RemoteException e) {
+                                reEditCashBill.start(bill);
+                            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
 
@@ -297,7 +300,7 @@ public class CashUI extends Application{
                                 FinancialCash bill = cashController.ReEditBill(keyno);
                                 System.out.println("size: "+bill.getMoneyList().size());
                                 detail(bill);
-                            } catch (RemoteException e) {
+                            } catch (RemoteException  e) {
                                 e.printStackTrace();
                             }
 

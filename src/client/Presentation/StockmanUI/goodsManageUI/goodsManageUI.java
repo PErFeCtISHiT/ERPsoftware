@@ -266,21 +266,6 @@ public class goodsManageUI {
                     delBtn.setOnMouseClicked((me) -> {
                         goodsVO vo = createGoodsVO(this);
 
-                        logVO logVO = null;
-                        try {
-                            logVO = new logVO();
-                        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
-                            e.printStackTrace();
-                        }
-                        logVO.setOpno("删除商品");
-                        logVO.setOperatorno(staff);
-                        logVO.setGoodsname(vo.getKeyname());
-                        logVO.setKeyjob("库存管理");
-                        try {
-                            link.getRemoteHelper().getLog().addObject(logVO, 13);
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
 
                         stockGoodsVO stockGoodsVO = new stockGoodsVO();
 
@@ -302,6 +287,22 @@ public class goodsManageUI {
                         data.remove(this.getIndex());
                         try {
                             goodsController.deleteGoods(vo);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                        logVO logVO = null;
+                        try {
+                            logVO = new logVO();
+                        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+                            e.printStackTrace();
+                        }
+                        logVO.setOpno("删除商品");
+                        logVO.setOperatorno(staff);
+                        logVO.setGoodsname(vo.getKeyname());
+                        logVO.setKeyjob("库存管理");
+                        try {
+                            link.getRemoteHelper().getLog().addObject(logVO, 13);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -602,6 +603,22 @@ public class goodsManageUI {
     private void modifygoods(Goods newgoods)  {
         goodsVO vo = new goodsVO();
 
+        vo.setKinds(kinds);
+        vo.setKeyno(newgoods.getGoodsID());
+        vo.setKeyname(newgoods.getGoodsName());
+        vo.setKeymodel(newgoods.getGoodsModel());
+        vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
+        vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
+        vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
+        vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
+        vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
+        vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
+        try {
+            goodsController.modifyGoods(vo);
+        } catch (RemoteException e1) {
+            e1.printStackTrace();
+        }
+
         logVO logVO = null;
         try {
             logVO = new logVO();
@@ -617,21 +634,6 @@ public class goodsManageUI {
             link.getRemoteHelper().getLog().addObject(logVO,13);
         } catch (RemoteException e) {
             e.printStackTrace();
-        }
-        vo.setKinds(kinds);
-        vo.setKeyno(newgoods.getGoodsID());
-        vo.setKeyname(newgoods.getGoodsName());
-        vo.setKeymodel(newgoods.getGoodsModel());
-        vo.setNum(praseDouble.prase(newgoods.getGoodsNum()));
-        vo.setInprice(praseDouble.prase(newgoods.getGoodsInprice()));
-        vo.setOutprice(praseDouble.prase(newgoods.getGoodsOutprice()));
-        vo.setReceprice(praseDouble.prase(newgoods.getGoodsReceinprice()));
-        vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
-        vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
-        try {
-            goodsController.modifyGoods(vo);
-        } catch (RemoteException e1) {
-            e1.printStackTrace();
         }
     }
 }

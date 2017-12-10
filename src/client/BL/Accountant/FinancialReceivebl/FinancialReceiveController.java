@@ -203,14 +203,17 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String operater=po.getOper();
         String consumerType=po.getConsumertype();
         String consumerID=po.getConsumer();
-        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
+        System.out.println("po ID: "+po.getKeyno());
+        System.out.println(" KeyNO: "+po.getMoneyList());
+        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,"123");
         ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
-        System.out.println(" list size: "+list.size());
+        System.out.println(" list size: "+link.getRemoteHelper().getmoneyList().findbyNO(18,"123").size());
         double sum = po.getSumall();
         FinancialBill bill = new FinancialBill(ID,Billtype,operater,consumerType,consumerID,moneylist,sum);
         System.out.println(" potobill size: "+bill.getMoneyList().size());
         return bill;
     }
+
 
     @Override
     public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException{
