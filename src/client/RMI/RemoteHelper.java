@@ -6,6 +6,7 @@ import server.Dataservice.Billdataservice.*;
 import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;
 import server.Dataservice.Cutdataservice.cut;
+import server.Dataservice.Financedataservice.accountInit;
 import server.Dataservice.Financedataservice.goodsoutList;
 import server.Dataservice.Financedataservice.moneyList;
 import server.Dataservice.Financedataservice.sale;
@@ -115,6 +116,10 @@ public class RemoteHelper {
 
     public stockGoods getstockGoods(){
         return (stockGoods)remote;
+    }
+
+    public accountInit getaccountInit(){
+        return (accountInit)remote;
     }
 
 
