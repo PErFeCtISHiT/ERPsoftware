@@ -18,9 +18,6 @@ import java.util.List;
 
 public interface FinancialReceiveInterface {
 
-    public FinancialBill getDetailInfor() throws RemoteException;
-
-    public void setDetailInfor(FinancialBill financialBill) throws RemoteException;
 
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 

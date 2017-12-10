@@ -19,20 +19,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
 
     FinancialAccountController Accountcontroller  = new FinancialAccountController();
-    public static FinancialBill bill ;
 
-
-    @Override
-    public FinancialBill getDetailInfor() throws RemoteException {
-        System.out.println(bill.getID());
-        return this.bill;
-    }
-
-    @Override
-    public void setDetailInfor(FinancialBill financialBill) throws RemoteException {
-        System.out.println(bill.getID()+"!!!");
-        this.bill =financialBill;
-    }
 
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{

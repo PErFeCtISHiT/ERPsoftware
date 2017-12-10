@@ -1,10 +1,14 @@
 package client.BL.Accountant.FinancialBuildAccountbl;
 
 import client.BLservice.Accountant.FinancialBuildAccountblservice.FinancialBuildAccountInterface;
+import client.RMI.link;
 import client.Vo.coVO;
 import client.Vo.consumerVO;
 import client.Vo.goodsVO;
 import client.Vo.goodskindsVO;
+import server.Po.coPO;
+import server.Po.consumerPO;
+import server.Po.goodsPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
@@ -25,22 +29,30 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
 
+        AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
 
-
-        return null;
+        return newaccount;
     }
 
 
     @Override
     public AccountBuild getPast(String year) throws RemoteException{
+        ArrayList<AccountBuild_account> accountlist = getPastAccount(year);
+        ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
+        ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
+        AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
+        return newaccount;
+    }
 
+    @Override
+    public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException {
 
 
         return null;
     }
 
     @Override
-    public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException {
+    public AccountBuild_account PoToAccount(coPO po) throws RemoteException {
         return null;
     }
 
@@ -51,8 +63,18 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
     }
 
     @Override
+    public AccountBuild_consumer PoToConsumer(consumerPO po) throws RemoteException {
+        return null;
+    }
+
+    @Override
     public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException {
 
+        return null;
+    }
+
+    @Override
+    public AccountBuild_good PoToGood(goodsPO po) throws RemoteException {
         return null;
     }
 

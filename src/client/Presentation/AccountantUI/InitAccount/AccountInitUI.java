@@ -38,8 +38,8 @@ public class AccountInitUI extends Application {
     private final TableView<AccountBuild_account> accounttable = new TableView<>();
     private final ObservableList<AccountBuild_account> accountdata =
             FXCollections.observableArrayList(
-                    new AccountBuild_account("","A", "B"),
-                    new AccountBuild_account("","Q", "W"));
+                    new AccountBuild_account("123","A", "B"),
+                    new AccountBuild_account("234","Q", "W"));
     private final TableView<AccountBuild_consumer> consumertable = new TableView<>();
     private final ObservableList<AccountBuild_consumer> consumerdata =
             FXCollections.observableArrayList(
