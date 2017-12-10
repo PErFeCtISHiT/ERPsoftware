@@ -136,6 +136,7 @@ public class goodsCheckUI {
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xlsx)", "*.xlsx");
                 fileChooser.getExtensionFilters().add(extFilter);
                 File file = fileChooser.showSaveDialog(new Stage());
+                System.out.print(file);
 
         });
         TableView<Goods> table = new TableView<>();
