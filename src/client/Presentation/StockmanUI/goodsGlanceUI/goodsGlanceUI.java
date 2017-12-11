@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import server.Po.goodsOutListPO;
 import server.Po.goodsPO;
 import server.Po.stockGoodsPO;
@@ -39,6 +38,9 @@ public class goodsGlanceUI{
 
 
     public HBox start() throws RemoteException, ParseException {
+        data1.clear();
+        data2.clear();
+
 
         VBox vbox = new VBox();
         HBox hbox = new HBox();
