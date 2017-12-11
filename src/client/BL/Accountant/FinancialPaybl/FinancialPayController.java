@@ -202,7 +202,7 @@ public class FinancialPayController implements FinancialPayInterface {
         String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
 
 
-        moneypo.setKind(0.0);
+        moneypo.setKind(1.0);
         moneypo.setKeyno(billID);
         moneypo.setAccoun("");
         moneypo.setConsumer(consumerID);

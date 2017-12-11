@@ -7,6 +7,7 @@ import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.BLservice.Accountant.FinancialCashblservice.FinancialCashInterface;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import client.Vo.coVO;
 import client.Vo.moneyVO;
@@ -16,6 +17,8 @@ import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -51,14 +54,28 @@ public class FinancialCashController implements FinancialCashInterface {
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
         for (int i=0; i< moneyLists.size();i++){
             MoneyList ml =moneyLists.get(i);
-            System.out.println(ml.getlistNO());
+            System.out.println("List Size: "+moneyLists.get(i).getAccount()+ml.getkeyid());
             moneyListPO moneylist = new moneyListPO();
-            moneylist.setKeyid(ml.getkeyid());
+
             moneylist.setKeyno(ml.getlistNO());
             moneylist.setAccountname(ml.getAccount());
             moneylist.setSumall(Double.parseDouble(ml.getMoney()));
             moneylist.setNote(ml.getComment());
-            link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+
+            try {
+                NOgenerator generater = new NOgenerator();
+                String listID = "ZZLB-" + generater.generate(18);
+                moneylist.setKeyid(listID);
+                System.out.println("List Size: "+moneylist.getKeyid());
+                link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+            } catch (IntrospectionException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
