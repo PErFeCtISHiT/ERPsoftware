@@ -2,17 +2,12 @@ package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
 import client.Presentation.NOgenerator.NOgenerator;
-import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.RMI.link;
 import client.Vo.logVO;
-import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import server.Po.goodskindsPO;
 
 import java.beans.IntrospectionException;

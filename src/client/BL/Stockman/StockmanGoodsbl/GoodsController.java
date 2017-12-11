@@ -9,7 +9,6 @@ import shared.ResultMessage;
 import shared.copyclass;
 
 import java.rmi.RemoteException;
-
 import java.util.List;
 /**
  * @author: pis

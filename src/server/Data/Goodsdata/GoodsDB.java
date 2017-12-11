@@ -1,12 +1,11 @@
 package server.Data.Goodsdata;
 
 import server.Data.pub.publicDB;
-import shared.copyclass;
+import server.Data.tools.hibtools;
 import server.Dataservice.Goodsdataservice.Goods;
 import server.Po.goodsPO;
-import server.Data.tools.hibtools;
 import server.hibernate.GoodsEntity;
-
+import shared.copyclass;
 
 import java.util.ArrayList;
 import java.util.List;
