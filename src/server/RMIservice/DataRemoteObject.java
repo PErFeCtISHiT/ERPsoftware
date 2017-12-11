@@ -169,6 +169,11 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
+    public List search(String detail) throws RemoteException {
+        return sale.search(detail);
+    }
+
+    @Override
     public List login(String username, String password) throws RemoteException{
         return user.login(username,password);
     }
