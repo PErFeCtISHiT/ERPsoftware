@@ -64,7 +64,7 @@ public class FinancialCashController implements FinancialCashInterface {
 
             try {
                 NOgenerator generater = new NOgenerator();
-                String listID = "ZZLB-" + generater.generate(18);
+                String listID = "ZZLB-" + generater.generateMoneyList(18);
                 moneylist.setKeyid(listID);
                 System.out.println("List Size: "+moneylist.getKeyid());
                 link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
