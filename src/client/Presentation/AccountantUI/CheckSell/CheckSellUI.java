@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,9 +17,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckSellUI extends Application {
 
@@ -29,7 +33,9 @@ public class CheckSellUI extends Application {
                     new Sale("2016-2-24", "Brown", "D","E", "V", "R","1","2","3"));
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
-    public final String[] infor = new String[6];
+    public final String[] infor = new String[9];
+    private DatePicker checkInDatePicker;
+    private DatePicker checkOutDatePicker;
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
     public static void main(String[] args) {
@@ -103,6 +109,10 @@ public class CheckSellUI extends Application {
                             infor[3]=data.get(this.getIndex()).goodsPrice.getValue().toString();
                             infor[4]=data.get(this.getIndex()).goodsType.getValue().toString();
                             infor[5]=data.get(this.getIndex()).totalSum.getValue().toString();
+                            infor[6]=data.get(this.getIndex()).consumer.getValue().toString();
+                            infor[7]=data.get(this.getIndex()).operater.getValue().toString();
+                            infor[8]=data.get(this.getIndex()).base.getValue().toString();
+
                             GridPane grid = new GridPane();
                             grid.setVgap(4);
                             grid.setPadding(new Insets(5, 5, 5, 5));
@@ -118,6 +128,14 @@ public class CheckSellUI extends Application {
                             grid.add(new Label(infor[4]), 1, 4);
                             grid.add(new Label("商品总价: "), 0, 5);
                             grid.add(new Label(infor[5]), 1, 5);
+                            grid.add(new Label("客户: "), 0, 6);
+                            grid.add(new Label(infor[6]), 1, 6);
+                            grid.add(new Label("操作员: "), 0, 7);
+                            grid.add(new Label(infor[7]), 1, 7);
+                            grid.add(new Label("仓库: "), 0, 8);
+                            grid.add(new Label(infor[8]), 1, 8);
+
+
                             gridTitlePane.setText("详细信息");
                             gridTitlePane.setContent(grid);
 
@@ -130,6 +148,99 @@ public class CheckSellUI extends Application {
             return cell;
         });
 
+
+        checkInDatePicker = new DatePicker();
+        checkOutDatePicker = new DatePicker();
+        checkInDatePicker.setValue(LocalDate.now());
+        final Callback<DatePicker, DateCell> dayCellFactory =
+                new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (item.isBefore(
+                                        checkInDatePicker.getValue().plusDays(1))
+                                        ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
+                            }
+                        };
+                    }
+                };
+
+
+
+
+        checkOutDatePicker.setDayCellFactory(dayCellFactory);
+        checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        Label checkInlabel = new Label("开始时间");
+        gridPane.add(checkInlabel, 0, 0);
+        GridPane.setHalignment(checkInlabel, HPos.LEFT);
+        checkInDatePicker.setMaxSize(100,20);
+        gridPane.add(checkInDatePicker, 0, 1);
+        Label checkOutlabel = new Label("结束时间");
+        gridPane.add(checkOutlabel, 1, 0);
+        GridPane.setHalignment(checkOutlabel, HPos.LEFT);
+        checkOutDatePicker.setMaxSize(100,20);
+        gridPane.add(checkOutDatePicker, 1, 1);
+        Label good = new Label("商品名称");
+        gridPane.add(good, 2, 0);
+        GridPane.setHalignment(good, HPos.LEFT);
+        TextField goodfield = new TextField();
+        goodfield.setMaxSize(100,20);
+        gridPane.add(goodfield, 2, 1);
+        Label consumer = new Label("客户");
+        gridPane.add(consumer, 3, 0);
+        GridPane.setHalignment(consumer, HPos.LEFT);
+        TextField consumerfield = new TextField();
+        consumerfield.setMaxSize(100,20);
+        gridPane.add(consumerfield, 3, 1);
+        Label operater = new Label("业务员");
+        gridPane.add(operater, 4, 0);
+        GridPane.setHalignment(operater, HPos.LEFT);
+        TextField operaterfield = new TextField();
+        operaterfield.setMaxSize(100,20);
+        gridPane.add(operaterfield, 4, 1);
+        Label base = new Label("仓库");
+        gridPane.add(base, 5, 0);
+        GridPane.setHalignment(base, HPos.LEFT);
+        TextField basefield = new TextField();
+        basefield.setMaxSize(100,20);
+        gridPane.add(basefield, 5, 1);
+        Button search = new Button("搜索");
+        gridPane.add(search, 6, 1);
+
+        search.setOnAction((ActionEvent e) -> {
+            String detail="";
+            detail+=checkInDatePicker.getValue();
+            detail+=",";
+            detail+=checkOutDatePicker.getValue();
+            detail+=",";
+            detail+=goodfield.getText();
+            detail+=",";
+            detail+=consumerfield.getText();
+            detail+=",";
+            detail+=operaterfield.getText();
+            detail+=",";
+            detail+=basefield.getText();
+            System.out.println(detail);
+
+            ArrayList<Sale> list = null;
+            try {
+                list = controller.search(detail);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+            data.clear();
+            data.addAll(list);
+        });
 
 /////////////////////////////////////////////////////////////////////开始的数据获取
 
@@ -149,12 +260,24 @@ public class CheckSellUI extends Application {
 
         });
 
+        final Button RefreshButton = new Button("刷新列表");
+        RefreshButton.setOnAction((ActionEvent e) -> {
+            try {
+                ArrayList<Sale> list =controller.show();
+                data.clear();
+                data.addAll(list);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+
 
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, OutputButton);
+        vbox.getChildren().addAll(gridPane,label, table, OutputButton);
 
         final HBox hbox = new HBox();
         hbox.setSpacing(5);
@@ -166,6 +289,5 @@ public class CheckSellUI extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
 }

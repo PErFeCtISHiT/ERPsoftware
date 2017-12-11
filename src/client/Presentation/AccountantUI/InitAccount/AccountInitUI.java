@@ -17,8 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AccountInitUI extends Application {
 
@@ -27,7 +30,8 @@ public class AccountInitUI extends Application {
             FXCollections.observableArrayList(
                     new AccountList("2017"),
                     new AccountList("2016"),
-                    new AccountList("2015"));
+                    new AccountList("2015"),
+                    new AccountList("1999"));
     final String[] imageNames = new String[]{"账户列表", "客户列表", "商品列表"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] tablelist = new TableView[3];
@@ -248,11 +252,23 @@ public class AccountInitUI extends Application {
         final Button InitButton = new Button("期初建账");
         InitButton.setOnAction((ActionEvent e) -> {
             try {
+
+//                Calendar c = Calendar.getInstance();
+//                int yearint = c.get(Calendar.YEAR);
+//                String year=yearint+"";
+//                System.out.println(year);
+//                link.getRemoteHelper().getaccountInit().Build(year);
                 AccountBuild accountBuild = builder.accountbuild();
                 accountdata.addAll(accountBuild.getAccountlist());
                 consumerdata.addAll(accountBuild.getConsumerlist());
                 goodsdata.addAll(accountBuild.getGoodslist());
             } catch (RemoteException e1) {
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            } catch (IntrospectionException e1) {
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
                 e1.printStackTrace();
             }
         });

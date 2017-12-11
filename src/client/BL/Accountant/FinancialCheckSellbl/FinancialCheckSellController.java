@@ -15,14 +15,34 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
 
     /**
      *
-     * @param time
+     * @param detail
      * @return ArrayList<saleVO>
      */
     @Override
-    public List<Sale> check(String time) {
-
-
-        return null;
+    public ArrayList<Sale> search(String detail) throws RemoteException{
+        List<salePO> list = link.getRemoteHelper().getSale().findAll(16);
+        ArrayList<Sale> salelist = new ArrayList<Sale>();
+        //System.out.println(1);
+        for (int i=0;i<list.size();i++){
+            salePO salepo = list.get(i);
+            saleVO salevo = PoToVo(salepo);
+            //System.out.println(2);
+            String[] str = salevo.getGoodsoutlist().split(",");
+            //System.out.println("The size is "+str.length);
+            for (int k=0;k<str.length;k++){
+                String keyno = str[k];
+                List<goodsOutListPO> goodslistpo =link.getRemoteHelper().getgoodsoutList().findbyNO(17,keyno);
+                //System.out.println(3);
+                //System.out.println(goodslistpo.size());
+                for (int j=0; j<goodslistpo.size();j++){
+                    //System.out.println("Test");
+                    Sale newSale = PoToSale(salepo,goodslistpo.get(j));
+                    //System.out.println(newSale.saleTime);
+                    salelist.add(newSale);
+                }
+            }
+        }
+        return salelist;
     }
 
 
