@@ -3,6 +3,7 @@
         goodsPO g = new goodsPO();
         copyclass.copy(goods,g);
         return link.getRemoteHelper().getGoods().addObject(g,0);
+
     }
     controller里面写好return方法，如return link.getRemoteHelper().getGoods().addObject(g,0);
     get的服务在server/dataservice里面，get......，如果有额外需要的类也可以加到dataservice里面，然后
