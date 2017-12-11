@@ -17,8 +17,8 @@ public class BillgottenController implements ManagerCheckProcessInterface{
 
 
     @Override
-    public List<selloutPO> showselloutPO() throws RemoteException {
-        return link.getRemoteHelper().getSelloutBill().findAll(4);
+    public List<selloutPO> showselloutPO() throws RemoteException
+    { return link.getRemoteHelper().getSelloutBill().findAll(4);
 
     }
 
