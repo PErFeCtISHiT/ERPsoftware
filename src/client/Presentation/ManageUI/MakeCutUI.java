@@ -26,7 +26,10 @@ import javafx.util.Callback;
 import server.Po.cutPO;
 import server.Po.packPO;
 import shared.ResultMessage;
+import client.Presentation.NOgenerator.NOgenerator;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
@@ -51,6 +54,9 @@ public class MakeCutUI extends Application{
     public int vipleast =-1;
     public String TimeBegin ="";
     public String TimeEnd ="";
+    public String CutId ="";
+    public Double level =0.0;
+    public Double cut =0.0;
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
     public  final Button summit=new Button("提交");
@@ -105,7 +111,7 @@ public class MakeCutUI extends Application{
         final ChoiceBox VIPChose= new ChoiceBox(FXCollections.observableArrayList("1","2","3","4","5"));
         VIPChose.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
             vipleast =newv.intValue()+1;
-
+            level =(double)vipleast;
 
         });
 
@@ -178,6 +184,7 @@ public class MakeCutUI extends Application{
                 param -> param.getValue().CutRate);
         packtable.setItems(packdata);
         packtable.getColumns().addAll(PackID,PackRateCol);
+
 
 
 
@@ -310,7 +317,9 @@ public class MakeCutUI extends Application{
         gridPane2.add(packbein, 1, 2);
         vbox2.getChildren().addAll(gridPane2);
 
-
+        //parse rate if the rate is legal
+        if(rate.getText().equals("")){}else{
+        cut =Double.parseDouble(rate.getText());}
 
 
 
@@ -331,26 +340,44 @@ public class MakeCutUI extends Application{
         summit.setOnAction((ActionEvent e) -> {
             if (true)
             {
+                try {
+                    CutId =NOgenerator.generate(12);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                } catch (IntrospectionException e1) {
+                    e1.printStackTrace();
+                } catch (InvocationTargetException e1) {
+                    e1.printStackTrace();
+                } catch (IllegalAccessException e1) {
+                    e1.printStackTrace();
+                }
+
                 //开始时间 结束时间 促销策略 是否从属特价包（如果从属 则为特价包id 否则 则为无）商品id //附属信息 加入数据库内 rate money 赠品 价格为0
                 if(searchcode==0){
                     Cut cut1 =new Cut(vipleast+"","赠品",goodid.getText(),TimeBegin,TimeEnd,"无");
-                    //cutPO po =new cutPO(,)
+
+                    //cutPO po =new cutPO(CutId,level,cut,0.0,0.0,"",TimeBegin,TimeEnd);
                     data.add(cut1);
             }else if(searchcode ==1){
                     Cut cut2 =new Cut(vipleast+"","折扣",goodid.getText(),TimeBegin,TimeEnd,"无");
+                    //cutPO po =new cutPO(CutId,level,cut,1.0,0.0,"",TimeBegin,TimeEnd);
+
                     data.add(cut2);
                 }else if(searchcode ==2){
-                    Cut cut3 =new Cut(vipleast+"","折扣包",goodid.getText(),TimeBegin,TimeEnd,packbelong.getText());
-                    data.add(cut3);
+                    Cut cut3 =new Cut(vipleast+"","折扣包",goodid.getText(),TimeBegin,TimeEnd,packbein.getText());
+                    //cutPO po =new cutPO(CutId,level,cut,2.0,0.0,packbelong.getText(),TimeBegin,TimeEnd);
 
+                    data.add(cut3);
                 }else{
-                    Cut cut4 =new Cut(vipleast+"","赠品",goodid.getText(),TimeBegin,TimeEnd,"无");
+                    Cut cut4 =new Cut(vipleast+"","代金券",goodid.getText(),TimeBegin,TimeEnd,"无");
+                    //cutPO po =new cutPO(CutId,level,cut,3.0,money.getText(),"",TimeBegin,TimeEnd);
+
                     data.add(cut4);
                 }
-
-                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-
+                packbein.clear();
                 money.clear();
+                goodid.clear();
+                rate.clear();
 
 
             }
