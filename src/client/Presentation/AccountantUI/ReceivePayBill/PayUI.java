@@ -8,6 +8,7 @@ import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -400,6 +401,11 @@ public class PayUI extends Application {
             try {
                 String ID = "SFKD-"+nogenerater.generate(5);
                 fillbill.start(ID);
+                logVO log = new logVO();
+                String staff= "";
+                log.setOperatorno(staff);
+                log.setKeyjob("修改账户");
+                link.getRemoteHelper().getLog().addObject(log,20);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             } catch (IntrospectionException e1) {

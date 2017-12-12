@@ -33,8 +33,8 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
 
-        year="1997";
-        System.out.println(year);
+//        year="1997";
+//        System.out.println(year);
         AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
 
         link.getRemoteHelper().getaccountInit().Build(year);
