@@ -22,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ReceiveUI extends Application {
+public class ReceiveUI {
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
@@ -74,12 +74,8 @@ public class ReceiveUI extends Application {
 
     FinancialReceiveController receiveController  = new FinancialReceiveController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 1350, 750);
 
@@ -414,7 +410,6 @@ public class ReceiveUI extends Application {
                 fillbill.start(ID);
 
                 logVO log = new logVO();
-                String staff= "";
                 log.setOperatorno(staff);
                 log.setKeyjob("修改账户");
                 link.getRemoteHelper().getLog().addObject(log,20);
@@ -440,10 +435,13 @@ public class ReceiveUI extends Application {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
 
-        Group root = (Group)scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+
+        return vb;
+
+//        Group root = (Group)scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 

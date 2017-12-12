@@ -34,7 +34,19 @@ public class FinancialCashController implements FinancialCashInterface {
         moneyPO moneypo = FinancialCashToMoneyPO(financialCash);
         ArrayList<MoneyList> list = financialCash.getMoneyList();
         saveMoneyList(list);
+        moneypo.setIsDraft(0.0);
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
+        System.out.println("summit");
+        return null;
+    }
+
+    @Override
+    public ResultMessage resummit(FinancialCash financialCash) throws RemoteException {
+        moneyPO moneypo = FinancialCashToMoneyPO(financialCash);
+        ArrayList<MoneyList> list = financialCash.getMoneyList();
+        saveMoneyList(list);
+        moneypo.setIsDraft(0.0);
+        link.getRemoteHelper().getMoneyBill().modifyObject(moneypo,5);
         System.out.println("summit");
         return null;
     }

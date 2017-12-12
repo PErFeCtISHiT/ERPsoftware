@@ -32,9 +32,20 @@ public class FinancialPayController implements FinancialPayInterface {
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
+        return null;
+    }
+
+    @Override
+    public ResultMessage resummit(FinancialBill financialBill) throws RemoteException {
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
+        ArrayList<MoneyList> list = financialBill.getMoneyList();
+        saveMoneyList(list);
+        link.getRemoteHelper().getMoneyBill().modifyObject(moneypo,5);
         return null;
     }
 

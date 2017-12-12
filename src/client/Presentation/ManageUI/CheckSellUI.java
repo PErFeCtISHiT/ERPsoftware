@@ -85,11 +85,12 @@ public class CheckSellUI extends Application {
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol);
 
 
+
         final Button DetailButton = new Button("查看详细信息");
         DetailButton.setOnAction((ActionEvent e) -> {
 
-
         });
+
         final Button OutputButton = new Button("导出表格");
         OutputButton.setOnAction((ActionEvent e) -> {
 
@@ -109,7 +110,6 @@ public class CheckSellUI extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
     public static class Sale {
 
         private final SimpleStringProperty saleTime;

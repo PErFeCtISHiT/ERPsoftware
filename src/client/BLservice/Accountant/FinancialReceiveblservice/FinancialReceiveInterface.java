@@ -21,6 +21,8 @@ public interface FinancialReceiveInterface {
 
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException;
 
+    public ResultMessage resummit(FinancialBill financialBill) throws RemoteException;
+
     public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
 
     public FinancialBill ReEditBill(String Keyno) throws RemoteException;

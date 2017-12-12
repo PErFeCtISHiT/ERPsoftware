@@ -2,8 +2,6 @@ package client.Presentation.AccountantUI.CheckSell;
 
 import client.BL.Accountant.FinancialCheckSellbl.FinancialCheckSellController;
 import client.BL.Accountant.FinancialCheckSellbl.Sale;
-import client.RMI.link;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,18 +17,17 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
-public class CheckSellUI extends Application {
+public class CheckSellUI {
 
     private final TableView<Sale> table = new TableView<>();
     private final ObservableList<Sale> data =
-            FXCollections.observableArrayList(
-                    new Sale("2017-1-2", "木头", "A","Z", "S", "C","1","2","3"),
-                    new Sale("2016-2-24", "Brown", "D","E", "V", "R","1","2","3"));
+            FXCollections.observableArrayList();
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
     public final String[] infor = new String[9];
@@ -38,13 +35,9 @@ public class CheckSellUI extends Application {
     private DatePicker checkOutDatePicker;
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("销售明细表");
         stage.setWidth(1250);
@@ -284,10 +277,18 @@ public class CheckSellUI extends Application {
         hbox.setPadding(new Insets(10, 0, 0, 10));
         hbox.getChildren().addAll(vbox,gridTitlePane);
 
-        ((Group) scene.getRoot()).getChildren().addAll(hbox);
 
-        stage.setScene(scene);
-        stage.show();
+        final VBox fvbox = new VBox();
+        fvbox.setSpacing(5);
+        fvbox.setPadding(new Insets(10,0,0,10));
+        fvbox.getChildren().addAll(hbox);
+
+
+        return fvbox;
+//        Group root = (Group) scene.getRoot();
+//        root.getChildren().add(fvbox);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 }

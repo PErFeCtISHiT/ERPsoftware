@@ -6,6 +6,7 @@ import client.Vo.coVO;
 import client.Vo.consumerVO;
 import client.Vo.goodsVO;
 import client.Vo.goodskindsVO;
+import server.Po.AccountInitPO;
 import server.Po.coPO;
 import server.Po.consumerPO;
 import server.Po.goodsPO;
@@ -39,6 +40,19 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 
         link.getRemoteHelper().getaccountInit().Build(year);
         return newaccount;
+    }
+
+    @Override
+    public ArrayList<AccountList> show() throws RemoteException {
+        List<AccountInitPO> list = link.getRemoteHelper().getaccountInit().findAll(20);
+        ArrayList<AccountList> showlist = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            AccountList acc = new AccountList();
+            acc.setYear(list.get(i).getKeyyear());
+            showlist.add(acc);
+        }
+
+        return showlist;
     }
 
 

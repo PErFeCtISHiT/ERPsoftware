@@ -29,8 +29,17 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
-
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
+        return null;
+    }
+
+    @Override
+    public ResultMessage resummit(FinancialBill financialBill) throws RemoteException {
+        ArrayList<MoneyList> list = financialBill.getMoneyList();
+        saveMoneyList(list);
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
+        link.getRemoteHelper().getMoneyBill().modifyObject(moneypo,5);
         return null;
     }
 
@@ -40,7 +49,6 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         saveMoneyList(moneyLists);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
         moneypo.setIsDraft(1.0);
-
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }

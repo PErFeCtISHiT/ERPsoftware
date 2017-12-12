@@ -164,10 +164,10 @@ public class FillMoneyBill{
 
                 ArrayList<MoneyList> moneylist = new ArrayList<>();
 
-
+                data.clear();
                 for (int i=0;i<data.size();i++) {
-                    String listID = "ZZLB-" + i;
-                    data.get(i).setKeyid(listID);
+//                    String listID = "ZZLB-" + i;
+//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
@@ -176,7 +176,7 @@ public class FillMoneyBill{
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
                     System.out.println("Step 2");
-                    if(billtype=="收款单"){
+                    if(billtype.equals("收款单")){
                         ResultMessage resultMessage = receiveController.summit(financialBill);
                     }
                     else{
@@ -204,6 +204,8 @@ public class FillMoneyBill{
             double sum = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
 
+
+            data.clear();
             for (int i=0;i<data.size();i++) {
                 String listID = "ZZLB-" + i;
                 data.get(i).setKeyid(listID);

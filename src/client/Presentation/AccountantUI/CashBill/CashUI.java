@@ -26,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class CashUI extends Application{
+public class CashUI {
     final String[] imageNames = new String[]{"账户列表", "客户列表", "现金费用单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] tablelist = new TableView[5];
@@ -77,12 +77,8 @@ public class CashUI extends Application{
 
     FinancialCashController cashController  = new FinancialCashController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定现金费用单");
         Scene scene = new Scene(new Group(), 1350, 850);
 
@@ -417,10 +413,12 @@ public class CashUI extends Application{
         VBox vb = new VBox();
         vb.getChildren().setAll(hb, hbox);
 
-        Group root = (Group) scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+        return vb;
+
+//        Group root = (Group) scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
 
     }
 
