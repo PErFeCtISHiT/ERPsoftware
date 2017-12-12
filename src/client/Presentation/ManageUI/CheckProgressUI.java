@@ -442,7 +442,7 @@ public class CheckProgressUI extends Application {
         GridPane.setHalignment(checkOutlabel, HPos.LEFT);
         gridPane.add(checkOutDatePicker, 1, 1);
         vbox.getChildren().add(gridPane);
-
+//;lt
 
         final Button button1 = new Button("红冲操作");
         button1.setOnAction((ActionEvent e) -> {
