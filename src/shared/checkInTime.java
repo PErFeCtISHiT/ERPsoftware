@@ -9,6 +9,7 @@ public class checkInTime {
      * @param beginTime
      * @param endTime
      * @return
+     * @author: Ferry Core
      */
     public static Boolean checkIsInTime(String beginTime,String endTime,String id){
         int begintime =Integer.parseInt(beginTime);
