@@ -9,8 +9,17 @@ public class cutPO implements Serializable{
 	private String packno;
 	private String fromDate;
 	private String toDate;
+	private Double kindofcut;
 
-    public String getFromDate() {
+	public Double getKindofcut() {
+		return kindofcut;
+	}
+
+	public void setKindofcut(Double kindofcut) {
+		this.kindofcut = kindofcut;
+	}
+
+	public String getFromDate() {
         return fromDate;
     }
 

@@ -12,7 +12,7 @@ public class CutEntity {
     private String packno;
     private String fromDate;
     private String toDate;
-
+    private Double kindofcut;
     public CutEntity() {
     }
 
@@ -43,7 +43,17 @@ public class CutEntity {
     }
 
     public void setCut(Double cut) {
-        this.cut = cut;
+        this.cut= cut;
+    }
+
+    @Basic
+    @Column(name = "KINDOFCUT", nullable = true, precision = 0)
+    public Double getKindofcut() {
+        return kindofcut;
+    }
+
+    public void setKindofcut(Double kindofcut) {
+        this.kindofcut = kindofcut;
     }
 
     @Basic

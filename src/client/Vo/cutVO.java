@@ -10,6 +10,15 @@ public class cutVO implements Serializable{
 	private String packno;
 	private String fromDate;
 	private String toDate;
+	private Double kindofcut;
+
+	public Double getKindofcut() {
+		return kindofcut;
+	}
+
+	public void setKindofcut(Double kindofcut) {
+		this.kindofcut = kindofcut;
+	}
 
 	public String getFromDate() {
 		return fromDate;
