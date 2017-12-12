@@ -14,6 +14,9 @@
         <property name="cut">
             <column name="CUT" sql-type="number(*)" precision="2147483646" />
         </property>
+        <property name="kindofcut">
+            <column name="KINDOFCUT" sql-type="number(*)" precision="2147483646" />
+        </property>
         <property name="voucher">
             <column name="VOUCHER" sql-type="varchar2(20)" length="20" />
         </property>

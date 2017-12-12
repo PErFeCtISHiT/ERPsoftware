@@ -9,9 +9,17 @@ public class cutPO implements Serializable{
 	private String packno;
 	private String fromDate;
 	private String toDate;
-	//private Double kindOf;
+	private Double kindofcut;
 
-    public String getFromDate() {
+	public Double getKindofcut() {
+		return kindofcut;
+	}
+
+	public void setKindofcut(Double kindofcut) {
+		this.kindofcut = kindofcut;
+	}
+
+	public String getFromDate() {
         return fromDate;
     }
 
@@ -71,30 +79,12 @@ public class cutPO implements Serializable{
 		this.packno = packno;
 	}
 
-	public void setfromDate(String fromDate){
-    	this.fromDate =fromDate;
-	}
-	public String getfromDate(){
-    	return fromDate;
-	}
-
-	public void settoDate(String toDate){
-		this.toDate =toDate;
-	}
-	public String gettoDate(){
-		return toDate;
-	}
-
-	public cutPO(String keyno, Double lev, Double cut, String voucher, String packno,String begintime,String endtime) {
+	public cutPO(String keyno, Double lev, Double cut, String voucher, String packno) {
 
 		this.keyno = keyno;
 		this.lev = lev;
-		this.cut = cut;//折扣比例
-		//for cutOfKind
-		this.voucher = voucher; //代金券
-		this.packno = packno;//所属包no
-		this.fromDate =begintime;
-		this.toDate =endtime;
-
+		this.cut = cut;
+		this.voucher = voucher;
+		this.packno = packno;
 	}
 }
