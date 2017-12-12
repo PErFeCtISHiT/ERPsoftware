@@ -164,7 +164,7 @@ public class FillMoneyBill{
 
                 ArrayList<MoneyList> moneylist = new ArrayList<>();
 
-                data.clear();
+//                data.clear();
                 for (int i=0;i<data.size();i++) {
 //                    String listID = "ZZLB-" + i;
 //                    data.get(i).setKeyid(listID);
@@ -205,7 +205,7 @@ public class FillMoneyBill{
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
 
 
-            data.clear();
+//            data.clear();
             for (int i=0;i<data.size();i++) {
                 String listID = "ZZLB-" + i;
                 data.get(i).setKeyid(listID);

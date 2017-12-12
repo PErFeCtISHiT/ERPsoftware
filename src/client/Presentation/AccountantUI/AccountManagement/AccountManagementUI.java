@@ -40,7 +40,7 @@ import shared.*;
 
 public class AccountManagementUI {
 
-    private final TableView<Account> table = new TableView<>();
+
     private final ObservableList<Account> data =
             FXCollections.observableArrayList();
     final HBox hb = new HBox();
@@ -51,6 +51,7 @@ public class AccountManagementUI {
 
 
     public VBox start(String staff) throws Exception {
+        TableView<Account> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("账户管理");
@@ -267,7 +268,7 @@ public class AccountManagementUI {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
-
+        vbox.setMaxSize(1000,800);
         return vbox;
 
 //        ((Group) scene.getRoot()).getChildren().addAll(vbox);

@@ -39,32 +39,7 @@ public class ReceiveUI {
     final Label money = new Label("");
 
     private final NOgenerator nogenerater = new NOgenerator();
-    private final TableView<MoneyList> table = new TableView<>();
-    private final ObservableList<MoneyList> data =
-            FXCollections.observableArrayList();
 
-    private final TableView<Account> accounttable = new TableView<>();
-    private final ObservableList<Account> accountdata =
-            FXCollections.observableArrayList(
-                    new Account("A", "B", "C"),
-                    new Account("Q", "W", "E"));
-    private final TableView<Consumer> consumertable = new TableView<>();
-    private final ObservableList<Consumer> consumerdata =
-            FXCollections.observableArrayList(
-                    new Consumer("A", "B", "C","A", "B", "C","B", "C"),
-                    new Consumer("b", "B", "C","A", "B", "C","B", "C"));
-
-    private final TableView<AccountBill> draftbilltable = new TableView<>();
-    private final ObservableList<AccountBill> draftbilldata =
-            FXCollections.observableArrayList();
-
-    private final TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
-    private final ObservableList<AccountBill> UnderPromotionbilldata =
-            FXCollections.observableArrayList();
-
-    private final TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
-    private final ObservableList<AccountBill> AlreadyPromotionbilldata =
-            FXCollections.observableArrayList();
 
 
 
@@ -79,6 +54,32 @@ public class ReceiveUI {
         stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 1350, 750);
 
+        TableView<MoneyList> table = new TableView<>();
+        ObservableList<MoneyList> data =
+                FXCollections.observableArrayList();
+
+        TableView<Account> accounttable = new TableView<>();
+        ObservableList<Account> accountdata =
+                FXCollections.observableArrayList(
+                        new Account("A", "B", "C"),
+                        new Account("Q", "W", "E"));
+        TableView<Consumer> consumertable = new TableView<>();
+        ObservableList<Consumer> consumerdata =
+                FXCollections.observableArrayList(
+                        new Consumer("A", "B", "C","A", "B", "C","B", "C"),
+                        new Consumer("b", "B", "C","A", "B", "C","B", "C"));
+
+        TableView<AccountBill> draftbilltable = new TableView<>();
+        ObservableList<AccountBill> draftbilldata =
+                FXCollections.observableArrayList();
+
+        TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
+        ObservableList<AccountBill> UnderPromotionbilldata =
+                FXCollections.observableArrayList();
+
+        TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
+        ObservableList<AccountBill> AlreadyPromotionbilldata =
+                FXCollections.observableArrayList();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
         TableColumn<Account, String> IDCol =
@@ -244,7 +245,14 @@ public class ReceiveUI {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
-                                detail(bill);
+                                TypeComboBox.setText(bill.getBillType());
+                                billNum.setText(bill.getID());
+                                StaffComboBox.setText(bill.getOperater());
+                                ConsumerTypeComboBox.setText(bill.getConsumerType());
+                                consumer.setText(bill.getConsumerID());
+                                data.clear();
+                                data.addAll(bill.getMoneyList());
+                                money.setText(String.valueOf(bill.getSum()));
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -298,7 +306,14 @@ public class ReceiveUI {
                             try {
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
                                 System.out.println("size: "+bill.getMoneyList().size());
-                                detail(bill);
+                                TypeComboBox.setText(bill.getBillType());
+                                billNum.setText(bill.getID());
+                                StaffComboBox.setText(bill.getOperater());
+                                ConsumerTypeComboBox.setText(bill.getConsumerType());
+                                consumer.setText(bill.getConsumerID());
+                                data.clear();
+                                data.addAll(bill.getMoneyList());
+                                money.setText(String.valueOf(bill.getSum()));
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -399,7 +414,25 @@ public class ReceiveUI {
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
-            refresh();
+            try {
+                ArrayList<Account> list1 =receiveController.getAllAccount();
+                accountdata.clear();
+                accountdata.addAll(list1);
+                ArrayList<Consumer> list2 =receiveController.getAllConsumer();
+                consumerdata.clear();
+                consumerdata.addAll(list2);
+                ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
+                draftbilldata.clear();
+                draftbilldata.addAll(list3);
+                ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
+                AlreadyPromotionbilldata.clear();
+                AlreadyPromotionbilldata.addAll(list4);
+                ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
+                UnderPromotionbilldata.clear();
+                UnderPromotionbilldata.addAll(list5);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
         });
 
         final Button newBill = new Button("新建收款单");
@@ -434,7 +467,7 @@ public class ReceiveUI {
 
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
-
+        vb.setMaxSize(1200,800);
 
         return vb;
 
@@ -444,40 +477,4 @@ public class ReceiveUI {
 //        stage.show();
     }
 
-
-    public void detail(FinancialBill bill) {
-//            System.out.println(bill.getID());
-
-            TypeComboBox.setText(bill.getBillType());
-            billNum.setText(bill.getID());
-            StaffComboBox.setText(bill.getOperater());
-            ConsumerTypeComboBox.setText(bill.getConsumerType());
-            consumer.setText(bill.getConsumerID());
-            data.clear();
-            data.addAll(bill.getMoneyList());
-            money.setText(String.valueOf(bill.getSum()));
-    }
-
-
-    public void refresh() {
-        try {
-            ArrayList<Account> list1 =receiveController.getAllAccount();
-            accountdata.clear();
-            accountdata.addAll(list1);
-            ArrayList<Consumer> list2 =receiveController.getAllConsumer();
-            consumerdata.clear();
-            consumerdata.addAll(list2);
-            ArrayList<AccountBill> list3 =receiveController.getAllDraftReceive();
-            draftbilldata.clear();
-            draftbilldata.addAll(list3);
-            ArrayList<AccountBill> list4 =receiveController.getAllPromotedReceive();
-            AlreadyPromotionbilldata.clear();
-            AlreadyPromotionbilldata.addAll(list4);
-            ArrayList<AccountBill> list5 =receiveController.getAllUnderPromotedReceive();
-            UnderPromotionbilldata.clear();
-            UnderPromotionbilldata.addAll(list5);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 }
