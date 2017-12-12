@@ -26,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class PayUI extends Application {
+public class PayUI {
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "付款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
@@ -78,12 +78,8 @@ public class PayUI extends Application {
 
     FinancialPayController PayController  = new FinancialPayController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定付款单");
         Scene scene = new Scene(new Group(), 1350, 750);
 
@@ -395,14 +391,13 @@ public class PayUI extends Application {
             refresh();
         });
 
-        final Button newBill = new Button("新建收款单");
+        final Button newBill = new Button("新建付款单");
         newBill.setOnAction(e -> {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {
                 String ID = "SFKD-"+nogenerater.generate(5);
                 fillbill.start(ID);
                 logVO log = new logVO();
-                String staff= "";
                 log.setOperatorno(staff);
                 log.setKeyjob("修改账户");
                 link.getRemoteHelper().getLog().addObject(log,20);
@@ -425,10 +420,12 @@ public class PayUI extends Application {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
 
-        Group root = (Group)scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+        return vb;
+
+//        Group root = (Group)scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 

@@ -134,7 +134,7 @@ public class ReEditCashBill {
                 System.out.println(TypeComboBox.getValue());
 
                 String billtype = TypeComboBox.getValue();
-                String billID = "TxTx";//billNum.getText();
+                String billID = bill.getID();//billNum.getText();
                 String operater = StaffComboBox.getValue();
                 String Account = account.getText();
 
@@ -144,27 +144,26 @@ public class ReEditCashBill {
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
-                    String listID = "ZZLB-" + i;
-                    data.get(i).setKeyid(listID);
+//                    String listID = "ZZLB-" + i;
+//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
-                System.out.println("Step 1");
+//                System.out.println("Step 1");
                 FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
                 try {
-                    System.out.println("Step 2");
+//                    System.out.println("Step 2");
                     if(billtype=="现金费用单"){
-                        ResultMessage resultMessage = cashController.summit(financialCash);
+                        ResultMessage resultMessage = cashController.resummit(financialCash);
                     }
 
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
 
-                System.out.println("Step 3");
+//                System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent"
                         + " to " );
-                TypeComboBox.setValue(null);
                 money.clear();
                 text.clear();
             }
@@ -175,13 +174,13 @@ public class ReEditCashBill {
             System.out.println(TypeComboBox.getValue());
 
             String billtype = TypeComboBox.getValue();
-            String billID = "TxT";//billNum.getText();
+            String billID = bill.getID();//billNum.getText();
             String operater = StaffComboBox.getValue();
             String Account = account.getText();
 
-            System.out.println(money.getText());
+//            System.out.println(money.getText());
             double sum = Double.parseDouble(money.getText());
-            System.out.println(sum);
+//            System.out.println(sum);
 
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {
@@ -201,7 +200,6 @@ public class ReEditCashBill {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-            TypeComboBox.setValue(null);
             money.clear();
             text.clear();
 

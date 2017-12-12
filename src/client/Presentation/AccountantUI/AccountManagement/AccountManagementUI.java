@@ -31,6 +31,7 @@ import javafx.util.Callback;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import server.Po.coPO;
@@ -96,9 +97,8 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     try {
                         logVO log = new logVO();
-                        String staffno= "";
 
-                        log.setOperatorno(staffno);
+                        log.setOperatorno(staff);
                         log.setKeyjob("修改账户");
                         link.getRemoteHelper().getLog().addObject(log,20);
                     } catch (RemoteException e) {
@@ -123,8 +123,7 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     try {
                         logVO log = new logVO();
-                        String staffno= "";
-                        log.setOperatorno(staffno);
+                        log.setOperatorno(staff);
                         log.setKeyjob("修改账户");
                         link.getRemoteHelper().getLog().addObject(log,20);
                     } catch (RemoteException e) {
@@ -161,7 +160,6 @@ public class AccountManagementUI {
                             data.remove(this.getIndex());
                             try {
                                 logVO log = new logVO();
-                                String staff= "";
                                 log.setOperatorno(staff);
                                 log.setKeyjob("删除账户");
                                 link.getRemoteHelper().getLog().addObject(log,19);
@@ -211,8 +209,7 @@ public class AccountManagementUI {
 //        addID.setEditable(false);
 //        addID.setPromptText("编号自动生成");
 //        addID.setMaxWidth(IDCol.getPrefWidth());
-
-        final Label addID = new Label("编号自动生成");
+//        final Label addID = new Label("编号自动生成");
         final TextField addName = new TextField();
         addName.setMaxWidth(NameCol.getPrefWidth());
         addName.setPromptText("账户名称");
@@ -258,7 +255,12 @@ public class AccountManagementUI {
             addMoney.clear();
         });
 
-        hb.getChildren().addAll(addID, addName, addMoney, addButton);
+        final Button refresh = new Button("刷新列表");
+        refresh.setOnAction(e -> {
+            refresh();
+        });
+
+        hb.getChildren().addAll(addName, addMoney, addButton,refresh);//addID,
         hb.setSpacing(3);
 
         final VBox vbox = new VBox();
@@ -274,6 +276,20 @@ public class AccountManagementUI {
 //        stage.show();
     }
 
+
+    public void refresh() {
+        try {
+            List<coPO> list =controller.show();
+            data.clear();
+            for (int i=0;i<list.size();i++){
+                coVO newco = controller.PoToVo(list.get(i));
+                Account account = controller.VoToAccount(newco);
+                data.add(account);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     class EditingCell extends TableCell<Account, String> {

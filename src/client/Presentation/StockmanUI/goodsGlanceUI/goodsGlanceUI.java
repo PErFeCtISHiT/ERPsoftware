@@ -28,18 +28,17 @@ import java.util.List;
 public class goodsGlanceUI{
     private stockGlanceController stockGlanceController = new stockGlanceController();
 
-    private final TableView<BaseGoods> table1 = new TableView<>();
     private final ObservableList<BaseGoods> data1 = FXCollections.observableArrayList();
 
 
-
-    private final TableView<ConsumerGoods> table2 = new TableView<>();
     private final ObservableList<ConsumerGoods> data2 = FXCollections.observableArrayList();
 
 
     public HBox start() throws RemoteException, ParseException {
         data1.clear();
         data2.clear();
+        TableView<BaseGoods> table1 = new TableView<>();
+        TableView<ConsumerGoods> table2 = new TableView<>();
 
 
         VBox vbox = new VBox();
@@ -249,12 +248,12 @@ public class goodsGlanceUI{
         VBox t1 = new VBox();
         t1.setSpacing(5);
         t1.setPadding(new Insets(10, 0, 0, 10));
-        t1.getChildren().addAll(label1,table1);
+        t1.getChildren().addAll(label1, table1);
 
         VBox t2 = new VBox();
         t2.setSpacing(5);
         t2.setPadding(new Insets(10, 0, 0, 10));
-        t2.getChildren().addAll(label2,table2);
+        t2.getChildren().addAll(label2, table2);
 
         hbox1.getChildren().addAll(t1,t2);
 

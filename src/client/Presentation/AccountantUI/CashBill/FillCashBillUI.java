@@ -147,16 +147,17 @@ public class FillCashBillUI {
                 double sum = Double.parseDouble(money.getText());
                 System.out.println(sum);
 
+                data.clear();
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
 
-                System.out.println("Step 1");
+//                System.out.println("Step 1");
                 FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
                 try {
-                    System.out.println("Step 2");
+//                    System.out.println("Step 2");
                     if(billtype=="现金费用单"){
                         ResultMessage resultMessage = cashController.summit(financialCash);
                     }
@@ -165,10 +166,9 @@ public class FillCashBillUI {
                     e1.printStackTrace();
                 }
 
-                System.out.println("Step 3");
+//                System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent"
                         + " to " );
-                TypeComboBox.setValue(null);
                 money.clear();
                 text.clear();
             }
@@ -176,42 +176,39 @@ public class FillCashBillUI {
 
         DraftButton.setOnAction((ActionEvent e) -> {
 
-                System.out.println(TypeComboBox.getValue());
+            System.out.println(TypeComboBox.getValue());
 
-                String billtype = TypeComboBox.getValue();
-                String billID = "TxTx";//billNum.getText();
-                String operater = StaffComboBox.getValue();
-                String Account = account.getText();
+            String billtype = TypeComboBox.getValue();
+            String billID = ID;
+            String operater = StaffComboBox.getValue();
+            String Account = account.getText();
 
-                System.out.println(money.getText());
-                double sum = Double.parseDouble(money.getText());
-                System.out.println(sum);
+            System.out.println(money.getText());
+            double sum = Double.parseDouble(money.getText());
+            System.out.println(sum);
 
-                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                for (int i=0;i<data.size();i++) {
-                    data.get(i).setlistNO(billID);
-                    moneylist.add(data.get(i));
-                }
-                for (int i=0;i<data.size();i++){
-                    data.get(i).setKeyid(i+"");
-                    data.get(i).setlistNO(billID);
-                    moneylist.add(data.get(i));
-                }
+            data.clear();
+            ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+            for (int i=0;i<data.size();i++) {
+                data.get(i).setlistNO(billID);
+                moneylist.add(data.get(i));
+            }
+
 //                System.out.println("Step 1");
-                FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
-                try {
+            FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
+            try {
 //                    System.out.println("Step 2");
-                    if(billtype=="现金费用单"){
-                        ResultMessage resultMessage = cashController.saveAsDraft(financialCash);
-                    }
-
-                } catch (RemoteException e1) {
-                    e1.printStackTrace();
+                if(billtype=="现金费用单"){
+                    ResultMessage resultMessage = cashController.saveAsDraft(financialCash);
                 }
+
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
 
 //                System.out.println("Step 3");
 //                notification.setText("The Bill was successfully sent" + " to " );
-                TypeComboBox.setValue(null);
+
                 money.clear();
                 text.clear();
 
