@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface sale extends pub {
     List findbySaleVO(saleVO saleVO) throws RemoteException;
+    List search(String detail)throws RemoteException;
 }

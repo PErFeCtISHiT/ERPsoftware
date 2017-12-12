@@ -12,6 +12,8 @@ import server.Po.goodsPO;
 import shared.ResultMessage;
 import shared.praseDouble;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,8 +24,8 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 
 
     @Override
-    public AccountBuild accountbuild() throws RemoteException{
-
+    public AccountBuild accountbuild() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+//
         Calendar c = Calendar.getInstance();
         int yearint = c.get(Calendar.YEAR);
         String year=yearint+"";
@@ -31,7 +33,11 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
 
+//        year="1997";
+//        System.out.println(year);
         AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
+
+        link.getRemoteHelper().getaccountInit().Build(year);
         return newaccount;
     }
 
@@ -103,7 +109,7 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         return goodList;
     }
 
-    
+
     @Override
     public AccountBuild_good PoToGood(goodsPO po) throws RemoteException {
         AccountBuild_good good = new AccountBuild_good();

@@ -3,6 +3,7 @@ package client.BL.Accountant.FinancialReceivebl;
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.BLservice.Accountant.FinancialReceiveblservice.FinancialReceiveInterface;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import client.Vo.coVO;
 import client.Vo.moneyVO;
@@ -12,6 +13,8 @@ import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -23,9 +26,9 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
 
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
-        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
 
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
@@ -46,16 +49,28 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
 
+        System.out.println("Size: "+moneyLists.size());
         for (int i=0; i< moneyLists.size();i++){
             MoneyList ml =moneyLists.get(i);
-            System.out.println(ml.getlistNO());
+            System.out.println("Save MoneySum: "+ml.getMoney());
             moneyListPO moneylist = new moneyListPO();
-            moneylist.setKeyid(ml.getkeyid());
             moneylist.setKeyno(ml.getlistNO());
             moneylist.setAccountname(ml.getAccount());
             moneylist.setSumall(Double.parseDouble(ml.getMoney()));
             moneylist.setNote(ml.getComment());
-            link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+            try {
+                NOgenerator generater = new NOgenerator();
+                String listID = "ZZLB-" + generater.generateMoneyList(18);
+                moneylist.setKeyid(listID);
+                System.out.println("List Size: "+moneylist.getKeyid());
+                link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+            } catch (IntrospectionException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -168,7 +183,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
 
 
-        moneypo.setKind(1.0);
+        moneypo.setKind(0.0);
         moneypo.setKeyno(billID);
         moneypo.setAccoun("");
         moneypo.setConsumer(consumerID);
@@ -178,6 +193,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         moneypo.setIsDraft(0.0);
         moneypo.setOper(operater);
         moneypo.setMoneyList(moneylistNO);
+        System.out.println("MoneyListNO："+moneylistNO);
         moneypo.setSumall(sum);
 
         return moneypo;

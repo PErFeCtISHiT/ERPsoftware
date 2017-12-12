@@ -143,8 +143,9 @@ public class ReEditCashBill {
                 System.out.println(sum);
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                for (int i=0;i<data.size();i++){
-                    data.get(i).setKeyid(i+"xxx");
+                for (int i=0;i<data.size();i++) {
+                    String listID = "ZZLB-" + i;
+                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
@@ -183,8 +184,9 @@ public class ReEditCashBill {
             System.out.println(sum);
 
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-            for (int i=0;i<data.size();i++){
-                data.get(i).setKeyid(i+"");
+            for (int i=0;i<data.size();i++) {
+                String listID = "ZZLB-" + i;
+                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
                 moneylist.add(data.get(i));
             }

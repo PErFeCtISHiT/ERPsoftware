@@ -13,13 +13,15 @@ import server.Po.consumerPO;
 import server.Po.goodsPO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface FinancialBuildAccountInterface {
 
 
-    public AccountBuild accountbuild() throws RemoteException;
+    public AccountBuild accountbuild() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException;
 
     public AccountBuild getPast(String year) throws RemoteException;
 

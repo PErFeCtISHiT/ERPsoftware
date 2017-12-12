@@ -56,4 +56,34 @@ public class NOgenerator {
     public static String generateaLog(int type) throws RemoteException, IntrospectionException, IllegalAccessException, InvocationTargetException {
         return "log" + "-" + NOgenerator.generate(type);
     }
+    public static String generateMoneyList(int type) throws RemoteException, IntrospectionException, InvocationTargetException, IllegalAccessException {
+        StringBuilder no;
+        List POS = link.getRemoteHelper().getPub().findAll(type);
+        if(POS.isEmpty())
+            no = new StringBuilder("00001");
+        else{
+            String temp;
+            int maxint = 0;
+            BeanInfo fromBean = Introspector.getBeanInfo(POS.get(POS.size() - 1).getClass(), Object.class);
+            PropertyDescriptor[] fromProperty = fromBean.getPropertyDescriptors();
+            for(PropertyDescriptor i : fromProperty){
+                if(i.getName().equals("keyid")){
+                    for (Object PO : POS) {
+                        temp = ((String) i.getReadMethod().invoke(PO));
+                        String split[] = temp.split("-");
+                        int tempint = Integer.parseInt(split[2]);
+                        if (tempint > maxint)
+                            maxint = tempint;
+                    }
+                }
+            }
+            maxint++;
+            no = new StringBuilder(String.valueOf(maxint));
+            while (no.length() < 5)
+                no.insert(0, "0");
+        }
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        return df.format(new Date()) + "-" + no.toString();
+    }
 }

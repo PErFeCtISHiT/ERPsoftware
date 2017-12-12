@@ -4,6 +4,7 @@ import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -39,6 +40,7 @@ public class ReEditMoneyBill {
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
+    private final NOgenerator nogenerater = new NOgenerator();
 
     final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
@@ -149,8 +151,9 @@ public class ReEditMoneyBill {
                 System.out.println(sum);
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                for (int i=0;i<data.size();i++){
-                    data.get(i).setKeyid(i+"");
+                for (int i=0;i<data.size();i++) {
+                    String listID = "ZZLB-" + i;
+                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
@@ -185,7 +188,9 @@ public class ReEditMoneyBill {
             String consumerID = consumer.getText();
             double sum = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-            for (int i=0;i<data.size();i++){
+            for (int i=0;i<data.size();i++) {
+                String listID = "ZZLB-" + i;
+                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
                 moneylist.add(data.get(i));
             }

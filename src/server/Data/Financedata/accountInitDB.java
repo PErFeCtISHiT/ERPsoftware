@@ -10,10 +10,15 @@ import server.Po.consumerPO;
 import server.Po.goodsPO;
 import server.hibernate.AccountInitEntity;
 
+import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,7 +94,7 @@ public class accountInitDB extends publicDB implements accountInit {
         hibtools.tx = hibtools.session.beginTransaction();
         AccountInitPO accountInitPO = new AccountInitPO();
         accountInitPO.setKeyyear(year);
-        accountInitPO.setKeyno("QCJZ-" + NOgenerator.generate(20));
+        accountInitPO.setKeyno(generateNO());
         List<goodsPO> goodsPOS = publicDB.findAll(0);
         StringBuilder goodsList = new StringBuilder();
         for(goodsPO i : goodsPOS){
@@ -108,5 +113,27 @@ public class accountInitDB extends publicDB implements accountInit {
         accountInitPO.setAccountlist(coList.toString());
         hibtools.session.close();
         publicDB.addObject(accountInitPO,20);
+    }
+    private String generateNO(){
+        StringBuilder no;
+        List<AccountInitPO> POS = publicDB.findAll(20);
+        if(POS.isEmpty())
+            no = new StringBuilder("00001");
+        else{
+            int temp;
+            int maxint = 0;
+            for(AccountInitPO i : POS){
+                temp = Integer.parseInt(i.getKeyno().split("-")[2]);
+                if(temp > maxint)
+                maxint = temp;
+            }
+            maxint++;
+            no = new StringBuilder(String.valueOf(maxint));
+            while (no.length() < 5)
+                no.insert(0, "0");
+        }
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+        return "QCJZ" + "-" + df.format(new Date()) + "-" + no.toString();
     }
 }

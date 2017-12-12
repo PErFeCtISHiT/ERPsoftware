@@ -1,4 +1,5 @@
 package server.RMIservice;
+
 import client.Vo.saleVO;
 import server.Data.Billdata.*;
 import server.Data.Codata.CoaccountDB;
@@ -30,18 +31,13 @@ import server.Dataservice.Logdataservice.log;
 import server.Dataservice.Packdataservice.pack;
 import server.Dataservice.Userdataservice.user;
 import server.Dataservice.pubservice.pub;
-import server.Po.buyinPO;
-import server.Po.selloutPO;
 import shared.ResultMessage;
-
 
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-
 import java.rmi.server.UnicastRemoteObject;
-
 import java.util.List;
 
 
@@ -166,6 +162,11 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     @Override
     public List findbySaleVO(saleVO saleVO) throws RemoteException {
         return sale.findbySaleVO(saleVO);
+    }
+
+    @Override
+    public List search(String detail) throws RemoteException {
+        return sale.search(detail);
     }
 
     @Override

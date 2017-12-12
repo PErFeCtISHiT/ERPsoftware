@@ -19,10 +19,10 @@ public class copyclass {
             PropertyDescriptor[] fromProperty = fromBean.getPropertyDescriptors();
             BeanInfo toBean = Introspector.getBeanInfo(to.getClass(), Object.class);
             PropertyDescriptor[] toProperty = toBean.getPropertyDescriptors();
-            for (int i = 0; i < fromProperty.length; i++) {
-                for (int j = 0; j < toProperty.length; j++) {
-                    if (fromProperty[i].getName().equals(toProperty[j].getName()) && fromProperty[i].getPropertyType() == toProperty[j].getPropertyType()) {
-                        toProperty[j].getWriteMethod().invoke(to, fromProperty[i].getReadMethod().invoke(from));
+            for (PropertyDescriptor aFromProperty : fromProperty) {
+                for (PropertyDescriptor aToProperty : toProperty) {
+                    if (aFromProperty.getName().equals(aToProperty.getName()) && aFromProperty.getPropertyType() == aToProperty.getPropertyType()) {
+                        aToProperty.getWriteMethod().invoke(to, aFromProperty.getReadMethod().invoke(from));
                         break;
                     }
                 }

@@ -10,6 +10,11 @@ public class CutEntity {
     private Double cut;
     private String voucher;
     private String packno;
+    private String fromDate;
+    private String toDate;
+
+    public CutEntity() {
+    }
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -49,6 +54,26 @@ public class CutEntity {
 
     public void setVoucher(String voucher) {
         this.voucher = voucher;
+    }
+
+    @Basic
+    @Column(name = "FROMDATE", nullable = true, length = 20)
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    @Basic
+    @Column(name = "TODATE", nullable = true, length = 20)
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     @Basic
