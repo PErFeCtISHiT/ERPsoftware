@@ -34,9 +34,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import server.Po.coPO;
+import server.Po.logPO;
 import shared.*;
 
-public class AccountManagementUI extends Application {
+public class AccountManagementUI {
 
     private final TableView<Account> table = new TableView<>();
     private final ObservableList<Account> data =
@@ -47,17 +48,14 @@ public class AccountManagementUI extends Application {
     FinancialAccountController controller  = new FinancialAccountController();
     private NOgenerator nogenerator = new NOgenerator();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) {
+    public VBox start(String staff) throws Exception {
+        Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("账户管理");
         stage.setWidth(750);
         stage.setHeight(550);
+//        Label work = new Label("工作目录");
 
         final Label label = new Label("账户列表");
         label.setFont(new Font("Arial", 20));
@@ -76,20 +74,14 @@ public class AccountManagementUI extends Application {
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
 
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////修改传递
         IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
-
-//        IDCol.setCellFactory(cellFactory);
-//        IDCol.setOnEditCommit(
-//                (CellEditEvent<Account, String> t) -> {
-//                    t.getTableView().getItems().get(
-//                            t.getTablePosition().getRow()).setaccountID(t.getNewValue());
-//
-//                    Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
-//                    modifyAccount(acc);
-//                });
 
 /////////////////////////////////////////////////////////////////////////////////修改传递
         NameCol.setMinWidth(200);
@@ -102,18 +94,22 @@ public class AccountManagementUI extends Application {
                             t.getTablePosition().getRow()).setaccountName(t.getNewValue());
                     Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     modifyAccount(acc);
-//                    try {
-//                        logVO log = new logVO();
-//                        log.
-//                    } catch (RemoteException e) {
-//                        e.printStackTrace();
-//                    } catch (InvocationTargetException e) {
-//                        e.printStackTrace();
-//                    } catch (IntrospectionException e) {
-//                        e.printStackTrace();
-//                    } catch (IllegalAccessException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        logVO log = new logVO();
+                        String staffno= "";
+
+                        log.setOperatorno(staffno);
+                        log.setKeyjob("修改账户");
+                        link.getRemoteHelper().getLog().addObject(log,20);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IntrospectionException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
                 });
 /////////////////////////////////////////////////////////////////////////////////修改传递
         MoneyCol.setMinWidth(200);
@@ -125,6 +121,22 @@ public class AccountManagementUI extends Application {
                     t.getTableView().getItems().get(t.getTablePosition().getRow()).setmoney(t.getNewValue());
                     Account acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     modifyAccount(acc);
+                    try {
+                        logVO log = new logVO();
+                        String staffno= "";
+                        log.setOperatorno(staffno);
+                        log.setKeyjob("修改账户");
+                        link.getRemoteHelper().getLog().addObject(log,20);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IntrospectionException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+
                 });
 
 //////////////////////////////////////////////////////////////////////////////////删除传递
@@ -147,6 +159,22 @@ public class AccountManagementUI extends Application {
                             co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
                             System.out.println(data.get(this.getIndex()).getaccountID().toString());
                             data.remove(this.getIndex());
+                            try {
+                                logVO log = new logVO();
+                                String staff= "";
+                                log.setOperatorno(staff);
+                                log.setKeyjob("删除账户");
+                                link.getRemoteHelper().getLog().addObject(log,19);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                e.printStackTrace();
+                            } catch (IntrospectionException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+
                             System.out.println("删除成功");
                             FinancialAccountController financialAccountController = new FinancialAccountController();
                             try {
@@ -208,6 +236,14 @@ public class AccountManagementUI extends Application {
                 co.setKeyname(newaccount.getaccountName());
                 co.setSumall(praseDouble.prase(newaccount.getmoney()));
                 controller.addAccount(co);
+
+                logPO log = new logPO();
+                String staffno= "";
+                log.setOperatorno(staffno);
+                log.setKeyjob("增加账户");
+                link.getRemoteHelper().getLog().addObject(log,18);
+
+
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             } catch (IntrospectionException e1) {
@@ -230,10 +266,12 @@ public class AccountManagementUI extends Application {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        return vbox;
 
-        stage.setScene(scene);
-        stage.show();
+//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+//
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 
