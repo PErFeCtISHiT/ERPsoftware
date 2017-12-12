@@ -391,7 +391,7 @@ public class PayUI {
             refresh();
         });
 
-        final Button newBill = new Button("新建收款单");
+        final Button newBill = new Button("新建付款单");
         newBill.setOnAction(e -> {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {

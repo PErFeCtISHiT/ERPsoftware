@@ -388,7 +388,7 @@ public class CashUI {
             refresh();
         });
 
-        final Button newBill = new Button("新建收款单");
+        final Button newBill = new Button("新建现金费用单");
         newBill.setOnAction(e -> {
             FillCashBillUI fillbill = new FillCashBillUI();
             try {
