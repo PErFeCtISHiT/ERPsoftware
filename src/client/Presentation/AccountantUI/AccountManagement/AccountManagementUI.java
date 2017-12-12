@@ -34,9 +34,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import server.Po.coPO;
+import server.Po.logPO;
 import shared.*;
 
-public class AccountManagementUI extends Application {
+public class AccountManagementUI {
 
     private final TableView<Account> table = new TableView<>();
     private final ObservableList<Account> data =
@@ -47,13 +48,9 @@ public class AccountManagementUI extends Application {
     FinancialAccountController controller  = new FinancialAccountController();
     private NOgenerator nogenerator = new NOgenerator();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) {
+    public VBox start(String staff) throws Exception {
+        Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("账户管理");
         stage.setWidth(750);
@@ -99,8 +96,9 @@ public class AccountManagementUI extends Application {
                     modifyAccount(acc);
                     try {
                         logVO log = new logVO();
-                        String staff= "";
-                        log.setOperatorno(staff);
+                        String staffno= "";
+
+                        log.setOperatorno(staffno);
                         log.setKeyjob("修改账户");
                         link.getRemoteHelper().getLog().addObject(log,20);
                     } catch (RemoteException e) {
@@ -125,8 +123,8 @@ public class AccountManagementUI extends Application {
                     modifyAccount(acc);
                     try {
                         logVO log = new logVO();
-                        String staff= "";
-                        log.setOperatorno(staff);
+                        String staffno= "";
+                        log.setOperatorno(staffno);
                         log.setKeyjob("修改账户");
                         link.getRemoteHelper().getLog().addObject(log,20);
                     } catch (RemoteException e) {
@@ -239,9 +237,9 @@ public class AccountManagementUI extends Application {
                 co.setSumall(praseDouble.prase(newaccount.getmoney()));
                 controller.addAccount(co);
 
-                logVO log = new logVO();
-                String staff= "";
-                log.setOperatorno(staff);
+                logPO log = new logPO();
+                String staffno= "";
+                log.setOperatorno(staffno);
                 log.setKeyjob("增加账户");
                 link.getRemoteHelper().getLog().addObject(log,18);
 
@@ -268,10 +266,12 @@ public class AccountManagementUI extends Application {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        return vbox;
 
-        stage.setScene(scene);
-        stage.show();
+//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+//
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 
