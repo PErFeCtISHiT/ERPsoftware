@@ -582,7 +582,18 @@ public class newBillUI extends Application{
         gridPane.setMinHeight(450);
         gridPane.setMinWidth(1050);
 
-        Label label=new Label("单据类型");
+        Label kindlabel=new Label("单据类型");
+        Text kind=new Text();
+        if(thisselloutBill.getSelloutkinds()=="0"){
+            kind.setText("销售单");
+        }else{
+            kind.setText("销售退货单");
+        }
+
+        Label idLabel=new Label("单据ID");
+        Text id=new Text();
+        id.setText(thisselloutBill.getSelloutID());
+
 
 
         return gridPane;
