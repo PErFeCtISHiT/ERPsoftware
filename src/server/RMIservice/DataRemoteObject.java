@@ -193,4 +193,9 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         accountInit.Build(year);
     }
+
+    @Override
+    public void deleteByNO(String no)throws RemoteException {
+        moneyList.deleteByNO(no);
+    }
 }
