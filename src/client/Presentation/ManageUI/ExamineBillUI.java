@@ -33,6 +33,7 @@ public class ExamineBillUI extends Application {
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
     TitledPane gridTitlePane = new TitledPane();
+    final Button button1 = new Button("提交审批");
     final HBox fhb =new HBox();
     //所有单据共有属性
     final Label Type =new Label();
@@ -49,6 +50,9 @@ public class ExamineBillUI extends Application {
     final Label base =new Label();
     final Label goodsoutlist =new Label();
     final Label sumall =new Label();
+
+    //审核按钮
+    final Button button4 = new Button("查询");
 
     //search 属性
     int searchcode = -1;
@@ -120,37 +124,38 @@ public class ExamineBillUI extends Application {
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
                             int  kind =data.get(this.getIndex()).getPrecisetype();
+                            int  index =this.getIndex();
                             try {
                                 switch (kind){
                                     case 3:{
                                         buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
-                                        detail3(keyno);
+                                        detail3(keyno,index);
 
                                         break;
                                     }
                                     case 4:{
                                         selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
-                                        detail4(keyno);
+                                        detail4(keyno,index);
                                     }
                                     case 5:{
                                         moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
-                                        detail5(keyno);
+                                        detail5(keyno,index);
 
                                     }
                                     case 6:{
                                         giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
-                                        detail6(keyno);
+                                        detail6(keyno,index);
 
                                     }
                                     case 7:{
                                         //need to test
                                         stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
-                                        detail7(keyno);
+                                        detail7(keyno,index);
 
                                     }
                                     case 9:{
                                         WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
-                                        detail9(keyno);
+                                        detail9(keyno,index);
 
                                     }
 
@@ -283,12 +288,11 @@ public class ExamineBillUI extends Application {
         vbox.getChildren().add(gridPane);
 //;lt
 
-        final Button button1 = new Button("提交审批");
         button1.setOnAction((ActionEvent e) -> {
 
         });
 
-        final Button button4 = new Button("查询");
+
 
 
 
@@ -563,7 +567,7 @@ public class ExamineBillUI extends Application {
             return"红冲账单";
         }
     }
-    public void detail3(String keyno) {
+    public void detail3(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -599,10 +603,18 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label(po.getBase()),1,7);
             grid3.add(new Label("入库商品列表"),0,8);
             grid3.add(new Label(po.getGoodsoutlist()),1,8);
-
-
+            button1.setOnAction((ActionEvent e)->{
+                po.setIscheck(1.0);
+                data.remove(index);
+                try {
+                    link.getRemoteHelper().getBuyinBill().modifyObject(po,3);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+            });
 
             gridTitlePane.setContent(grid3);
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -614,7 +626,7 @@ public class ExamineBillUI extends Application {
      * 销售/退货单（selloutPO/antiSellout）：单据客户（仅显示销售商），业务员（和这个客户打交道的公司员工，可以设置一个客户的默认业务员），仓库，出货商品清单（存储清单编号，用逗号隔开），折让前总额，折让，使用代金卷金额，折让后总额
      * @param keyno
      */
-    public void detail4(String keyno) {
+    public void detail4(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -643,7 +655,7 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label(po.getServer()),1,6);
             grid3.add(new Label("仓库"),0,7);
             grid3.add(new Label(po.getBase()),1,7);
-            grid3.add(new Label("出货商品清单"),0,8);
+            grid3.add(new Label("商品编号"),0,8);
             grid3.add(new Label(po.getGoodsoutlist()),1,8);
             grid3.add(new Label("折让前总额"),0,9);
             grid3.add(new Label(po.getSumall().toString()),1,9);
@@ -655,6 +667,16 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label(po.getFinalsum().toString()),1,12);
 
             gridTitlePane.setContent(grid3);
+            button1.setOnAction((ActionEvent e)->{
+                po.setIscheck(1.0);
+                try {
+                    link.getRemoteHelper().getSelloutBill().modifyObject(po,4);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+
+                data.remove(index);
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -664,7 +686,7 @@ public class ExamineBillUI extends Application {
      收/付款单（moneyPO/pay）：客户（同时包含供应商和销售商），银行账户，清单名称（moneylist），总额汇总。
      * @param keyno
      */
-    public void detail5(String keyno) {
+    public void detail5(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -702,6 +724,15 @@ public class ExamineBillUI extends Application {
 
 
             gridTitlePane.setContent(grid3);
+            button1.setOnAction((ActionEvent e)->{
+                po.setIscheck(1.0);
+                try {
+                    link.getRemoteHelper().getMoneyBill().modifyObject(po,5);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -711,7 +742,7 @@ public class ExamineBillUI extends Application {
      * 库存赠送单（giftPO）：商品编号，商品名称，客户编号，客户名称，数量。
      * @param keyno
      */
-    public void detail6(String keyno) {
+    public void detail6(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -743,11 +774,19 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label("客户名称"),0,8);
             grid3.add(new Label(po.getGoodsname()),1,8);
             grid3.add(new Label("数量"),0,9);
-            grid3.add(new Label(po.getNum().toString()),1,9);
-
-
-
+            TextField numforit = new TextField(po.getNum().toString());
+            numforit.setEditable(true);
+            grid3.add(numforit,1,9);
             gridTitlePane.setContent(grid3);
+            button1.setOnAction((ActionEvent e)->{
+                po.setNum(Double.parseDouble(numforit.getText()));
+                po.setIscheck(1.0); try {
+                    link.getRemoteHelper().getMoneyBill().modifyObject(po,6);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -757,7 +796,7 @@ public class ExamineBillUI extends Application {
      * 库存报溢/损单（stockexceptionPO/damage）：商品编号，商品名称，库房数量，系统数量
      * @param keyno
      */
-    public void detail7(String keyno) {
+    public void detail7(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -788,8 +827,18 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label(po.getNuminbase().toString()),1,7);
             grid3.add(new Label("系统数量"),0,8);
             grid3.add(new Label(po.getNuminsys().toString()),1,8);
-
             gridTitlePane.setContent(grid3);
+            button1.setOnAction((ActionEvent e)->{
+                po.setIscheck(1.0);
+                try {
+                    link.getRemoteHelper().getStockOverflowBill().modifyObject(po,7);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
+
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -799,7 +848,7 @@ public class ExamineBillUI extends Application {
      * 库存报警单（warningPO）：商品编号，商品名称，库存数量，警戒值。
      * @param keyno
      */
-    public void detail9(String keyno) {
+    public void detail9(String keyno,int index) {
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
         grid3.setHgap(10);
@@ -829,10 +878,21 @@ public class ExamineBillUI extends Application {
             grid3.add(new Label("库存数量"),0,7);
             grid3.add(new Label(po.getNum().toString()),1,7);
             grid3.add(new Label("警戒值"),0,8);
-            grid3.add(new Label(po.getWarningnum().toString()),1,8);
-
-
+            TextField warning =new TextField(po.getWarningnum().toString());
+            warning.setEditable(true);
+            grid3.add(warning,1,8);
             gridTitlePane.setContent(grid3);
+            button1.setOnAction((ActionEvent e)->{
+                po.setWarningnum(Double.parseDouble(warning.getText()));
+                po.setIscheck(1.0);
+                try {
+                    link.getRemoteHelper().getStockwarningBill().modifyObject(po,9);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
