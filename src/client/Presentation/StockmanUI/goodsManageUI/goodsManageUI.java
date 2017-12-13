@@ -1,10 +1,14 @@
 package client.Presentation.StockmanUI.goodsManageUI;
+
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
+import client.RMI.link;
 import client.Vo.goodsVO;
+import client.Vo.logVO;
+import client.Vo.stockGoodsVO;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +27,6 @@ import shared.praseDouble;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -33,15 +36,16 @@ import java.util.List;
 public class goodsManageUI {
     private ObservableList<Goods> data;
     private String kinds;
-
+    private String staff;
     private GoodsController goodsController = new GoodsController();
-    int warningnum = 100;
+
 
 
 
 
 
     public VBox start(String kinds,String staff) throws RemoteException {
+        this.staff = staff;
         this.kinds = kinds;
 
         TableView<Goods> table = new TableView<>();
@@ -163,8 +167,27 @@ public class goodsManageUI {
                     vo.setReceoutprice(praseDouble.prase(newgoods.getGoodsReceoutprice()));
                     vo.setWarningnum(praseDouble.prase(newgoods.getGoodsWarningnum()));
                     modifygoods(newgoods);
+
+
+                    stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+                    try {
+                        stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+                    } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                    stockGoodsVO.setGoodsname(vo.getKeyname());
+                    stockGoodsVO.setGoodsno(vo.getKeyno());
+                    stockGoodsVO.setKeynum(addnum);
+                    stockGoodsVO.setSumall(addnum * vo.getReceprice());
+                    try {
+                        goodsController.stockGoods(stockGoodsVO);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
                     goodsExceptionUI.systemWarning(vo,staff,addnum);
+
 
                 });
 
@@ -242,9 +265,44 @@ public class goodsManageUI {
                     this.setGraphic(delBtn);
                     delBtn.setOnMouseClicked((me) -> {
                         goodsVO vo = createGoodsVO(this);
+
+
+                        stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+                        try {
+                            stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+                        } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                            e1.printStackTrace();
+                        }
+                        stockGoodsVO.setGoodsname(vo.getKeyname());
+                        stockGoodsVO.setGoodsno(vo.getKeyno());
+                        stockGoodsVO.setKeynum(-vo.getNum());
+                        stockGoodsVO.setSumall(-vo.getNum() * vo.getReceprice());
+                        try {
+                            goodsController.stockGoods(stockGoodsVO);
+                        } catch (RemoteException e1) {
+                            e1.printStackTrace();
+                        }
+
                         data.remove(this.getIndex());
                         try {
                             goodsController.deleteGoods(vo);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                        logVO logVO = null;
+                        try {
+                            logVO = new logVO();
+                        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+                            e.printStackTrace();
+                        }
+                        logVO.setOpno("删除商品");
+                        logVO.setOperatorno(staff);
+                        logVO.setGoodsname(vo.getKeyname());
+                        logVO.setKeyjob("库存管理");
+                        try {
+                            link.getRemoteHelper().getLog().addObject(logVO, 13);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -361,6 +419,11 @@ public class goodsManageUI {
             }
             String type = "SP";
             no = type + "-" + no;
+            String dat = "";
+            if(makeDate.getValue() != null)
+                dat = makeDate.getValue().toString();
+            else
+                dat = null;
             Goods newgoods = new Goods(
                     no,
                     addName.getText(),
@@ -370,7 +433,7 @@ public class goodsManageUI {
                     addoutprice.getText(),
                     addreceinprice.getText(),
                     addreceoutprice.getText(),
-                    "100", addbatch.getText(), addbatchno.getText(), makeDate.getValue().toString());
+                    "100", addbatch.getText(), addbatchno.getText(), dat);
 
             data.add(newgoods);
             goodsVO vo = new goodsVO();
@@ -401,6 +464,23 @@ public class goodsManageUI {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
+            stockGoodsVO stockGoodsVO = new stockGoodsVO();
+
+            try {
+                stockGoodsVO.setKeyno("RKD" + "-" + NOgenerator.generate(19));
+            } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                e1.printStackTrace();
+            }
+            stockGoodsVO.setGoodsname(vo.getKeyname());
+            stockGoodsVO.setGoodsno(vo.getKeyno());
+            stockGoodsVO.setKeynum(vo.getNum());
+            stockGoodsVO.setSumall(vo.getNum() * vo.getReceprice());
+            try {
+                goodsController.stockGoods(stockGoodsVO);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
             addName.clear();
             addModel.clear();
             addNum.clear();
@@ -410,6 +490,22 @@ public class goodsManageUI {
             addreceoutprice.clear();
             addbatch.clear();
             addbatchno.clear();
+            logVO logVO = null;
+            try {
+                logVO = new logVO();
+            } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e1) {
+                e1.printStackTrace();
+            }
+            logVO.setOpno("增加商品");
+            logVO.setOperatorno(staff);
+            logVO.setGoodsname(vo.getKeyname());
+            logVO.setKeyjob("库存管理");
+            try {
+                link.getRemoteHelper().getLog().addObject(logVO,13);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
         });
 
         hb.getChildren().addAll( addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice,addbatch,addbatchno,makeDate, addButton);
@@ -504,8 +600,9 @@ public class goodsManageUI {
         return goodsVO;
     }
 
-    private void modifygoods(Goods newgoods){
+    private void modifygoods(Goods newgoods)  {
         goodsVO vo = new goodsVO();
+
         vo.setKinds(kinds);
         vo.setKeyno(newgoods.getGoodsID());
         vo.setKeyname(newgoods.getGoodsName());
@@ -520,6 +617,23 @@ public class goodsManageUI {
             goodsController.modifyGoods(vo);
         } catch (RemoteException e1) {
             e1.printStackTrace();
+        }
+
+        logVO logVO = null;
+        try {
+            logVO = new logVO();
+        } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+            e.printStackTrace();
+        }
+        assert logVO != null;
+        logVO.setOpno("修改商品");
+        logVO.setOperatorno(staff);
+        logVO.setGoodsname(vo.getKeyname());
+        logVO.setKeyjob("库存管理");
+        try {
+            link.getRemoteHelper().getLog().addObject(logVO,13);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,7 +1,7 @@
 package server.hibernate;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Date;
 
 /**
  * @author: pis
@@ -11,7 +11,7 @@ import java.sql.Time;
 @Entity
 @Table(name = "LOG", schema = "PIS")
 public class LogEntity {
-    private Time adddate;
+    private Date adddate;
     private String keyno;
     private String keyjob;
     private String operatorno;
@@ -24,11 +24,11 @@ public class LogEntity {
 
     @Basic
     @Column(name = "ADDDATE", nullable = true)
-    public Time getAdddate() {
+    public Date getAdddate() {
         return adddate;
     }
 
-    public void setAdddate(Time adddate) {
+    public void setAdddate(Date adddate) {
         this.adddate = adddate;
     }
 

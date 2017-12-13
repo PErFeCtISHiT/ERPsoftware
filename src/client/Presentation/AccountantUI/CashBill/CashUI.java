@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -182,14 +184,15 @@ public class CashUI extends Application{
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {
-                        Button editBtn = new Button("编辑收款单");
+                        Button editBtn = new Button("编辑现金费用单");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
+                            ReEditCashBill reEditCashBill = new ReEditCashBill();
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
-//                                cashController.setDetailInfor(bill);
-                            } catch (RemoteException e) {
+                                reEditCashBill.start(bill);
+                            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
 
@@ -297,7 +300,7 @@ public class CashUI extends Application{
                                 FinancialCash bill = cashController.ReEditBill(keyno);
                                 System.out.println("size: "+bill.getMoneyList().size());
                                 detail(bill);
-                            } catch (RemoteException e) {
+                            } catch (RemoteException  e) {
                                 e.printStackTrace();
                             }
 
@@ -360,6 +363,8 @@ public class CashUI extends Application{
         GridPane grid = new GridPane();
         grid.setVgap(4);
         grid.setHgap(10);
+
+
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.add(new Label("单据类型："), 0, 0);
         grid.add(TypeComboBox, 1, 0);
@@ -376,6 +381,8 @@ public class CashUI extends Application{
         grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
+
+       // gridTitlePane.setVisible(false);
 
 
 

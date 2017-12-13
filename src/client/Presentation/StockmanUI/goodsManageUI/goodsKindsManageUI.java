@@ -4,6 +4,7 @@ import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -17,22 +18,15 @@ import server.Po.goodskindsPO;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static javafx.application.Application.launch;
 
 /**
  * @author: pis
  * @description: good good study
  * @date: create in 14:57 2017/12/2
  */
-public class goodsKindsManageUI extends Application{
-    /**
-     *todo: staff
-     */
+public class goodsKindsManageUI {
+
     String staff = "core";
 
 
@@ -41,18 +35,9 @@ public class goodsKindsManageUI extends Application{
     private static TreeView<String> goodsTreeView;
     private static TreeItem<String> root;
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
 
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("商品分类管理");
-        stage.setWidth(1400);
-        stage.setHeight(750);
+    public HBox start(String staff) throws Exception {
+        this.staff = staff;
 
         root = new TreeItem<>();
         root.setExpanded(true);
@@ -87,14 +72,14 @@ public class goodsKindsManageUI extends Application{
         delbtn.setOnAction(e -> {
             try {
                 delkinds();
-            } catch (RemoteException e1) {
+            } catch (RemoteException | IllegalAccessException | InvocationTargetException | IntrospectionException e1) {
                 e1.printStackTrace();
             }
         });
         modifybtn.setOnAction(e -> {
             try {
                 modifykinds(kindsname.getText());
-            } catch (RemoteException e1) {
+            } catch (RemoteException | IllegalAccessException | InvocationTargetException | IntrospectionException e1) {
                 e1.printStackTrace();
             }
             kindsname.clear();
@@ -139,13 +124,8 @@ public class goodsKindsManageUI extends Application{
 
             }
         });
-        goodsCheckUI goodsCheckUI = new goodsCheckUI();
 
-
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return vbox;
 
     }
 
@@ -176,10 +156,16 @@ public class goodsKindsManageUI extends Application{
         else
             root.getChildren().add(new TreeItem<>(text));
         link.getRemoteHelper().getPub().addObject(goodskindsPO,1);
+        logVO logVO = new logVO();
+        logVO.setOpno("增加商品分类");
+        logVO.setOperatorno(staff);
+        logVO.setGoodsname(goodskindsPO.getKeyname());
+        logVO.setKeyjob("库存管理");
+        link.getRemoteHelper().getLog().addObject(logVO,13);
 
     }
 
-    private void modifykinds(String text) throws RemoteException {
+    private void modifykinds(String text) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String temp = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
         goodsTreeView.getSelectionModel().getSelectedItem().setValue(text);
         goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
@@ -203,9 +189,16 @@ public class goodsKindsManageUI extends Application{
         goodskindsPO.setSon(modify.toString());
         link.getRemoteHelper().getPub().modifyObject(goodskindsPO,1);
 
+        logVO logVO = new logVO();
+        logVO.setOpno("修改商品分类");
+        logVO.setOperatorno(staff);
+        logVO.setGoodsname(goodskindsPO.getKeyname());
+        logVO.setKeyjob("库存管理");
+        link.getRemoteHelper().getLog().addObject(logVO,13);
+
     }
 
-    private void delkinds() throws RemoteException {
+    private void delkinds() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String temp = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
         goodsTreeView.getSelectionModel().getSelectedItem().getParent().getChildren().remove(goodsTreeView.getSelectionModel().getSelectedItem());
         goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
@@ -219,6 +212,12 @@ public class goodsKindsManageUI extends Application{
         }
         goodskindsPO.setSon(modify.toString());
         link.getRemoteHelper().getPub().modifyObject(goodskindsPO,1);
+        logVO logVO = new logVO();
+        logVO.setOpno("删除商品分类");
+        logVO.setOperatorno(staff);
+        logVO.setGoodsname(goodskindsPO.getKeyname());
+        logVO.setKeyjob("库存管理");
+        link.getRemoteHelper().getLog().addObject(logVO,13);
     }
 
     /**

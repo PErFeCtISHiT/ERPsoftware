@@ -10,34 +10,63 @@ import client.Vo.goodsVO;
  * Created by Leonarda on 2017/12/3.
  */
 public class StockinBill {
-    public final SimpleStringProperty BuyinID;
-    public final SimpleStringProperty BuyinOffer;
-    public final SimpleStringProperty BuyinStoreHouse;
-    public final SimpleStringProperty BuyinOperater;
-    public final SimpleStringProperty BuyinGoodsList;
-    public final SimpleStringProperty BuyinTips;
-    public final SimpleStringProperty BuyinSum;
+    public SimpleStringProperty BuyinKind;
+    public SimpleStringProperty BuyinID;
+    public SimpleStringProperty BuyinTips;
+    public SimpleStringProperty BuyinOperater;
+    public SimpleStringProperty BuyinisCheck;
+    public SimpleStringProperty BuyinisRed;
+    public SimpleStringProperty BuyinOffer;
+    public SimpleStringProperty BuyinStoreHouse;
+    public SimpleStringProperty BuyinGoodsList;
+    public SimpleStringProperty BuyinSum;
+    public SimpleStringProperty BuyinisDraft;
 
-    public final SimpleStringProperty BuyinKinds;
+    public StockinBill(String kind,String id,String tips,String operater,String ischeck,String isred,String offer,String storehouse,String goodslist,String sum,String isDraft){
+        this.BuyinKind=new SimpleStringProperty(kind);
+        this.BuyinID=new SimpleStringProperty(id);
+        this.BuyinTips=new SimpleStringProperty(tips);
+        this.BuyinOperater=new SimpleStringProperty(operater);
+        this.BuyinisCheck=new SimpleStringProperty(ischeck);
+        this.BuyinisRed=new SimpleStringProperty(isred);
+        this.BuyinOffer=new SimpleStringProperty(offer);
+        this.BuyinStoreHouse=new SimpleStringProperty(storehouse);
+        this.BuyinGoodsList=new SimpleStringProperty(goodslist);
+        this.BuyinSum=new SimpleStringProperty(sum);
+        this.BuyinisDraft=new SimpleStringProperty(isDraft);
+    }
+    public StockinBill(){}
 
-
-    public StockinBill(String a,String b,String c,String d,String e,String f,String g,String h){
-        this.BuyinID=new SimpleStringProperty(a);
-        this.BuyinOffer=new SimpleStringProperty(b);
-        this.BuyinStoreHouse=new SimpleStringProperty(c);
-        this.BuyinOperater=new SimpleStringProperty(d);
-        this.BuyinGoodsList=new SimpleStringProperty(e);
-        this.BuyinTips=new SimpleStringProperty(f);
-        this.BuyinSum=new SimpleStringProperty(g);
-        this.BuyinKinds=new SimpleStringProperty(h);
+    public void setBuyinisDraft(String buyinisDraft) {
+        this.BuyinisDraft.set(buyinisDraft);
     }
 
-    public void setBuyinKinds(String buyinKinds) {
-        this.BuyinKinds.set(buyinKinds);
+    public String getBuyinisDraft() {
+        return BuyinisDraft.get();
     }
 
-    public String getBuyinKinds() {
-        return BuyinKinds.get();
+    public void setBuyinisCheck(String buyinisCheck) {
+        this.BuyinisCheck.set(buyinisCheck);
+    }
+
+    public void setBuyinisRed(String buyinisRed) {
+        this.BuyinisRed.set(buyinisRed);
+    }
+
+    public void setBuyinKind(String buyinKind) {
+        this.BuyinKind.set(buyinKind);
+    }
+
+    public String getBuyinKind() {
+        return BuyinKind.get();
+    }
+
+    public String getBuyinisRed() {
+        return BuyinisRed.get();
+    }
+
+    public String getBuyinisCheck() {
+        return BuyinisCheck.get();
     }
 
     public String getBuyinSum() {

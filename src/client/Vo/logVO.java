@@ -1,10 +1,19 @@
 package client.Vo;
 
+import client.Presentation.NOgenerator.NOgenerator;
+
+import java.beans.IntrospectionException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.sql.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class logVO implements Serializable{
-	private Time adddate;
+	private Date adddate;
 	private String keyno;
 	private String keyjob;
 	private String operatorno;
@@ -15,7 +24,21 @@ public class logVO implements Serializable{
 	private String consumer;
 	private String base;
 
-	public String getGoodsname() {
+    public logVO() throws RemoteException, InvocationTargetException, IntrospectionException, IllegalAccessException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date= null;
+		try {
+			date = sdf.parse(LocalDate.now().toString());
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		java.sql.Date sqldate = new java.sql.Date(date.getTime());
+		this.setAdddate(sqldate);
+        String logno = NOgenerator.generateaLog(13);
+        this.setKeyno(logno);
+    }
+
+    public String getGoodsname() {
 		return goodsname;
 	}
 
@@ -39,11 +62,11 @@ public class logVO implements Serializable{
 		this.base = base;
 	}
 
-	public Time getAdddate() {
+	public Date getAdddate() {
 		return adddate;
 	}
 
-	public void setAdddate(Time adddate) {
+	public void setAdddate(Date adddate) {
 		this.adddate = adddate;
 	}
 
@@ -95,7 +118,7 @@ public class logVO implements Serializable{
 		this.note = note;
 	}
 
-	public logVO(Time adddate, String keyno, String keyjob, String operatorno, String billno, String opno, String note) {
+	public logVO(Date adddate, String keyno, String keyjob, String operatorno, String billno, String opno, String note) {
 
 		this.adddate = adddate;
 		this.keyno = keyno;

@@ -3,21 +3,21 @@ package client.Presentation.StockmanUI.goodsCheckUI;
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanStockCheckbl.stockCheckController;
 import client.Presentation.StockmanUI.goodsManageUI.goodsManageUI;
-import client.RMI.link;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.goodsPO;
 
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
-
-import static javafx.application.Application.launch;
 
 /**
  * @author: pis
@@ -27,15 +27,12 @@ import static javafx.application.Application.launch;
 public class goodsCheckUI {
 
 
-    private ObservableList<Goods> data;
-
-
     private stockCheckController stockCheckController = new stockCheckController();
 
 
-    public VBox start() throws RemoteException {
+    public HBox start() throws RemoteException {
 
-        data = FXCollections.observableArrayList();
+        ObservableList<Goods> data = FXCollections.observableArrayList();
 
 
         Callback<TableColumn<Goods, String>,
@@ -134,9 +131,19 @@ public class goodsCheckUI {
         datecol.setCellValueFactory(
                 param -> param.getValue().outdate);
         Button exportButton = new Button("导出到excel");
-        /**
-         *todo:导出excel
-         */
+
+        exportButton.setOnAction(e -> {
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showSaveDialog(new Stage());
+            try {
+                if(file != null)
+                stockCheckController.exportToExcel(0,file.toString());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
         TableView<Goods> table = new TableView<>();
         table.setEditable(false);
         table.setItems(data);
@@ -145,8 +152,12 @@ public class goodsCheckUI {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, exportButton);
+        HBox ret = new HBox();
+        ret.setSpacing(5);
+        ret.setPadding(new Insets(10, 0, 0, 10));
+        ret.getChildren().add(vbox);
 
-        return vbox;
+        return ret;
     }
 
 }

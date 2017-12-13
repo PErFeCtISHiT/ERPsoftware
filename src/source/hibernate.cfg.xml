@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:oracle:thin:@172.26.65.125:1521:pis</property>
+    <property name="connection.url">jdbc:oracle:thin:@172.26.71.52:1521:pis</property>
     <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
       <property name="current_session_context_class">thread</property>
       <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -12,7 +12,7 @@
       <property name="hbm2ddl.auto">update</property>
     <property name="connection.username">pis</property>
     <property name="connection.password">liuyitong</property>
-      <mapping class="server.hibernate.BuyinEntity"/>
+    <mapping class="server.hibernate.BuyinEntity"/>
     <mapping resource="server/hibernate/BuyinEntity.hbm.xml"/>
     <mapping class="server.hibernate.CoEntity"/>
     <mapping resource="server/hibernate/CoEntity.hbm.xml"/>
@@ -50,6 +50,10 @@
     <mapping class="server.hibernate.LogEntity"/>
     <mapping class="server.hibernate.SaleEntity"/>
     <mapping resource="server/hibernate/SaleEntity.hbm.xml"/>
+      <mapping class="server.hibernate.StockgoodsEntity"/>
+      <mapping resource="server/hibernate/StockgoodsEntity.hbm.xml"/>
+    <mapping class="server.hibernate.AccountInitEntity"/>
+    <mapping resource="server/hibernate/AccountInitEntity.hbm.xml"/>
 
 
     <!-- DB schema will be updated if needed -->

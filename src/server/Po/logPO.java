@@ -1,10 +1,19 @@
 package server.Po;
 
+import client.Presentation.NOgenerator.NOgenerator;
+
+import java.beans.IntrospectionException;
 import java.io.Serializable;
-import java.sql.Time;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 
 public class logPO implements Serializable{
-	private Time adddate;
+	private Date adddate;
 	private String keyno;
 	private String keyjob;
 	private String operatorno;
@@ -14,6 +23,10 @@ public class logPO implements Serializable{
 	private String goodsname;
 	private String consumer;
 	private String base;
+
+	public logPO() {
+
+	}
 
 	public String getGoodsname() {
 		return goodsname;
@@ -39,15 +52,12 @@ public class logPO implements Serializable{
 		this.base = base;
 	}
 
-	public logPO() {
 
-    }
-
-    public Time getAdddate() {
+    public Date getAdddate() {
 		return adddate;
 	}
 
-	public void setAdddate(Time adddate) {
+	public void setAdddate(Date adddate) {
 		this.adddate = adddate;
 	}
 
@@ -99,7 +109,7 @@ public class logPO implements Serializable{
 		this.note = note;
 	}
 
-	public logPO(Time adddate, String keyno, String keyjob, String operatorno, String billno, String opno, String note) {
+	public logPO(Date adddate, String keyno, String keyjob, String operatorno, String billno, String opno, String note) {
 
 		this.adddate = adddate;
 		this.keyno = keyno;

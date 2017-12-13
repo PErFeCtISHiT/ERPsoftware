@@ -29,7 +29,7 @@
         <property name="accoun">
             <column name="ACCOUN" sql-type="varchar2(20)" length="20" />
         </property>
-        <property name="num">
+        <property name="moneyList">
             <column name="moneylist" sql-type="varchar2(20)" length="2000"/>
         </property>
         <property name="sumall">

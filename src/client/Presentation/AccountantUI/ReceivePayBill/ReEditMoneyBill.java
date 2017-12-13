@@ -21,21 +21,16 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ReEditMoneyBill extends Application{
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
+public class ReEditMoneyBill {
 
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
-            FXCollections.observableArrayList(
-                    new MoneyList("1","1","123", "12.5", "C"),
-                    new MoneyList("2","2","456", "17.6", "E")
-            );
+            FXCollections.observableArrayList();
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Button OutputButton = new Button("导出单据");
@@ -50,7 +45,9 @@ public class ReEditMoneyBill extends Application{
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
     FinancialPayController payController = new FinancialPayController();
-    @Override public void start(Stage stage) {
+
+    public void start(FinancialBill bill) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
         table.setEditable(true);
@@ -60,9 +57,6 @@ public class ReEditMoneyBill extends Application{
                 = (TableColumn<MoneyList, String> p) -> new ReEditMoneyBill.EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
-
-
-
 
 
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
@@ -210,9 +204,31 @@ public class ReEditMoneyBill extends Application{
             TypeComboBox.setValue(null);
             money.clear();
             text.clear();
-
-
         });
+
+        String ID = bill.getID();
+        String Type = bill.getBillType();
+        if (Type.equals("0.0")){
+            Type = "收款单";
+        }
+        else {
+            Type = "付款单";
+        }
+        String consumerID = bill.getConsumerID();
+        String consumerType = bill.getConsumerType();
+        String operater = bill.getOperater();
+        String sum = String.valueOf(bill.getSum());
+        ArrayList<MoneyList> moneylist = bill.getMoneyList();
+
+        TypeComboBox.setValue(Type);
+        billNum.setText(ID);
+        StaffComboBox.setValue(operater);
+        ConsumerTypeComboBox.setValue(consumerType);
+        consumer.setText(consumerID);
+        data.clear();
+        data.addAll(moneylist);
+        money.setText(sum);
+
 
         GridPane grid = new GridPane();
         grid.setVgap(4);

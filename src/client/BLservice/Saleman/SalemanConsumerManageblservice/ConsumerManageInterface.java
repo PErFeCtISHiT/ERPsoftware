@@ -1,6 +1,7 @@
 package client.BLservice.Saleman.SalemanConsumerManageblservice;
 
 import client.BL.Saleman.SalemanConsumerManageblservice.Consumer;
+import server.Po.consumerPO;
 import shared.ResultMessage;
 import client.Vo.consumerVO;
 

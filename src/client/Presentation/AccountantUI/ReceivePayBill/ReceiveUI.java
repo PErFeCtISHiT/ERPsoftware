@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -182,11 +184,13 @@ public class ReceiveUI extends Application {
                         Button editBtn = new Button("编辑收款单");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
+                            ReEditMoneyBill reeditmoneybill= new ReEditMoneyBill();
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
+
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
-                                receiveController.setDetailInfor(bill);
-                            } catch (RemoteException e) {
+                                reeditmoneybill.start(bill);
+                            } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
 

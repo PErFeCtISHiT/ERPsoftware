@@ -8,6 +8,9 @@ import client.Vo.coVO;
 import client.Vo.consumerVO;
 import client.Vo.goodsVO;
 import client.Vo.goodskindsVO;
+import server.Po.coPO;
+import server.Po.consumerPO;
+import server.Po.goodsPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
@@ -22,8 +25,14 @@ public interface FinancialBuildAccountInterface {
 
     public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException;
 
+    public AccountBuild_account PoToAccount(coPO po) throws RemoteException;
+
     public ArrayList<AccountBuild_consumer> getPastConsumer(String year) throws RemoteException;
 
+    public AccountBuild_consumer PoToConsumer(consumerPO po) throws RemoteException;
+
     public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException;
+
+    public AccountBuild_good PoToGood(goodsPO po) throws RemoteException;
 
 }

@@ -16,6 +16,7 @@ public class consumerVO implements Serializable{
 	private String server;   //业务员
 	private String accoun;    //银行账户
 
+
     public consumerVO() {
 
     }
