@@ -40,7 +40,7 @@ import shared.*;
 
 public class AccountManagementUI {
 
-    private final TableView<Account> table = new TableView<>();
+
     private final ObservableList<Account> data =
             FXCollections.observableArrayList();
     final HBox hb = new HBox();
@@ -51,6 +51,7 @@ public class AccountManagementUI {
 
 
     public VBox start(String staff) throws Exception {
+        TableView<Account> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("账户管理");
@@ -97,10 +98,9 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     try {
                         logVO log = new logVO();
-
                         log.setOperatorno(staff);
                         log.setKeyjob("修改账户");
-                        link.getRemoteHelper().getLog().addObject(log,20);
+                        link.getRemoteHelper().getLog().addObject(log,13);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -125,7 +125,7 @@ public class AccountManagementUI {
                         logVO log = new logVO();
                         log.setOperatorno(staff);
                         log.setKeyjob("修改账户");
-                        link.getRemoteHelper().getLog().addObject(log,20);
+                        link.getRemoteHelper().getLog().addObject(log,13);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -161,8 +161,8 @@ public class AccountManagementUI {
                             try {
                                 logVO log = new logVO();
                                 log.setOperatorno(staff);
-                                log.setKeyjob("删除账户");
-                                link.getRemoteHelper().getLog().addObject(log,19);
+                                log.setOpno("删除账户");
+                                link.getRemoteHelper().getLog().addObject(log,13);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             } catch (InvocationTargetException e) {
@@ -218,6 +218,16 @@ public class AccountManagementUI {
         addMoney.setPromptText("账户余额");
 
 
+        final TextField search = new TextField();
+        search.setMaxWidth(NameCol.getPrefWidth());
+        search.setPromptText("搜索关键词");
+        final Button searchButton = new Button("搜索账户");
+        searchButton.setOnAction((ActionEvent e) -> {
+            String accountInfor = search.getText();
+
+
+        });
+
 
         final Button addButton = new Button("添加账户");
         addButton.setOnAction((ActionEvent e) -> {
@@ -234,11 +244,10 @@ public class AccountManagementUI {
                 co.setSumall(praseDouble.prase(newaccount.getmoney()));
                 controller.addAccount(co);
 
-                logPO log = new logPO();
-                String staffno= "";
-                log.setOperatorno(staffno);
-                log.setKeyjob("增加账户");
-                link.getRemoteHelper().getLog().addObject(log,18);
+                logVO log = new logVO();
+                log.setOperatorno(staff);
+                log.setOpno("增加账户");
+                link.getRemoteHelper().getLog().addObject(log,13);
 
 
             } catch (RemoteException e1) {
@@ -267,7 +276,7 @@ public class AccountManagementUI {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
-
+        vbox.setMaxSize(1000,800);
         return vbox;
 
 //        ((Group) scene.getRoot()).getChildren().addAll(vbox);

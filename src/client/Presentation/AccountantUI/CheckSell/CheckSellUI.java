@@ -25,9 +25,8 @@ import java.util.ArrayList;
 
 public class CheckSellUI {
 
-    private final TableView<Sale> table = new TableView<>();
-    private final ObservableList<Sale> data =
-            FXCollections.observableArrayList();
+
+
     final HBox hb = new HBox();
     TitledPane gridTitlePane = new TitledPane();
     public final String[] infor = new String[9];
@@ -43,6 +42,8 @@ public class CheckSellUI {
         stage.setWidth(1250);
         stage.setHeight(850);
 
+        TableView<Sale> table = new TableView<>();
+        ObservableList<Sale> data = FXCollections.observableArrayList();
         final Label label = new Label("销售列表");
         label.setFont(new Font("Arial", 20));
 
@@ -282,7 +283,7 @@ public class CheckSellUI {
         fvbox.setSpacing(5);
         fvbox.setPadding(new Insets(10,0,0,10));
         fvbox.getChildren().addAll(hbox);
-
+        fvbox.setMaxSize(1200,800);
 
         return fvbox;
 //        Group root = (Group) scene.getRoot();

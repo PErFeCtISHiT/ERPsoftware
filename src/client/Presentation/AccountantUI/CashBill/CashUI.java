@@ -9,6 +9,7 @@ import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.Presentation.AccountantUI.ReceivePayBill.FillMoneyBill;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,31 +44,7 @@ public class CashUI {
 
 
 
-    private final TableView<MoneyList> table = new TableView<>();
-    private final ObservableList<MoneyList> data =
-            FXCollections.observableArrayList();
-    private final TableView<Account> accounttable = new TableView<>();
-    private final ObservableList<Account> accountdata =
-            FXCollections.observableArrayList(
-                    new Account("A", "B", "C"),
-                    new Account("Q", "W", "E"));
-    private final TableView<Consumer> consumertable = new TableView<>();
-    private final ObservableList<Consumer> consumerdata =
-            FXCollections.observableArrayList(
-                    new Consumer("A", "B", "C","A", "B", "C","B", "C"),
-                    new Consumer("b", "B", "C","A", "B", "C","B", "C"));
 
-    private final TableView<AccountBill> draftbilltable = new TableView<>();
-    private final ObservableList<AccountBill> draftbilldata =
-            FXCollections.observableArrayList();
-
-    private final TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
-    private final ObservableList<AccountBill> UnderPromotionbilldata =
-            FXCollections.observableArrayList();
-
-    private final TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
-    private final ObservableList<AccountBill> AlreadyPromotionbilldata =
-            FXCollections.observableArrayList();
 
 
 
@@ -82,6 +59,32 @@ public class CashUI {
         stage.setTitle("制定现金费用单");
         Scene scene = new Scene(new Group(), 1350, 850);
 
+
+        TableView<MoneyList> table = new TableView<>();
+        ObservableList<MoneyList> data =
+                FXCollections.observableArrayList();
+        TableView<Account> accounttable = new TableView<>();
+        ObservableList<Account> accountdata =
+                FXCollections.observableArrayList(
+                        new Account("A", "B", "C"),
+                        new Account("Q", "W", "E"));
+        TableView<Consumer> consumertable = new TableView<>();
+        ObservableList<Consumer> consumerdata =
+                FXCollections.observableArrayList(
+                        new Consumer("A", "B", "C","A", "B", "C","B", "C"),
+                        new Consumer("b", "B", "C","A", "B", "C","B", "C"));
+
+        TableView<AccountBill> draftbilltable = new TableView<>();
+        ObservableList<AccountBill> draftbilldata =
+                FXCollections.observableArrayList();
+
+        TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
+        ObservableList<AccountBill> UnderPromotionbilldata =
+                FXCollections.observableArrayList();
+
+        TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
+        ObservableList<AccountBill> AlreadyPromotionbilldata =
+                FXCollections.observableArrayList();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
         TableColumn<Account, String> IDCol =
@@ -245,7 +248,13 @@ public class CashUI {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
-                                detail(bill);
+                                TypeComboBox.setText(bill.getBillType());
+                                billNum.setText(bill.getID());
+                                StaffComboBox.setText(bill.getOperater());
+                                consumer.setText(bill.getAccount());
+                                data.clear();
+                                data.addAll(bill.getMoneyList());
+                                money.setText(String.valueOf(bill.getSum()));
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -297,7 +306,13 @@ public class CashUI {
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
                                 System.out.println("size: "+bill.getMoneyList().size());
-                                detail(bill);
+                                TypeComboBox.setText(bill.getBillType());
+                                billNum.setText(bill.getID());
+                                StaffComboBox.setText(bill.getOperater());
+                                consumer.setText(bill.getAccount());
+                                data.clear();
+                                data.addAll(bill.getMoneyList());
+                                money.setText(String.valueOf(bill.getSum()));
                             } catch (RemoteException  e) {
                                 e.printStackTrace();
                             }
@@ -385,7 +400,25 @@ public class CashUI {
 
         final Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
-            refresh();
+            try {
+                ArrayList<Account> list1 =cashController.getAllAccount();
+                accountdata.clear();
+                accountdata.addAll(list1);
+                ArrayList<Consumer> list2 =cashController.getAllConsumer();
+                consumerdata.clear();
+                consumerdata.addAll(list2);
+                ArrayList<AccountBill> list3 =cashController.getAllDraftCash();
+                draftbilldata.clear();
+                draftbilldata.addAll(list3);
+                ArrayList<AccountBill> list4 =cashController.getAllPromotedCash();
+                AlreadyPromotionbilldata.clear();
+                AlreadyPromotionbilldata.addAll(list4);
+                ArrayList<AccountBill> list5 =cashController.getAllUnderPromotedCash();
+                UnderPromotionbilldata.clear();
+                UnderPromotionbilldata.addAll(list5);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
         });
 
         final Button newBill = new Button("新建现金费用单");
@@ -394,6 +427,10 @@ public class CashUI {
             try {
                 String ID = "XJFYD-"+nogenerater.generate(5);
                 fillbill.start(ID);
+                logVO log = new logVO();
+                log.setOperatorno(staff);
+                log.setKeyjob("新建现金费用单");
+                link.getRemoteHelper().getLog().addObject(log,13);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             } catch (IntrospectionException e1) {
@@ -412,7 +449,7 @@ public class CashUI {
 
         VBox vb = new VBox();
         vb.getChildren().setAll(hb, hbox);
-
+        vb.setMaxSize(1200,800);
         return vb;
 
 //        Group root = (Group) scene.getRoot();
@@ -422,39 +459,5 @@ public class CashUI {
 
     }
 
-
-    public void detail(FinancialCash bill) {
-//            System.out.println(bill.getID());
-
-        TypeComboBox.setText(bill.getBillType());
-        billNum.setText(bill.getID());
-        StaffComboBox.setText(bill.getOperater());
-        consumer.setText(bill.getAccount());
-        data.clear();
-        data.addAll(bill.getMoneyList());
-        money.setText(String.valueOf(bill.getSum()));
-    }
-
-    public void refresh() {
-        try {
-            ArrayList<Account> list1 =cashController.getAllAccount();
-            accountdata.clear();
-            accountdata.addAll(list1);
-            ArrayList<Consumer> list2 =cashController.getAllConsumer();
-            consumerdata.clear();
-            consumerdata.addAll(list2);
-            ArrayList<AccountBill> list3 =cashController.getAllDraftCash();
-            draftbilldata.clear();
-            draftbilldata.addAll(list3);
-            ArrayList<AccountBill> list4 =cashController.getAllPromotedCash();
-            AlreadyPromotionbilldata.clear();
-            AlreadyPromotionbilldata.addAll(list4);
-            ArrayList<AccountBill> list5 =cashController.getAllUnderPromotedCash();
-            UnderPromotionbilldata.clear();
-            UnderPromotionbilldata.addAll(list5);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

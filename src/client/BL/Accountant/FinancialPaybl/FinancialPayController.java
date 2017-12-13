@@ -90,10 +90,12 @@ public class FinancialPayController implements FinancialPayInterface {
     @Override
     public FinancialBill ReEditBill(String Keyno) throws RemoteException{
         List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
-        System.out.println("po size: "+moneypo.size());
+//        System.out.println("po size: "+moneypo.size());
         moneyPO po = moneypo.get(0);
         FinancialBill bill=PoToFinancialBill(po);
-        System.out.println(" List size: "+bill.getMoneyList().size());
+        String keyNO = po.getKeyno();
+        link.getRemoteHelper().getmoneyList().deleteByNO(keyNO);
+//        System.out.println(" List size: "+bill.getMoneyList().size());
         return bill;
 
     }

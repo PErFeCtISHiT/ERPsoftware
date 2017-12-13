@@ -147,7 +147,7 @@ public class FillCashBillUI {
                 double sum = Double.parseDouble(money.getText());
                 System.out.println(sum);
 
-                data.clear();
+//                data.clear();
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
                     data.get(i).setlistNO(billID);
@@ -167,8 +167,7 @@ public class FillCashBillUI {
                 }
 
 //                System.out.println("Step 3");
-                notification.setText("The Bill was successfully sent"
-                        + " to " );
+                notification.setText("The Bill was successfully sent" + " to " );
                 money.clear();
                 text.clear();
             }
@@ -187,7 +186,7 @@ public class FillCashBillUI {
             double sum = Double.parseDouble(money.getText());
             System.out.println(sum);
 
-            data.clear();
+//            data.clear();
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {
                 data.get(i).setlistNO(billID);

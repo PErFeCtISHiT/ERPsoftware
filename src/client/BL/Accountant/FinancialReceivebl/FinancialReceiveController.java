@@ -29,6 +29,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        System.out.println("!!!"+moneypo.getIsDraft());
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
         return null;
     }
@@ -39,6 +40,8 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         saveMoneyList(list);
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
         moneypo.setIsDraft(0.0);
+//        System.out.println("2!!!"+moneypo.getIsDraft());
+//        link.getRemoteHelper().getMoneyBill().deleteObject();
         link.getRemoteHelper().getMoneyBill().modifyObject(moneypo,5);
         return null;
     }
@@ -60,25 +63,28 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         System.out.println("Size: "+moneyLists.size());
         for (int i=0; i< moneyLists.size();i++){
             MoneyList ml =moneyLists.get(i);
-            System.out.println("Save MoneySum: "+ml.getMoney());
+//            System.out.println("Save MoneySum: "+ml.getMoney());
             moneyListPO moneylist = new moneyListPO();
             moneylist.setKeyno(ml.getlistNO());
             moneylist.setAccountname(ml.getAccount());
             moneylist.setSumall(Double.parseDouble(ml.getMoney()));
             moneylist.setNote(ml.getComment());
-            try {
-                NOgenerator generater = new NOgenerator();
-                String listID = "ZZLB-" + generater.generateMoneyList(18);
-                moneylist.setKeyid(listID);
-                System.out.println("List Size: "+moneylist.getKeyid());
-                link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
-            } catch (IntrospectionException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            if(moneylist.getKeyid()==null){
+                try {
+                    NOgenerator generater = new NOgenerator();
+                    String listID = "ZZLB-" + generater.generateMoneyList(18);
+                    moneylist.setKeyid(listID);
+//                System.out.println("List Size: "+moneylist.getKeyid());
+                    link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+                } catch (IntrospectionException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
 
@@ -88,10 +94,12 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public FinancialBill ReEditBill(String Keyno) throws RemoteException{
 
         List<moneyPO> moneypo = link.getRemoteHelper().getMoneyBill().findbyNO(5,Keyno);
-        System.out.println("po size: "+moneypo.size());
+//        System.out.println("po size: "+moneypo.size());
         moneyPO po = moneypo.get(0);
         FinancialBill bill=PoToFinancialBill(po);
-        System.out.println(" List size: "+bill.getMoneyList().size());
+        String keyNO = po.getKeyno();
+        link.getRemoteHelper().getmoneyList().deleteByNO(keyNO);
+//        System.out.println(" List size 1: "+bill.getMoneyList().size());
         return bill;
     }
 
@@ -114,9 +122,9 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
     public ArrayList<AccountBill> getAllUnderPromotedReceive() throws RemoteException{
         List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
         ArrayList<AccountBill> accountBills = new ArrayList<AccountBill>();
-        System.out.println(moneyPOList.size());
+//        System.out.println(moneyPOList.size());
         for(int i=0;i<moneyPOList.size();i++){
-            System.out.println(moneyPOList.get(i).getKeyno());
+//            System.out.println(moneyPOList.get(i).getKeyno());
             if (moneyPOList.get(i).getKind()==0.0&&moneyPOList.get(i).getIscheck()==0.0 && moneyPOList.get(i).getIsDraft()==0.0){
                 accountBills.add(PoToAccountBill(moneyPOList.get(i)));
             }
@@ -201,7 +209,7 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         moneypo.setIsDraft(0.0);
         moneypo.setOper(operater);
         moneypo.setMoneyList(moneylistNO);
-        System.out.println("MoneyListNO："+moneylistNO);
+        System.out.println("!!!"+moneypo.getIsDraft());
         moneypo.setSumall(sum);
 
         return moneypo;
@@ -214,14 +222,14 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String operater=po.getOper();
         String consumerType=po.getConsumertype();
         String consumerID=po.getConsumer();
-        System.out.println("po ID: "+po.getKeyno());
-        System.out.println(" KeyNO: "+po.getMoneyList());
-        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());
+//        System.out.println("po ID: "+po.getKeyno());
+//        System.out.println(" KeyNO: "+po.getMoneyList());
+        List<moneyListPO> list =link.getRemoteHelper().getmoneyList().findbyNO(18,po.getMoneyList());//////////////////////
         ArrayList<MoneyList> moneylist = PoToMoneyLists(list);
-        System.out.println(" list size: "+link.getRemoteHelper().getmoneyList().findbyNO(18,"123").size());
+//        System.out.println(" list size: "+link.getRemoteHelper().getmoneyList().findbyNO(18,"123").size());
         double sum = po.getSumall();
         FinancialBill bill = new FinancialBill(ID,Billtype,operater,consumerType,consumerID,moneylist,sum);
-        System.out.println(" potobill size: "+bill.getMoneyList().size());
+//        System.out.println(" potobill size: "+bill.getMoneyList().size());
         return bill;
     }
 

@@ -25,29 +25,13 @@ import java.util.Calendar;
 
 public class AccountInitUI{
 
-    private final TableView<AccountList> table = new TableView<>();
-    private final ObservableList<AccountList> data =
-            FXCollections.observableArrayList();
+
+
     final String[] imageNames = new String[]{"账户列表", "客户列表", "商品列表"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] tablelist = new TableView[3];
     TitledPane gridTitlePane = new TitledPane();
 
-    private final TableView<AccountBuild_account> accounttable = new TableView<>();
-    private final ObservableList<AccountBuild_account> accountdata =
-            FXCollections.observableArrayList(
-                    new AccountBuild_account("123","A", "B"),
-                    new AccountBuild_account("234","Q", "W"));
-    private final TableView<AccountBuild_consumer> consumertable = new TableView<>();
-    private final ObservableList<AccountBuild_consumer> consumerdata =
-            FXCollections.observableArrayList(
-                    new AccountBuild_consumer("A", "B", "C","A", "B", "C"),
-                    new AccountBuild_consumer("b", "B", "C","A", "B", "C"));
-    private final TableView<AccountBuild_good> goodstable = new TableView<>();
-    private final ObservableList<AccountBuild_good> goodsdata =
-            FXCollections.observableArrayList(
-                    new AccountBuild_good("A", "B", "C","A", "B", "C","B", "C"),
-                    new AccountBuild_good("b", "B", "C","A", "B", "C", "B", "C"));
 
 
     private FinancialBuildController builder= new FinancialBuildController();
@@ -66,10 +50,34 @@ public class AccountInitUI{
         stage.setWidth(800);
         stage.setHeight(550);
 
+
+        TableView<AccountList> table = new TableView<>();
+        ObservableList<AccountList> data =
+                FXCollections.observableArrayList();
         final Label label = new Label("期初信息");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
+
+        TableView<AccountBuild_account> accounttable = new TableView<>();
+        ObservableList<AccountBuild_account> accountdata =
+                FXCollections.observableArrayList(
+                        new AccountBuild_account("123","A", "B"),
+                        new AccountBuild_account("234","Q", "W"));
+        TableView<AccountBuild_consumer> consumertable = new TableView<>();
+        ObservableList<AccountBuild_consumer> consumerdata =
+                FXCollections.observableArrayList(
+                        new AccountBuild_consumer("A", "B", "C","A", "B", "C"),
+                        new AccountBuild_consumer("b", "B", "C","A", "B", "C"));
+        TableView<AccountBuild_good> goodstable = new TableView<>();
+        ObservableList<AccountBuild_good> goodsdata =
+                FXCollections.observableArrayList(
+                        new AccountBuild_good("A", "B", "C","A", "B", "C","B", "C"),
+                        new AccountBuild_good("b", "B", "C","A", "B", "C", "B", "C"));
+
+
+
+
 
         TableColumn<AccountList,String> YearCol = new TableColumn<>("账单年份");
         YearCol.setMinWidth(100);
@@ -304,7 +312,7 @@ public class AccountInitUI{
         fvbox.setSpacing(5);
         fvbox.setPadding(new Insets(10,0,0,10));
         fvbox.getChildren().addAll(hb);
-
+        fvbox.setMaxSize(1200,800);
         return fvbox;
 
 

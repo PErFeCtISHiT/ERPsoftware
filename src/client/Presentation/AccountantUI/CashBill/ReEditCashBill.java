@@ -128,6 +128,27 @@ public class ReEditCashBill {
         StaffComboBox.setValue("A员工");
 
 
+
+
+        String Type = "现金费用单";
+        String ID = bill.getID();
+        String accountID = bill.getAccount();
+        String operater = bill.getOperater();
+        String sum = String.valueOf(bill.getSum());
+        ArrayList<MoneyList> moneylist = bill.getMoneyList();
+        int moneylistnum = moneylist.size();
+
+        TypeComboBox.setValue(Type);
+        billNum.setText(ID);
+        StaffComboBox.setValue(operater);
+        account.setText(accountID);
+        data.clear();
+        data.addAll(moneylist);
+        money.setText(sum);
+
+
+
+
         SummitButton.setOnAction((ActionEvent e) -> {
             if (true)//checkMoney(money.getText())
             {
@@ -135,22 +156,23 @@ public class ReEditCashBill {
 
                 String billtype = TypeComboBox.getValue();
                 String billID = bill.getID();//billNum.getText();
-                String operater = StaffComboBox.getValue();
+                String operater1 = StaffComboBox.getValue();
                 String Account = account.getText();
 
                 System.out.println(money.getText());
-                double sum = Double.parseDouble(money.getText());
+                double sum1 = Double.parseDouble(money.getText());
                 System.out.println(sum);
 
-                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+                ArrayList<MoneyList> moneylist1 = new ArrayList<>();
                 for (int i=0;i<data.size();i++) {
 //                    String listID = "ZZLB-" + i;
 //                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
-                    moneylist.add(data.get(i));
+                    moneylist1.add(data.get(i));
                 }
 //                System.out.println("Step 1");
-                FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
+                System.out.println(" List size : "+bill.getMoneyList().size());
+                FinancialCash financialCash = new FinancialCash(billID,billtype,operater1,Account,moneylist1,sum1);
                 try {
 //                    System.out.println("Step 2");
                     if(billtype=="现金费用单"){
@@ -175,14 +197,14 @@ public class ReEditCashBill {
 
             String billtype = TypeComboBox.getValue();
             String billID = bill.getID();//billNum.getText();
-            String operater = StaffComboBox.getValue();
+            String operater1 = StaffComboBox.getValue();
             String Account = account.getText();
 
 //            System.out.println(money.getText());
-            double sum = Double.parseDouble(money.getText());
+            double sum1 = Double.parseDouble(money.getText());
 //            System.out.println(sum);
 
-            ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
+            ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {
                 String listID = "ZZLB-" + i;
                 data.get(i).setKeyid(listID);
@@ -190,7 +212,7 @@ public class ReEditCashBill {
                 moneylist.add(data.get(i));
             }
 //                System.out.println("Step 1");
-            FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
+            FinancialCash financialCash = new FinancialCash(billID,billtype,operater1,Account,moneylist1,sum1);
             try {
 //                    System.out.println("Step 2");
                 if(billtype=="现金费用单"){
@@ -204,23 +226,6 @@ public class ReEditCashBill {
             text.clear();
 
         });
-
-        String Type = "现金费用单";
-        String ID = bill.getID();
-        String accountID = bill.getAccount();
-        String operater = bill.getOperater();
-        String sum = String.valueOf(bill.getSum());
-        ArrayList<MoneyList> moneylist = bill.getMoneyList();
-
-        TypeComboBox.setValue(Type);
-        billNum.setText(ID);
-        StaffComboBox.setValue(operater);
-        account.setText(accountID);
-        data.clear();
-        data.addAll(moneylist);
-        money.setText(sum);
-
-
 
         GridPane grid = new GridPane();
         grid.setVgap(4);
