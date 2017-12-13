@@ -7,24 +7,32 @@ import client.BL.Saleman.SalemanSaleblservice.SelloutBillMakeController;
 import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import client.BL.Saleman.SalemanStockinblservice.StockinBillMakeController;
 import client.RMI.link;
-import server.Po.consumerPO;
-import server.Po.buyinPO;
-import server.Po.selloutPO;
+import client.Vo.buyinVO;
+import client.Vo.consumerVO;
+import client.Vo.selloutVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import server.Po.consumerPO;
+import server.Po.buyinPO;
+import server.Po.selloutPO;
 
-import java.awt.event.ActionEvent;
+import javax.security.auth.callback.LanguageCallback;
 import java.lang.reflect.Array;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,12 +50,18 @@ public class newBillUI extends Application{
     TabPane tabs=new TabPane();
 
     ConsumerManageController consumerManageController=new ConsumerManageController();
-
     StockinBillMakeController stockinBillMakeController=new StockinBillMakeController();
-
     SelloutBillMakeController selloutBillMakeController=new SelloutBillMakeController();
 
+    ArrayList<Consumer> consumerList=new ArrayList<>();
 
+    ArrayList<StockinBill> stockinList=new ArrayList<>();
+
+    ArrayList<SelloutBill> selloutBillList=new ArrayList<>();
+
+
+    HBox hb=new HBox();
+    Scene scene=new Scene(hb,1400,650);
 
     public static void main(String[] args){
         link.linktoServer();
@@ -61,138 +75,158 @@ public class newBillUI extends Application{
         this.selloutNode=new TreeItem<>("销售单列表");
     }
 
-    public void start(Stage stage){
+    public void start(Stage stage) throws RemoteException {
+
+        List<consumerVO> consumervolist=consumerManageController.show();
+        for(consumerVO vo:consumervolist){
+            Consumer a=consumerManageController.VOtoconsumer(vo);
+            consumerList.add(a);
+        }
+
+        List<buyinVO> buyinvolist=stockinBillMakeController.show();
+        for(buyinVO vo:buyinvolist){
+            StockinBill a=stockinBillMakeController.votoBill(vo);
+            stockinList.add(a);
+        }
+
+        List<selloutVO> selloutvoList=selloutBillMakeController.show();
+        for(selloutVO vo:selloutvoList){
+            SelloutBill a=selloutBillMakeController.VoTosellout(vo);
+            selloutBillList.add(a);
+        }
 
         MenuBar menuBar=new MenuBar();
-
         Menu menu1=new Menu("菜单");
         Menu menu2=new Menu("新建");
         Menu menu3=new Menu("帮助");
-
         menuBar.getMenus().addAll(menu1,menu2,menu3);
 
 
-        try {
-            List<consumerPO> consumerList= consumerManageController.show();
 
-            consumerNode.setExpanded(true);
-            for(consumerPO consumer:consumerList){
-                TreeItem<String> empleaf=new TreeItem<>(consumer.getKeyno());
-                boolean isfound=false;
-                for(TreeItem<String> depNode:consumerNode.getChildren()){
-                    if(depNode.getValue().contentEquals(String.valueOf(consumer.getLev()))){
-                        depNode.getChildren().add(empleaf);
-                        isfound=true;
-                        break;
-                    }
-                }
-
-                if(!isfound){
-                    TreeItem<String> depNode=new TreeItem<>(String.valueOf(consumer.getLev()));
-                    consumerNode.getChildren().add(depNode);
-                    depNode.getChildren().add(empleaf);
-                }
-            }
-        }catch (RemoteException a){
-            a.printStackTrace();
+        consumerNode.setExpanded(true);
+        for(Consumer consumer:consumerList){
+            TreeItem<String> empleaf=new TreeItem<>(consumer.getConsumerID());
+            consumerNode.getChildren().add(empleaf);
         }
 
-        try{
-            List<buyinPO> stockinList=stockinBillMakeController.show();
-            buyinNode.setExpanded(true);
-            TreeItem<String> in=new TreeItem<>("进货单");;
-            TreeItem<String> cancel=new TreeItem<>("进货退货单");;
-            for(buyinPO stockin:stockinList){
-                TreeItem<String> empleaf=new TreeItem<>(stockin.getKeyno());
-                if(String.valueOf(stockin.getKind()).equals("0")){
-                    in.getChildren().add(empleaf);
-                }
-                else{
-                    cancel.getChildren().add(empleaf);
-                }
-            }
-            buyinNode.getChildren().addAll(in,cancel);
-        }catch(RemoteException e){
-            e.printStackTrace();
-        }
 
-        try{
-            List<selloutPO> selloutBillList=selloutBillMakeController.show();
-            selloutNode.setExpanded(true);
-            TreeItem<String> selloutin=new TreeItem<String>("销售单");
-            TreeItem<String> selloutCancel=new TreeItem<>("销售退货单");
-            for(selloutPO sellout:selloutBillList){
-                TreeItem<String> empleaf=new TreeItem<>(sellout.getKeyno());
-                if(String.valueOf(sellout.getKind()).equals("0")){
-                    selloutin.getChildren().add(empleaf);
-                }
-                else{
-                    selloutCancel.getChildren().add(empleaf);
-                }
+        ContextMenu consumerMenu=new ContextMenu();
+        MenuItem newMenuitem=new MenuItem("新建客户");
+        consumerMenu.getItems().add(newMenuitem);
+
+        stage.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
+            if(me.getButton()== MouseButton.SECONDARY||me.isControlDown()){
+                consumerMenu.show(hb,me.getScreenX(),me.getScreenY());
             }
-            selloutNode.getChildren().addAll(selloutin,selloutCancel);
-        }catch(RemoteException e){
-            e.printStackTrace();
+            else{
+                consumerMenu.hide();
+            }
+        });
+
+        newMenuitem.setOnAction((ActionEvent e)->{
+            TreeItem<String> a=new TreeItem<>("consumer"+String.valueOf(consumerNode.getChildren().size()+1));
+            consumerNode.getChildren().add(a);
+            Tab newTab=new Tab();
+            newTab.setText(a.getValue());
+            newTab.setContent(newConsumerPane(a));
+            tabs.getTabs().add(newTab);
+        });
+
+
+
+        buyinNode.setExpanded(true);
+        TreeItem<String> in=new TreeItem<>("进货单");;
+        TreeItem<String> cancel=new TreeItem<>("进货退货单");;
+        for(StockinBill stockin:stockinList){
+            TreeItem<String> empleaf=new TreeItem<>(stockin.getBuyinID());
+            if((stockin.getBuyinKind()).equals("0")){
+                in.getChildren().add(empleaf);
+            }
+            else{
+                cancel.getChildren().add(empleaf);
+            }
         }
+        buyinNode.getChildren().addAll(in,cancel);
+
+
+        selloutNode.setExpanded(true);
+        TreeItem<String> selloutin=new TreeItem<String>("销售单");
+        TreeItem<String> selloutCancel=new TreeItem<>("销售退货单");
+        for(SelloutBill sellout:selloutBillList){
+            TreeItem<String> empleaf=new TreeItem<>(sellout.getSelloutID());
+            if(sellout.getSelloutID().equals("0")){
+                selloutin.getChildren().add(empleaf);
+            }
+            else{
+                selloutCancel.getChildren().add(empleaf);
+            }
+        }
+        selloutNode.getChildren().addAll(selloutin,selloutCancel);
+
+
 
         rootNode.getChildren().addAll(consumerNode,buyinNode,selloutNode);
 
 
-        HBox hb=new HBox();
-
-        TreeView<String> consumerTree=new TreeView<>(consumerNode);
-        TreeView<String> buyinTree=new TreeView<>(buyinNode);
-        TreeView<String> selloutTree=new TreeView<>(selloutNode);
-
+        stage.setTitle("进货销售人员");
+        stage.setWidth(1400);
+        stage.setHeight(650);
+        scene.setFill(Color.WHITE);
 
         TreeView<String> treeView=new TreeView<>(rootNode);
         hb.getChildren().add(treeView);
 
-        consumerTree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
+
+        TreeView<String> contree=new TreeView<>(consumerNode);
+        TreeView<String> buytree=new TreeView<>(buyinNode);
+        TreeView<String> selltree=new TreeView<>(selloutNode);
+
+        treeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
             if(newValue.isLeaf()){
-                Tab newTab=new Tab();
-                newTab.setText(newValue.getValue());
-                newTab.setContent(ConsumerPane(newValue.getValue()));
-                tabs.getTabs().add(newTab);
+                if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    newTab.setContent(BuyinBillPane(newValue.getValue()));
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    newTab.setContent(SelloutPane(newValue.getValue()));
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("客户列表")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    newTab.setContent(ConsumerPane(newValue.getValue()));
+                    tabs.getTabs().add(newTab);
+                }else{
+                }
             }
         });
 
-        buyinTree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
-            if(newValue.isLeaf()){
-                Tab newTab=new Tab();
-                newTab.setText(newValue.getValue());
-                newTab.setContent(BuyinPane(newValue.getValue()));
-                tabs.getTabs().add(newTab);
-            }
-        });
 
-        selloutTree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->{
-            if(newValue.isLeaf()){
-                Tab newTab=new Tab();
-                newTab.setText(newValue.getValue());
-                newTab.setContent(SelloutPane(newValue.getValue()));
-                tabs.getTabs().add(newTab);
-            }
-        });
 
-        tabs.setTabMinHeight(15);
-        tabs.setTabMinWidth(50);
-
+        tabs.setTabMinHeight(30);
+        tabs.setTabMinWidth(70);
         hb.getChildren().add(tabs);
 
-        VBox VB=new VBox();
-        VB.getChildren().addAll(menuBar,hb);
-        final Scene scene=new Scene(VB,1400,650);
-        scene.setFill(Color.LIGHTGRAY);
 
-        stage.setTitle("进货销售人员");
-        stage.setWidth(1400);
-        stage.setHeight(650);
         stage.setScene(scene);
         stage.show();
     }
 
-    private Pane ConsumerPane(String id){
+    private Pane ConsumerPane(String name){
+        Consumer thisconsumer=new Consumer();
+        for(Consumer consumer:consumerList){
+            if(consumer.getConsumerID().equals(name)){
+                thisconsumer=consumer;
+                break;
+            }
+        }
+
+        consumerVO vo=consumerManageController.consumerToVO(thisconsumer);
+
         GridPane gridPane=new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
@@ -200,162 +234,357 @@ public class newBillUI extends Application{
         gridPane.setMinHeight(450);
         gridPane.setMinWidth(1050);
 
-        ConsumerManageController controller=new ConsumerManageController();
-        try {
-            consumerPO consumer = (consumerPO) controller.findbyid(id).get(0);
-            String number=consumer.getKeyno();
-            double level=consumer.getLev();
-            String name=consumer.getKeyname();
-            String phone=consumer.getTel();
-            String mail=consumer.getMailcode();
-            String email=consumer.getEmail();
-            double capacit=consumer.getCapacit();
-            double receive=consumer.getReceive();
-            double pay=consumer.getPay();
-            String server=consumer.getServer();
 
-            Label label1=new Label("客户编号：");
-            Label numOfLabel1=new Label();
-            numOfLabel1.setText(number);
-            gridPane.add(label1,3,2);
-            gridPane.add(numOfLabel1,3,3);
+        Label idlabel=new Label("客户ID：");
+        Text id=new Text();
+        id.setText(thisconsumer.getConsumerID());
 
-            Label label2=new Label("客户级别：");
-            Label numOfLabel2=new Label();
-            numOfLabel2.setText(String.valueOf(level));
-            gridPane.add(label2,4,2);
-            gridPane.add(numOfLabel2,4,3);
+        Label kindlabel=new Label("类型：");
+        Text kind=new Text();
+        if(Double.parseDouble(thisconsumer.getConsumerKind())==0){
+            kind.setText("进货商");
+        }else{
+            kind.setText("销售商");
+        }
 
-            Label label3=new Label("姓名：");
-            Label numOfLabel3=new Label();
-            numOfLabel3.setText(name);
-            gridPane.add(label3,5,2);
-            gridPane.add(numOfLabel3,5,3);
+        Label levelLabel=new Label("客户级别：");
+        Text level=new Text();
+        level.setText("VIP"+thisconsumer.getConsumerLevel());
 
-            Label label4=new Label("电话：");
-            Label numOfLabel4=new Label();
-            numOfLabel4.setText(phone);
-            gridPane.add(label4,6,2);
-            gridPane.add(numOfLabel4,6,3);
+        Label nameLabel=new Label("姓名：");
+        Text coname=new Text();
+        coname.setText(thisconsumer.getConsumerName());
 
-            Label label5=new Label("邮编：");
-            Label numOfLabel5=new Label();
-            numOfLabel5.setText(mail);
-            gridPane.add(label5,7,2);
-            gridPane.add(numOfLabel5,7,3);
+        Label phoneLabel=new Label("联系方式：");
+        Text phone=new Text();
+        phone.setText(thisconsumer.getConsumerPhone());
 
-            Label label6=new Label("电子邮箱：");
-            Label numOfLabel6=new Label();
-            numOfLabel6.setText(email);
-            gridPane.add(label6,8,2);
-            gridPane.add(numOfLabel6,8,3);
+        Label mailLabel=new Label("邮编：");
+        Text mail=new Text();
+        mail.setText(thisconsumer.getConsumerMail());
 
-            Label label7=new Label("应收额度：");
-            Label numOfLabel7=new Label();
-            numOfLabel7.setText(String.valueOf(capacit));
-            gridPane.add(label7,9,2);
-            gridPane.add(numOfLabel7,9,3);
+        Label emailLabel=new Label("电子邮箱：");
+        Text email=new Text();
+        email.setText(thisconsumer.getConsumerEmail());
 
-            Label label8=new Label("应收：");
-            Label numOfLabel8=new Label();
-            numOfLabel8.setText(String.valueOf(String.valueOf(receive)));
-            gridPane.add(label8,10,2);
-            gridPane.add(numOfLabel8,10,3);
+        Label moneyLabel=new Label("应收额度：");
+        Text receivemoney=new Text();
+        receivemoney.setText(thisconsumer.getConsumerReveiveMoney());
 
-            Label label9=new Label("应付：");
-            Label numOfLabel9=new Label();
-            numOfLabel9.setText(String.valueOf(pay));
-            gridPane.add(label9,11,2);
-            gridPane.add(numOfLabel9,11,3);
+        Label receiveLabel=new Label("应收：");
+        Text receive=new Text();
+        receive.setText(thisconsumer.getConsumerReceive());
 
-            Label label10=new Label("应收：");
-            Label numOfLabel10=new Label();
-            numOfLabel10.setText(server);
-            gridPane.add(label10,12,2);
-            gridPane.add(numOfLabel10,12,3);
+        Label payLabel=new Label("应付：");
+        Text pay=new Text();
+        pay.setText(thisconsumer.getConsumerPay());
 
-            Button edit=new Button("编辑");
-            gridPane.add(edit,12,6);
-            edit.setOnAction(e->{
-                String a1=numOfLabel1.getText();
-                String a2=numOfLabel2.getText();
-                String a3=numOfLabel3.getText();
-                String a4=numOfLabel4.getText();
-                String a5=numOfLabel5.getText();
-                String a6=numOfLabel6.getText();
-                String a7=numOfLabel7.getText();
-                String a8=numOfLabel8.getText();
-                String a9=numOfLabel9.getText();
-                String a10=numOfLabel10.getText();
-                gridPane.getChildren().removeAll(numOfLabel1,numOfLabel2,numOfLabel3,numOfLabel4,numOfLabel5,numOfLabel6,numOfLabel7,numOfLabel8,numOfLabel9,numOfLabel10);
+        Label accoutLabel=new Label("客户账号：");
+        Text account=new Text();
+        account.setText(thisconsumer.getAccout());
 
-                TextField b1=new TextField();
-                b1.setPromptText(a1);
-                b1.setMinSize(50,5);
-                gridPane.add(b1,3,3);
+        Label salemanLabel=new Label("销售员：");
+        Text saleman=new Text();
+        saleman.setText(thisconsumer.getSalesman());
 
-                TextField b2=new TextField();
-                b2.setPromptText(a2);
-                b2.setMinSize(50,5);
-                gridPane.add(b2,4,3);
+        gridPane.add(idlabel,0,0);
+        gridPane.add(id,1,0);
+        gridPane.add(kindlabel,0,1);
+        gridPane.add(kind,1,1);
+        gridPane.add(levelLabel,0,2);
+        gridPane.add(level,1,2);
+        gridPane.add(nameLabel,0,3);
+        gridPane.add(coname,1,3);
+        gridPane.add(phoneLabel,0,4);
+        gridPane.add(phone,1,4);
+        gridPane.add(mailLabel,0,5);
+        gridPane.add(mail,1,5);
+        gridPane.add(emailLabel,0,6);
+        gridPane.add(email,1,6);
+        gridPane.add(moneyLabel,0,7);
+        gridPane.add(receivemoney,1,7);
+        gridPane.add(receiveLabel,0,8);
+        gridPane.add(receive,1,8);
+        gridPane.add(payLabel,0,9);
+        gridPane.add(pay,1,9);
+        gridPane.add(accoutLabel,0,10);
+        gridPane.add(account,1,10);
+        gridPane.add(salemanLabel,0,11);
+        gridPane.add(saleman,1,11);
 
-                TextField b3=new TextField();
-                b3.setPromptText(a3);
-                b3.setMinSize(50,5);
-                gridPane.add(b3,5,3);
+        Button edit=new Button("编辑");
+        Button delete=new Button("删除");
 
-                TextField b4=new TextField();
-                b4.setPromptText(a4);
-                b4.setMinSize(50,5);
-                gridPane.add(b4,6,3);
+        gridPane.add(edit,3,12);
+        gridPane.add(delete,4,12);
 
-                TextField b5=new TextField();
-                b5.setPromptText(a5);
-                b5.setMinSize(50,5);
-                gridPane.add(b5,7,3);
+        edit.setOnAction((ActionEvent a1)->{
+            String conid=id.getText();
+            String conkind=id.getText();
+            String conlevel=id.getText();
+            String conname=coname.getText();
+            String conphone=phone.getText();
+            String conmail=phone.getText();
+            String conemail=email.getText();
+            String conreceivemoney=receivemoney.getText();
+            String conaccount=account.getText();
+            String consaleman=saleman.getText();
 
-                TextField b6=new TextField();
-                b6.setPromptText(a6);
-                b6.setMinSize(50,5);
-                gridPane.add(b6,8,3);
+            gridPane.getChildren().removeAll(id,kind,level,coname,phone,mail,email,receivemoney,account,saleman,edit,delete);
 
-                TextField b7=new TextField();
-                b7.setPromptText(a7);
-                b7.setMinSize(50,5);
-                gridPane.add(b2,9,3);
+            TextField id1=new TextField();
+            id1.setPromptText(conid);
+            gridPane.add(id1,1,0);
 
-                TextField b8=new TextField();
-                b8.setPromptText(a8);
-                b8.setMinSize(50,5);
-                gridPane.add(b8,10,3);
+            TextField kind1=new TextField();
+            kind1.setPromptText(conkind);
+            gridPane.add(kind1,1,1);
 
-                TextField b9=new TextField();
-                b9.setPromptText(a9);
-                b9.setMinSize(50,5);
-                gridPane.add(b9,11,3);
+            TextField level1=new TextField();
+            level1.setPromptText(conlevel);
+            gridPane.add(level1,1,2);
 
-                TextField b10=new TextField();
-                b10.setPromptText(a10);
-                b10.setMinSize(50,5);
-                gridPane.add(b10,12,3);
+            TextField name1=new TextField();
+            name1.setPromptText(conname);
+            gridPane.add(name1,1,3);
+
+            TextField phone1=new TextField();
+            phone1.setPromptText(conphone);
+            gridPane.add(phone1,1,4);
+
+            TextField mail1=new TextField();
+            mail1.setPromptText(conmail);
+            gridPane.add(mail1,1,5);
+
+            TextField email1=new TextField();
+            email1.setPromptText(conemail);
+            gridPane.add(email1,1,6);
+
+            TextField receivemoney1=new TextField();
+            receivemoney1.setPromptText(conreceivemoney);
+            gridPane.add(receivemoney1,1,7);
+
+            TextField account1=new TextField();
+            account1.setPromptText(conaccount);
+            gridPane.add(account1,1,10);
+
+            TextField salesman1=new TextField();
+            salesman1.setPromptText(consaleman);
+            gridPane.add(salesman1,1,11);
+
+            Button confirm=new Button("确认修改");
+            Button cancel=new Button("取消");
+
+            gridPane.add(confirm,3,12);
+            gridPane.add(cancel,4,12);
+
+            confirm.setOnAction((ActionEvent e1)->{
 
             });
 
-        }catch(RemoteException e){
-            e.printStackTrace();
-        }
+            cancel.setOnAction((ActionEvent e2)->{
+
+            });
+        });
+
+        delete.setOnAction((ActionEvent a2)->{
+            try {
+                consumerManageController.deleteConsumer(vo);
+                gridPane.getChildren().clear();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
 
         return gridPane;
     }
 
-    private Pane BuyinPane(String id){
+    private Pane newConsumerPane(TreeItem<String> a) {
 
-        return null;
+        GridPane gridPane=new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(12);
+        gridPane.setMinHeight(450);
+        gridPane.setMinWidth(1050);
+
+        Label idlabel=new Label("客户ID：");
+        Text id=new Text();
+        id.setText(a.getValue());
+
+        Label kindlabel=new Label("类型：");
+        TextField kind=new TextField();
+
+        Label levelLabel=new Label("客户级别：");
+        TextField level=new TextField();
+
+        Label nameLabel=new Label("姓名：");
+        TextField coname=new TextField();
+
+        Label phoneLabel=new Label("联系方式：");
+        TextField phone=new TextField();
+
+        Label mailLabel=new Label("邮编：");
+        TextField mail=new TextField();
+
+        Label emailLabel=new Label("电子邮箱：");
+        TextField email=new TextField();
+
+        Label moneyLabel=new Label("应收额度：");
+        TextField receivemoney=new TextField();
+
+        Label receiveLabel=new Label("应收：");
+        Text receive=new Text();
+        receive.setText("0");
+
+        Label payLabel=new Label("应付：");
+        Text pay=new Text();
+        pay.setText("0");
+
+        Label accoutLabel=new Label("客户账号：");
+        TextField account=new TextField();
+
+        Label salesmanLabel=new Label("销售员：");
+        TextField salesman=new TextField();
+
+        gridPane.add(idlabel,0,0);
+        gridPane.add(id,1,0);
+        gridPane.add(kindlabel,0,1);
+        gridPane.add(kind,1,1);
+        gridPane.add(levelLabel,0,2);
+        gridPane.add(level,1,2);
+        gridPane.add(nameLabel,0,3);
+        gridPane.add(coname,1,3);
+        gridPane.add(phoneLabel,0,4);
+        gridPane.add(phone,1,4);
+        gridPane.add(mailLabel,0,5);
+        gridPane.add(mail,1,5);
+        gridPane.add(emailLabel,0,6);
+        gridPane.add(email,1,6);
+        gridPane.add(moneyLabel,0,7);
+        gridPane.add(receivemoney,1,7);
+        gridPane.add(receiveLabel,0,8);
+        gridPane.add(receive,1,8);
+        gridPane.add(payLabel,0,9);
+        gridPane.add(pay,1,9);
+        gridPane.add(accoutLabel,0,10);
+        gridPane.add(account,1,10);
+        gridPane.add(salesmanLabel,0,11);
+        gridPane.add(salesman,1,11);
+
+        Button build=new Button("新建");
+        Button cancel=new Button("取消");
+
+        gridPane.add(build,3,12);
+        gridPane.add(cancel,4,12);
+
+        build.setOnAction((ActionEvent e)->{
+            double kindnum;
+            if(kind.getText().equals("进货商")){
+                kindnum=0;
+            }else{
+                kindnum=1;
+            }
+            consumerVO vo=new consumerVO(
+                    id.getText(),
+                    kindnum,
+                    Double.parseDouble(level.getText()),
+                    coname.getText(),
+                    phone.getText(),
+                    mail.getText(),
+                    email.getText(),
+                    Double.parseDouble(receivemoney.getText()),
+                    Double.parseDouble(receive.getText()),
+                    Double.parseDouble(pay.getText()),
+                    salesman.getText(),
+                    account.getText()
+            );
+
+            try {
+                consumerManageController.addConsumer(vo);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+
+        cancel.setOnAction((ActionEvent e)->{
+
+        });
+        return gridPane;
     }
 
-    private Pane SelloutPane(String id){
+    private Pane BuyinBillPane(String name){
+        StockinBill thisstockinbill=new StockinBill();
+        for(StockinBill buyinBill:stockinList){
+            if(buyinBill.getBuyinID().equals(name)){
+                thisstockinbill=buyinBill;
+                break;
+            }
+        }
+
+        buyinVO vo=stockinBillMakeController.billtovo(thisstockinbill);
+
+        GridPane gridPane=new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(12);
+        gridPane.setMinHeight(450);
+        gridPane.setMinWidth(1050);
+
+        Label kindlabel=new Label("单据类型：");
+        Text kind=new Text();
+        if(Double.parseDouble(thisstockinbill.getBuyinKind())==0){
+            kind.setText("进货单");
+        }
+        else{
+            kind.setText("进货退货单");
+        }
+
+        Label idLabel=new Label("单据ID：");
+        Text id=new Text();
+        id.setText(thisstockinbill.getBuyinID());
+
+        Label operaterLabel=new Label("操作员：");
+        Text operater=new Text();
+        operater.setText(thisstockinbill.getBuyinOperater());
+
+        Label offerLabel=new Label("供应商：");
+        Text offer=new Text();
+        offer.setText(thisstockinbill.getBuyinOffer());
+
+        Label StorehouseLabel=new Label("仓库：");
+        Text storehouse=new Text();
+        storehouse.setText(thisstockinbill.getBuyinStoreHouse());
+
+        Label GoodsList=new Label("出货商品清单");
 
 
-        return null;
+        return gridPane;
+    }
+
+    private Pane SelloutPane(String name){
+        SelloutBill thisselloutBill=new SelloutBill();
+        for(SelloutBill bill:selloutBillList){
+            if(bill.getSelloutID().equals(name)){
+                thisselloutBill=bill;
+                break;
+            }
+        }
+
+        selloutVO vo=selloutBillMakeController.selloutToVo(thisselloutBill);
+
+        GridPane gridPane=new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(12);
+        gridPane.setMinHeight(450);
+        gridPane.setMinWidth(1050);
+
+        Label label=new Label("单据类型");
+
+
+        return gridPane;
     }
 }

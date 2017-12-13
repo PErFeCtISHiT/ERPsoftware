@@ -103,7 +103,7 @@ public class buyinVO implements Serializable{
 		this.sumall = sumall;
 	}
 
-	public buyinVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String provider, String base, String goodsoutlist, Double sumall) {
+	public buyinVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String provider, String base, String goodsoutlist, Double sumall,Double isDraft) {
 
 		this.kind = kind;
 		this.keyno = keyno;
@@ -115,5 +115,6 @@ public class buyinVO implements Serializable{
 		this.base = base;
 		this.goodsoutlist = goodsoutlist;
 		this.sumall = sumall;
+		this.isDraft=isDraft;
 	}
 }

@@ -15,14 +15,32 @@ import java.util.List;
  */
 public class StockinBillMakeController implements StockinMakeInterface {
     @Override
-    public List<buyinPO> findBuyinBill(String keyword) {
+    public List findBuyinBill(String keyword) {
 
         return null;
     }
 
     @Override
-    public List<buyinPO> show() throws RemoteException {
-        return link.getRemoteHelper().getBuyinBill().findAll(3);
+    public List show() throws RemoteException {
+        List<buyinPO> list=link.getRemoteHelper().getBuyinBill().findAll(3);
+        List<buyinVO> resultList=new ArrayList<>();
+        for(buyinPO po:list){
+            buyinVO vo=new buyinVO(
+                    po.getKind(),
+                    po.getKeyno(),
+                    po.getNote(),
+                    po.getOper(),
+                    po.getIscheck(),
+                    po.getIsred(),
+                    po.getProvider(),
+                    po.getBase(),
+                    po.getGoodsoutlist(),
+                    po.getSumall(),
+                    po.getIsDraft()
+            );
+            resultList.add(vo);
+        }
+        return resultList;
     }
 
     @Override
@@ -39,4 +57,15 @@ public class StockinBillMakeController implements StockinMakeInterface {
     public ResultMessage modifyBuyinBill(buyinVO vo) throws RemoteException {
         return link.getRemoteHelper().getBuyinBill().modifyObject(vo,3);
     }
+
+    @Override
+    public buyinVO billtovo(StockinBill bill) {
+        return new buyinVO(Double.parseDouble(bill.getBuyinKind()),bill.getBuyinID(),bill.getBuyinTips(),bill.getBuyinOperater(),Double.parseDouble(bill.getBuyinisCheck()),Double.parseDouble(bill.getBuyinisRed()),bill.getBuyinOffer(),bill.getBuyinStoreHouse(),bill.getBuyinGoodsList(),Double.parseDouble(bill.getBuyinSum()),Double.parseDouble(bill.getBuyinisDraft()));
+    }
+
+    @Override
+    public StockinBill votoBill(buyinVO vo) {
+        return new StockinBill(String.valueOf(vo.getKind()),vo.getKeyno(),vo.getNote(),vo.getOper(), String.valueOf(vo.getIscheck()),String.valueOf(vo.getIsred()),vo.getProvider(),vo.getBase(),vo.getGoodsoutlist(),String.valueOf(vo.getSumall()),String.valueOf(vo.getIsDraft()));
+    }
+
 }

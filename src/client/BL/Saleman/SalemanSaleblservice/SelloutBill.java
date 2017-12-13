@@ -6,33 +6,64 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by Leonarda on 2017/12/3.
  */
 public class SelloutBill {
-    public final SimpleStringProperty selloutID;
-    public final SimpleStringProperty selloutConsumer;
-    public final SimpleStringProperty selloutServer;
-    public final SimpleStringProperty selloutOperater;
-    public final SimpleStringProperty selloutWarehouse;
-    public final SimpleStringProperty selloutGoodslist;
-    public final SimpleStringProperty selloutBeforeMoney;
-    public final SimpleStringProperty selloutDiscount;
-    public final SimpleStringProperty selloutCard;
-    public final SimpleStringProperty selloutSum;
-    public final SimpleStringProperty selloutTip;
+    public SimpleStringProperty selloutkinds;
+    public SimpleStringProperty selloutID;
+    public SimpleStringProperty selloutTip;
+    public SimpleStringProperty selloutOperater;
+    public SimpleStringProperty selloutisCheck;
+    public SimpleStringProperty selloutisred;
+    public SimpleStringProperty selloutConsumer;
+    public SimpleStringProperty selloutServer;
+    public SimpleStringProperty selloutWarehouse;
+    public SimpleStringProperty selloutGoodslist;
+    public SimpleStringProperty selloutBeforeMoney;
+    public SimpleStringProperty selloutDiscount;
+    public SimpleStringProperty selloutCard;
+    public SimpleStringProperty selloutSum;
+    public SimpleStringProperty selloutisDraft;
 
-    public final SimpleStringProperty selloutkinds;
+    public SelloutBill(String kind,String id,String tip,String oper,String ischeck,String isred,String consumer,String server,String house,String list,String beforemoney,String discount,String card,String sum,String isdraft){
+        this.selloutkinds=new SimpleStringProperty(kind);
+        this.selloutID=new SimpleStringProperty(id);
+        this.selloutTip=new SimpleStringProperty(tip);
+        this.selloutOperater=new SimpleStringProperty(oper);
+        this.selloutisCheck=new SimpleStringProperty(ischeck);
+        this.selloutisred=new SimpleStringProperty(isred);
+        this.selloutConsumer=new SimpleStringProperty(consumer);
+        this.selloutServer=new SimpleStringProperty(server);
+        this.selloutWarehouse=new SimpleStringProperty(house);
+        this.selloutGoodslist=new SimpleStringProperty(list);
+        this.selloutBeforeMoney=new SimpleStringProperty(beforemoney);
+        this.selloutDiscount=new SimpleStringProperty(discount);
+        this.selloutCard=new SimpleStringProperty(card);
+        this.selloutSum=new SimpleStringProperty(sum);
+        this.selloutisDraft=new SimpleStringProperty(isdraft);
+    }
 
-    public SelloutBill(String a1,String a2,String a3,String a4,String warehouse,String a5,String a6,String a7,String a8,String a9,String a10,String a11){
-        this.selloutID=new SimpleStringProperty(a1);
-        this.selloutConsumer=new SimpleStringProperty(a2);
-        this.selloutServer=new SimpleStringProperty(a3);
-        this.selloutOperater=new SimpleStringProperty(a4);
-        this.selloutWarehouse=new SimpleStringProperty(warehouse);
-        this.selloutGoodslist=new SimpleStringProperty(a5);
-        this.selloutBeforeMoney=new SimpleStringProperty(a6);
-        this.selloutDiscount=new SimpleStringProperty(a7);
-        this.selloutCard=new SimpleStringProperty(a8);
-        this.selloutSum=new SimpleStringProperty(a9);
-        this.selloutTip=new SimpleStringProperty(a10);
-        this.selloutkinds=new SimpleStringProperty(a11);
+    public SelloutBill(){}
+
+    public void setSelloutisCheck(String selloutisCheck) {
+        this.selloutisCheck.set(selloutisCheck);
+    }
+
+    public void setSelloutisDraft(String selloutisDraft) {
+        this.selloutisDraft.set(selloutisDraft);
+    }
+
+    public void setSelloutisred(String selloutisred) {
+        this.selloutisred.set(selloutisred);
+    }
+
+    public String getSelloutisCheck() {
+        return selloutisCheck.get();
+    }
+
+    public String getSelloutisDraft() {
+        return selloutisDraft.get();
+    }
+
+    public String getSelloutisred() {
+        return selloutisred.get();
     }
 
     public void setSelloutkinds(String selloutkinds) {

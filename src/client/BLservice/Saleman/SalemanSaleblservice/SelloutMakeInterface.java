@@ -6,7 +6,6 @@ import server.Po.selloutPO;
 import shared.ResultMessage;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,8 +15,8 @@ public interface SelloutMakeInterface {
     ResultMessage addselloutBill(selloutVO vo) throws RemoteException;
     ResultMessage deleteselloutBill(selloutVO vo) throws RemoteException;
     ResultMessage modifyselloutBill(selloutVO vo) throws RemoteException;
-    List<selloutPO> findselloutBill(String keyword);
-    List<selloutPO> show() throws RemoteException;
+    List findselloutBill(String keyword);
+    List show() throws RemoteException;
     selloutVO selloutToVo(SelloutBill sellout);
     SelloutBill VoTosellout(selloutVO vo);
 }

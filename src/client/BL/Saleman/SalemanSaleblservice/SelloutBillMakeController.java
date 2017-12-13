@@ -16,14 +16,35 @@ import java.util.List;
 public class SelloutBillMakeController implements SelloutMakeInterface {
 
     @Override
-    public List<selloutPO> findselloutBill(String keyword) {
+    public List findselloutBill(String keyword) {
         return null;
     }
 
     @Override
-    public List<selloutPO> show() throws RemoteException{
-
-        return link.getRemoteHelper().getSelloutBill().findAll(4);
+    public List show() throws RemoteException{
+        List<selloutPO> list=link.getRemoteHelper().getSelloutBill().findAll(4);
+        List<selloutVO> resultList=new ArrayList<>();
+        for(selloutPO po:list){
+            selloutVO vo=new selloutVO(
+                    po.getKind(),
+                    po.getKeyno(),
+                    po.getNote(),
+                    po.getOper(),
+                    po.getIscheck(),
+                    po.getIsred(),
+                    po.getConsumer(),
+                    po.getServer(),
+                    po.getBase(),
+                    po.getGoodsoutlist(),
+                    po.getSumall(),
+                    po.getCut(),
+                    po.getVoucher(),
+                    po.getFinalsum(),
+                    po.getIsDraft()
+            );
+            resultList.add(vo);
+        }
+        return resultList;
     }
 
     @Override
@@ -43,41 +64,27 @@ public class SelloutBillMakeController implements SelloutMakeInterface {
 
     @Override
     public SelloutBill VoTosellout(selloutVO vo) {
-        String kind=String.valueOf(vo.getKind());
-        String keyno=vo.getKeyno();
-        String note=vo.getNote();
-        String oper=vo.getOper();
-        String ischeck=String.valueOf(vo.getIscheck());
-        String isred=String.valueOf(vo.getIsred());
-        String consumer=vo.getConsumer();
-        String server=vo.getServer();
-        String base=vo.getBase();
-        String goodsoutlist=vo.getGoodsoutlist();
-        String sumall=String.valueOf(vo.getSumall());
-        String cut=String.valueOf(vo.getCut());
-        String voucher=String.valueOf(vo.getVoucher());
-        String finalsum=String.valueOf(vo.getFinalsum());
-
-        return new SelloutBill(keyno,consumer,server,oper,base,goodsoutlist,sumall,cut,voucher,finalsum,note,kind);
+        return new SelloutBill(String.valueOf(vo.getKind()),vo.getKeyno(),vo.getNote(),vo.getOper(),String.valueOf(vo.getIscheck()),String.valueOf(vo.getIsred()),vo.getConsumer(),vo.getServer(),vo.getBase(),vo.getGoodsoutlist(),String.valueOf(vo.getSumall()),String.valueOf(vo.getCut()),String.valueOf(vo.getVoucher()),String.valueOf(vo.getFinalsum()),String.valueOf(vo.getIsDraft()));
     }
 
     @Override
     public selloutVO selloutToVo(SelloutBill sellout) {
-        String kind="0";
-        String keyno=sellout.getSelloutID();
-        String note=sellout.getSelloutTip();
-        String oper=sellout.getSelloutOperater();
-        String ischeck="0";
-        String isred="1";
-        String consumer=sellout.getSelloutConsumer();
-        String server=sellout.getSelloutServer();
-        String base=sellout.getSelloutWarehouse();
-        String goodsoutlist=sellout.getSelloutGoodslist();
-        String sumall=sellout.getSelloutBeforeMoney();
-        String cut=sellout.getSelloutDiscount();
-        String voucher=sellout.getSelloutCard();
-        String finalsum=sellout.getSelloutSum();
-
-        return new selloutVO(Double.parseDouble(kind),keyno,note,oper,Double.parseDouble(ischeck),Double.parseDouble(isred),consumer,server,base,goodsoutlist,Double.parseDouble(sumall),Double.parseDouble(cut),Double.parseDouble(voucher),Double.parseDouble(finalsum));
+        return new selloutVO(
+                Double.parseDouble(sellout.getSelloutkinds()),
+                sellout.getSelloutID(),
+                sellout.getSelloutTip(),
+                sellout.getSelloutOperater(),
+                Double.parseDouble(sellout.getSelloutisCheck()),
+                Double.parseDouble(sellout.getSelloutisred()),
+                sellout.getSelloutConsumer(),
+                sellout.getSelloutServer(),
+                sellout.getSelloutWarehouse(),
+                sellout.getSelloutGoodslist(),
+                Double.parseDouble(sellout.getSelloutBeforeMoney()),
+                Double.parseDouble(sellout.getSelloutDiscount()),
+                Double.parseDouble(sellout.getSelloutCard()),
+                Double.parseDouble(sellout.getSelloutSum()),
+                Double.parseDouble(sellout.getSelloutisDraft())
+                );
     }
 }

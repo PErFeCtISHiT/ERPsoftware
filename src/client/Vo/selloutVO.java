@@ -139,7 +139,7 @@ public class selloutVO implements Serializable{
 		this.finalsum = finalsum;
 	}
 
-	public selloutVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String server, String base, String goodsoutlist, Double sumall, Double cut, Double voucher, Double finalsum) {
+	public selloutVO(Double kind, String keyno, String note, String oper, Double ischeck, Double isred, String consumer, String server, String base, String goodsoutlist, Double sumall, Double cut, Double voucher, Double finalsum,Double isDraft) {
 
 		this.kind = kind;
 		this.keyno = keyno;
@@ -155,5 +155,6 @@ public class selloutVO implements Serializable{
 		this.cut = cut;
 		this.voucher = voucher;
 		this.finalsum = finalsum;
+		this.isDraft=isDraft;
 	}
 }

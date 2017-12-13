@@ -1,5 +1,6 @@
 package client.BLservice.Saleman.SalemanStockinblservice;
 
+import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import shared.ResultMessage;
 
 import client.Vo.buyinVO;
@@ -16,7 +17,8 @@ public interface StockinMakeInterface {
     ResultMessage addBuyinBill(buyinVO vo) throws RemoteException;
     ResultMessage deleteBuyinBill(buyinVO vo) throws RemoteException;
     ResultMessage modifyBuyinBill(buyinVO vo) throws RemoteException;
-    List<buyinPO> findBuyinBill(String keyword) throws RemoteException;
-    List<buyinPO> show() throws RemoteException;
-
+    List findBuyinBill(String keyword) throws RemoteException;
+    List show() throws RemoteException;
+    buyinVO billtovo(StockinBill stockinBill);
+    StockinBill votoBill(buyinVO vo);
 }

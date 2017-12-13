@@ -21,7 +21,26 @@ public class ConsumerManageController implements ConsumerManageInterface{
 
     @Override
     public List show() throws RemoteException {
-        return link.getRemoteHelper().getConsumer().findAll(2);
+        List<consumerPO> list=link.getRemoteHelper().getConsumer().findAll(2);
+        List<consumerVO> resultlist=new ArrayList<>();
+        for(consumerPO po:list){
+            consumerVO vo=new consumerVO(
+                    po.getKeyno(),
+                    po.getKinds(),
+                    po.getLev(),
+                    po.getKeyname(),
+                    po.getTel(),
+                    po.getMailcode(),
+                    po.getEmail(),
+                    po.getCapacit(),
+                    po.getReceive(),
+                    po.getPay(),
+                    po.getServer(),
+                    po.getAccoun()
+            );
+            resultlist.add(vo);
+        }
+        return resultlist;
     }
 
     @Override
@@ -47,42 +66,12 @@ public class ConsumerManageController implements ConsumerManageInterface{
 
     @Override
     public Consumer VOtoconsumer(consumerVO vo) {
-
-        String ConsumerID=vo.getKeyno();
-        String ConsumerStockin="0";
-        String ConsumerSell="0";
-        String ConsumerLevel=String.valueOf(vo.getLev());
-        String ConsumerName=vo.getKeyname();
-        String ConsumerPhone=vo.getTel();
-        String ConsumerAddress="0";
-        String ConsumerMail=vo.getMailcode();
-        String ConsumerEmail=vo.getEmail();
-        String ConsumerReveiveMoney=String.valueOf(vo.getCapacit());
-        String ConsumerReceive=String.valueOf(vo.getReceive());
-        String ConsumerPay=String.valueOf(vo.getPay());
-        String Salesman=vo.getServer();
-
-        return new Consumer(ConsumerID,ConsumerStockin,ConsumerSell,ConsumerLevel,ConsumerName,ConsumerPhone,ConsumerAddress,ConsumerMail,ConsumerEmail,ConsumerReveiveMoney,ConsumerReceive,ConsumerPay,Salesman);
-
+        return new Consumer(vo.getKeyno(),vo.getKinds().toString(),vo.getLev().toString(),vo.getKeyname(),vo.getTel(),vo.getMailcode(),vo.getEmail(),vo.getCapacit().toString(),vo.getReceive().toString(),vo.getPay().toString(),vo.getServer(),vo.getAccoun());
     }
 
     @Override
     public consumerVO consumerToVO(Consumer consumer) {
-
-        String keyno=consumer.getConsumerID();  //客户编号
-        double kinds=0;  //分类
-        double lev=Double.parseDouble(consumer.getConsumerLevel());    //级别
-        String keyname=consumer.getConsumerName(); //姓名
-        String tel=consumer.getConsumerPhone();  //电话
-        String mailcode=consumer.getConsumerMail();  //邮编
-        String email=consumer.getConsumerEmail();   //电子邮箱
-        double capacit=Double.parseDouble(consumer.getConsumerReveiveMoney());    //应收额度
-        double receive=Double.parseDouble(consumer.getConsumerReceive());    //应收
-        double pay=Double.parseDouble(consumer.getConsumerPay());     //应付
-        String server=consumer.getSalesman();   //业务员
-        String accoun="ssss";    //银行账户
-
-        return new consumerVO(keyno,kinds,lev,keyname,tel,mailcode,email,capacit,receive,pay,server,accoun);
+        return new consumerVO(consumer.getConsumerID(),Double.parseDouble(consumer.getConsumerKind()),Double.parseDouble(consumer.getConsumerLevel()),consumer.getConsumerName(),consumer.getConsumerPhone(),consumer.getConsumerMail(),consumer.getConsumerEmail(),Double.parseDouble(consumer.getConsumerReveiveMoney()),Double.parseDouble(consumer.getConsumerReceive()),Double.parseDouble(consumer.getConsumerPay()),consumer.getSalesman(),consumer.getAccout());
     }
 
 
