@@ -191,7 +191,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
 
     @Override
     public List findAccount(String keyword) throws RemoteException {
-        return accountInit.findAccount(keyword);
+        return coaccount.findAccount(keyword);
     }
 
     @Override
