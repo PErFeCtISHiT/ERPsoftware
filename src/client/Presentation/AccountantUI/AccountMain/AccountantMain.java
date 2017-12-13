@@ -46,7 +46,7 @@ import java.util.List;
 
 public class AccountantMain extends Application {
 
-    String staff = "core";
+    String staff = "Yotta";
     String staffno;
     private VBox right ;
 

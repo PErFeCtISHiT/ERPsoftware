@@ -9,6 +9,7 @@ import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.Presentation.AccountantUI.ReceivePayBill.FillMoneyBill;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -426,6 +427,10 @@ public class CashUI {
             try {
                 String ID = "XJFYD-"+nogenerater.generate(5);
                 fillbill.start(ID);
+                logVO log = new logVO();
+                log.setOperatorno(staff);
+                log.setKeyjob("新建现金费用单");
+                link.getRemoteHelper().getLog().addObject(log,13);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             } catch (IntrospectionException e1) {

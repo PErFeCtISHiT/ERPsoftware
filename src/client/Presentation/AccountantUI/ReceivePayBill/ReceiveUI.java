@@ -314,7 +314,18 @@ public class ReceiveUI {
                                 data.clear();
                                 data.addAll(bill.getMoneyList());
                                 money.setText(String.valueOf(bill.getSum()));
+
+                                logVO log = new logVO();
+                                log.setOperatorno(staff);
+                                log.setKeyjob("查看详细信息");
+                                link.getRemoteHelper().getLog().addObject(log,13);
                             } catch (RemoteException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (IntrospectionException e) {
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
                                 e.printStackTrace();
                             }
 
@@ -444,8 +455,8 @@ public class ReceiveUI {
 
                 logVO log = new logVO();
                 log.setOperatorno(staff);
-                log.setKeyjob("修改账户");
-                link.getRemoteHelper().getLog().addObject(log,20);
+                log.setKeyjob("新建收款单");
+                link.getRemoteHelper().getLog().addObject(log,13);
 
 
 

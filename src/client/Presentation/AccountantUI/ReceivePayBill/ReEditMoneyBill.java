@@ -93,12 +93,12 @@ public class ReEditMoneyBill {
         addComment.setMaxWidth(MoneyCol.getPrefWidth());
         addComment.setPromptText("备注");
 
-        final Button addButton = new Button("Add");
+        final Button addButton = new Button("添加");
         addButton.setOnAction((ActionEvent e) -> {
             String acc = addID.getText();
             String money = addMoney.getText();
             String comment = addComment.getText();
-            MoneyList list = new MoneyList("123",billNum.getText(),acc,money,comment);
+            MoneyList list = new MoneyList("",billNum.getText(),acc,money,comment);
             data.add(list);
             addID.clear();
             addMoney.clear();
@@ -135,6 +135,34 @@ public class ReEditMoneyBill {
         ConsumerTypeComboBox.setValue("供应商");
         ConsumerTypeComboBox.setEditable(false);
 
+
+
+        String ID = bill.getID();
+        String Type = bill.getBillType();
+        if (Type.equals("0.0")){
+            Type = "收款单";
+        }
+        else {
+            Type = "付款单";
+        }
+        String consumerID = bill.getConsumerID();
+        String consumerType = bill.getConsumerType();
+        String operater = bill.getOperater();
+        String sum = String.valueOf(bill.getSum());
+        ArrayList<MoneyList> moneylist = bill.getMoneyList();
+
+        System.out.println(" List size 5: "+data.size());
+        TypeComboBox.setValue(Type);
+        billNum.setText(ID);
+        StaffComboBox.setValue(operater);
+        ConsumerTypeComboBox.setValue(consumerType);
+        consumer.setText(consumerID);
+        data.clear();
+        data.addAll(moneylist);
+        System.out.println("fir"+data.get(0).getkeyid());
+        money.setText(sum);
+
+
         SummitButton.setOnAction((ActionEvent e) -> {
             if (true)//checkMoney(money.getText())
             {
@@ -142,24 +170,28 @@ public class ReEditMoneyBill {
 
                 String billtype = TypeComboBox.getValue();
                 String billID = billNum.getText();
-                String operater = StaffComboBox.getValue();
-                String consumerType =ConsumerTypeComboBox.getValue();
-                String consumerID = consumer.getText();
+                String operater1 = StaffComboBox.getValue();
+                String consumerType1 =ConsumerTypeComboBox.getValue();
+                String consumerID1 = consumer.getText();
 
                 System.out.println(money.getText());
-                double sum = Double.parseDouble(money.getText());
+                double sum1 = Double.parseDouble(money.getText());
                 System.out.println(sum);
 
-                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                data.clear();
+                ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
+
+
+
                 for (int i=0;i<data.size();i++) {
-                    String listID = "ZZLB-" + i;
-                    data.get(i).setKeyid(listID);
+//                    String listID = "ZZLB-" + i;
+//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
-                    moneylist.add(data.get(i));
+                    System.out.println("sec"+data.get(0).getkeyid());
+                    moneylist1.add(data.get(i));
                 }
+                System.out.println(" List size 2: "+data.size());
 //                System.out.println("Step 1");
-                FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
+                FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
                 try {
 //                    System.out.println("Step 2");
                     if(billtype.equals("收款单")){
@@ -183,19 +215,24 @@ public class ReEditMoneyBill {
         DraftButton.setOnAction((ActionEvent e) -> {
             String billtype = TypeComboBox.getValue().toString();
             String billID = billNum.getText();
-            String operater = StaffComboBox.getValue().toString();
-            String consumerType =ConsumerTypeComboBox.getValue().toString();
-            String consumerID = consumer.getText();
-            double sum = Double.parseDouble(money.getText());
-            ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-            data.clear();
+            String operater1 = StaffComboBox.getValue().toString();
+            String consumerType1 =ConsumerTypeComboBox.getValue().toString();
+            String consumerID1 = consumer.getText();
+            double sum1 = Double.parseDouble(money.getText());
+            ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
+//            data.clear();
+
+            System.out.println(" List size 3: "+data.size());
             for (int i=0;i<data.size();i++) {
-                String listID = "ZZLB-" + i;
-                data.get(i).setKeyid(listID);
+//                String listID = "ZZLB-" + i;
+//                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
-                moneylist.add(data.get(i));
+                System.out.println("sec"+data.get(0).getkeyid());
+                moneylist1.add(data.get(i));
             }
-            FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
+            System.out.println("thi"+data.get(0).getkeyid());
+            System.out.println(" List size 4: "+data.size());
+            FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
             try {
                 if(billtype=="收款单"){
                     ResultMessage resultMessage = receiveController.saveAsDraft(financialBill);
@@ -209,29 +246,6 @@ public class ReEditMoneyBill {
             money.clear();
             text.clear();
         });
-
-        String ID = bill.getID();
-        String Type = bill.getBillType();
-        if (Type.equals("0.0")){
-            Type = "收款单";
-        }
-        else {
-            Type = "付款单";
-        }
-        String consumerID = bill.getConsumerID();
-        String consumerType = bill.getConsumerType();
-        String operater = bill.getOperater();
-        String sum = String.valueOf(bill.getSum());
-        ArrayList<MoneyList> moneylist = bill.getMoneyList();
-
-        TypeComboBox.setValue(Type);
-        billNum.setText(ID);
-        StaffComboBox.setValue(operater);
-        ConsumerTypeComboBox.setValue(consumerType);
-        consumer.setText(consumerID);
-        data.clear();
-        data.addAll(moneylist);
-        money.setText(sum);
 
 
         GridPane grid = new GridPane();
@@ -258,6 +272,10 @@ public class ReEditMoneyBill {
         grid.add(SummitButton, 2, 4);
         grid.add(OutputButton, 3, 4);
         grid.add (notification, 0, 6, 3, 1);
+
+
+
+
 
 
         Group root = (Group)scene.getRoot();

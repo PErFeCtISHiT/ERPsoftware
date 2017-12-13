@@ -434,8 +434,8 @@ public class PayUI {
                 fillbill.start(ID);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
-                log.setKeyjob("修改账户");
-                link.getRemoteHelper().getLog().addObject(log,20);
+                log.setKeyjob("新建付款单");
+                link.getRemoteHelper().getLog().addObject(log,13);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             } catch (IntrospectionException e1) {

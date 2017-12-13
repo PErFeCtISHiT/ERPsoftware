@@ -449,7 +449,7 @@
       <Position>1</Position>
       <DataType>VARCHAR2(20)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="93" parent="38" name="LEV">
       <Position>2</Position>
@@ -464,7 +464,7 @@
     <column id="95" parent="38" name="VOUCHER">
       <Position>4</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="96" parent="38" name="PACKNO">
       <Position>5</Position>
@@ -474,17 +474,17 @@
     <column id="97" parent="38" name="FROMDATE">
       <Position>6</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="98" parent="38" name="TODATE">
       <Position>7</Position>
       <DataType>VARCHAR2(20)|0</DataType>
-      <DefaultExpression>NULL  </DefaultExpression>
+      <DefaultExpression>NULL</DefaultExpression>
     </column>
     <column id="99" parent="38" name="KINDOFCUT">
       <Position>8</Position>
       <DataType>NUMBER(*)|0</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <index id="100" parent="38" name="SYS_C0011120">
       <ObjectId>74038</ObjectId>
