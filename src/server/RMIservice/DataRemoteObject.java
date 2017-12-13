@@ -190,6 +190,11 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
+    public List findAccount(String keyword) throws RemoteException {
+        return accountInit.findAccount(keyword);
+    }
+
+    @Override
     public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         accountInit.Build(year);
     }
@@ -197,5 +202,10 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     @Override
     public void deleteByNO(String no)throws RemoteException {
         moneyList.deleteByNO(no);
+    }
+
+    @Override
+    public List findConsumer(String keyword) throws RemoteException {
+        return consumer.findConsumer(keyword);
     }
 }
