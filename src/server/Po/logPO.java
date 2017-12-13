@@ -24,18 +24,8 @@ public class logPO implements Serializable{
 	private String consumer;
 	private String base;
 
-	public logPO() throws RemoteException, InvocationTargetException, IntrospectionException, IllegalAccessException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date= null;
-		try {
-			date = sdf.parse(LocalDate.now().toString());
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		java.sql.Date sqldate = new java.sql.Date(date.getTime());
-		this.setAdddate(sqldate);
-		String logno = NOgenerator.generateaLog(13);
-		this.setKeyno(logno);
+	public logPO(){
+
 	}
 
 	public String getGoodsname() {

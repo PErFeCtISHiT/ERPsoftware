@@ -95,7 +95,7 @@ public class accountInitDB extends publicDB implements accountInit {
     public List findAccount(String keyword) throws RemoteException {
         hibtools.session = hibtools.sessionFactory.openSession();
         hibtools.tx = hibtools.session.beginTransaction();
-        String hql = "from CoEntity where keyno like ? or keyname like ?";
+        String hql = "from CoEntity y where y.keyname like '%"+keyword+"%'" + "or y.keyno like '%"+keyword+"%'";
         List<CoEntity> goodsEntities = (List<CoEntity>)hibtools.session.createQuery(hql)
                 .setParameter(0,keyword).setParameter(1,keyword).list();
         List<coPO> goodsPOS = new ArrayList<>() ;
