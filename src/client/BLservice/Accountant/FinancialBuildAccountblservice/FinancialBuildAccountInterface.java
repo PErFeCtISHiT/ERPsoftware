@@ -1,9 +1,7 @@
 package client.BLservice.Accountant.FinancialBuildAccountblservice;
 
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild;
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_account;
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_consumer;
-import client.BL.Accountant.FinancialBuildAccountbl.AccountBuild_good;
+import client.BL.Accountant.FinancialBuildAccountbl.*;
+import client.Presentation.AccountantUI.InitAccount.AccountInitUI;
 import client.Vo.coVO;
 import client.Vo.consumerVO;
 import client.Vo.goodsVO;
@@ -13,13 +11,17 @@ import server.Po.consumerPO;
 import server.Po.goodsPO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface FinancialBuildAccountInterface {
 
 
-    public AccountBuild accountbuild() throws RemoteException;
+    public AccountBuild accountbuild() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException;
+
+    public ArrayList<AccountList> show() throws RemoteException;
 
     public AccountBuild getPast(String year) throws RemoteException;
 

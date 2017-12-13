@@ -7,6 +7,7 @@ import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
 import client.BLservice.Accountant.FinancialPayblservice.FinancialPayInterface;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import client.Vo.coVO;
 import client.Vo.moneyVO;
@@ -16,6 +17,8 @@ import server.Po.moneyListPO;
 import server.Po.moneyPO;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -29,9 +32,20 @@ public class FinancialPayController implements FinancialPayInterface {
     @Override
     public ResultMessage summit(FinancialBill financialBill) throws RemoteException{
         moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
         ArrayList<MoneyList> list = financialBill.getMoneyList();
         saveMoneyList(list);
         link.getRemoteHelper().getMoneyBill().addObject(moneypo,5);
+        return null;
+    }
+
+    @Override
+    public ResultMessage resummit(FinancialBill financialBill) throws RemoteException {
+        moneyPO moneypo = FinancialBillToMoneyPO(financialBill);
+        moneypo.setIsDraft(0.0);
+        ArrayList<MoneyList> list = financialBill.getMoneyList();
+        saveMoneyList(list);
+        link.getRemoteHelper().getMoneyBill().modifyObject(moneypo,5);
         return null;
     }
 
@@ -53,12 +67,23 @@ public class FinancialPayController implements FinancialPayInterface {
             MoneyList ml =moneyLists.get(i);
             System.out.println(ml.getlistNO());
             moneyListPO moneylist = new moneyListPO();
-            moneylist.setKeyid(ml.getkeyid());
             moneylist.setKeyno(ml.getlistNO());
             moneylist.setAccountname(ml.getAccount());
             moneylist.setSumall(Double.parseDouble(ml.getMoney()));
             moneylist.setNote(ml.getComment());
-            link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+            try {
+                NOgenerator generater = new NOgenerator();
+                String listID = "ZZLB-" + generater.generateMoneyList(18);
+                moneylist.setKeyid(listID);
+                System.out.println("List Size: "+moneylist.getKeyid());
+                link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
+            } catch (IntrospectionException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -202,7 +227,7 @@ public class FinancialPayController implements FinancialPayInterface {
         String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
 
 
-        moneypo.setKind(0.0);
+        moneypo.setKind(1.0);
         moneypo.setKeyno(billID);
         moneypo.setAccoun("");
         moneypo.setConsumer(consumerID);

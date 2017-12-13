@@ -7,6 +7,33 @@ public class cutPO implements Serializable{
 	private Double cut;
 	private String voucher;
 	private String packno;
+	private String fromDate;
+	private String toDate;
+	private Double kindofcut;
+
+	public Double getKindofcut() {
+		return kindofcut;
+	}
+
+	public void setKindofcut(Double kindofcut) {
+		this.kindofcut = kindofcut;
+	}
+
+	public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
 
     public cutPO() {
 

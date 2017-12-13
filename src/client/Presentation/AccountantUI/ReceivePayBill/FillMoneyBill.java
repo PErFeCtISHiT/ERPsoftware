@@ -5,6 +5,7 @@ import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -22,40 +23,46 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import shared.ResultMessage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class FillMoneyBill extends Application {
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
+public class FillMoneyBill{
+
+//    public static void main(String[] args) {
+//        link.linktoServer();
+//        launch(args);
+//    }
 
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList(
-                    new MoneyList("1","1","123", "12.5", "C"),
-                    new MoneyList("2","2","456", "17.6", "E")
+//                    new MoneyList("1","1","123", "12.5", "C"),
+//                    new MoneyList("2","2","456", "17.6", "E")
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
-    final Label billNum = new Label ("XXXdanjubianhao");
+    final Label billNum = new Label ();
     final TextField consumer = new TextField("");
     final TextField money = new TextField("");
     final TextArea text = new TextArea ("");
+    private final NOgenerator nogenerater = new NOgenerator();
 
     final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
     FinancialPayController payController = new FinancialPayController();
-    @Override public void start(Stage stage) {
+    public void start(String ID) {
+        Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
         table.setEditable(true);
 
+        billNum.setText(ID);
         Callback<TableColumn<MoneyList, String>,
                 TableCell<MoneyList, String>> cellFactory
                 = (TableColumn<MoneyList, String> p) -> new EditingCell();
@@ -155,17 +162,21 @@ public class FillMoneyBill extends Application {
                 double sum = Double.parseDouble(money.getText());
                 System.out.println(sum);
 
-                ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                for (int i=0;i<data.size();i++){
-                    data.get(i).setKeyid(i+"");
+                ArrayList<MoneyList> moneylist = new ArrayList<>();
+
+                data.clear();
+                for (int i=0;i<data.size();i++) {
+//                    String listID = "ZZLB-" + i;
+//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
+
                 System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
                     System.out.println("Step 2");
-                    if(billtype=="收款单"){
+                    if(billtype.equals("收款单")){
                         ResultMessage resultMessage = receiveController.summit(financialBill);
                     }
                     else{
@@ -178,11 +189,11 @@ public class FillMoneyBill extends Application {
                 System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent"
                         + " to " );
-                TypeComboBox.setValue(null);
                 money.clear();
                 text.clear();
             }
         });
+
 
         DraftButton.setOnAction((ActionEvent e) -> {
             String billtype = TypeComboBox.getValue().toString();
@@ -192,10 +203,17 @@ public class FillMoneyBill extends Application {
             String consumerID = consumer.getText();
             double sum = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-            for (int i=0;i<data.size();i++){
+
+
+            data.clear();
+            for (int i=0;i<data.size();i++) {
+                String listID = "ZZLB-" + i;
+                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
                 moneylist.add(data.get(i));
             }
+
+
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
             try {
                 if(billtype=="收款单"){
@@ -208,7 +226,6 @@ public class FillMoneyBill extends Application {
                 e1.printStackTrace();
             }
 
-            TypeComboBox.setValue(null);
             money.clear();
             text.clear();
 

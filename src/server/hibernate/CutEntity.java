@@ -10,6 +10,11 @@ public class CutEntity {
     private Double cut;
     private String voucher;
     private String packno;
+    private String fromDate;
+    private String toDate;
+    private Double kindofcut;
+    public CutEntity() {
+    }
 
     @Id
     @Column(name = "KEYNO", nullable = false, length = 20)
@@ -38,7 +43,17 @@ public class CutEntity {
     }
 
     public void setCut(Double cut) {
-        this.cut = cut;
+        this.cut= cut;
+    }
+
+    @Basic
+    @Column(name = "KINDOFCUT", nullable = true, precision = 0)
+    public Double getKindofcut() {
+        return kindofcut;
+    }
+
+    public void setKindofcut(Double kindofcut) {
+        this.kindofcut = kindofcut;
     }
 
     @Basic
@@ -49,6 +64,26 @@ public class CutEntity {
 
     public void setVoucher(String voucher) {
         this.voucher = voucher;
+    }
+
+    @Basic
+    @Column(name = "FROMDATE", nullable = true, length = 20)
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    @Basic
+    @Column(name = "TODATE", nullable = true, length = 20)
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     @Basic

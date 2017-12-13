@@ -6,7 +6,9 @@ import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class PayUI extends Application {
+public class PayUI {
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "付款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
@@ -43,6 +45,7 @@ public class PayUI extends Application {
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList();
+    private final NOgenerator nogenerater = new NOgenerator();
 
     private final TableView<Account> accounttable = new TableView<>();
     private final ObservableList<Account> accountdata =
@@ -75,12 +78,8 @@ public class PayUI extends Application {
 
     FinancialPayController PayController  = new FinancialPayController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定付款单");
         Scene scene = new Scene(new Group(), 1350, 750);
 
@@ -92,10 +91,10 @@ public class PayUI extends Application {
                 new TableColumn<>("账户名称");
         TableColumn<Account, String> MoneyCol =
                 new TableColumn<>("账户余额");
-        IDCol.setMinWidth(100);
+        IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
-        NameCol.setMinWidth(100);
+        NameCol.setMinWidth(200);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
         MoneyCol.setMinWidth(200);
@@ -172,10 +171,10 @@ public class PayUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillEditCol =
                 new TableColumn<>("编辑单据");
-        BillIDCol.setMinWidth(100);
+        BillIDCol.setMinWidth(200);
         BillIDCol.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol.setMinWidth(100);
+        BillTypeCol.setMinWidth(200);
         BillTypeCol.setCellValueFactory(
                 param -> param.getValue().kind);
         BillEditCol.setMinWidth(200);
@@ -228,10 +227,10 @@ public class PayUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol1 =
                 new TableColumn<>("详细内容");
-        BillIDCol1.setMinWidth(100);
+        BillIDCol1.setMinWidth(200);
         BillIDCol1.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol1.setMinWidth(100);
+        BillTypeCol1.setMinWidth(200);
         BillTypeCol1.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol1.setMinWidth(200);
@@ -280,10 +279,10 @@ public class PayUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol2 =
                 new TableColumn<>("详细内容");
-        BillIDCol2.setMinWidth(100);
+        BillIDCol2.setMinWidth(200);
         BillIDCol2.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol2.setMinWidth(100);
+        BillTypeCol2.setMinWidth(200);
         BillTypeCol2.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol2.setMinWidth(200);
@@ -341,17 +340,17 @@ public class PayUI extends Application {
         hb.getChildren().setAll(accordion,gridTitlePane);
         table.setEditable(true);
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
-        AccountCol.setMinWidth(100);
+        AccountCol.setMinWidth(200);
         AccountCol.setCellValueFactory(
                 param -> param.getValue().account);
 
         TableColumn<MoneyList,String> MoneyListCol = new TableColumn<>("转账金额");
-        MoneyListCol.setMinWidth(100);
+        MoneyListCol.setMinWidth(200);
         MoneyListCol.setCellValueFactory(
                 param -> param.getValue().money);
 
         TableColumn<MoneyList,String> CommentCol = new TableColumn<>("备注");
-        CommentCol.setMinWidth(100);
+        CommentCol.setMinWidth(200);
         CommentCol.setCellValueFactory(
                 param -> param.getValue().comment);
 
@@ -392,7 +391,27 @@ public class PayUI extends Application {
             refresh();
         });
 
-        final Button newBill = new Button("新建收款单");
+        final Button newBill = new Button("新建付款单");
+        newBill.setOnAction(e -> {
+            FillMoneyBill fillbill = new FillMoneyBill();
+            try {
+                String ID = "SFKD-"+nogenerater.generate(5);
+                fillbill.start(ID);
+                logVO log = new logVO();
+                log.setOperatorno(staff);
+                log.setKeyjob("修改账户");
+                link.getRemoteHelper().getLog().addObject(log,20);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            } catch (IntrospectionException e1) {
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
+
+        });
 
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(20, 0, 0, 20));
@@ -401,10 +420,12 @@ public class PayUI extends Application {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
 
-        Group root = (Group)scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+        return vb;
+
+//        Group root = (Group)scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 

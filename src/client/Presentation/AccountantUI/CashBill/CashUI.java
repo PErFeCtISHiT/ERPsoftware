@@ -6,6 +6,8 @@ import client.BL.Accountant.FinancialCashbl.FinancialCashController;
 import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.Presentation.AccountantUI.ReceivePayBill.FillMoneyBill;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -24,11 +26,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class CashUI extends Application{
+public class CashUI {
     final String[] imageNames = new String[]{"账户列表", "客户列表", "现金费用单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] tablelist = new TableView[5];
     TitledPane gridTitlePane = new TitledPane();
+    private final NOgenerator nogenerater = new NOgenerator();
 
     final Label TypeComboBox = new Label ();
     final Label StaffComboBox = new Label ("");
@@ -74,14 +77,10 @@ public class CashUI extends Application{
 
     FinancialCashController cashController  = new FinancialCashController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定现金费用单");
-        Scene scene = new Scene(new Group(), 800, 250);
+        Scene scene = new Scene(new Group(), 1350, 850);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         accounttable.setEditable(true);
@@ -91,10 +90,10 @@ public class CashUI extends Application{
                 new TableColumn<>("账户名称");
         TableColumn<Account, String> MoneyCol =
                 new TableColumn<>("账户余额");
-        IDCol.setMinWidth(100);
+        IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
-        NameCol.setMinWidth(100);
+        NameCol.setMinWidth(200);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
         MoneyCol.setMinWidth(200);
@@ -171,10 +170,10 @@ public class CashUI extends Application{
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillEditCol =
                 new TableColumn<>("编辑单据");
-        BillIDCol.setMinWidth(100);
+        BillIDCol.setMinWidth(200);
         BillIDCol.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol.setMinWidth(100);
+        BillTypeCol.setMinWidth(200);
         BillTypeCol.setCellValueFactory(
                 param -> param.getValue().kind);
         BillEditCol.setMinWidth(200);
@@ -227,10 +226,10 @@ public class CashUI extends Application{
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol1 =
                 new TableColumn<>("详细内容");
-        BillIDCol1.setMinWidth(100);
+        BillIDCol1.setMinWidth(200);
         BillIDCol1.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol1.setMinWidth(100);
+        BillTypeCol1.setMinWidth(200);
         BillTypeCol1.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol1.setMinWidth(200);
@@ -261,7 +260,6 @@ public class CashUI extends Application{
 
         try {
             ArrayList<AccountBill> list = cashController.getAllPromotedCash();
-//            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -279,10 +277,10 @@ public class CashUI extends Application{
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol2 =
                 new TableColumn<>("详细内容");
-        BillIDCol2.setMinWidth(100);
+        BillIDCol2.setMinWidth(200);
         BillIDCol2.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol2.setMinWidth(100);
+        BillTypeCol2.setMinWidth(200);
         BillTypeCol2.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol2.setMinWidth(200);
@@ -341,17 +339,17 @@ public class CashUI extends Application{
         hb.getChildren().setAll(accordion,gridTitlePane);
         table.setEditable(true);
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("条目名称");
-        AccountCol.setMinWidth(100);
+        AccountCol.setMinWidth(200);
         AccountCol.setCellValueFactory(
                 param -> param.getValue().account);
 
         TableColumn<MoneyList,String> MoneyListCol = new TableColumn<>("金额");
-        MoneyListCol.setMinWidth(100);
+        MoneyListCol.setMinWidth(200);
         MoneyListCol.setCellValueFactory(
                 param -> param.getValue().money);
 
         TableColumn<MoneyList,String> CommentCol = new TableColumn<>("备注");
-        CommentCol.setMinWidth(100);
+        CommentCol.setMinWidth(200);
         CommentCol.setCellValueFactory(
                 param -> param.getValue().comment);
 
@@ -382,11 +380,6 @@ public class CashUI extends Application{
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
 
-       // gridTitlePane.setVisible(false);
-
-
-
-
 
 
 
@@ -395,7 +388,23 @@ public class CashUI extends Application{
             refresh();
         });
 
-        final Button newBill = new Button("新建收款单");
+        final Button newBill = new Button("新建现金费用单");
+        newBill.setOnAction(e -> {
+            FillCashBillUI fillbill = new FillCashBillUI();
+            try {
+                String ID = "XJFYD-"+nogenerater.generate(5);
+                fillbill.start(ID);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            } catch (IntrospectionException e1) {
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
+
+        });
 
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(20, 0, 0, 20));
@@ -404,10 +413,12 @@ public class CashUI extends Application{
         VBox vb = new VBox();
         vb.getChildren().setAll(hb, hbox);
 
-        Group root = (Group) scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+        return vb;
+
+//        Group root = (Group) scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
 
     }
 

@@ -1,6 +1,8 @@
 package server.Po;
 
-public class AccountInitPO {
+import java.io.Serializable;
+
+public class AccountInitPO implements Serializable{
     private String keyno;
     private String keyyear;
     private String accountlist;

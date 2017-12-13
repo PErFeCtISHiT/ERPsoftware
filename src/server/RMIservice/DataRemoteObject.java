@@ -1,4 +1,5 @@
 package server.RMIservice;
+
 import client.Vo.saleVO;
 import server.Data.Billdata.*;
 import server.Data.Codata.CoaccountDB;
@@ -30,16 +31,13 @@ import server.Dataservice.Logdataservice.log;
 import server.Dataservice.Packdataservice.pack;
 import server.Dataservice.Userdataservice.user;
 import server.Dataservice.pubservice.pub;
-import server.Po.buyinPO;
-import server.Po.selloutPO;
 import shared.ResultMessage;
 
-
+import java.beans.IntrospectionException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-
 import java.rmi.server.UnicastRemoteObject;
-
 import java.util.List;
 
 
@@ -167,6 +165,11 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
+    public List search(String detail) throws RemoteException {
+        return sale.search(detail);
+    }
+
+    @Override
     public List login(String username, String password) throws RemoteException{
         return user.login(username,password);
     }
@@ -184,5 +187,10 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     @Override
     public List getPastGoods(String year) throws RemoteException {
         return accountInit.getPastGoods(year);
+    }
+
+    @Override
+    public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        accountInit.Build(year);
     }
 }

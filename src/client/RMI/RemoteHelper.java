@@ -1,7 +1,6 @@
 package client.RMI;
 
 
-import server.Data.Financedata.saleDB;
 import server.Dataservice.Billdataservice.*;
 import server.Dataservice.Codataservice.Coaccount;
 import server.Dataservice.Consumerdataservice.Consumer;

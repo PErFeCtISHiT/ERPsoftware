@@ -17,17 +17,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class AccountInitUI extends Application {
+public class AccountInitUI{
 
     private final TableView<AccountList> table = new TableView<>();
     private final ObservableList<AccountList> data =
-            FXCollections.observableArrayList(
-                    new AccountList("2017"),
-                    new AccountList("2016"),
-                    new AccountList("2015"));
+            FXCollections.observableArrayList();
     final String[] imageNames = new String[]{"账户列表", "客户列表", "商品列表"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
     final TableView[] tablelist = new TableView[3];
@@ -58,12 +58,9 @@ public class AccountInitUI extends Application {
 
     final HBox hb = new HBox();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-    @Override
-    public void start(Stage stage) {
+
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("期初建账");
         stage.setWidth(800);
@@ -108,6 +105,11 @@ public class AccountInitUI extends Application {
             };
             return cell;
         });
+
+
+        ArrayList<AccountList> list = builder.show();
+        data.clear();
+        data.addAll(list);
 
         table.setItems(data);
         table.getColumns().addAll(YearCol, DetailCol);
@@ -245,46 +247,71 @@ public class AccountInitUI extends Application {
         vbx.setSpacing(5);
         vbx.getChildren().addAll(detaillabel,accordion);
 
+        final Button RefreshButton = new Button("刷新列表");
+        RefreshButton.setOnAction((ActionEvent e) -> {
+            try {
+                ArrayList<AccountList> list1 =builder.show();
+                data.clear();
+                data.addAll(list1);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+
+
+
         final Button InitButton = new Button("期初建账");
         InitButton.setOnAction((ActionEvent e) -> {
             try {
+
+//                Calendar c = Calendar.getInstance();
+//                int yearint = c.get(Calendar.YEAR);
+//                String year=yearint+"";
+//                System.out.println(year);
+//                link.getRemoteHelper().getaccountInit().Build(year);
                 AccountBuild accountBuild = builder.accountbuild();
                 accountdata.addAll(accountBuild.getAccountlist());
                 consumerdata.addAll(accountBuild.getConsumerlist());
                 goodsdata.addAll(accountBuild.getGoodslist());
             } catch (RemoteException e1) {
                 e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            } catch (IntrospectionException e1) {
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
+                e1.printStackTrace();
             }
         });
+
+        final HBox hb1 = new HBox();
+        hb1.setSpacing(10);
+        hb1.setPadding(new Insets(10, 0, 0, 10));
+        hb1.getChildren().addAll(RefreshButton,InitButton);
+
 
 
         final VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, InitButton);
+        vbox.getChildren().addAll(label, table, hb1);
         hb.getChildren().setAll(vbox,vbx);
 
-        ((Group) scene.getRoot()).getChildren().addAll(hb);
 
-        stage.setScene(scene);
-        stage.show();
+
+        final VBox fvbox = new VBox();
+        fvbox.setSpacing(5);
+        fvbox.setPadding(new Insets(10,0,0,10));
+        fvbox.getChildren().addAll(hb);
+
+        return fvbox;
+
+
+//        ((Group) scene.getRoot()).getChildren().addAll(hb);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 
-    public static class AccountList {
-
-        private final SimpleStringProperty year;
-
-        private AccountList(String fName) {
-            this.year = new SimpleStringProperty(fName);
-        }
-
-        public String getYear() {
-            return year.get();
-        }
-
-        public void setYear(String fName) {
-            year.set(fName);
-        }
-    }
 }

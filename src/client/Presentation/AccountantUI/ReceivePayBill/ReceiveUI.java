@@ -2,7 +2,9 @@ package client.Presentation.AccountantUI.ReceivePayBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialReceivebl.*;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
+import client.Vo.logVO;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ReceiveUI extends Application {
+public class ReceiveUI {
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
@@ -36,6 +38,7 @@ public class ReceiveUI extends Application {
     final Label consumer = new Label("");
     final Label money = new Label("");
 
+    private final NOgenerator nogenerater = new NOgenerator();
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList();
@@ -71,12 +74,8 @@ public class ReceiveUI extends Application {
 
     FinancialReceiveController receiveController  = new FinancialReceiveController();
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override public void start(Stage stage) {
+    public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Stage stage = new Stage();
         stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 1350, 750);
 
@@ -168,10 +167,10 @@ public class ReceiveUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillEditCol =
                 new TableColumn<>("编辑单据");
-        BillIDCol.setMinWidth(100);
+        BillIDCol.setMinWidth(200);
         BillIDCol.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol.setMinWidth(100);
+        BillTypeCol.setMinWidth(200);
         BillTypeCol.setCellValueFactory(
                 param -> param.getValue().kind);
         BillEditCol.setMinWidth(200);
@@ -226,10 +225,10 @@ public class ReceiveUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol1 =
                 new TableColumn<>("详细内容");
-        BillIDCol1.setMinWidth(100);
+        BillIDCol1.setMinWidth(200);
         BillIDCol1.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol1.setMinWidth(100);
+        BillTypeCol1.setMinWidth(200);
         BillTypeCol1.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol1.setMinWidth(200);
@@ -279,10 +278,10 @@ public class ReceiveUI extends Application {
                 new TableColumn<>("单据类型");
         TableColumn<AccountBill, String> BillDetailCol2 =
                 new TableColumn<>("详细内容");
-        BillIDCol2.setMinWidth(100);
+        BillIDCol2.setMinWidth(200);
         BillIDCol2.setCellValueFactory(
                 param -> param.getValue().keyno);
-        BillTypeCol2.setMinWidth(100);
+        BillTypeCol2.setMinWidth(200);
         BillTypeCol2.setCellValueFactory(
                 param -> param.getValue().kind);
         BillDetailCol2.setMinWidth(200);
@@ -404,6 +403,30 @@ public class ReceiveUI extends Application {
         });
 
         final Button newBill = new Button("新建收款单");
+        newBill.setOnAction(e -> {
+            FillMoneyBill fillbill = new FillMoneyBill();
+            try {
+                String ID = "SFKD-"+nogenerater.generate(5);
+                fillbill.start(ID);
+
+                logVO log = new logVO();
+                log.setOperatorno(staff);
+                log.setKeyjob("修改账户");
+                link.getRemoteHelper().getLog().addObject(log,20);
+
+
+
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            } catch (IntrospectionException e1) {
+                e1.printStackTrace();
+            } catch (InvocationTargetException e1) {
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
+
+        });
 
         HBox hbox = new HBox(10);
         hbox.setPadding(new Insets(20, 0, 0, 20));
@@ -412,10 +435,13 @@ public class ReceiveUI extends Application {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
 
-        Group root = (Group)scene.getRoot();
-        root.getChildren().add(vb);
-        stage.setScene(scene);
-        stage.show();
+
+        return vb;
+
+//        Group root = (Group)scene.getRoot();
+//        root.getChildren().add(vb);
+//        stage.setScene(scene);
+//        stage.show();
     }
 
 

@@ -4,6 +4,7 @@ import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
+import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -35,10 +36,11 @@ public class ReEditMoneyBill {
     final Button DraftButton = new Button("保存草稿");
     final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
-    final Label billNum = new Label ("XXXdanjubianhao");
-    final TextField consumer = new TextField("");
-    final TextField money = new TextField("");
-    final TextArea text = new TextArea ("");
+    final Label billNum = new Label ();
+    final TextField consumer = new TextField();
+    final TextField money = new TextField();
+    final TextArea text = new TextArea ();
+    private final NOgenerator nogenerater = new NOgenerator();
 
     final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
@@ -149,20 +151,22 @@ public class ReEditMoneyBill {
                 System.out.println(sum);
 
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-                for (int i=0;i<data.size();i++){
-                    data.get(i).setKeyid(i+"");
+                data.clear();
+                for (int i=0;i<data.size();i++) {
+                    String listID = "ZZLB-" + i;
+                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
-                System.out.println("Step 1");
+//                System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
-                    System.out.println("Step 2");
-                    if(billtype=="收款单"){
-                        ResultMessage resultMessage = receiveController.summit(financialBill);
+//                    System.out.println("Step 2");
+                    if(billtype.equals("收款单")){
+                        ResultMessage resultMessage = receiveController.resummit(financialBill);
                     }
                     else{
-                        ResultMessage resultMessage = payController.summit(financialBill);
+                        ResultMessage resultMessage = payController.resummit(financialBill);
                     }
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
@@ -171,7 +175,6 @@ public class ReEditMoneyBill {
                 System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent"
                         + " to " );
-                TypeComboBox.setValue(null);
                 money.clear();
                 text.clear();
             }
@@ -185,7 +188,10 @@ public class ReEditMoneyBill {
             String consumerID = consumer.getText();
             double sum = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
-            for (int i=0;i<data.size();i++){
+            data.clear();
+            for (int i=0;i<data.size();i++) {
+                String listID = "ZZLB-" + i;
+                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
                 moneylist.add(data.get(i));
             }
@@ -200,8 +206,6 @@ public class ReEditMoneyBill {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-
-            TypeComboBox.setValue(null);
             money.clear();
             text.clear();
         });
