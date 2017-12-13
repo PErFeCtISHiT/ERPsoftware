@@ -10,6 +10,7 @@ import client.Presentation.AccountantUI.AccountManagement.AccountManagementUI;
 import client.Presentation.AccountantUI.CashBill.CashUI;
 import client.Presentation.AccountantUI.CheckSell.CheckSellUI;
 import client.Presentation.AccountantUI.InitAccount.AccountInitUI;
+import client.Presentation.AccountantUI.LogCheck.LogCheckUI;
 import client.Presentation.AccountantUI.ReceivePayBill.PayUI;
 import client.Presentation.AccountantUI.ReceivePayBill.ReceiveUI;
 import client.RMI.link;
@@ -67,7 +68,7 @@ public class AccountantMain extends Application {
         ReceiveUI receiveUI = new ReceiveUI();
         PayUI payUI = new PayUI();
         CashUI cashUI = new CashUI();
-
+        LogCheckUI logcheckUI = new LogCheckUI();
 
         Label work = new Label("工作目录");
 
@@ -146,22 +147,24 @@ public class AccountantMain extends Application {
 
 
 
-//        Button checkSell = new Button("库存查看");
-//        checkSell.setOnAction(e -> {
-//            try {
-//                finalBox.getChildren().remove(right);
-//                right = CheckSellUI.start(staff);
-//                finalBox.getChildren().add(right);
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            } catch (ParseException e1) {
-//                e1.printStackTrace();
-//            }
-//        });
+        Button checkLog = new Button("查看日志");
+        checkLog.setOnAction(e -> {
+            try {
+                finalBox.getChildren().remove(right);
+                right = logcheckUI.start(staff);
+                finalBox.getChildren().add(right);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
 
 
-        vBox.getChildren().addAll(work,accountManageBT,receiveBT,payBT,cashBT,checkSellBT,initAccountBT);
+        vBox.getChildren().addAll(work,accountManageBT,receiveBT,payBT,cashBT,checkSellBT,initAccountBT,checkLog);
 
         finalBox.setSpacing(5);
         finalBox.setPadding(new Insets(10, 0, 0, 10));

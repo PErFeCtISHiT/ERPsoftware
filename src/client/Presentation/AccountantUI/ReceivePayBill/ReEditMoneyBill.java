@@ -159,7 +159,7 @@ public class ReEditMoneyBill {
         consumer.setText(consumerID);
         data.clear();
         data.addAll(moneylist);
-        System.out.println("fir"+data.get(0).getkeyid());
+//        System.out.println("fir"+data.get(0).getkeyid());
         money.setText(sum);
 
 

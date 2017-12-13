@@ -224,7 +224,7 @@ public class AccountManagementUI {
         final Button searchButton = new Button("搜索账户");
         searchButton.setOnAction((ActionEvent e) -> {
             String accountInfor = search.getText();
-            
+
 
         });
 
