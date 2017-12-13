@@ -62,9 +62,7 @@ public class stockmanMainUI extends Application{
                 finalBox.getChildren().remove(right);
                 right = goodsGlanceUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            } catch (ParseException e1) {
+            } catch (RemoteException | ParseException e1) {
                 e1.printStackTrace();
             }
         });
