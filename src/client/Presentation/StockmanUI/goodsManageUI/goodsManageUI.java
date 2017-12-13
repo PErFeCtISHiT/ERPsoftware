@@ -514,7 +514,41 @@ public class goodsManageUI {
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, hb);
+
+        TextField inputField = new TextField();
+        inputField.setPromptText("搜索内容");
+        Button button = new Button("搜索");
+        button.setOnAction(e -> {
+            try {
+                data.clear();
+                List<goodsPO> findGoods = (List<goodsPO>) goodsController.findGoods(inputField.getText());
+                for(goodsPO i : findGoods){
+                    Goods newgoods = new Goods(i.getKeyno(),
+                            i.getKeyname(),
+                            i.getKeymodel(),
+                            String.valueOf(i.getNum()),
+                            String.valueOf(i.getInprice()),
+                            String.valueOf(i.getOutprice()),
+                            String.valueOf(i.getReceprice()),
+                            String.valueOf(i.getReceoutprice()),
+                            String.valueOf(i.getWarningnum()),
+                            String .valueOf(i.getKeybatch()),
+                            String .valueOf(i.getBatchno()),
+                            String .valueOf(i.getDat()));
+                    data.add(newgoods);
+
+                }
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(5);
+        hBox.setPadding(new Insets(10, 0, 0, 10));
+        hBox.getChildren().addAll(label,inputField,button);
+
+        vbox.getChildren().addAll(hBox, table, hb);
 
         return vbox;
     }

@@ -9,6 +9,9 @@ import server.Po.coPO;
 import server.Po.consumerPO;
 import server.Po.goodsPO;
 import server.hibernate.AccountInitEntity;
+import server.hibernate.CoEntity;
+import server.hibernate.GoodsEntity;
+import shared.copyclass;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -86,6 +89,24 @@ public class accountInitDB extends publicDB implements accountInit {
         }
         hibtools.session.close();
         return ret;
+    }
+
+    @Override
+    public List findAccount(String keyword) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from CoEntity where keyno like ? or keyname like ?";
+        List<CoEntity> goodsEntities = (List<CoEntity>)hibtools.session.createQuery(hql)
+                .setParameter(0,keyword).setParameter(1,keyword).list();
+        List<coPO> goodsPOS = new ArrayList<>() ;
+        for(CoEntity i : goodsEntities){
+            coPO temp = new coPO();
+            copyclass.copy(i,temp);
+            goodsPOS.add(temp);
+
+        }
+        hibtools.session.close();
+        return goodsPOS;
     }
 
     @Override

@@ -11,5 +11,5 @@ import java.util.List;
  * @date: create in 19:02 2017/11/27
  */
 public interface Consumer extends pub {
-
+    List findConsumer(String keyword)throws RemoteException;
 }
