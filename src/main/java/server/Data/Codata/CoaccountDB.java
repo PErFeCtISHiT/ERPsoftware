@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class CoaccountDB extends publicDB implements Coaccount{
     @Override
-    public List findAccount(String keyword) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public List findAccount(String keyword)  {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from CoEntity y where y.keyname like '%"+keyword+"%'" + "or y.keyno like '%"+keyword+"%'";
         List<CoEntity> goodsEntities = (List<CoEntity>)hibtools.session.createQuery(hql).list();
@@ -30,7 +30,7 @@ public class CoaccountDB extends publicDB implements Coaccount{
             goodsPOS.add(temp);
 
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return goodsPOS;
     }
 

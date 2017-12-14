@@ -32,8 +32,8 @@ import java.util.List;
 public class accountInitDB extends publicDB implements accountInit {
     private publicDB publicDB = new publicDB();
     @Override
-    public List getPastAccount(String year) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public List getPastAccount(String year) {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from AccountInitEntity where keyyear = ?";
         List<coPO> ret = new ArrayList<>();
@@ -47,13 +47,13 @@ public class accountInitDB extends publicDB implements accountInit {
                     ret.add((coPO) temp.get(0));
             }
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return ret;
     }
 
     @Override
-    public List getPastConsumer(String year) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public List getPastConsumer(String year) {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from AccountInitEntity where keyyear = ?";
         List<consumerPO> ret = new ArrayList<>();
@@ -67,13 +67,13 @@ public class accountInitDB extends publicDB implements accountInit {
                     ret.add((consumerPO) temp.get(0));
             }
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return ret;
     }
 
     @Override
-    public List getPastGoods(String year) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public List getPastGoods(String year) {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from AccountInitEntity where keyyear = ?";
         List<goodsPO> ret = new ArrayList<>();
@@ -87,14 +87,14 @@ public class accountInitDB extends publicDB implements accountInit {
                     ret.add((goodsPO) temp.get(0));
             }
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return ret;
     }
 
 
     @Override
-    public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public void Build(String year)  {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         AccountInitPO accountInitPO = new AccountInitPO();
         accountInitPO.setKeyyear(year);
@@ -115,8 +115,8 @@ public class accountInitDB extends publicDB implements accountInit {
         for(coPO i : coPOS)
             coList.append(i.getKeyno());
         accountInitPO.setAccountlist(coList.toString());
-        hibtools.session.close();
         publicDB.addObject(accountInitPO,20);
+        hibtools.tx.commit();
     }
     private String generateNO(){
         StringBuilder no;

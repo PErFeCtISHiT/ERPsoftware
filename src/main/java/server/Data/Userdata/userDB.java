@@ -14,10 +14,11 @@ import java.util.List;
 public class userDB extends publicDB implements user {
     @Override
     public List login(String username, String password) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from UseEntity where keyname = ? and passwor = ?";
-        hibtools.session.close();
-        return hibtools.session.createQuery(hql).setParameter(0,username).setParameter(1,password).list();
+        List temp = hibtools.session.createQuery(hql).setParameter(0,username).setParameter(1,password).list();
+        hibtools.tx.commit();
+        return temp;
     }
 }

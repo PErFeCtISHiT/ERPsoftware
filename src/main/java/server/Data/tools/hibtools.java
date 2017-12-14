@@ -18,11 +18,10 @@ public class hibtools {
     }
     public ResultMessage Save(Object o){
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             tx = session.beginTransaction();
             session.save(o);
             tx.commit();
-            session.close();
         }catch (Exception e){
             return ResultMessage.Failure;
         }
@@ -30,11 +29,10 @@ public class hibtools {
     }
     public ResultMessage Delete(Object o){
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             tx = session.beginTransaction();
             session.delete(o);
             tx.commit();
-            session.close();
         }catch (Exception e){
             return ResultMessage.Failure;
         }
@@ -42,11 +40,10 @@ public class hibtools {
     }
     public ResultMessage Modify(Object o){
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             tx = session.beginTransaction();
             session.update(o);
             tx.commit();
-            session.close();
         }catch (Exception e){
             return ResultMessage.Failure;
         }

@@ -29,11 +29,11 @@ public class stockExceptionController implements stockException {
         logVO logVO = new logVO();
         logVO.setKeyjob("库存管理");
         if(type == 0) {//库存报溢
-            stockOverflow.setKind((double) 8);
+            stockOverflow.setKind((double) 1);
             logVO.setOpno("库存报溢");
         }
         else {//报损
-            stockOverflow.setKind((double) 9);
+            stockOverflow.setKind((double) 0);
             logVO.setOpno("库存报损");
         }
         stockOverflow.setGoodsname(goods.getKeyname());

@@ -54,7 +54,7 @@ public class publicDB implements pub {
 
     @Override
     public List findAll(int type) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         generate(type);
         List Entities = hibtools.session.createQuery(hql).list();
@@ -64,13 +64,13 @@ public class publicDB implements pub {
             copyclass.copy(i,po);
             POS.add(po);
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return POS;
     }
 
     @Override
     public List findbyNO(int type,String no) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         generate(type);
         hql += "where KEYNO = ?";
@@ -81,7 +81,7 @@ public class publicDB implements pub {
             copyclass.copy(i,po);
             POS.add(po);
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return POS;
     }
 

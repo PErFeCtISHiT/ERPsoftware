@@ -29,7 +29,7 @@ public class RemoteHelper {
 
             LocateRegistry.createRegistry(8886);
 
-            Naming.bind("rmi://172.25.187.209:8886/DataRemoteObject", dataRemoteObject);
+            Naming.bind("rmi://127.0.0.1:8886/DataRemoteObject", dataRemoteObject);
 
         } catch (RemoteException | MalformedURLException | AlreadyBoundException e) {
 

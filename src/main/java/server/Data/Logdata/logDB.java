@@ -20,16 +20,17 @@ public class logDB extends publicDB implements log {
     */
     @Override
     public List logstockGlance(String from, String to) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "SELECT billno from LogEntity where adddate between to_date(?,'yyyy-MM-dd HH24-mi-ss') and to_date(?,'yyyy-MM-dd HH24-mi-ss')";
-        hibtools.session.close();
-        return hibtools.session.createQuery(hql).setParameter(0,from).setParameter(1,to).list();
+        List temp = hibtools.session.createQuery(hql).setParameter(0,from).setParameter(1,to).list();
+        hibtools.tx.commit();
+        return temp;
     }
 
     @Override
     public List showbillDetail(String from,String to, String name, String consumer, String operator, String base) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         List ret = new ArrayList();
         String hql = "SELECT billno from LogEntity where adddate between to_date(?,'yyyy-MM-dd HH24-mi-ss') and to_date(?,'yyyy-MM-dd HH24-mi-ss') and goodsname = ? and consumer = ? and operatorno = ? and base = ?";
@@ -39,6 +40,7 @@ public class logDB extends publicDB implements log {
             List temp = hibtools.session.createQuery(str).setParameter(0,i).list();
             ret.addAll(temp);
         }
+        hibtools.tx.commit();
         return ret;
     }
 

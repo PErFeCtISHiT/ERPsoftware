@@ -62,7 +62,7 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>3.6.10.Final</version>
+        <version>5.2.4.Final</version>
     </dependency>
 
     <dependency>
@@ -80,7 +80,7 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-ehcache</artifactId>
-        <version>3.6.10.Final</version>
+        <version>5.2.4.Final</version>
     </dependency>
 
     <dependency>
