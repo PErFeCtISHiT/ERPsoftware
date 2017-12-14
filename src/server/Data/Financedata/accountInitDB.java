@@ -91,23 +91,6 @@ public class accountInitDB extends publicDB implements accountInit {
         return ret;
     }
 
-    @Override
-    public List findAccount(String keyword) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
-        hibtools.tx = hibtools.session.beginTransaction();
-        String hql = "from CoEntity where keyno like ? or keyname like ?";
-        List<CoEntity> goodsEntities = (List<CoEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,keyword).setParameter(1,keyword).list();
-        List<coPO> goodsPOS = new ArrayList<>() ;
-        for(CoEntity i : goodsEntities){
-            coPO temp = new coPO();
-            copyclass.copy(i,temp);
-            goodsPOS.add(temp);
-
-        }
-        hibtools.session.close();
-        return goodsPOS;
-    }
 
     @Override
     public void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {

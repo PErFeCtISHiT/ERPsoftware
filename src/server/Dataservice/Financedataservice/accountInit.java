@@ -16,6 +16,5 @@ public interface accountInit extends pub {
     List getPastAccount(String year) throws RemoteException;
     List getPastConsumer(String year) throws RemoteException;
     List getPastGoods(String year) throws RemoteException;
-    List findAccount(String keyword) throws RemoteException;
     void Build(String year) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException;
 }
