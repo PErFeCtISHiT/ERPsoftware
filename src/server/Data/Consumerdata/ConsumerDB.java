@@ -25,8 +25,7 @@ public class ConsumerDB extends publicDB implements Consumer{
         hibtools.session = hibtools.sessionFactory.openSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from ConsumerEntity y where y.keyname like '%"+keyword+"%'" + "or y.keyno like '%"+keyword+"%'";
-        List<ConsumerEntity> goodsEntities = (List<ConsumerEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,keyword).setParameter(1,keyword).list();
+        List<ConsumerEntity> goodsEntities = (List<ConsumerEntity>)hibtools.session.createQuery(hql).list();
         List<consumerPO> goodsPOS = new ArrayList<>() ;
         for(ConsumerEntity i : goodsEntities){
             consumerPO temp = new consumerPO();
