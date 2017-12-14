@@ -224,9 +224,15 @@ public class AccountManagementUI {
         final Button searchButton = new Button("搜索账户");
         searchButton.setOnAction((ActionEvent e) -> {
             String accountInfor = search.getText();
-
-
+            ArrayList<Account> list = controller.findAccount(accountInfor);
+            data.clear();
+            data.addAll(list);
         });
+
+        HBox newhb = new HBox();
+        newhb.setSpacing(5);
+        newhb.setPadding(new Insets(10, 0, 0, 10));
+        newhb.getChildren().addAll(label, search, searchButton);
 
 
         final Button addButton = new Button("添加账户");
@@ -275,7 +281,7 @@ public class AccountManagementUI {
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, hb);
+        vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
         return vbox;
 
