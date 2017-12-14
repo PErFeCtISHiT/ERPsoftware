@@ -1,0 +1,16 @@
+    @Override
+    public ResultMessage addGoods(goodsVO goods) throws RemoteException {
+        goodsPO g = new goodsPO();
+        copyclass.copy(goods,g);
+        return link.getRemoteHelper().getGoods().addObject(g,0);
+
+    }
+    controller里面写好return方法，如return link.getRemoteHelper().getGoods().addObject(g,0);
+    get的服务在server/dataservice里面，get......，如果有额外需要的类也可以加到dataservice里面，然后
+    需要的数据库方法自带增删改，其他方法需要的加到dataservice里面，（加注释）然后我去在data里面实现
+
+
+    查看销售明细表，查询所有单据，依据时间，商品名，客户，业务员，仓库
+
+
+    销售明细：给你一个saleVO ,返回一个List,包含多个goodsoutlistVO
