@@ -230,7 +230,7 @@ public class ReEditMoneyBill {
                 System.out.println("sec"+data.get(0).getkeyid());
                 moneylist1.add(data.get(i));
             }
-            System.out.println("thi"+data.get(0).getkeyid());
+//            System.out.println("thi"+data.get(0).getkeyid());
             System.out.println(" List size 4: "+data.size());
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
             try {

@@ -226,7 +226,10 @@ public class FinancialPayController implements FinancialPayInterface {
         String consumerType = financialBill.getConsumerType();
         String consumerID = financialBill.getConsumerID();
         double sum = financialBill.getSum();
-        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+        String moneylistNO=null;
+        if (financialBill.getMoneyList().size()!=0){
+            moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+        }
 
 
         moneypo.setKind(1.0);

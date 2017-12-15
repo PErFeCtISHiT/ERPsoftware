@@ -67,14 +67,14 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ArrayList<Account> findAccount(String key) {
+    public ArrayList<Account> findAccount(String key) throws RemoteException{
 
-//        List<coPO> list = link.getRemoteHelper().getCoaccount().;
+        List<coPO> list = link.getRemoteHelper().getCoaccount().findAccount(key);
         ArrayList<Account> accList = new ArrayList<>();
-//        for (int i=0;i<list.size();i++){
-//            Account newaccount = VoToAccount(PoToVo(list.get(i)));
-//            accList.add(newaccount);
-//        }
+        for (int i=0;i<list.size();i++){
+            Account newaccount = VoToAccount(PoToVo(list.get(i)));
+            accList.add(newaccount);
+        }
         return accList;
     }
 

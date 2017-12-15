@@ -228,7 +228,10 @@ public class FinancialCashController implements FinancialCashInterface {
         String operater = financialCash.getOperater();
         String account = financialCash.getAccount();
         double sum = financialCash.getSum();
-        String moneylistNO = financialCash.getMoneyList().get(0).getlistNO();
+        String moneylistNO=null;
+        if (financialCash.getMoneyList().size()!=0){
+            moneylistNO = financialCash.getMoneyList().get(0).getlistNO();
+        }
 
 
         moneypo.setKind(2.0);

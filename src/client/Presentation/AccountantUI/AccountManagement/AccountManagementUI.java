@@ -224,7 +224,12 @@ public class AccountManagementUI {
         final Button searchButton = new Button("搜索账户");
         searchButton.setOnAction((ActionEvent e) -> {
             String accountInfor = search.getText();
-            ArrayList<Account> list = controller.findAccount(accountInfor);
+            ArrayList<Account> list = null;
+            try {
+                list = controller.findAccount(accountInfor);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
             data.clear();
             data.addAll(list);
         });

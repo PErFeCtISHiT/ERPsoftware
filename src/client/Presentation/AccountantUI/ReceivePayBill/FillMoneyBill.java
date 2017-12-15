@@ -150,32 +150,20 @@ public class FillMoneyBill{
         SummitButton.setOnAction((ActionEvent e) -> {
             if (true)//checkMoney(money.getText())
             {
-                System.out.println(TypeComboBox.getValue());
-
                 String billtype = TypeComboBox.getValue();
                 String billID = billNum.getText();
                 String operater = StaffComboBox.getValue();
                 String consumerType =ConsumerTypeComboBox.getValue();
                 String consumerID = consumer.getText();
-
-                System.out.println(money.getText());
                 double sum = Double.parseDouble(money.getText());
-                System.out.println(sum);
-
                 ArrayList<MoneyList> moneylist = new ArrayList<>();
-
-//                data.clear();
                 for (int i=0;i<data.size();i++) {
-//                    String listID = "ZZLB-" + i;
-//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
 
-                System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
-                    System.out.println("Step 2");
                     if(billtype.equals("收款单")){
                         ResultMessage resultMessage = receiveController.summit(financialBill);
                     }
@@ -265,12 +253,13 @@ public class FillMoneyBill{
     }
 
 
-    public boolean checkMoney(String moneytext){
+    public boolean check(){
         boolean re = false;
+        String moneytext = money.getText();
         if(moneytext == null || moneytext.isEmpty()){
-            notification.setText("Please enter the Money !");
+            notification.setText("请输入总金额 !");
         }
-        else if (isNumeric(moneytext)){
+        if (isNumeric(moneytext)){
             re = true;
         }
         return re;
