@@ -255,7 +255,11 @@ public class newBillUI extends Application{
                 else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
                     Tab newTab=new Tab();
                     newTab.setText(newValue.getValue());
-                    newTab.setContent(SelloutPane(newValue.getValue()));
+                    try {
+                        newTab.setContent(SelloutPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     tabs.getTabs().add(newTab);
                 }
                 else if(newValue.getParent().getValue().equals("客户列表")){
@@ -1115,16 +1119,17 @@ public class newBillUI extends Application{
         return gridPane;
     }
 
-    private Pane SelloutPane(String name){
-        SelloutBill thisselloutBill=new SelloutBill();
-        for(SelloutBill bill:selloutBillList){
-            if(bill.getSelloutID().equals(name)){
-                thisselloutBill=bill;
+    private Pane SelloutPane(String name) throws RemoteException{
+        List<buyinVO> list=stockinBillMakeController.show();
+        StockinBill thisstockinbill=new StockinBill();
+        for(buyinVO vo:list){
+            if(vo.getKeyno().equals(name)){
+                thisstockinbill=stockinBillMakeController.votoBill(vo);
                 break;
             }
         }
 
-        selloutVO vo=selloutBillMakeController.selloutToVo(thisselloutBill);
+        buyinVO vo=stockinBillMakeController.billtovo(thisstockinbill);
 
         GridPane gridPane=new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -1133,17 +1138,161 @@ public class newBillUI extends Application{
         gridPane.setMinHeight(450);
         gridPane.setMinWidth(1050);
 
-        Label kindlabel=new Label("单据类型");
+        Label kindlabel=new Label("单据类型：");
         Text kind=new Text();
-        if(thisselloutBill.getSelloutkinds().equals("0")){
-            kind.setText("销售单");
-        }else{
-            kind.setText("销售退货单");
+        if(Double.parseDouble(thisstockinbill.getBuyinKind())==0){
+            kind.setText("进货单");
+        }
+        else{
+            kind.setText("进货退货单");
         }
 
-        Label idLabel=new Label("单据ID");
+        gridPane.add(kindlabel,0,1);
+        gridPane.add(kind,1,1);
+
+        Label idLabel=new Label("单据ID：");
         Text id=new Text();
-        id.setText(thisselloutBill.getSelloutID());
+        id.setText(thisstockinbill.getBuyinID());
+
+        gridPane.add(idLabel,0,2);
+        gridPane.add(id,1,2);
+
+        Label operaterLabel=new Label("操作员：");
+        Text operater=new Text();
+        operater.setText(thisstockinbill.getBuyinOperater());
+
+        gridPane.add(operaterLabel,0,3);
+        gridPane.add(operater,1,3);
+
+        Label offerLabel=new Label("供应商：");
+        Text offer=new Text();
+        offer.setText(thisstockinbill.getBuyinOffer());
+
+        gridPane.add(offerLabel,0,4);
+        gridPane.add(offer,1,4);
+
+        Label StorehouseLabel=new Label("仓库：");
+        Text storehouse=new Text();
+        storehouse.setText(thisstockinbill.getBuyinStoreHouse());
+
+        gridPane.add(StorehouseLabel,0,4);
+        gridPane.add(storehouse,1,4);
+
+        Label GoodsList=new Label("出货商品清单");
+        String outid=thisstockinbill.getBuyinGoodsList();
+
+        GoodsOutListManageController goodsOutListManageController=new GoodsOutListManageController();
+//        List<goodsOutListVO> outList=goodsOutListManageController.findbyNo(outid);
+        ObservableList<goodsOutListVO> realOutList=FXCollections.observableArrayList(goodsOutListManageController.findbyNo(outid));
+        TableView table=new TableView();
+        table.setEditable(true);
+        TableColumn<goodsOutListVO,String> keynoCol=new TableColumn<>("清单编号");
+        keynoCol.setMinWidth(100);
+        keynoCol.setCellValueFactory(new PropertyValueFactory<>("keyno"));
+        TableColumn<goodsOutListVO,String> goodsnoCol=new TableColumn<>("商品编号");
+        goodsnoCol.setMinWidth(100);
+        goodsnoCol.setCellValueFactory(new PropertyValueFactory<>("goodsno"));
+        TableColumn<goodsOutListVO,String> goodsnameCol=new TableColumn<>("名称");
+        goodsnameCol.setMinWidth(100);
+        goodsnameCol.setCellValueFactory(new PropertyValueFactory<>("goodsname"));
+        TableColumn<goodsOutListVO,String> keymodelCol=new TableColumn<>("型号");
+        keymodelCol.setMinWidth(100);
+        keymodelCol.setCellValueFactory(new PropertyValueFactory<>("keymodel"));
+        TableColumn<goodsOutListVO,Double> numCol=new TableColumn<>("数量");
+        numCol.setMinWidth(100);
+        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        TableColumn<goodsOutListVO,Double> priceCol=new TableColumn<>("单价");
+        priceCol.setMinWidth(100);
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TableColumn<goodsOutListVO,Double> sumCol=new TableColumn<>("总额");
+        sumCol.setMinWidth(100);
+        sumCol.setCellValueFactory(new PropertyValueFactory<>("sumall"));
+        TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
+        table.setItems(realOutList);
+        table.getColumns().addAll(goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
+
+        gridPane.add(GoodsList,0,5);
+        gridPane.add(table,1,5);
+
+        Label tipLabel=new Label("备注");
+        TextArea tip=new TextArea();
+        tip.setWrapText(true);
+        tip.setText(thisstockinbill.getBuyinTips());
+
+        gridPane.add(tipLabel,0,6);
+        gridPane.add(tip,1,6);
+
+        Label sumLabel=new Label("总额");
+        Text sum=new Text();
+        sum.setText(thisstockinbill.getBuyinSum());
+
+        gridPane.add(sumLabel,0,7);
+        gridPane.add(sum,1,7);
+
+        if(thisstockinbill.getBuyinisDraft().equals("1")){
+            Button improve=new Button("修改");
+            gridPane.add(improve,2,10);
+            improve.setOnAction((ActionEvent e)->{
+                String buyinOperater=operater.getText();
+                String buyinOffer=offer.getText();
+                String buyinWarehouse=storehouse.getText();
+
+                gridPane.getChildren().removeAll(operater,offer,storehouse);
+
+                TextField newOpe=new TextField();
+                newOpe.setPromptText(buyinOperater);
+                gridPane.add(newOpe,1,3);
+
+                TextField newOff=new TextField();
+                newOff.setPromptText(buyinOffer);
+                gridPane.add(newOff,1,4);
+
+                TextField newStore=new TextField();
+                newStore.setPromptText(buyinWarehouse);
+                gridPane.add(newStore,1,5);
+
+                Callback<TableColumn<goodsOutListVO,String>,
+                        TableCell<goodsOutListVO,String>> cellFactory
+                        =(TableColumn<goodsOutListVO,String> p)->new StringEditingCell();
+
+                goodsnoCol.setCellFactory(cellFactory);
+                goodsnoCol.setOnEditCommit(
+                        (CellEditEvent<goodsOutListVO,String> t)->{
+                            t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow()).setGoodsno(t.getNewValue());
+                        }
+                );
+
+                keymodelCol.setCellFactory(cellFactory);
+                keymodelCol.setOnEditCommit(
+                        (CellEditEvent<goodsOutListVO,String> t)->{
+                            t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow()).setKeymodel(t.getNewValue());
+                        }
+                );
+
+                table.getColumns().add(candelete);
+                candelete.setCellFactory((col)->{
+                    TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
+                        public void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+                            this.setText(null);
+                            this.setGraphic(null);
+
+                            if (!empty) {
+                                Button delBtn = new Button("删除");
+                                this.setGraphic(delBtn);
+                                delBtn.setOnMouseClicked((me) -> {
+                                    realOutList.remove(this.getIndex());
+                                    System.out.println("删除成功");
+                                });
+                            }
+                        }
+                    };
+                    return cell;
+                });
+            });
+        }
 
         return gridPane;
     }
