@@ -210,23 +210,34 @@ public class AccountManagementUI {
 //        addID.setPromptText("编号自动生成");
 //        addID.setMaxWidth(IDCol.getPrefWidth());
 //        final Label addID = new Label("编号自动生成");
-        final TextField addName = new TextField();
+        TextField addName = new TextField();
         addName.setMaxWidth(NameCol.getPrefWidth());
         addName.setPromptText("账户名称");
-        final TextField addMoney = new TextField();
+        TextField addMoney = new TextField();
         addMoney.setMaxWidth(MoneyCol.getPrefWidth());
         addMoney.setPromptText("账户余额");
 
 
-        final TextField search = new TextField();
+        TextField search = new TextField();
         search.setMaxWidth(NameCol.getPrefWidth());
         search.setPromptText("搜索关键词");
-        final Button searchButton = new Button("搜索账户");
+        Button searchButton = new Button("搜索账户");
         searchButton.setOnAction((ActionEvent e) -> {
             String accountInfor = search.getText();
-
-
+            ArrayList<Account> list = null;
+            try {
+                list = controller.findAccount(accountInfor);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+            data.clear();
+            data.addAll(list);
         });
+
+        HBox newhb = new HBox();
+        newhb.setSpacing(5);
+        newhb.setPadding(new Insets(10, 0, 0, 10));
+        newhb.getChildren().addAll(label, search, searchButton);
 
 
         final Button addButton = new Button("添加账户");
@@ -264,7 +275,7 @@ public class AccountManagementUI {
             addMoney.clear();
         });
 
-        final Button refresh = new Button("刷新列表");
+        Button refresh = new Button("刷新列表");
         refresh.setOnAction(e -> {
             refresh();
         });
@@ -272,10 +283,10 @@ public class AccountManagementUI {
         hb.getChildren().addAll(addName, addMoney, addButton,refresh);//addID,
         hb.setSpacing(3);
 
-        final VBox vbox = new VBox();
+        VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, hb);
+        vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
         return vbox;
 
