@@ -1,5 +1,6 @@
 package client.BL.Accountant.FinancialAccountbl.Mock;
 
+import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialAccountbl.FinancialAccountController;
 import client.Vo.coVO;
 import shared.ResultMessage;
@@ -14,7 +15,7 @@ public class FinancialAccountControllerMock extends FinancialAccountController {
      * @param vo
      * @return
      */
-    public ResultMessage addAccount(coVO po){
+    public ResultMessage addAccount(coVO vo){
         return null;
     }
 
@@ -45,7 +46,7 @@ public class FinancialAccountControllerMock extends FinancialAccountController {
      * @param key
      * @return
      */
-    public ArrayList<coVO> findAccount(String key){
+    public ArrayList<Account> findAccount(String key){
         return null;
     }
 }

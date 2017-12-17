@@ -150,7 +150,7 @@ public class ReEditCashBill {
 
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (true)//checkMoney(money.getText())
+            if (check())//checkMoney(money.getText())
             {
                 System.out.println(TypeComboBox.getValue());
 
@@ -259,14 +259,37 @@ public class ReEditCashBill {
     }
 
 
-    public boolean checkMoney(String moneytext){
-        boolean re = false;
+    public boolean check(){
+        boolean re = true;
+        String moneytext = money.getText();
         if(moneytext == null || moneytext.isEmpty()){
-            notification.setText("Please enter the Money !");
+            re = false;
+            notification.setText("请输入总金额 !");
         }
-        else if (isNumeric(moneytext)){
-            re = true;
+        if (!isNumeric(moneytext)){
+            re = false;
+            notification.setText("请检查输入金额的格式 !");
         }
+        if(account.getText()==null){
+            re = false;
+            notification.setText("请输入客户类型 !");
+        }
+
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).getAccount()==null){
+                re = false;
+                notification.setText("请输入转账账户 !");
+            }
+            if(data.get(i).getMoney()==null){
+                re = false;
+                notification.setText("请输入转账金额 !");
+            }
+            if(!isNumeric(data.get(i).getMoney())){
+                re = false;
+                notification.setText("请检查转账金额格式 !");
+            }
+        }
+
         return re;
     }
 
