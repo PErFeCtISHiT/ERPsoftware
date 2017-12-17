@@ -1,5 +1,6 @@
 package client.Presentation.SalesmanUI.BillMake;
 
+import client.BL.Saleman.GoodsOutListManageblservice.GoodsOutListManageController;
 import client.BL.Saleman.SalemanConsumerManageblservice.Consumer;
 import client.BL.Saleman.SalemanConsumerManageblservice.ConsumerManageController;
 import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
@@ -10,7 +11,10 @@ import client.RMI.link;
 import client.Vo.buyinVO;
 import client.Vo.consumerVO;
 import client.Vo.selloutVO;
+import client.Vo.goodsOutListVO;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,12 +23,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import server.Po.consumerPO;
 import server.Po.buyinPO;
 import server.Po.selloutPO;
@@ -35,6 +42,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -186,7 +194,11 @@ public class newBillUI extends Application{
                 if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
                     Tab newTab=new Tab();
                     newTab.setText(newValue.getValue());
-                    newTab.setContent(BuyinBillPane(newValue.getValue()));
+                    try {
+                        newTab.setContent(BuyinBillPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     tabs.getTabs().add(newTab);
                 }
                 else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
@@ -198,7 +210,11 @@ public class newBillUI extends Application{
                 else if(newValue.getParent().getValue().equals("客户列表")){
                     Tab newTab=new Tab();
                     newTab.setText(newValue.getValue());
-                    newTab.setContent(ConsumerPane(newValue.getValue()));
+                    try {
+                        newTab.setContent(ConsumerPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     tabs.getTabs().add(newTab);
                 }else{
                 }
@@ -211,21 +227,24 @@ public class newBillUI extends Application{
         tabs.setTabMinWidth(70);
         hb.getChildren().add(tabs);
 
-
         stage.setScene(scene);
         stage.show();
     }
 
-    private Pane ConsumerPane(String name){
+
+
+
+    private Pane ConsumerPane(String name) throws RemoteException {
+        List<consumerVO> list=consumerManageController.show();
         Consumer thisconsumer=new Consumer();
-        for(Consumer consumer:consumerList){
-            if(consumer.getConsumerID().equals(name)){
-                thisconsumer=consumer;
+        for(consumerVO consumer:list){
+            if(consumer.getKeyno().equals(name)){
+                thisconsumer=consumerManageController.VOtoconsumer(consumer);
                 break;
             }
         }
 
-        consumerVO vo=consumerManageController.consumerToVO(thisconsumer);
+        consumerVO vo = consumerManageController.consumerToVO(thisconsumer);
 
         GridPane gridPane=new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -319,22 +338,17 @@ public class newBillUI extends Application{
         gridPane.add(delete,4,12);
 
         edit.setOnAction((ActionEvent a1)->{
-            String conid=id.getText();
-            String conkind=id.getText();
-            String conlevel=id.getText();
+            String conkind=kind.getText();
+            String conlevel=level.getText();
             String conname=coname.getText();
             String conphone=phone.getText();
-            String conmail=phone.getText();
+            String conmail=mail.getText();
             String conemail=email.getText();
             String conreceivemoney=receivemoney.getText();
             String conaccount=account.getText();
             String consaleman=saleman.getText();
 
-            gridPane.getChildren().removeAll(id,kind,level,coname,phone,mail,email,receivemoney,account,saleman,edit,delete);
-
-            TextField id1=new TextField();
-            id1.setPromptText(conid);
-            gridPane.add(id1,1,0);
+            gridPane.getChildren().removeAll(kind,level,coname,phone,mail,email,receivemoney,account,saleman,edit,delete);
 
             TextField kind1=new TextField();
             kind1.setPromptText(conkind);
@@ -379,10 +393,93 @@ public class newBillUI extends Application{
             gridPane.add(cancel,4,12);
 
             confirm.setOnAction((ActionEvent e1)->{
+                double finalKinds;
+                if(kind1.getText().equals("进货商")){
+                    finalKinds=0;
+                }else{
+                    finalKinds=1;
+                }
+                consumerVO newvo =new consumerVO(
+                        id.getText(),
+                        finalKinds,
+                        Double.parseDouble(level1.getText()),
+                        name1.getText(),
+                        phone1.getText(),
+                        mail1.getText(),
+                        email1.getText(),
+                        Double.parseDouble(receivemoney1.getText()),
+                        Double.parseDouble(receive.getText()),
+                        Double.parseDouble(pay.getText()),
+                        salesman1.getText(),
+                        account1.getText()
+                        );
+                try {
+                    consumerManageController.modifyConsumer(newvo);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+                kind.setText(kind1.getText());
+                level.setText(level1.getText());
+                coname.setText(name1.getText());
+                phone.setText(phone1.getText());
+                mail.setText(mail1.getText());
+                email.setText(email1.getText());
+                receivemoney.setText(receivemoney1.getText());
+                account.setText(account1.getText());
+                saleman.setText(salesman1.getText());
+
+                gridPane.getChildren().removeAll(kind1,level1,name1,phone1,mail1,email1,receivemoney1,account1,salesman1,confirm,cancel);
+
+                gridPane.add(kind,1,1);
+
+                gridPane.add(level,1,2);
+
+                gridPane.add(coname,1,3);
+
+                gridPane.add(phone,1,4);
+
+                gridPane.add(mail,1,5);
+
+                gridPane.add(email,1,6);
+
+                gridPane.add(receivemoney,1,7);
+
+                gridPane.add(account,1,10);
+
+                gridPane.add(saleman,1,11);
+
+                gridPane.add(edit,3,12);
+
+                gridPane.add(delete,4,12);
 
             });
 
             cancel.setOnAction((ActionEvent e2)->{
+
+                gridPane.getChildren().removeAll(kind1,level1,name1,phone1,mail1,email1,receivemoney1,account1,salesman1,confirm,cancel);
+
+                gridPane.add(kind,1,1);
+
+                gridPane.add(level,1,2);
+
+                gridPane.add(coname,1,3);
+
+                gridPane.add(phone,1,4);
+
+                gridPane.add(mail,1,5);
+
+                gridPane.add(email,1,6);
+
+                gridPane.add(receivemoney,1,7);
+
+                gridPane.add(account,1,10);
+
+                gridPane.add(saleman,1,11);
+
+                gridPane.add(edit,3,12);
+
+                gridPane.add(delete,4,12);
 
             });
         });
@@ -390,7 +487,16 @@ public class newBillUI extends Application{
         delete.setOnAction((ActionEvent a2)->{
             try {
                 consumerManageController.deleteConsumer(vo);
-                gridPane.getChildren().clear();
+                for(int i=0;i<consumerNode.getChildren().size();i++){
+                    if(consumerNode.getChildren().get(i).getValue().equals(name)){
+                        consumerNode.getChildren().remove(i);
+                    }
+                }
+                for(int i=0;i<tabs.getTabs().size();i++){
+                    if(tabs.getTabs().get(i).getText().equals(name)){
+                        tabs.getTabs().remove(i);
+                    }
+                }
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -399,6 +505,10 @@ public class newBillUI extends Application{
 
         return gridPane;
     }
+
+
+
+
 
     private Pane newConsumerPane(TreeItem<String> a) {
 
@@ -510,16 +620,32 @@ public class newBillUI extends Application{
         });
 
         cancel.setOnAction((ActionEvent e)->{
-
+            String name=a.getValue();
+            for(int i=0;i<tabs.getTabs().size();i++){
+                if(tabs.getTabs().get(i).getText().equals(name)){
+                    tabs.getTabs().remove(i);
+                }
+            }
+            for(int i=0;i<consumerNode.getChildren().size();i++){
+                if(consumerNode.getChildren().get(i).getValue().equals(name)){
+                    consumerNode.getChildren().remove(i);
+                }
+            }
         });
+
         return gridPane;
     }
 
-    private Pane BuyinBillPane(String name){
+
+
+
+
+    private Pane BuyinBillPane(String name) throws RemoteException {
+        List<buyinVO> list=stockinBillMakeController.show();
         StockinBill thisstockinbill=new StockinBill();
-        for(StockinBill buyinBill:stockinList){
-            if(buyinBill.getBuyinID().equals(name)){
-                thisstockinbill=buyinBill;
+        for(buyinVO vo:list){
+            if(vo.getKeyno().equals(name)){
+                thisstockinbill=stockinBillMakeController.votoBill(vo);
                 break;
             }
         }
@@ -542,27 +668,123 @@ public class newBillUI extends Application{
             kind.setText("进货退货单");
         }
 
+        gridPane.add(kindlabel,0,0);
+        gridPane.add(kind,1,0);
+
         Label idLabel=new Label("单据ID：");
         Text id=new Text();
         id.setText(thisstockinbill.getBuyinID());
+
+        gridPane.add(idLabel,0,1);
+        gridPane.add(id,1,1);
 
         Label operaterLabel=new Label("操作员：");
         Text operater=new Text();
         operater.setText(thisstockinbill.getBuyinOperater());
 
+        gridPane.add(operaterLabel,0,2);
+        gridPane.add(operater,1,2);
+
         Label offerLabel=new Label("供应商：");
         Text offer=new Text();
         offer.setText(thisstockinbill.getBuyinOffer());
+
+        gridPane.add(offerLabel,0,3);
+        gridPane.add(offer,1,3);
 
         Label StorehouseLabel=new Label("仓库：");
         Text storehouse=new Text();
         storehouse.setText(thisstockinbill.getBuyinStoreHouse());
 
-        Label GoodsList=new Label("出货商品清单");
+        gridPane.add(StorehouseLabel,0,4);
+        gridPane.add(storehouse,1,4);
 
+        Label GoodsList=new Label("出货商品清单");
+        String outid=thisstockinbill.getBuyinGoodsList();
+
+        GoodsOutListManageController goodsOutListManageController=new GoodsOutListManageController();
+//        List<goodsOutListVO> outList=goodsOutListManageController.findbyNo(outid);
+        ObservableList<goodsOutListVO> realOutList=FXCollections.observableArrayList(goodsOutListManageController.findbyNo(outid));
+        TableView table=new TableView();
+        table.setEditable(true);
+        TableColumn<goodsOutListVO,String> keynoCol=new TableColumn<>("清单编号");
+        keynoCol.setMinWidth(100);
+        keynoCol.setCellValueFactory(new PropertyValueFactory<>("keyno"));
+        TableColumn<goodsOutListVO,String> goodsnoCol=new TableColumn<>("商品编号");
+        goodsnoCol.setMinWidth(100);
+        goodsnoCol.setCellValueFactory(new PropertyValueFactory<>("goodsno"));
+        TableColumn<goodsOutListVO,String> goodsnameCol=new TableColumn<>("名称");
+        goodsnameCol.setMinWidth(100);
+        goodsnameCol.setCellValueFactory(new PropertyValueFactory<>("goodsname"));
+        TableColumn<goodsOutListVO,String> keymodelCol=new TableColumn<>("型号");
+        keymodelCol.setMinWidth(100);
+        keymodelCol.setCellValueFactory(new PropertyValueFactory<>("keymodel"));
+        TableColumn<goodsOutListVO,Double> numCol=new TableColumn<>("数量");
+        numCol.setMinWidth(100);
+        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        TableColumn<goodsOutListVO,Double> priceCol=new TableColumn<>("单价");
+        priceCol.setMinWidth(100);
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TableColumn<goodsOutListVO,Double> sumCol=new TableColumn<>("总额");
+        sumCol.setMinWidth(100);
+        sumCol.setCellValueFactory(new PropertyValueFactory<>("sumall"));
+        table.setItems(realOutList);
+        table.getColumns().addAll(goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
+
+        gridPane.add(GoodsList,0,5);
+        gridPane.add(table,0,6);
+
+        Label tipLabel=new Label("备注");
+        TextArea tip=new TextArea();
+        tip.setWrapText(true);
+        tip.setText(thisstockinbill.getBuyinTips());
+
+        gridPane.add(tipLabel,0,7);
+        gridPane.add(tip,0,8);
+
+        Label sumLabel=new Label("总额");
+        Text sum=new Text();
+        sum.setText(thisstockinbill.getBuyinSum());
+
+        gridPane.add(sumLabel,0,8);
+        gridPane.add(sum,1,8);
+
+        if(thisstockinbill.getBuyinisDraft().equals("1")){
+            Button improve=new Button("修改");
+            gridPane.add(improve,2,10);
+            improve.setOnAction((ActionEvent e)->{
+                String buyinOperater=operater.getText();
+                String buyinOffer=offer.getText();
+                String buyinWarehouse=storehouse.getText();
+
+                gridPane.getChildren().removeAll(operater,offer,storehouse);
+
+                TextField newOpe=new TextField();
+                newOpe.setPromptText(buyinOperater);
+                gridPane.add(newOpe,1,2);
+
+                TextField newOff=new TextField();
+                newOff.setPromptText(buyinOffer);
+                gridPane.add(newOff,1,3);
+
+                TextField newStore=new TextField();
+                newStore.setPromptText(buyinWarehouse);
+                gridPane.add(newStore,1,4);
+
+                Callback<TableColumn<goodsOutListVO,String>,
+                 TableCell<goodsOutListVO,String>> cellFactory
+                 =(TableColumn<goodsOutListVO,String> p)->new EditingCell();
+
+
+
+            });
+        }
 
         return gridPane;
     }
+
+
+
 
     private Pane SelloutPane(String name){
         SelloutBill thisselloutBill=new SelloutBill();
@@ -584,7 +806,7 @@ public class newBillUI extends Application{
 
         Label kindlabel=new Label("单据类型");
         Text kind=new Text();
-        if(thisselloutBill.getSelloutkinds()=="0"){
+        if(thisselloutBill.getSelloutkinds().equals("0")){
             kind.setText("销售单");
         }else{
             kind.setText("销售退货单");
@@ -595,7 +817,71 @@ public class newBillUI extends Application{
         id.setText(thisselloutBill.getSelloutID());
 
 
-
         return gridPane;
+    }
+
+
+
+    class EditingCell extends TableCell<goodsOutListVO,String>{
+        private TextField textField;
+
+        public EditingCell() {
+        }
+
+        @Override
+        public void startEdit() {
+            if (!isEmpty()) {
+                super.startEdit();
+                createTextField();
+                setText(null);
+                setGraphic(textField);
+                textField.selectAll();
+            }
+        }
+
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+
+            setText(getItem());
+            setGraphic(null);
+        }
+
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setText(null);
+                    setGraphic(textField);
+                } else {
+                    setText(getString());
+                    setGraphic(null);
+                }
+            }
+        }
+
+        private void createTextField() {
+            textField = new TextField(getString());
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+            textField.focusedProperty().addListener(
+                    (ObservableValue<? extends Boolean> arg0,
+                     Boolean arg1, Boolean arg2) -> {
+                        if (!arg2) {
+                            commitEdit(textField.getText());
+                        }
+                    });
+        }
+
+        private String getString() {
+            return getItem() == null ? "" : getItem().toString();
+        }
     }
 }
