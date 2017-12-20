@@ -38,6 +38,14 @@ import server.Po.coPO;
 import server.Po.logPO;
 import shared.*;
 
+/**
+ * @discription: UI for accountant, doing the account management job
+ *
+ * @author: yotta
+ */
+
+
+
 public class AccountManagementUI {
 
 
