@@ -74,7 +74,9 @@ public class StartUI extends Application{
                    switch (thisPO.getKeyjob()) {
                        case "stockman":
                            stockmanMainUI stockmanMainUI = new stockmanMainUI();
-                           vBox = stockmanMainUI.start(thisPO);
+                           HBox hBox = stockmanMainUI.start(thisPO);
+                           vBox = new VBox();
+                           vBox.getChildren().add(hBox);
                            break;
                        case "accnoutant":
                            AccountantMain accountantMain = new AccountantMain();
