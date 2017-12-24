@@ -2,14 +2,19 @@ package server.Po;
 import java.io.Serializable;
 
 public class cutPO implements Serializable{
-	private String keyno;
-	private Double lev;
-	private Double cut;
-	private String voucher;
-	private String packno;
+	//折扣
+	//折扣包
+	//赠品
+	//代金
+	//  goodsid
+	private String keyno;//编号
+	private Double lev;//最低vip等级
+	private Double cut;//
+	private String voucher;//代金券
+	private String packno;//
 	private String fromDate;
 	private String toDate;
-	private Double kindofcut;
+	private Double kindofcut;//0，1，2，3
 
 	public Double getKindofcut() {
 		return kindofcut;
