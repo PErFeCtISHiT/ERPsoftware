@@ -131,7 +131,5 @@ public class StartUI extends Application{
 
         stage.setScene(scene);
         stage.show();
-
-
     }
 }
