@@ -27,6 +27,7 @@ public class CheckSituationUI extends Application {
     final HBox hb = new HBox();
 
     public static void main(String[] args) {
+
         launch(args);
     }
 

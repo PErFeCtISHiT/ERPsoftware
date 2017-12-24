@@ -88,9 +88,6 @@ public class CheckProgressUI extends Application {
         stage.setWidth(1550);
         stage.setHeight(1150);
 
-
-
-
         table.setEditable(true);
 
         TableColumn<Billgotten, String> IdCol =
@@ -180,49 +177,81 @@ public class CheckProgressUI extends Application {
                 @Override
                 public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
+
                     if (!empty) {
                         Button isredbutton = new Button("红冲");
                         this.setGraphic(isredbutton);
                         isredbutton.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
                             int  kind =data.get(this.getIndex()).getPrecisetype();
+                            int indexToDel =this.getIndex();
                             //新生成的单据的编号可能存在问题
                             try {
                                 switch (kind){
                                     case 3:{
                                         buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
                                         buying.setSumall(-buying.getSumall());
+                                        buying.setIsred(1.0);
                                         link.getRemoteHelper().getBuyinBill().addObject(buying,3);
+                                       data.add(new Billgotten(3,"销售类单据",buying.getKeyno(),buying.getOper(),getState(buying.getIscheck()),getIsRed(buying.getIsred())));
 
                                         break;
                                     }
                                     case 4:{
                                         selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
-                                        //wait for dage...
+                                        String goodsoutlistword=sellout.getGoodsoutlist();
+                                        sellout.setIsred(1.0);
+                                        List<goodsOutListPO> list=link.getRemoteHelper().getgoodsoutList().findbyNO(4,goodsoutlistword);
+                                        for(goodsOutListPO po:list){
+                                            double num=0-po.getNum();
+                                            po.setNum(num);
+                                        }
+                                        link.getRemoteHelper().getSelloutBill().addObject(sellout,4);
+                                        data.add(new Billgotten(4,"进货类单据",sellout.getKeyno(),sellout.getOper(),getState(sellout.getIscheck()),getIsRed(sellout.getIsred())));
+                                        break;
                                     }
                                     case 5:{
                                         moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
+                                        money.setIsred(1.0);
                                         money.setSumall(-money.getSumall());
                                         link.getRemoteHelper().getMoneyBill().addObject(money,5);
+                                        data.add(new Billgotten(5,"财务类单据",money.getKeyno(),money.getOper(),getState(money.getIscheck()),getIsRed(money.getIsred())));
+                                        break;
+
+
                                     }
                                     case 6:{
                                         giftPO gift =  (giftPO) link.getRemoteHelper().getBuyinBill().findbyNO(6,keyno).get(0);
+                                        gift.setIsred(1.0);
                                         gift.setNum(-gift.getNum());
                                         link.getRemoteHelper().getGiftBill().addObject(gift,6);
+                                        data.add(new Billgotten(6,"库存类单据",gift.getKeyno(),gift.getOper(),getState(gift.getIscheck()),getIsRed(gift.getIsred())));
+                                        break;
 
 
                                     }
                                     case 7:{
 
                                         stockexceptionPO stockexception =  (stockexceptionPO) link.getRemoteHelper().getStockwarningBill().findbyNO(7,keyno).get(0);
+                                        stockexception.setIsred(1.0);
                                         stockexception.setNuminbase(-stockexception.getNuminbase());
                                         link.getRemoteHelper().getStockOverflowBill().addObject(stockexception,7);
+                                        data.add(new Billgotten(6,"库存类单据",stockexception.getKeyno(),stockexception.getOper(),getState(stockexception.getIscheck()),getIsRed(stockexception.getIsred())));
+                                        break;
+
+
 
                                     }
                                     case 9:{
                                         WarningPO warning =  (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
+                                        warning.setIsred(1.0);
                                         warning.setNum(-warning.getNum());
                                         link.getRemoteHelper().getStockwarningBill().addObject(warning,9);
+                                        data.add(new Billgotten(9,"库存类单据",warning.getKeyno(),warning.getOper(),getState(warning.getIscheck()),getIsRed(warning.getIsred())));
+                                        break;
+
+
+
 
                                     }
 
@@ -407,7 +436,7 @@ public class CheckProgressUI extends Application {
         checkOutDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
         final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
+                  new Callback<DatePicker, DateCell>() {
                     @Override
                     public DateCell call(final DatePicker datePicker) {
                         return new DateCell() {
@@ -442,7 +471,7 @@ public class CheckProgressUI extends Application {
         GridPane.setHalignment(checkOutlabel, HPos.LEFT);
         gridPane.add(checkOutDatePicker, 1, 1);
         vbox.getChildren().add(gridPane);
-//;lt
+//type
 
         final Button button1 = new Button("红冲操作");
         button1.setOnAction((ActionEvent e) -> {
@@ -770,9 +799,6 @@ public class CheckProgressUI extends Application {
             grid3.add(new Label(po.getBase()),1,7);
             grid3.add(new Label("入库商品列表"),0,8);
             grid3.add(new Label(po.getGoodsoutlist()),1,8);
-
-
-
             gridTitlePane.setContent(grid3);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -1001,7 +1027,6 @@ public class CheckProgressUI extends Application {
             grid3.add(new Label(po.getNum().toString()),1,7);
             grid3.add(new Label("警戒值"),0,8);
             grid3.add(new Label(po.getWarningnum().toString()),1,8);
-
 
             gridTitlePane.setContent(grid3);
         } catch (RemoteException e) {
