@@ -1339,7 +1339,7 @@ public class newBillUI extends Application{
 
         Button addBtn=new Button("增加商品");
         HBox hb=new HBox();
-        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,addBtn);
+        hb.getChildren().addAll(field1,field2,field3,field4,numF,field5,field6,addBtn);
         addBtn.setOnAction((ActionEvent q)->{
             goodsOutListVO newone=new goodsOutListVO(
                     field1.getText(),
@@ -1629,7 +1629,7 @@ public class newBillUI extends Application{
 
                 Button addBtn=new Button("增加商品");
                 HBox hb=new HBox();
-                hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,addBtn);
+                hb.getChildren().addAll(field1,field2,field3,field4,numF,field5,field6,addBtn);
                 addBtn.setOnAction((ActionEvent q)->{
                     goodsOutListVO newone=new goodsOutListVO(
                             field1.getText(),
@@ -1871,7 +1871,7 @@ public class newBillUI extends Application{
 
         Button addBtn=new Button("增加商品");
         HBox hb=new HBox();
-        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,addBtn);
+        hb.getChildren().addAll(field1,field2,field3,field4,numF,field5,field6,addBtn);
         addBtn.setOnAction((ActionEvent q)->{
             goodsOutListVO newone=new goodsOutListVO(
                     field1.getText(),
@@ -2115,7 +2115,7 @@ public class newBillUI extends Application{
 
         Button addBtn=new Button("增加商品");
         HBox hb=new HBox();
-        hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,addBtn);
+        hb.getChildren().addAll(field1,field2,field3,field4,numF,field5,field6,addBtn);
         addBtn.setOnAction((ActionEvent q)->{
             goodsOutListVO newone=new goodsOutListVO(
                     field1.getText(),
