@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import server.Po.userPO;
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
@@ -22,19 +23,13 @@ import java.text.ParseException;
  * @description: good good study
  * @date: create in 15:59 2017/12/9
  */
-public class stockmanMainUI extends Application{
+public class stockmanMainUI {
 
-    String staff = "core";
-    String staffno;
     private HBox right ;
+    private String staff;
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage Stage)  {
+    public HBox start(userPO userPO)  {
+        staff = userPO.getKeyname();
         HBox finalBox = new HBox();
         VBox vBox = new VBox();
         vBox.setSpacing(5);
@@ -84,9 +79,6 @@ public class stockmanMainUI extends Application{
         finalBox.setPadding(new Insets(10, 0, 0, 10));
         finalBox.getChildren().addAll(vBox,right);
 
-        Scene scene = new Scene(finalBox);
-        Stage.setScene(scene);
-        Stage.setMaximized(true);
-        Stage.show();
+        return finalBox;
     }
 }

@@ -5,7 +5,9 @@ import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
 import server.Po.goodsOutListPO;
 import server.Po.salePO;
+import shared.ResultMessage;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public interface FinancialCheckSellInterface {
 
     public List<Sale> search(String detail) throws RemoteException;
 
-    public boolean getExcel(String address) throws RemoteException;
+    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException;
 
     public ArrayList<Sale> show() throws RemoteException;
 

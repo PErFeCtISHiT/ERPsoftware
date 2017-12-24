@@ -2,6 +2,12 @@ package client.BL.Accountant.FinancialBuildAccountbl;
 
 import javafx.beans.property.SimpleStringProperty;
 
+
+/**
+ * 期初建账——商品 领域对象
+ *
+ * 包含商品ID，商品名称，商品类型，商品进货价，商品销售价，最近进货价，最近销售价
+ */
 public class AccountBuild_good {
 
     public final SimpleStringProperty goodsID;

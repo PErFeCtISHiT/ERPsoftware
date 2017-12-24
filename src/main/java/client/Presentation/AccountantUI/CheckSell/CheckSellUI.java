@@ -14,10 +14,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.beans.IntrospectionException;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
@@ -251,7 +254,16 @@ public class CheckSellUI {
 
         final Button OutputButton = new Button("导出表格");
         OutputButton.setOnAction((ActionEvent e) -> {
-
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(new Stage());
+            try {
+                if(file != null)
+                    controller.getExcel(16,file.toString());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
 
         final Button RefreshButton = new Button("刷新列表");

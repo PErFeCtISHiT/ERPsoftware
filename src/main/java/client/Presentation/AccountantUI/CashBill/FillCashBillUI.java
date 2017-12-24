@@ -35,7 +35,6 @@ public class FillCashBillUI {
             FXCollections.observableArrayList();
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
-    final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
     final Label billNum = new Label ();
     final TextField account = new TextField("");
@@ -234,7 +233,6 @@ public class FillCashBillUI {
         grid.add(money, 1, 3, 4, 1);
         grid.add(DraftButton, 1, 4);
         grid.add(SummitButton, 2, 4);
-        grid.add(OutputButton, 3, 4);
         grid.add (notification, 0, 6, 3, 1);
 
 

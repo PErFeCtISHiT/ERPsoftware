@@ -1,7 +1,10 @@
 package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
+import client.Presentation.AccountantUI.AccountMain.AccountantMain;
+import client.Presentation.SalesmanUI.BillMake.newBillUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
+import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import server.Po.userPO;
 
@@ -60,31 +64,36 @@ public class StartUI extends Application{
         btn1.setOnAction((ActionEvent e)->{
             String username=tfName.getText();
             String password=pfPwd.getText();
-            System.out.println(username);
-            System.out.println(password);
             try{
                 List<userPO> userPOList;
-                userPOList=controller.getAlluser(username,15);
+                userPOList=controller.getAlluser(username,password);
 
-                System.out.println(userPOList.size());
+               if(userPOList.size() == 1) {
+                   userPO thisPO = userPOList.get(0);
+                   HBox hBox = null;
+                   switch (thisPO.getKeyjob()) {
+                       case "stockman":
+                           stockmanMainUI stockmanMainUI = new stockmanMainUI();
+                           hBox = stockmanMainUI.start(thisPO);
+                           break;
+                       case "accnoutant":
+                           AccountantMain accountantMain = new AccountantMain();
+                           hBox = accountantMain.start(thisPO);
+                           break;
+                       case "saleman":
+                           newBillUI newBillUI = new newBillUI();
+                           hBox = newBillUI.start(thisPO);
+                           break;
 
-                boolean isright=false;
-                userPO thisPO;
-                for(userPO users:userPOList){
-                    System.out.println(users.getKeyname());
-                    System.out.println(users.getPasswor());
-                    if(users.getPasswor().equals(password)&&users.getKeyname().equals(username)){
-                        isright=true;
-                        thisPO=users;
-                        break;
-                    }
-                }
+                   }
+                   assert hBox != null;
+                   Scene scene1 = new Scene(hBox);
+                   newBillUI newBillUI = new newBillUI();
+                   Scene scene2 = new Scene(newBillUI.start(thisPO));
+                   stage.setMaximized(true);
+                   stage.setScene(scene2);
+               }
 
-                if(isright==true){
-                        goodsKindsManageUI stockman=new goodsKindsManageUI();
-                        //stockman.start(new Stage());
-                        stage.close();
-                }
                 else{
                     pfPwd.clear();
                     Stage failstage=new Stage();
@@ -99,8 +108,6 @@ public class StartUI extends Application{
                     failstage.setTitle("登录失败");
                     failstage.show();
                 }
-            }catch(RemoteException e2){
-                e2.printStackTrace();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -131,7 +138,5 @@ public class StartUI extends Application{
 
         stage.setScene(scene);
         stage.show();
-
-
     }
 }
