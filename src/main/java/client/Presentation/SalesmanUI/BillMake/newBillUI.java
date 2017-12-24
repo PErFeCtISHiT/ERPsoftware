@@ -790,7 +790,7 @@ public class newBillUI extends Application{
         TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
 
         table.setItems(realOutList);
-        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol,candelete);
+        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
 
         Label nogoods=new Label("请添加商品");
         table.setPlaceholder(nogoods);
@@ -861,7 +861,7 @@ public class newBillUI extends Application{
                         }
                 );
 
-                table.getColumns().add(candelete);
+//                table.getColumns().add(candelete);
                 candelete.setCellFactory((col)->{
                     TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                         public void updateItem(String item, boolean empty) {
@@ -906,7 +906,7 @@ public class newBillUI extends Application{
 
                 Button addBtn=new Button("增加商品");
                 HBox hb=new HBox();
-                hb.getChildren().addAll(field1,field2,field3,field4,field5,field6,addBtn);
+                hb.getChildren().addAll(field1,field2,field3,field4,numF,field5,field6,addBtn);
                 addBtn.setOnAction((ActionEvent q)->{
                     goodsOutListVO newone=new goodsOutListVO(
                             field1.getText(),
@@ -1074,7 +1074,7 @@ public class newBillUI extends Application{
                 }
         );
 
-
+//        table.getColumns().add(candelete);
         candelete.setCellFactory((col)->{
             TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                 public void updateItem(String item, boolean empty) {
@@ -1241,7 +1241,7 @@ public class newBillUI extends Application{
         TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
 
         table.setItems(realOutList);
-        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol,candelete);
+        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
 
         Label nogoods=new Label("请添加商品");
         table.setPlaceholder(nogoods);
@@ -1294,7 +1294,7 @@ public class newBillUI extends Application{
 
 
 
-        table.getColumns().add(candelete);
+//        table.getColumns().add(candelete);
         candelete.setCellFactory((col)->{
             TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                 public void updateItem(String item, boolean empty) {
@@ -1483,7 +1483,7 @@ public class newBillUI extends Application{
         sumCol.setCellValueFactory(new PropertyValueFactory<>("sumall"));
         TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
         table.setItems(realOutList);
-        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol,candelete);
+        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
         table.setPlaceholder(new Label("请添加商品"));
 
         gridPane.add(GoodsList,0,7);
@@ -1584,7 +1584,7 @@ public class newBillUI extends Application{
                         }
                 );
 
-                table.getColumns().add(candelete);
+//                table.getColumns().add(candelete);
                 candelete.setCellFactory((col)->{
                     TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                         public void updateItem(String item, boolean empty) {
@@ -1753,7 +1753,7 @@ public class newBillUI extends Application{
         TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
 
         table.setItems(realOutList);
-        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol,candelete);
+        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
 
         Label nogoods=new Label("请添加商品");
         table.setPlaceholder(nogoods);
@@ -1826,7 +1826,7 @@ public class newBillUI extends Application{
                 }
         );
 
-        table.getColumns().add(candelete);
+//        table.getColumns().add(candelete);
         candelete.setCellFactory((col)->{
             TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                 public void updateItem(String item, boolean empty) {
@@ -1997,7 +1997,7 @@ public class newBillUI extends Application{
         TableColumn<goodsOutListVO,String> candelete=new TableColumn<>("删除");
 
         table.setItems(realOutList);
-        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol,candelete);
+        table.getColumns().addAll(keynoCol,goodsnoCol,goodsnameCol,keymodelCol,numCol,priceCol,sumCol);
 
         Label nogoods=new Label("请添加商品");
         table.setPlaceholder(nogoods);
@@ -2070,7 +2070,7 @@ public class newBillUI extends Application{
                 }
         );
 
-        table.getColumns().add(candelete);
+ //       table.getColumns().add(candelete);
         candelete.setCellFactory((col)->{
             TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
                 public void updateItem(String item, boolean empty) {
