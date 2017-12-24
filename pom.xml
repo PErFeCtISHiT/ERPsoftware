@@ -137,7 +137,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>server.Start.start</mainClass>
+                                <mainClass>client.Presentation.StockmanUI.stockmanMainUI</mainClass>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
                             </manifest>

@@ -35,6 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import server.Po.userPO;
 
 
 import java.rmi.RemoteException;
@@ -45,19 +46,13 @@ import java.util.List;
 
 
 
-public class AccountantMain extends Application {
+public class AccountantMain {
 
     String staff = "Yotta";
-    String staffno;
     private VBox right ;
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage Stage)  {
+    public VBox start(userPO userPO)  {
+        staff = userPO.getKeyname();
         HBox finalBox = new HBox();
         VBox vBox = new VBox();
         vBox.setSpacing(5);
@@ -170,10 +165,6 @@ public class AccountantMain extends Application {
         finalBox.setPadding(new Insets(10, 0, 0, 10));
         finalBox.getChildren().addAll(vBox,right);
 
-        Scene scene = new Scene(finalBox);
-        Stage.setScene(scene);
-        Stage.setMinHeight(900);
-        Stage.setMinWidth(1600);
-        Stage.show();
+        return vBox;
     }
 }

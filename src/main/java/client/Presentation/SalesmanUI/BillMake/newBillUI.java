@@ -36,6 +36,7 @@ import javafx.util.Callback;
 import server.Po.consumerPO;
 import server.Po.buyinPO;
 import server.Po.selloutPO;
+import server.Po.userPO;
 
 import javax.security.auth.callback.LanguageCallback;
 import java.lang.reflect.Array;
@@ -49,7 +50,7 @@ import java.util.Map;
 /**
  * Created by Leonarda on 2017/12/6.
  */
-public class newBillUI extends Application{
+public class newBillUI {
 
     TreeItem<String> rootNode;
     TreeItem<String> consumerNode;
@@ -72,10 +73,6 @@ public class newBillUI extends Application{
     HBox hb=new HBox();
     Scene scene=new Scene(hb,1400,650);
 
-    public static void main(String[] args){
-        link.linktoServer();
-        launch(args);
-    }
 
     public newBillUI(){
         this.rootNode=new TreeItem<>("工作目录");
@@ -84,7 +81,7 @@ public class newBillUI extends Application{
         this.selloutNode=new TreeItem<>("销售单列表");
     }
 
-    public void start(Stage stage) throws RemoteException {
+    public HBox start(userPO userPO) throws RemoteException {
 
         List<consumerVO> consumervolist=consumerManageController.show();
         for(consumerVO vo:consumervolist){
@@ -169,7 +166,7 @@ public class newBillUI extends Application{
         consumerMenu.getItems().add(newSelloutitem);
         consumerMenu.getItems().add(newBuyinCancelitem);
 
-        stage.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
+        hb.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
             if(me.getButton()== MouseButton.SECONDARY||me.isControlDown()){
                 consumerMenu.show(hb,me.getScreenX(),me.getScreenY());
             }
@@ -227,9 +224,6 @@ public class newBillUI extends Application{
 
 
 
-        stage.setTitle("进货销售人员");
-        stage.setWidth(1400);
-        stage.setHeight(650);
         scene.setFill(Color.WHITE);
 
         TreeView<String> treeView=new TreeView<>(rootNode);
@@ -282,8 +276,7 @@ public class newBillUI extends Application{
         tabs.setTabMinWidth(70);
         hb.getChildren().add(tabs);
 
-        stage.setScene(scene);
-        stage.show();
+        return hb;
     }
 
 
