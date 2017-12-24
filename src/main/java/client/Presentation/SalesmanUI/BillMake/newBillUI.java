@@ -1291,6 +1291,9 @@ public class newBillUI extends Application{
                 }
         );
 
+
+
+
         table.getColumns().add(candelete);
         candelete.setCellFactory((col)->{
             TableCell<goodsOutListVO, String> cell = new TableCell<goodsOutListVO, String>() {
