@@ -70,29 +70,28 @@ public class StartUI extends Application{
 
                if(userPOList.size() == 1) {
                    userPO thisPO = userPOList.get(0);
-                   VBox vBox = null;
+                   HBox hBox = null;
                    switch (thisPO.getKeyjob()) {
                        case "stockman":
                            stockmanMainUI stockmanMainUI = new stockmanMainUI();
-                           HBox hBox = stockmanMainUI.start(thisPO);
-                           vBox = new VBox();
-                           vBox.getChildren().add(hBox);
+                           hBox = stockmanMainUI.start(thisPO);
                            break;
                        case "accnoutant":
                            AccountantMain accountantMain = new AccountantMain();
-                           vBox = accountantMain.start(thisPO);
+                           hBox = accountantMain.start(thisPO);
                            break;
                        case "saleman":
                            newBillUI newBillUI = new newBillUI();
-                           vBox = new VBox();
-                           vBox.getChildren().add(newBillUI.start(thisPO));
+                           hBox = newBillUI.start(thisPO);
                            break;
 
                    }
-                   assert vBox != null;
-                   Scene scene1 = new Scene(vBox);
+                   assert hBox != null;
+                   Scene scene1 = new Scene(hBox);
+                   newBillUI newBillUI = new newBillUI();
+                   Scene scene2 = new Scene(newBillUI.start(thisPO));
                    stage.setMaximized(true);
-                   stage.setScene(scene1);
+                   stage.setScene(scene2);
                }
 
                 else{

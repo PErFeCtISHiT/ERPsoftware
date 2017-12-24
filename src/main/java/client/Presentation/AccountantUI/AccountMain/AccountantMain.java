@@ -51,7 +51,7 @@ public class AccountantMain {
     String staff = "Yotta";
     private VBox right ;
 
-    public VBox start(userPO userPO)  {
+    public HBox start(userPO userPO)  {
         staff = userPO.getKeyname();
         HBox finalBox = new HBox();
         VBox vBox = new VBox();
@@ -165,6 +165,6 @@ public class AccountantMain {
         finalBox.setPadding(new Insets(10, 0, 0, 10));
         finalBox.getChildren().addAll(vBox,right);
 
-        return vBox;
+        return finalBox;
     }
 }

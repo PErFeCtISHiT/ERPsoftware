@@ -76,7 +76,6 @@ public class newBillUI {
 
 
     HBox hb=new HBox();
-    Scene scene=new Scene(hb,1400,650);
 
 
     public newBillUI(){
@@ -229,7 +228,6 @@ public class newBillUI {
 
 
 
-        scene.setFill(Color.WHITE);
 
         TreeView<String> treeView=new TreeView<>(rootNode);
         hb.getChildren().add(treeView);
