@@ -2,6 +2,12 @@ package client.BL.Accountant.FinancialBuildAccountbl;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * AccountBuild 领域对象
+ * 包含：年份，账户列表，客户列表，商品列表
+ *
+ */
 public class AccountBuild {
 
     String year;

@@ -2,6 +2,14 @@ package client.BL.Accountant.FinancialBuildAccountbl;
 
 import javafx.beans.property.SimpleStringProperty;
 
+
+/**
+ * 期初建账——客户 领域对象
+ *
+ * 包含客户ID，客户名称，客户类型，收支差，应收金额，应付金额
+ */
+
+
 public class AccountBuild_consumer {
     public final SimpleStringProperty consumerID;
     public final SimpleStringProperty consumerName;

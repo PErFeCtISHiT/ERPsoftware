@@ -21,6 +21,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author: yotta
+ * @description: controller for account build
+ * @date: modify in 18:20 2017/12/24
+ */
+
 public class FinancialBuildController implements FinancialBuildAccountInterface{
 
 
@@ -76,7 +82,7 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         }
         return accountList;
     }
-    
+
 
     @Override
     public AccountBuild_account PoToAccount(coPO po) throws RemoteException {
