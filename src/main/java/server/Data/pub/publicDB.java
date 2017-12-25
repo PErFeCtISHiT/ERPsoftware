@@ -98,13 +98,11 @@ public class publicDB implements pub {
         if (!temp.exists())
             temp.createNewFile();
         String Path = this.getClass().getClassLoader().getResource("sqlplusroot.sql").getPath();
-        Path = java.net.URLDecoder.decode(Path);
         File file = new File(Path);
         String separ = System.getProperty("line.separator");
         String str = "set linesize 200" + separ + "set term off verify off feedback off pagesize 999"
                 + separ + "set markup html on entmap ON spool on preformat off" + separ +
                 "spool " + path + separ + sql + ";" + separ + "spool off" + separ + "exit";
-        str = java.net.URLDecoder.decode(str, "utf-8");
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write(str);
