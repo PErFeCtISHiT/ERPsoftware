@@ -196,8 +196,10 @@ public class FinancialReceiveController implements FinancialReceiveInterface {
         String consumerType = financialBill.getConsumerType();
         String consumerID = financialBill.getConsumerID();
         double sum = financialBill.getSum();
-        String moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
-
+        String moneylistNO=null;
+        if (financialBill.getMoneyList().size()!=0){
+            moneylistNO = financialBill.getMoneyList().get(0).getlistNO();
+        }
 
         moneypo.setKind(0.0);
         moneypo.setKeyno(billID);

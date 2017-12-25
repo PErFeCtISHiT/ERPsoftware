@@ -5,7 +5,6 @@ import client.RMI.link;
 import client.Vo.WarningVO;
 import client.Vo.goodsVO;
 import client.Vo.logVO;
-import shared.ResultMessage;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,7 +17,7 @@ import java.rmi.RemoteException;
  */
 public class StockWarningController implements stockWarning {
     @Override
-    public ResultMessage warningMake(goodsVO goods, String operator, String note,String no) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void warningMake(goodsVO goods, String operator, String note, String no) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         WarningVO warningBill = new WarningVO();
         warningBill.setKind((double) 10);
         warningBill.setGoodsname(goods.getKeyname());
@@ -40,6 +39,6 @@ public class StockWarningController implements stockWarning {
         logVO.setOperatorno(operator);
         link.getRemoteHelper().getLog().addObject(logVO,13);
 
-        return link.getRemoteHelper().getStockwarningBill().addObject(warningBill,9);
+        link.getRemoteHelper().getStockwarningBill().addObject(warningBill, 9);
     }
 }

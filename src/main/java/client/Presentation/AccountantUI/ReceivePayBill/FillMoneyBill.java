@@ -43,7 +43,6 @@ public class FillMoneyBill{
             );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
-    final Button OutputButton = new Button("导出单据");
     final Label notification = new Label ();
     final Label billNum = new Label ();
     final TextField consumer = new TextField("");
@@ -148,34 +147,22 @@ public class FillMoneyBill{
         ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (true)//checkMoney(money.getText())
+            if (check())//checkMoney(money.getText())
             {
-                System.out.println(TypeComboBox.getValue());
-
                 String billtype = TypeComboBox.getValue();
                 String billID = billNum.getText();
                 String operater = StaffComboBox.getValue();
                 String consumerType =ConsumerTypeComboBox.getValue();
                 String consumerID = consumer.getText();
-
-                System.out.println(money.getText());
                 double sum = Double.parseDouble(money.getText());
-                System.out.println(sum);
-
                 ArrayList<MoneyList> moneylist = new ArrayList<>();
-
-//                data.clear();
                 for (int i=0;i<data.size();i++) {
-//                    String listID = "ZZLB-" + i;
-//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
 
-                System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
-                    System.out.println("Step 2");
                     if(billtype.equals("收款单")){
                         ResultMessage resultMessage = receiveController.summit(financialBill);
                     }
@@ -254,7 +241,6 @@ public class FillMoneyBill{
         grid.add(money, 1, 3, 4, 1);
         grid.add(DraftButton, 1, 4);
         grid.add(SummitButton, 2, 4);
-        grid.add(OutputButton, 3, 4);
         grid.add (notification, 0, 6, 3, 1);
 
 
@@ -265,14 +251,37 @@ public class FillMoneyBill{
     }
 
 
-    public boolean checkMoney(String moneytext){
-        boolean re = false;
+    public boolean check(){
+        boolean re = true;
+        String moneytext = money.getText();
         if(moneytext == null || moneytext.isEmpty()){
-            notification.setText("Please enter the Money !");
+            re = false;
+            notification.setText("请输入总金额 !");
         }
-        else if (isNumeric(moneytext)){
-            re = true;
+        if (!isNumeric(moneytext)){
+            re = false;
+            notification.setText("请检查输入金额的格式 !");
         }
+        if(consumer.getText()==null){
+            re = false;
+            notification.setText("请输入客户类型 !");
+        }
+
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).getAccount()==null){
+                re = false;
+                notification.setText("请输入转账账户 !");
+            }
+            if(data.get(i).getMoney()==null){
+                re = false;
+                notification.setText("请输入转账金额 !");
+            }
+            if(!isNumeric(data.get(i).getMoney())){
+                re = false;
+                notification.setText("请检查转账金额格式 !");
+            }
+        }
+
         return re;
     }
 

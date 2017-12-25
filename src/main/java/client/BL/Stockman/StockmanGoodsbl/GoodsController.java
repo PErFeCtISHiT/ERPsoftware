@@ -5,7 +5,6 @@ import client.RMI.link;
 import client.Vo.goodsVO;
 import client.Vo.stockGoodsVO;
 import server.Po.goodsPO;
-import shared.ResultMessage;
 import shared.copyclass;
 
 import java.rmi.RemoteException;
@@ -24,10 +23,10 @@ public class GoodsController implements GoodsListInterface {
     */
 
     @Override
-    public ResultMessage addGoods(goodsVO goods) throws RemoteException {
+    public void addGoods(goodsVO goods) throws RemoteException {
         goodsPO g = new goodsPO();
         copyclass.copy(goods,g);
-        return link.getRemoteHelper().getGoods().addObject(g,0);
+        link.getRemoteHelper().getGoods().addObject(g, 0);
     }
     /**
     *@author:pis
@@ -35,10 +34,10 @@ public class GoodsController implements GoodsListInterface {
     *@date: 19:49 2017/11/23
     */
     @Override
-    public ResultMessage deleteGoods(goodsVO goods) throws RemoteException{
+    public void deleteGoods(goodsVO goods) throws RemoteException{
         goodsPO g = new goodsPO();
         copyclass.copy(goods,g);
-        return link.getRemoteHelper().getGoods().deleteObject(g,0);
+        link.getRemoteHelper().getGoods().deleteObject(g, 0);
     }
     /**
     *@author:pis
@@ -46,10 +45,10 @@ public class GoodsController implements GoodsListInterface {
     *@date: 19:49 2017/11/23
     */
     @Override
-    public ResultMessage modifyGoods(goodsVO goods) throws RemoteException{
+    public void modifyGoods(goodsVO goods) throws RemoteException{
         goodsPO g = new goodsPO();
         copyclass.copy(goods,g);
-        return link.getRemoteHelper().getGoods().modifyObject(g,0);
+        link.getRemoteHelper().getGoods().modifyObject(g, 0);
     }
     /**
     *@author:pis
@@ -82,7 +81,7 @@ public class GoodsController implements GoodsListInterface {
     }
 
     @Override
-    public ResultMessage stockGoods(stockGoodsVO stockGoodsVO) throws RemoteException {
-        return link.getRemoteHelper().getstockGoods().addObject(stockGoodsVO,19);
+    public void stockGoods(stockGoodsVO stockGoodsVO) throws RemoteException {
+        link.getRemoteHelper().getstockGoods().addObject(stockGoodsVO, 19);
     }
 }

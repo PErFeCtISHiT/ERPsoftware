@@ -154,7 +154,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
-    public ResultMessage exportToExcel(int type, String path) throws RemoteException,IOException {
+    public ResultMessage exportToExcel(int type, String path) throws  IOException, InterruptedException {
         return pub.exportToExcel(type,path);
     }
 

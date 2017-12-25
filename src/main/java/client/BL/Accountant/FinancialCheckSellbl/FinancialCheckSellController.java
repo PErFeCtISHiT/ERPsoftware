@@ -6,7 +6,9 @@ import client.Vo.goodsOutListVO;
 import client.Vo.saleVO;
 import server.Po.goodsOutListPO;
 import server.Po.salePO;
+import shared.ResultMessage;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +50,14 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
 
     /**
      *
+     * @param type
      * @param address
-     * @return boolean
+     * @return
      */
     @Override
-    public boolean getExcel(String address) {
-        return false;
+    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException, InterruptedException {
+
+        return link.getRemoteHelper().getSale().exportToExcel(type,address);
     }
 
     @Override

@@ -2,6 +2,11 @@ package client.BL.Accountant.FinancialAccountbl;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Account 领域对象
+ * 包含：ID 名称 金额
+ */
+
 public class Account {
 
     public final SimpleStringProperty accountID;

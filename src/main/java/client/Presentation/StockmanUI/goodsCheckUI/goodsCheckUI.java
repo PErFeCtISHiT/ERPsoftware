@@ -140,7 +140,7 @@ public class goodsCheckUI {
             try {
                 if(file != null)
                 stockCheckController.exportToExcel(0,file.toString());
-            } catch (IOException e1) {
+            } catch (IOException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });

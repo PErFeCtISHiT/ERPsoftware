@@ -12,9 +12,8 @@ import java.util.List;
  * Created by Leonarda on 2017/12/8.
  */
 public class LoginController implements LoginblService {
-    @Override
-    public List<userPO> getAlluser(String id,int type) throws RemoteException{
-        return link.getRemoteHelper().getUser().findbyNO(type,id);
+    public List getAlluser(String username, String password) throws RemoteException{
+        return link.getRemoteHelper().getUser().login(username,password);
     }
 
     @Override

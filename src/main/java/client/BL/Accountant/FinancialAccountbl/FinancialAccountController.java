@@ -11,6 +11,11 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: yotta
+ * @description: controller for account management
+ * @date: modify in 18:18 2017/12/24
+ */
 public class FinancialAccountController implements FinancialAccountInterface {
 
 
@@ -67,9 +72,15 @@ public class FinancialAccountController implements FinancialAccountInterface {
      * @return
      */
     @Override
-    public ArrayList<coVO> findAccount(String key) {
+    public ArrayList<Account> findAccount(String key) throws RemoteException{
 
-        return null;
+        List<coPO> list = link.getRemoteHelper().getCoaccount().findAccount(key);
+        ArrayList<Account> accList = new ArrayList<>();
+        for (int i=0;i<list.size();i++){
+            Account newaccount = VoToAccount(PoToVo(list.get(i)));
+            accList.add(newaccount);
+        }
+        return accList;
     }
 
     /**
@@ -83,6 +94,13 @@ public class FinancialAccountController implements FinancialAccountInterface {
         return link.getRemoteHelper().getCoaccount().findAll(10);
     }
 
+    /**
+     * transform VO to Account
+     *
+     * @param co
+     * @return Account
+     */
+
     @Override
     public Account VoToAccount(coVO co) {
 
@@ -92,6 +110,14 @@ public class FinancialAccountController implements FinancialAccountInterface {
         Account account = new Account(id,name,money.toString());
         return account;
     }
+
+    /**
+     * transform Account to VO
+     *
+     * @param account
+     * @return coVO
+     */
+
     @Override
     public coVO AccountToVo(Account account) {
 
@@ -105,6 +131,13 @@ public class FinancialAccountController implements FinancialAccountInterface {
         return co;
     }
 
+    /**
+     * transform PO to VO
+     *
+     * @param po
+     * @return
+     */
+
     @Override
     public coVO PoToVo(coPO po) {
 
@@ -117,6 +150,14 @@ public class FinancialAccountController implements FinancialAccountInterface {
         co.setKeyno(id);
         return co;
     }
+
+    /**
+     * transform VO to PO
+     *
+     * @param vo
+     * @return
+     */
+
 
     @Override
     public coPO VoToPo(coVO vo) {

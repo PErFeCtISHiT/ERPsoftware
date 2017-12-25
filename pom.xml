@@ -7,7 +7,7 @@
 
 <groupId>softer</groupId>
 <artifactId>ERPsoftware</artifactId>
-<version>1.0-SNAPSHOT</version>
+<version>1.0</version>
 
 <dependencies>
 
@@ -137,7 +137,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>server.Start.start</mainClass>
+                                <mainClass>client.Presentation.mainUI.StartUI</mainClass>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
                             </manifest>
@@ -149,6 +149,16 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
