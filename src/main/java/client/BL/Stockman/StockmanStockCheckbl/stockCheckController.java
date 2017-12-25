@@ -2,7 +2,6 @@ package client.BL.Stockman.StockmanStockCheckbl;
 
 import client.BLservice.Stockman.StockmanStockCheckblservice.stockCheck;
 import client.RMI.link;
-import shared.ResultMessage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -25,9 +24,9 @@ public class stockCheckController implements stockCheck {
     }
 
     @Override
-    public ResultMessage exportToExcel(int type,String path) throws RemoteException,IOException {
+    public void exportToExcel(int type, String path) throws RemoteException, IOException, InterruptedException {
 
-        return link.getRemoteHelper().getGoods().exportToExcel(type,path);
+        link.getRemoteHelper().getGoods().exportToExcel(type, path);
     }
 
 

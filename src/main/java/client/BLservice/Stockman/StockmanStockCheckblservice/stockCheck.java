@@ -1,7 +1,5 @@
 package client.BLservice.Stockman.StockmanStockCheckblservice;
 
-import shared.ResultMessage;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -13,5 +11,5 @@ import java.util.List;
  */
 public interface stockCheck {
     List StockCheck() throws RemoteException;
-    ResultMessage exportToExcel(int type,String path) throws IOException;
+    void exportToExcel(int type, String path) throws IOException, InterruptedException;
 }

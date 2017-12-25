@@ -3,7 +3,6 @@ package client.Presentation.mainUI;
 import client.BL.LodinblService.LoginController;
 import client.Presentation.AccountantUI.AccountMain.AccountantMain;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
-import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
 import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
 import javafx.application.Application;
@@ -19,11 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import server.Po.userPO;
-
-import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -37,7 +33,7 @@ public class StartUI extends Application{
         launch(args);
     }
 
-    LoginController controller=new LoginController();
+    private LoginController controller=new LoginController();
 
     public void start(Stage stage){
         GridPane grid=new GridPane();
@@ -67,7 +63,6 @@ public class StartUI extends Application{
             try{
                 List<userPO> userPOList;
                 userPOList=controller.getAlluser(username,password);
-
                if(userPOList.size() == 1) {
                    userPO thisPO = userPOList.get(0);
                    HBox hBox = null;
@@ -88,10 +83,8 @@ public class StartUI extends Application{
                    }
                    assert hBox != null;
                    Scene scene1 = new Scene(hBox);
-                   newBillUI newBillUI = new newBillUI();
-                   Scene scene2 = new Scene(newBillUI.start(thisPO));
                    stage.setMaximized(true);
-                   stage.setScene(scene2);
+                   stage.setScene(scene1);
                }
 
                 else{

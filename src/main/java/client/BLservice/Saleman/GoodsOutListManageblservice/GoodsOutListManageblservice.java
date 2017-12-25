@@ -15,7 +15,7 @@ public interface GoodsOutListManageblservice {
     List findbyNo(String no) throws RemoteException;
     ResultMessage addObject(goodsOutListVO vo) throws RemoteException;
     ResultMessage deleteObject(goodsOutListVO vo) throws RemoteException;
-    ResultMessage exToExcel(String path) throws IOException;
+    ResultMessage exToExcel(String path) throws IOException, InterruptedException;
     List findAll() throws RemoteException;
     ResultMessage modifyObject(goodsOutListVO vo) throws RemoteException;
 }

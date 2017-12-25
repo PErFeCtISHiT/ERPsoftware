@@ -6,7 +6,6 @@ import client.RMI.link;
 import client.Vo.goodsVO;
 import client.Vo.logVO;
 import client.Vo.stockexceptionVO;
-import shared.ResultMessage;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +23,7 @@ public class stockExceptionController implements stockException {
     *@date: 15:43 2017/11/26
     */
     @Override
-    public ResultMessage ExceptionMake(goodsVO goods, Double actualNum, String operator,String note,String no,int type) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void ExceptionMake(goodsVO goods, Double actualNum, String operator, String note, String no, int type) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         stockexceptionVO stockOverflow = new stockexceptionVO();
         logVO logVO = new logVO();
         logVO.setKeyjob("库存管理");
@@ -53,7 +52,6 @@ public class stockExceptionController implements stockException {
         link.getRemoteHelper().getLog().addObject(logVO,13);
 
 
-
-        return link.getRemoteHelper().getStockOverflowBill().addObject(stockOverflow, 7);
+        link.getRemoteHelper().getStockOverflowBill().addObject(stockOverflow, 7);
     }
 }

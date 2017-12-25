@@ -55,7 +55,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      * @return
      */
     @Override
-    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException {
+    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException, InterruptedException {
 
         return link.getRemoteHelper().getSale().exportToExcel(type,address);
     }

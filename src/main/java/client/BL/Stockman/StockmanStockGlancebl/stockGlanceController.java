@@ -17,7 +17,6 @@ import java.util.List;
  * @date: create in 10:11 2017/11/26
  */
 public class stockGlanceController implements stockGlance {
-    private List<goodsOutListPO> Consumertoadd;
 
 
     /**
@@ -32,7 +31,7 @@ public class stockGlanceController implements stockGlance {
         List<stockGoodsPO> withBase = link.getRemoteHelper().getstockGoods().findAll(19);
         List<goodsOutListPO> withConsumer = link.getRemoteHelper().getgoodsoutList().findAll(17);
         List<stockGoodsPO> basetoadd = new ArrayList<>();
-        Consumertoadd = new ArrayList<>();
+        List<goodsOutListPO> consumertoadd = new ArrayList<>();
         for(stockGoodsPO i : withBase){
             String temp = i.getKeyno();
             String dat = temp.split("-")[1];
@@ -47,11 +46,11 @@ public class stockGlanceController implements stockGlance {
             dat = dat.substring(0,4) + "-" + dat.substring(4,6) + "-" + dat.substring(6);
             LocalDate between = LocalDate.parse(dat);
             if(between.compareTo(from) >= 0 && between.compareTo(to) <= 0)
-                Consumertoadd.add(i);
+                consumertoadd.add(i);
         }
         List<Object> ret = new ArrayList<>();
         ret.add(basetoadd);
-        ret.add(Consumertoadd);
+        ret.add(consumertoadd);
         return ret;
     }
 }

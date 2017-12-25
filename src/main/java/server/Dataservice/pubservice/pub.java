@@ -19,5 +19,5 @@ public interface pub extends Remote{
     ResultMessage modifyObject(Object object,int type) throws RemoteException;
     List findAll(int type)throws RemoteException;
     List findbyNO(int type,String no)throws RemoteException;
-    ResultMessage exportToExcel(int type,String path) throws RemoteException,IOException;
+    ResultMessage exportToExcel(int type,String path) throws RemoteException, IOException, InterruptedException;
 }
