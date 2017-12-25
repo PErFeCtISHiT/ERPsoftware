@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class moneyListDB extends publicDB implements moneyList {
     @Override
-    public void deleteByNO(String no)throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public void deleteByNO(String no) {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from MoneylistEntity where keyno = ?";
         publicDB publicDB = new publicDB();
@@ -29,5 +29,6 @@ public class moneyListDB extends publicDB implements moneyList {
             copyclass.copy(i, moneyListPO);
             publicDB.deleteObject(moneyListPO, 18);
         }
+        hibtools.tx.commit();
     }
 }

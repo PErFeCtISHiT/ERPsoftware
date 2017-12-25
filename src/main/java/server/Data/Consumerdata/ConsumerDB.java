@@ -21,8 +21,8 @@ import java.util.List;
 public class ConsumerDB extends publicDB implements Consumer{
 
     @Override
-    public List findConsumer(String keyword) throws RemoteException {
-        hibtools.session = hibtools.sessionFactory.openSession();
+    public List findConsumer(String keyword)  {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from ConsumerEntity y where y.keyname like '%"+keyword+"%'" + "or y.keyno like '%"+keyword+"%'";
         List<ConsumerEntity> goodsEntities = (List<ConsumerEntity>)hibtools.session.createQuery(hql).list();
@@ -33,7 +33,7 @@ public class ConsumerDB extends publicDB implements Consumer{
             goodsPOS.add(temp);
 
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return goodsPOS;
     }
 }

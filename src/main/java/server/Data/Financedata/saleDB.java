@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class saleDB extends publicDB implements sale {
     publicDB publicDB = new publicDB();
-    public List findbySaleVO(saleVO saleVO) throws RemoteException {
+    public List findbySaleVO(saleVO saleVO)  {
         String[] str;
         List<goodsOutListPO> ret = new ArrayList<>();
         if(saleVO.getKind() == 0){//入库类sale
@@ -43,9 +43,9 @@ public class saleDB extends publicDB implements sale {
     *@date: 16:45 2017/12/11
     */
     @Override
-    public List search(String detail) throws RemoteException {
+    public List search(String detail) {
         String temp[] = detail.split(",");
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from SaleEntity where operater like ? and base like ?";
         List<SaleEntity> Entities = (List<SaleEntity>)hibtools.session.createQuery(hql)
@@ -61,6 +61,7 @@ public class saleDB extends publicDB implements sale {
                 ret.add(salePO);
             }
         }
+        hibtools.tx.commit();
         return ret;
 
     }

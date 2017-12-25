@@ -16,7 +16,7 @@ public class GoodsKindsDB extends publicDB implements GoodsKinds{
 
     @Override
     public List goodsKindsFind(String keyword) {
-        hibtools.session = hibtools.sessionFactory.openSession();
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from GoodskindsEntity where keyno like ? or keyname like ?";
         List<GoodskindsEntity> goodsEntities = (List<GoodskindsEntity>)hibtools.session.createQuery(hql)
@@ -28,7 +28,7 @@ public class GoodsKindsDB extends publicDB implements GoodsKinds{
             goodskindsPOS.add(temp);
 
         }
-        hibtools.session.close();
+        hibtools.tx.commit();
         return goodskindsPOS;
     }
 }
