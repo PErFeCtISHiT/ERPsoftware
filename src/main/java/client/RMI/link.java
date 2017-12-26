@@ -12,14 +12,16 @@ import java.rmi.RemoteException;
  */
 public class link {
     private static RemoteHelper remoteHelper = RemoteHelper.getInstance();
-    public static RemoteHelper getRemoteHelper(){
+
+    public static RemoteHelper getRemoteHelper() {
         return remoteHelper;
     }
-    public static void linktoServer(){
+
+    public static void linktoServer() {
         try {
 
 
-            remoteHelper.setRemote(Naming.lookup("rmi://172.26.71.52:8886/DataRemoteObject"));
+            remoteHelper.setRemote(Naming.lookup("rmi://127.0.0.1:8886/DataRemoteObject"));
 
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
 

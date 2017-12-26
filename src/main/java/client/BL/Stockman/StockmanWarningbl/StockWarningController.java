@@ -37,7 +37,7 @@ public class StockWarningController implements stockWarning {
         logVO.setGoodsname(goods.getKeyname());
         logVO.setNote(note);
         logVO.setOperatorno(operator);
-        link.getRemoteHelper().getLog().addObject(logVO,13);
+        link.getRemoteHelper().getLog().addObject(logVO, 13);
 
         link.getRemoteHelper().getStockwarningBill().addObject(warningBill, 9);
     }

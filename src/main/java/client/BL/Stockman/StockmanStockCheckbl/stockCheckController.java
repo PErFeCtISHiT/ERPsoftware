@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class stockCheckController implements stockCheck {
     /**
-    *@author:pis
-    *@description: 库存盘点，盘点当天商品
-    *@date: 15:33 2017/11/26
-    */
+     * @author:pis
+     * @description: 库存盘点，盘点当天商品
+     * @date: 15:33 2017/11/26
+     */
     @Override
-    public List StockCheck()throws RemoteException {
+    public List StockCheck() throws RemoteException {
         return link.getRemoteHelper().getGoods().findAll(0);
     }
 

@@ -3,7 +3,7 @@ package server.Data.pub;
 import server.Data.tools.hibtools;
 import server.Dataservice.pubservice.pub;
 import server.Po.*;
-import server.hibernate.*;
+import server.hibernateEntities.*;
 import shared.ResultMessage;
 import shared.copyclass;
 

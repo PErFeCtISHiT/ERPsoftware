@@ -1,11 +1,11 @@
 package server.Start;
 
-        import server.RMIservice.RemoteHelper;
+import server.RMIservice.RemoteHelper;
 
 
 public class start {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new RemoteHelper();
 
     }

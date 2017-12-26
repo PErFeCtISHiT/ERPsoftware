@@ -20,7 +20,6 @@ import server.Dataservice.pubservice.pub;
 import java.rmi.Remote;
 
 
-
 public class RemoteHelper {
 
     private Remote remote;
@@ -45,80 +44,84 @@ public class RemoteHelper {
 
     }
 
-    public buyinBill getBuyinBill(){
-        return (buyinBill)remote;
+    public buyinBill getBuyinBill() {
+        return (buyinBill) remote;
     }
 
-    public giftBill getGiftBill(){
-        return (giftBill)remote;
+    public giftBill getGiftBill() {
+        return (giftBill) remote;
     }
 
-    public moneyBill getMoneyBill(){
-        return (moneyBill)remote;
+    public moneyBill getMoneyBill() {
+        return (moneyBill) remote;
     }
 
-    public selloutBill getSelloutBill(){
-        return (selloutBill)remote;
+    public selloutBill getSelloutBill() {
+        return (selloutBill) remote;
     }
 
-    public stockOverflowBill getStockOverflowBill(){
-        return (stockOverflowBill)remote;
+    public stockOverflowBill getStockOverflowBill() {
+        return (stockOverflowBill) remote;
     }
 
-    public stockwarningBill getStockwarningBill(){
-        return (stockwarningBill)remote;
+    public stockwarningBill getStockwarningBill() {
+        return (stockwarningBill) remote;
     }
 
-    public Coaccount getCoaccount(){
-        return (Coaccount)remote;
+    public Coaccount getCoaccount() {
+        return (Coaccount) remote;
     }
 
-    public Consumer getConsumer(){
-        return (Consumer)remote;
+    public Consumer getConsumer() {
+        return (Consumer) remote;
     }
 
-    public cut getCut(){
-        return (cut)remote;
+    public cut getCut() {
+        return (cut) remote;
     }
 
-    public Goods getGoods(){
-        return (Goods)remote;
+    public Goods getGoods() {
+        return (Goods) remote;
     }
 
-    public GoodsKinds getGoodsKinds(){
-        return (GoodsKinds)remote;
+    public GoodsKinds getGoodsKinds() {
+        return (GoodsKinds) remote;
     }
 
-    public log getLog(){
-        return (log)remote;
+    public log getLog() {
+        return (log) remote;
     }
 
-    public pack getPack(){
-        return (pack)remote;
+    public pack getPack() {
+        return (pack) remote;
     }
 
-    public pub getPub(){
-        return (pub)remote;
+    public pub getPub() {
+        return (pub) remote;
     }
 
-    public user getUser(){
-        return (user)remote;
+    public user getUser() {
+        return (user) remote;
     }
 
-    public sale getSale(){return (sale)remote;}
-
-    public goodsoutList getgoodsoutList(){return (goodsoutList)remote;}
-
-    public moneyList getmoneyList(){
-        return (moneyList)remote;
+    public sale getSale() {
+        return (sale) remote;
     }
 
-    public stockGoods getstockGoods(){
-        return (stockGoods)remote;
+    public goodsoutList getgoodsoutList() {
+        return (goodsoutList) remote;
     }
 
-    public accountInit getaccountInit(){
-        return (accountInit)remote;
+    public moneyList getmoneyList() {
+        return (moneyList) remote;
+    }
+
+    public stockGoods getstockGoods() {
+        return (stockGoods) remote;
+    }
+
+    public accountInit getaccountInit() {
+        return (accountInit) remote;
     }
 
 

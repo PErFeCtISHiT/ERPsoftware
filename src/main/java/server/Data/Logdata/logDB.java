@@ -14,36 +14,35 @@ import java.util.List;
  */
 public class logDB extends publicDB implements log {
     /**
-    *@author:pis
-    *@description: 从时间段返回单据编号
-    *@date: 13:48 2017/11/26
-    */
+     * @author:pis
+     * @description: 从时间段返回单据编号
+     * @date: 13:48 2017/11/26
+     */
     @Override
     public List logstockGlance(String from, String to) {
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "SELECT billno from LogEntity where adddate between to_date(?,'yyyy-MM-dd HH24-mi-ss') and to_date(?,'yyyy-MM-dd HH24-mi-ss')";
-        List temp = hibtools.session.createQuery(hql).setParameter(0,from).setParameter(1,to).list();
+        List temp = hibtools.session.createQuery(hql).setParameter(0, from).setParameter(1, to).list();
         hibtools.tx.commit();
         return temp;
     }
 
     @Override
-    public List showbillDetail(String from,String to, String name, String consumer, String operator, String base) {
+    public List showbillDetail(String from, String to, String name, String consumer, String operator, String base) {
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         List ret = new ArrayList();
         String hql = "SELECT billno from LogEntity where adddate between to_date(?,'yyyy-MM-dd HH24-mi-ss') and to_date(?,'yyyy-MM-dd HH24-mi-ss') and goodsname = ? and consumer = ? and operatorno = ? and base = ?";
-        List<String> strings = (List<String>)hibtools.session.createQuery(hql).setParameter(0,from).setParameter(1,to).setParameter(2,name).setParameter(3,consumer).setParameter(4,operator).setParameter(5,base).list();
-        for(String i : strings){
+        List<String> strings = (List<String>) hibtools.session.createQuery(hql).setParameter(0, from).setParameter(1, to).setParameter(2, name).setParameter(3, consumer).setParameter(4, operator).setParameter(5, base).list();
+        for (String i : strings) {
             String str = "from BuyinEntity ,SelloutEntity ,MoneyEntity ,GiftEntity ,StockexceptionEntity ,WarningEntity where keyno = ?";
-            List temp = hibtools.session.createQuery(str).setParameter(0,i).list();
+            List temp = hibtools.session.createQuery(str).setParameter(0, i).list();
             ret.addAll(temp);
         }
         hibtools.tx.commit();
         return ret;
     }
-
 
 
 }

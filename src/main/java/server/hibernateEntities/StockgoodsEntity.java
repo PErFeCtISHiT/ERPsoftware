@@ -1,9 +1,7 @@
-package server.hibernate;
+package server.hibernateEntities;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
-import java.util.function.DoubleBinaryOperator;
 
 /**
  * @author: pis

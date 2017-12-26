@@ -1,20 +1,24 @@
-package server.hibernate;
+package server.hibernateEntities;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MONEY", schema = "PIS")
-public class MoneyEntity {
+@Table(name = "SELLOUT", schema = "PIS")
+public class SelloutEntity {
     private Double kind;
     private String keyno;
+    private String note;
     private String oper;
     private Double ischeck;
     private Double isred;
     private String consumer;
-    private String accoun;
-    private String moneyList;
+    private String server;
+    private String base;
+    private String goodsoutlist;
     private Double sumall;
-    private String consumertype;
+    private Double cut;
+    private Double voucher;
+    private Double finalsum;
 
     private Double isDraft;
     @Basic
@@ -48,13 +52,13 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "consumertype", nullable = true, length = 2000)
-    public String getConsumertype() {
-        return consumertype;
+    @Column(name = "NOTE", nullable = true, length = 2000)
+    public String getNote() {
+        return note;
     }
 
-    public void setConsumertype(String consumertype) {
-        this.consumertype = consumertype;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Basic
@@ -98,23 +102,33 @@ public class MoneyEntity {
     }
 
     @Basic
-    @Column(name = "ACCOUN", nullable = true, length = 20)
-    public String getAccoun() {
-        return accoun;
+    @Column(name = "SERVER", nullable = true, length = 20)
+    public String getServer() {
+        return server;
     }
 
-    public void setAccoun(String accoun) {
-        this.accoun = accoun;
+    public void setServer(String server) {
+        this.server = server;
     }
 
     @Basic
-    @Column(name = "moneylist", nullable = true, length = 2000)
-    public String getMoneyList() {
-        return moneyList;
+    @Column(name = "BASE", nullable = true, length = 20)
+    public String getBase() {
+        return base;
     }
 
-    public void setMoneyList(String moneyList) {
-        this.moneyList = moneyList;
+    public void setBase(String base) {
+        this.base = base;
+    }
+
+    @Basic
+    @Column(name = "GOODSOUTLIST", nullable = true, length = 2000)
+    public String getGoodsoutlist() {
+        return goodsoutlist;
+    }
+
+    public void setGoodsoutlist(String goodsoutlist) {
+        this.goodsoutlist = goodsoutlist;
     }
 
     @Basic
@@ -127,37 +141,75 @@ public class MoneyEntity {
         this.sumall = sumall;
     }
 
+    @Basic
+    @Column(name = "CUT", nullable = true, precision = 0)
+    public Double getCut() {
+        return cut;
+    }
+
+    public void setCut(Double cut) {
+        this.cut = cut;
+    }
+
+    @Basic
+    @Column(name = "VOUCHER", nullable = true, precision = 0)
+    public Double getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(Double voucher) {
+        this.voucher = voucher;
+    }
+
+    @Basic
+    @Column(name = "FINALSUM", nullable = true, precision = 0)
+    public Double getFinalsum() {
+        return finalsum;
+    }
+
+    public void setFinalsum(Double finalsum) {
+        this.finalsum = finalsum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MoneyEntity that = (MoneyEntity) o;
+        SelloutEntity that = (SelloutEntity) o;
 
         if (kind != null ? !kind.equals(that.kind) : that.kind != null) return false;
         if (keyno != null ? !keyno.equals(that.keyno) : that.keyno != null) return false;
-        if (consumertype != null ? !consumertype.equals(that.consumertype) : that.consumertype != null) return false;
+        if (note != null ? !note.equals(that.note) : that.note != null) return false;
         if (oper != null ? !oper.equals(that.oper) : that.oper != null) return false;
         if (ischeck != null ? !ischeck.equals(that.ischeck) : that.ischeck != null) return false;
         if (isred != null ? !isred.equals(that.isred) : that.isred != null) return false;
         if (consumer != null ? !consumer.equals(that.consumer) : that.consumer != null) return false;
-        if (accoun != null ? !accoun.equals(that.accoun) : that.accoun != null) return false;
-        if (moneyList != null ? !moneyList.equals(that.moneyList) : that.moneyList != null) return false;
-        return sumall != null ? sumall.equals(that.sumall) : that.sumall == null;
+        if (server != null ? !server.equals(that.server) : that.server != null) return false;
+        if (base != null ? !base.equals(that.base) : that.base != null) return false;
+        if (goodsoutlist != null ? !goodsoutlist.equals(that.goodsoutlist) : that.goodsoutlist != null) return false;
+        if (sumall != null ? !sumall.equals(that.sumall) : that.sumall != null) return false;
+        if (cut != null ? !cut.equals(that.cut) : that.cut != null) return false;
+        if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
+        return finalsum != null ? finalsum.equals(that.finalsum) : that.finalsum == null;
     }
 
     @Override
     public int hashCode() {
         int result = kind != null ? kind.hashCode() : 0;
         result = 31 * result + (keyno != null ? keyno.hashCode() : 0);
-        result = 31 * result + (consumertype != null ? consumertype.hashCode() : 0);
+        result = 31 * result + (note != null ? note.hashCode() : 0);
         result = 31 * result + (oper != null ? oper.hashCode() : 0);
         result = 31 * result + (ischeck != null ? ischeck.hashCode() : 0);
         result = 31 * result + (isred != null ? isred.hashCode() : 0);
         result = 31 * result + (consumer != null ? consumer.hashCode() : 0);
-        result = 31 * result + (accoun != null ? accoun.hashCode() : 0);
-        result = 31 * result + (moneyList != null ? moneyList.hashCode() : 0);
+        result = 31 * result + (server != null ? server.hashCode() : 0);
+        result = 31 * result + (base != null ? base.hashCode() : 0);
+        result = 31 * result + (goodsoutlist != null ? goodsoutlist.hashCode() : 0);
         result = 31 * result + (sumall != null ? sumall.hashCode() : 0);
+        result = 31 * result + (cut != null ? cut.hashCode() : 0);
+        result = 31 * result + (voucher != null ? voucher.hashCode() : 0);
+        result = 31 * result + (finalsum != null ? finalsum.hashCode() : 0);
         return result;
     }
 }

@@ -40,11 +40,7 @@ public class goodsManageUI {
     private GoodsController goodsController = new GoodsController();
 
 
-
-
-
-
-    public VBox start(String kinds,String staff) throws RemoteException {
+    public VBox start(String kinds, String staff) throws RemoteException {
         this.staff = staff;
         this.kinds = kinds;
 
@@ -56,10 +52,8 @@ public class goodsManageUI {
         HBox hb = new HBox();
 
 
-
-
         List<goodsPO> originGoods = (List<goodsPO>) goodsController.findByKind(kinds);
-        for(goodsPO i : originGoods){
+        for (goodsPO i : originGoods) {
             Goods newgoods = new Goods(i.getKeyno(),
                     i.getKeyname(),
                     i.getKeymodel(),
@@ -69,9 +63,9 @@ public class goodsManageUI {
                     String.valueOf(i.getReceprice()),
                     String.valueOf(i.getReceoutprice()),
                     String.valueOf(i.getWarningnum()),
-                    String .valueOf(i.getKeybatch()),
-                    String .valueOf(i.getBatchno()),
-                    String .valueOf(i.getDat()));
+                    String.valueOf(i.getKeybatch()),
+                    String.valueOf(i.getBatchno()),
+                    String.valueOf(i.getDat()));
             data.add(newgoods);
 
         }
@@ -82,7 +76,7 @@ public class goodsManageUI {
 
         Callback<TableColumn<Goods, String>,
                 TableCell<Goods, String>> cellFactory
-                = (TableColumn<Goods, String> p) -> new EditingCell() ;
+                = (TableColumn<Goods, String> p) -> new EditingCell();
 
         TableColumn<Goods, String> IDCol =
                 new TableColumn<>("编号");
@@ -90,21 +84,21 @@ public class goodsManageUI {
                 new TableColumn<>("名称");
         TableColumn<Goods, String> ModelCol =
                 new TableColumn<>("型号");
-        TableColumn<Goods,String> NumCol =
+        TableColumn<Goods, String> NumCol =
                 new TableColumn<>("数量");
-        TableColumn<Goods,String> inpriceCol =
+        TableColumn<Goods, String> inpriceCol =
                 new TableColumn<>("进价");
-        TableColumn<Goods,String> outpriceCol =
+        TableColumn<Goods, String> outpriceCol =
                 new TableColumn<>("零售价");
-        TableColumn<Goods,String> receinpriceCol =
+        TableColumn<Goods, String> receinpriceCol =
                 new TableColumn<>("最近进价");
-        TableColumn<Goods,String> receoutpriceCol =
+        TableColumn<Goods, String> receoutpriceCol =
                 new TableColumn<>("最近零售价");
-        TableColumn<Goods,String> warningnumcol =
+        TableColumn<Goods, String> warningnumcol =
                 new TableColumn<>("警戒数量");
         TableColumn<Goods, String> delCol =
                 new TableColumn<>("是否删除");
-        TableColumn<Goods,String> warningCol =
+        TableColumn<Goods, String> warningCol =
                 new TableColumn<>("库存报警");
 
         IDCol.setMinWidth(200);
@@ -113,7 +107,7 @@ public class goodsManageUI {
         IDCol.setCellFactory(cellFactory);
         IDCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsID(t.getNewValue());
                     modifygoods(newgoods);
@@ -126,7 +120,7 @@ public class goodsManageUI {
         NameCol.setCellFactory(cellFactory);
         NameCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsName(t.getNewValue());
                     modifygoods(newgoods);
@@ -139,7 +133,7 @@ public class goodsManageUI {
         ModelCol.setCellFactory(cellFactory);
         ModelCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsModel(t.getNewValue());
                     modifygoods(newgoods);
@@ -151,7 +145,7 @@ public class goodsManageUI {
         NumCol.setCellFactory(cellFactory);
         NumCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     Double addnum = Double.valueOf(t.getNewValue()) - Double.valueOf(t.getOldValue());
                     newgoods.setGoodsNum(t.getNewValue());
@@ -186,7 +180,7 @@ public class goodsManageUI {
                         e.printStackTrace();
                     }
                     goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
-                    goodsExceptionUI.systemWarning(vo,staff,addnum);
+                    goodsExceptionUI.systemWarning(vo, staff, addnum);
 
 
                 });
@@ -197,7 +191,7 @@ public class goodsManageUI {
         inpriceCol.setCellFactory(cellFactory);
         inpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsInprice(t.getNewValue());
                     modifygoods(newgoods);
@@ -209,7 +203,7 @@ public class goodsManageUI {
         outpriceCol.setCellFactory(cellFactory);
         outpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsOutprice(t.getNewValue());
 
@@ -222,7 +216,7 @@ public class goodsManageUI {
         receinpriceCol.setCellFactory(cellFactory);
         receinpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsReceinprice(t.getNewValue());
                     modifygoods(newgoods);
@@ -234,7 +228,7 @@ public class goodsManageUI {
         receoutpriceCol.setCellFactory(cellFactory);
         receoutpriceCol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsReceoutprice(t.getNewValue());
                     modifygoods(newgoods);
@@ -246,7 +240,7 @@ public class goodsManageUI {
         warningnumcol.setCellFactory(cellFactory);
         warningnumcol.setOnEditCommit(
                 (CellEditEvent<Goods, String> t) -> {
-                    Goods newgoods =  t.getTableView().getItems().get(
+                    Goods newgoods = t.getTableView().getItems().get(
                             t.getTablePosition().getRow());
                     newgoods.setGoodsWarningnum(t.getNewValue());
                     modifygoods(newgoods);
@@ -321,15 +315,15 @@ public class goodsManageUI {
                 this.setGraphic(null);
 
                 if (!empty) {
-                        goodsVO goodsVO = createGoodsVO(this);
+                    goodsVO goodsVO = createGoodsVO(this);
                     Button warninglBtn = new Button("报警");
-                    if(goodsVO.getWarningnum() < goodsVO.getNum())
+                    if (goodsVO.getWarningnum() < goodsVO.getNum())
                         warninglBtn.setDisable(true);
                     this.setGraphic(warninglBtn);
                     warninglBtn.setOnMouseClicked((me) -> {
                         goodsWarningUI goodsWarningUI = new goodsWarningUI();
                         try {
-                            goodsWarningUI.start(goodsVO,staff);
+                            goodsWarningUI.start(goodsVO, staff);
                         } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
@@ -340,9 +334,8 @@ public class goodsManageUI {
         });
 
 
-
         table.setItems(data);
-        table.getColumns().addAll(IDCol, NameCol,ModelCol,NumCol,inpriceCol,outpriceCol,receinpriceCol,receoutpriceCol,warningnumcol,delCol,warningCol);
+        table.getColumns().addAll(IDCol, NameCol, ModelCol, NumCol, inpriceCol, outpriceCol, receinpriceCol, receoutpriceCol, warningnumcol, delCol, warningCol);
 
 
         final TextField addName = new TextField();
@@ -387,6 +380,7 @@ public class goodsManageUI {
         StringConverter converter = new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter =
                     DateTimeFormatter.ofPattern(pattern);
+
             @Override
             public String toString(LocalDate date) {
                 if (date != null) {
@@ -395,6 +389,7 @@ public class goodsManageUI {
                     return "";
                 }
             }
+
             @Override
             public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
@@ -405,8 +400,6 @@ public class goodsManageUI {
             }
         };
         makeDate.setConverter(converter);
-
-
 
 
         final Button addButton = new Button("Add");
@@ -420,7 +413,7 @@ public class goodsManageUI {
             String type = "SP";
             no = type + "-" + no;
             String dat = "";
-            if(makeDate.getValue() != null)
+            if (makeDate.getValue() != null)
                 dat = makeDate.getValue().toString();
             else
                 dat = null;
@@ -450,8 +443,8 @@ public class goodsManageUI {
             vo.setWarningnum((double) 100);
             vo.setKeybatch(newgoods.getBatch());
             vo.setBatchno(newgoods.getBatchno());
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date date= null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = null;
             try {
                 date = sdf.parse(makeDate.getValue().toString());
             } catch (ParseException e1) {
@@ -501,14 +494,14 @@ public class goodsManageUI {
             logVO.setGoodsname(vo.getKeyname());
             logVO.setKeyjob("库存管理");
             try {
-                link.getRemoteHelper().getLog().addObject(logVO,13);
+                link.getRemoteHelper().getLog().addObject(logVO, 13);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
 
         });
 
-        hb.getChildren().addAll( addName, addModel,addNum,addinprice,addoutprice,addreceinprice,addreceoutprice,addbatch,addbatchno,makeDate, addButton);
+        hb.getChildren().addAll(addName, addModel, addNum, addinprice, addoutprice, addreceinprice, addreceoutprice, addbatch, addbatchno, makeDate, addButton);
         hb.setSpacing(3);
 
         VBox vbox = new VBox();
@@ -522,7 +515,7 @@ public class goodsManageUI {
             try {
                 data.clear();
                 List<goodsPO> findGoods = (List<goodsPO>) goodsController.findGoods(inputField.getText());
-                for(goodsPO i : findGoods){
+                for (goodsPO i : findGoods) {
                     Goods newgoods = new Goods(i.getKeyno(),
                             i.getKeyname(),
                             i.getKeymodel(),
@@ -532,9 +525,9 @@ public class goodsManageUI {
                             String.valueOf(i.getReceprice()),
                             String.valueOf(i.getReceoutprice()),
                             String.valueOf(i.getWarningnum()),
-                            String .valueOf(i.getKeybatch()),
-                            String .valueOf(i.getBatchno()),
-                            String .valueOf(i.getDat()));
+                            String.valueOf(i.getKeybatch()),
+                            String.valueOf(i.getBatchno()),
+                            String.valueOf(i.getDat()));
                     data.add(newgoods);
 
                 }
@@ -546,13 +539,12 @@ public class goodsManageUI {
         HBox hBox = new HBox();
         hBox.setSpacing(5);
         hBox.setPadding(new Insets(10, 0, 0, 10));
-        hBox.getChildren().addAll(label,inputField,button);
+        hBox.getChildren().addAll(label, inputField, button);
 
         vbox.getChildren().addAll(hBox, table, hb);
 
         return vbox;
     }
-
 
 
     public static class EditingCell extends TableCell<Goods, String> {
@@ -604,7 +596,7 @@ public class goodsManageUI {
 
         private void createTextField() {
             textField = new TextField(getString());
-            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
             textField.focusedProperty().addListener(
                     (ObservableValue<? extends Boolean> arg0,
                      Boolean arg1, Boolean arg2) -> {
@@ -619,7 +611,7 @@ public class goodsManageUI {
         }
     }
 
-    private goodsVO createGoodsVO(TableCell tableCell){
+    private goodsVO createGoodsVO(TableCell tableCell) {
         goodsVO goodsVO = new goodsVO();
         goodsVO.setKeyno(data.get(tableCell.getIndex()).getGoodsID());
         goodsVO.setKinds(kinds);
@@ -634,7 +626,7 @@ public class goodsManageUI {
         return goodsVO;
     }
 
-    private void modifygoods(Goods newgoods)  {
+    private void modifygoods(Goods newgoods) {
         goodsVO vo = new goodsVO();
 
         vo.setKinds(kinds);
@@ -665,7 +657,7 @@ public class goodsManageUI {
         logVO.setGoodsname(vo.getKeyname());
         logVO.setKeyjob("库存管理");
         try {
-            link.getRemoteHelper().getLog().addObject(logVO,13);
+            link.getRemoteHelper().getLog().addObject(logVO, 13);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

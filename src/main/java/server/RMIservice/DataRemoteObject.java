@@ -42,8 +42,8 @@ import java.util.List;
 
 
 public class DataRemoteObject extends UnicastRemoteObject implements accountInit,
-        moneyBill, selloutBill,stockOverflowBill,stockwarningBill,moneyList,stockGoods,
-        Coaccount,Consumer,Goods,GoodsKinds,log,cut,pack,user, buyinBill,giftBill, pub ,sale,goodsoutList {
+        moneyBill, selloutBill, stockOverflowBill, stockwarningBill, moneyList, stockGoods,
+        Coaccount, Consumer, Goods, GoodsKinds, log, cut, pack, user, buyinBill, giftBill, pub, sale, goodsoutList {
 
     /**
 
@@ -91,56 +91,55 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
         pack = new packDB();
         pub = new publicDB();
         user = new userDB();
-        goodsoutList = new goodsoutListDB() ;
+        goodsoutList = new goodsoutListDB();
         sale = new saleDB();
         stockGoods = new stockGoodsDB();
         accountInit = new accountInitDB();
 
 
-
     }
 
 
     @Override
-    public List goodsfindGoods(String keyword)throws RemoteException {
+    public List goodsfindGoods(String keyword) throws RemoteException {
         return goods.goodsfindGoods(keyword);
     }
 
     @Override
-    public List goodsfindByKind(String kind)throws RemoteException {
+    public List goodsfindByKind(String kind) throws RemoteException {
         return goods.goodsfindByKind(kind);
     }
 
 
     @Override
-    public List goodsKindsFind(String keyword)throws RemoteException {
+    public List goodsKindsFind(String keyword) throws RemoteException {
         return goodsKinds.goodsKindsFind(keyword);
     }
 
 
     @Override
-    public List logstockGlance(String from, String to)throws RemoteException {
-        return log.logstockGlance(from,to);
+    public List logstockGlance(String from, String to) throws RemoteException {
+        return log.logstockGlance(from, to);
     }
 
     @Override
-    public List showbillDetail(String from, String to, String name, String consumer, String operator, String base) throws RemoteException{
-        return log.showbillDetail(from,to,name,consumer,operator,base);
+    public List showbillDetail(String from, String to, String name, String consumer, String operator, String base) throws RemoteException {
+        return log.showbillDetail(from, to, name, consumer, operator, base);
     }
 
     @Override
-    public ResultMessage addObject(Object object,int type) throws RemoteException{
-        return pub.addObject(object,type);
+    public ResultMessage addObject(Object object, int type) throws RemoteException {
+        return pub.addObject(object, type);
     }
 
     @Override
-    public ResultMessage deleteObject(Object object,int type)throws RemoteException {
-        return pub.deleteObject(object,type);
+    public ResultMessage deleteObject(Object object, int type) throws RemoteException {
+        return pub.deleteObject(object, type);
     }
 
     @Override
-    public ResultMessage modifyObject(Object object,int type)throws RemoteException {
-        return pub.modifyObject(object,type);
+    public ResultMessage modifyObject(Object object, int type) throws RemoteException {
+        return pub.modifyObject(object, type);
     }
 
     @Override
@@ -150,12 +149,12 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
 
     @Override
     public List findbyNO(int type, String no) throws RemoteException {
-        return pub.findbyNO(type,no);
+        return pub.findbyNO(type, no);
     }
 
     @Override
-    public ResultMessage exportToExcel(int type, String path) throws  IOException, InterruptedException {
-        return pub.exportToExcel(type,path);
+    public ResultMessage exportToExcel(int type, String path) throws IOException, InterruptedException {
+        return pub.exportToExcel(type, path);
     }
 
 
@@ -170,8 +169,8 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
-    public List login(String username, String password) throws RemoteException{
-        return user.login(username,password);
+    public List login(String username, String password) throws RemoteException {
+        return user.login(username, password);
     }
 
     @Override
@@ -200,7 +199,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
-    public void deleteByNO(String no)throws RemoteException {
+    public void deleteByNO(String no) throws RemoteException {
         moneyList.deleteByNO(no);
     }
 

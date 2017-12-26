@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface stockCheck {
     List StockCheck() throws RemoteException;
+
     void exportToExcel(int type, String path) throws IOException, InterruptedException;
 }

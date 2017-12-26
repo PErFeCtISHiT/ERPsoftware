@@ -20,23 +20,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import server.Po.userPO;
+
 import java.util.List;
 
 /**
  * Created by Leonarda on 2017/12/5.
  */
-public class StartUI extends Application{
+public class StartUI extends Application {
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         link.linktoServer();
         launch(args);
     }
 
-    private LoginController controller=new LoginController();
+    private LoginController controller = new LoginController();
 
-    public void start(Stage stage){
-        GridPane grid=new GridPane();
+    public void start(Stage stage) {
+        GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(12);
 
@@ -57,44 +58,42 @@ public class StartUI extends Application{
         pfPwd.setPromptText("密码");
 
 
-        btn1.setOnAction((ActionEvent e)->{
-            String username=tfName.getText();
-            String password=pfPwd.getText();
-            try{
+        btn1.setOnAction((ActionEvent e) -> {
+            String username = tfName.getText();
+            String password = pfPwd.getText();
+            try {
                 List<userPO> userPOList;
-                userPOList=controller.getAlluser(username,password);
-               if(userPOList.size() == 1) {
-                   userPO thisPO = userPOList.get(0);
-                   HBox hBox = null;
-                   switch (thisPO.getKeyjob()) {
-                       case "stockman":
-                           stockmanMainUI stockmanMainUI = new stockmanMainUI();
-                           hBox = stockmanMainUI.start(thisPO);
-                           break;
-                       case "accnoutant":
-                           AccountantMain accountantMain = new AccountantMain();
-                           hBox = accountantMain.start(thisPO);
-                           break;
-                       case "saleman":
-                           newBillUI newBillUI = new newBillUI();
-                           hBox = newBillUI.start(thisPO);
-                           break;
+                userPOList = controller.getAlluser(username, password);
+                if (userPOList.size() == 1) {
+                    userPO thisPO = userPOList.get(0);
+                    HBox hBox = null;
+                    switch (thisPO.getKeyjob()) {
+                        case "stockman":
+                            stockmanMainUI stockmanMainUI = new stockmanMainUI();
+                            hBox = stockmanMainUI.start(thisPO);
+                            break;
+                        case "accnoutant":
+                            AccountantMain accountantMain = new AccountantMain();
+                            hBox = accountantMain.start(thisPO);
+                            break;
+                        case "saleman":
+                            newBillUI newBillUI = new newBillUI();
+                            hBox = newBillUI.start(thisPO);
+                            break;
 
-                   }
-                   assert hBox != null;
-                   Scene scene1 = new Scene(hBox);
-                   stage.setMaximized(true);
-                   stage.setScene(scene1);
-               }
-
-                else{
+                    }
+                    assert hBox != null;
+                    Scene scene1 = new Scene(hBox);
+                    stage.setMaximized(true);
+                    stage.setScene(scene1);
+                } else {
                     pfPwd.clear();
-                    Stage failstage=new Stage();
-                    Scene failscene=new Scene(new Group());
-                    GridPane failpane=new GridPane();
-                    Label label=new Label("未查询到该账户!");
+                    Stage failstage = new Stage();
+                    Scene failscene = new Scene(new Group());
+                    GridPane failpane = new GridPane();
+                    Label label = new Label("未查询到该账户!");
                     failpane.getChildren().add(label);
-                    ((Group)failscene.getRoot()).getChildren().add(failpane);
+                    ((Group) failscene.getRoot()).getChildren().add(failpane);
                     failstage.setScene(failscene);
                     failstage.setWidth(200);
                     failstage.setHeight(90);
@@ -106,7 +105,7 @@ public class StartUI extends Application{
             }
         });
 
-        btn2.setOnAction((ActionEvent e)->{
+        btn2.setOnAction((ActionEvent e) -> {
 
         });
 
@@ -127,7 +126,7 @@ public class StartUI extends Application{
 
         grid.setAlignment(Pos.CENTER);
 
-        scene=new Scene(grid,10,50);
+        scene = new Scene(grid, 10, 50);
 
         stage.setScene(scene);
         stage.show();
