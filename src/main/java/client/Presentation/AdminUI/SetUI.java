@@ -31,12 +31,13 @@ public class SetUI {
 
     private final ObservableList<UserMsg> data =
             FXCollections.observableArrayList();
-    final HBox hb = new HBox();
+     HBox hb = new HBox();
 
     private NOgenerator nogenerator = new NOgenerator();
 
 
-    public VBox start(String staff) throws Exception {
+    public HBox start(userPO po) throws Exception {
+        String staff =po.getKeyname();
         TableView<UserMsg> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -194,7 +195,7 @@ public class SetUI {
         grid3.add(addName,0,0);
         TextField addJob = new TextField();
         addJob.setPromptText("用户职位");
-        grid3.add(addName,0,1);
+        grid3.add(addJob,0,1);
         TextField pass = new TextField();
         pass.setPromptText("登录密码");
         grid3.add(pass,0,2);
@@ -250,12 +251,10 @@ public class SetUI {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
-        return vbox;
+        HBox hb5 =new HBox();
+        hb5.getChildren().addAll(vbox);
+        return hb5;
 
-//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-//
-//        stage.setScene(scene);
-//        stage.show();
     }
 
 

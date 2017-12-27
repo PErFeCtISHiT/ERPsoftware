@@ -1,8 +1,10 @@
 package client.Presentation.ManageUI;
+import  client.Presentation.ManageUI.CheckSellUI;
+import  client.Presentation.ManageUI.ExamineBillUI;
+import  client.Presentation.ManageUI.CheckProgressUI;
+import  client.Presentation.ManageUI.CheckSituationUI;
+import  client.Presentation.ManageUI.MakeCutUI;
 
-import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
-import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
-import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,38 +14,42 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import server.Po.userPO;
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
 
-public class MainManageUI extends Application{
-    String staff = "core";
-    String staffno;
+public class MainManageUI {
     private HBox right ;
+    private String staff;
 
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
+    public HBox start(userPO userpo)  {
+        staff = userpo.getKeyname();
 
-    @Override
-    public void start(Stage Stage)  {
         HBox finalBox = new HBox();
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
-        goodsKindsManageUI goodsKindsManageUI = new goodsKindsManageUI();
-        goodsGlanceUI goodsGlanceUI = new goodsGlanceUI();
-        goodsCheckUI goodsCheckUI = new goodsCheckUI();
+
+        CheckSellUI checkSellUI =new CheckSellUI();
+        ExamineBillUI examineBillUI =new ExamineBillUI();
+        CheckProgressUI checkProgressUI =new CheckProgressUI();
+        CheckSituationUI checkSituationUI =new CheckSituationUI();
+        MakeCutUI makeCutUI = new MakeCutUI();
+
+
+
         Label work = new Label("工作目录");
 
         Button checkSell = new Button("审批单据");
+        right =new HBox();
+
         checkSell.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
-                right = goodsGlanceUI.start();
+                right = examineBillUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException | ParseException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
@@ -52,9 +58,9 @@ public class MainManageUI extends Application{
         checkmingxi.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
-                right = goodsCheckUI.start();
+                right = checkSellUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
@@ -63,9 +69,9 @@ public class MainManageUI extends Application{
         checkprocess.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
-                right = goodsCheckUI.start();
+                right = checkProgressUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
@@ -75,9 +81,9 @@ public class MainManageUI extends Application{
         checksituation.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
-                right = goodsCheckUI.start();
+                right = checkSituationUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
@@ -87,24 +93,20 @@ public class MainManageUI extends Application{
         makecut.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
-                right = goodsCheckUI.start();
+                right = makeCutUI.start();
                 finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
 
 
 
-        vBox.getChildren().addAll(work,checkmingxi,checkprocess,checksituation,makecut);
+        vBox.getChildren().addAll(work,checkSell,checkmingxi,checkprocess,checksituation,makecut);
 
         finalBox.setSpacing(5);
         finalBox.setPadding(new Insets(10, 0, 0, 10));
         finalBox.getChildren().addAll(vBox,right);
-
-        Scene scene = new Scene(finalBox);
-        Stage.setScene(scene);
-        Stage.setMaximized(true);
-        Stage.show();
+        return finalBox;
     }
 }

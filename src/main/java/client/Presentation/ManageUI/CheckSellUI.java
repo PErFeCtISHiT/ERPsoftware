@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class CheckSellUI extends Application {
+public class CheckSellUI  {
 
     private final TableView<Sale> table = new TableView<>();
     private final ObservableList<Sale> data =
@@ -26,16 +26,8 @@ public class CheckSellUI extends Application {
                     new Sale("2016-2-24", "Brown", "D","E", "V", "R"));
     final HBox hb = new HBox();
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public HBox start() {
 
-    @Override
-    public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("销售明细表");
-        stage.setWidth(1250);
-        stage.setHeight(850);
 
         final Label label = new Label("销售列表");
         label.setFont(new Font("Arial", 20));
@@ -104,11 +96,10 @@ public class CheckSellUI extends Application {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
+        HBox hbb =new HBox();
+        hbb.getChildren().addAll(vbox);
 
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return hbb;
     }
     public static class Sale {
 

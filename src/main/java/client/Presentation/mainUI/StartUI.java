@@ -2,6 +2,8 @@ package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
 import client.Presentation.AccountantUI.AccountMain.AccountantMain;
+import client.Presentation.AdminUI.SetUI;
+import client.Presentation.ManageUI.MainManageUI;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
 import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
@@ -73,7 +75,7 @@ public class StartUI extends Application{
                    HBox hBox = null;
                    switch (thisPO.getKeyjob()) {
                        case "stockman":
-                           stockmanMainUI stockmanMainUI = new stockmanMainUI();
+                     ;      stockmanMainUI stockmanMainUI = new stockmanMainUI();
                            hBox = stockmanMainUI.start(thisPO);
                            break;
                        case "accnoutant":
@@ -84,14 +86,19 @@ public class StartUI extends Application{
                            newBillUI newBillUI = new newBillUI();
                            hBox = newBillUI.start(thisPO);
                            break;
-
+                       case "manager":
+                           MainManageUI mainManageUI = new MainManageUI();
+                           hBox = mainManageUI.start(thisPO);
+                           break;
+                       case "admin":
+                           SetUI setUI = new SetUI();
+                           hBox = setUI.start(thisPO);
+                           break;
                    }
-                   assert hBox != null;
+
                    Scene scene1 = new Scene(hBox);
-                   newBillUI newBillUI = new newBillUI();
-                   Scene scene2 = new Scene(newBillUI.start(thisPO));
                    stage.setMaximized(true);
-                   stage.setScene(scene2);
+                   stage.setScene(scene1);
                }
 
                 else{

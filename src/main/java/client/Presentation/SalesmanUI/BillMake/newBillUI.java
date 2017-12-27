@@ -1699,7 +1699,7 @@ public class newBillUI {
         Label operaterLabel=new Label("操作员：");
         TextField operater=new TextField();
 
-        
+
 
         gridPane.add(operaterLabel,0,3);
         gridPane.add(operater,1,3);

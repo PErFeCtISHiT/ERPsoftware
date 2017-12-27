@@ -3,15 +3,14 @@ package client.Presentation.StockmanUI.stockmanMainUI;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
-import client.RMI.link;
-import javafx.application.Application;
+
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 import server.Po.userPO;
 
 import java.rmi.RemoteException;
