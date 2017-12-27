@@ -1,4 +1,5 @@
 package client.Presentation.AdminUI;
+
 import client.BL.Administrator.Userblservice.UserMsg;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
@@ -18,9 +19,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.userPO;
-
-
-
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -212,10 +210,9 @@ public class SetUI {
             try {
                 String iD = "YH-"+nogenerator.generate(15);
                 UserMsg msg = new UserMsg(
-                        addName.getText(),iD,pass.getText(),
+                        addName.getText(),iD,job.getText(),
                         pass.getText());
                 data.add(msg);
-
 
                 logVO log = new logVO();
                 log.setOperatorno(staff);
