@@ -3,18 +3,12 @@ package client.Presentation.StockmanUI.stockmanMainUI;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
-
 import javafx.geometry.Insets;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import server.Po.userPO;
-
-import java.rmi.RemoteException;
-import java.text.ParseException;
 
 
 /**
@@ -24,60 +18,69 @@ import java.text.ParseException;
  */
 public class stockmanMainUI {
 
-    private HBox right ;
+    private HBox right = new HBox();
     private String staff;
+    private goodsKindsManageUI goodsKindsManageUI = new goodsKindsManageUI();
+    private goodsGlanceUI goodsGlanceUI = new goodsGlanceUI();
+    private goodsCheckUI goodsCheckUI = new goodsCheckUI();
+    private HBox finalBox = new HBox();
 
-    public HBox start(userPO userPO)  {
+    public HBox start(userPO userPO) {
         staff = userPO.getKeyname();
-        HBox finalBox = new HBox();
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
-        goodsKindsManageUI goodsKindsManageUI = new goodsKindsManageUI();
-        goodsGlanceUI goodsGlanceUI = new goodsGlanceUI();
-        goodsCheckUI goodsCheckUI = new goodsCheckUI();
         Label work = new Label("工作目录");
         Button goods = new Button("商品管理");
-        right = new HBox();
         goods.setOnAction(e -> {
             try {
-                finalBox.getChildren().remove(right);
-                right = goodsKindsManageUI.start(staff);
-                finalBox.getChildren().add(right);
+                generatefinalBox(0);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
         });
 
         Button goodsGlance = new Button("库存查看");
         goodsGlance.setOnAction(e -> {
             try {
-                finalBox.getChildren().remove(right);
-                right = goodsGlanceUI.start();
-                finalBox.getChildren().add(right);
-            } catch (RemoteException | ParseException e1) {
+                generatefinalBox(1);
+            } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
 
         Button goodsCheck = new Button("库存盘点");
         goodsCheck.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = goodsCheckUI.start();
-                finalBox.getChildren().add(right);
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
-        });
+                    try {
+                        generatefinalBox(2);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+        );
 
-        vBox.getChildren().addAll(work,goods,goodsGlance,goodsCheck);
+        vBox.getChildren().addAll(work, goods, goodsGlance, goodsCheck);
 
         finalBox.setSpacing(5);
         finalBox.setPadding(new Insets(10, 0, 0, 10));
-        finalBox.getChildren().addAll(vBox,right);
+        finalBox.getChildren().addAll(vBox, right);
 
         return finalBox;
+    }
+
+    private void generatefinalBox(int type) throws Exception {
+        finalBox.getChildren().remove(right);
+        switch (type) {
+            case 0:
+                right = goodsKindsManageUI.start(staff);
+                break;
+            case 1:
+                right = goodsGlanceUI.start();
+                break;
+            case 2:
+                right = goodsCheckUI.start();
+                break;
+        }
+        finalBox.getChildren().add(right);
     }
 }

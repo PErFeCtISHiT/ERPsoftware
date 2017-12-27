@@ -34,7 +34,7 @@ public class GoodsOutListManageController implements GoodsOutListManageblservice
     }
 
     @Override
-    public ResultMessage exToExcel(String path) throws IOException {
+    public ResultMessage exToExcel(String path) throws IOException, InterruptedException {
         return link.getRemoteHelper().getgoodsoutList().exportToExcel(17,path);
     }
 

@@ -261,7 +261,7 @@ public class CheckSellUI {
             try {
                 if(file != null)
                     controller.getExcel(16,file.toString());
-            } catch (IOException e1) {
+            } catch (IOException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });

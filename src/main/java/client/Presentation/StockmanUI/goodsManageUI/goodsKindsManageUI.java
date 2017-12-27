@@ -53,7 +53,7 @@ public class goodsKindsManageUI {
         final Button addbtn = new Button("增加");
         final Button modifybtn = new Button("修改");
         final Button delbtn = new Button("删除");
-        buttons.getChildren().addAll(kindsname,addbtn,delbtn,modifybtn);
+        buttons.getChildren().addAll(kindsname, addbtn, delbtn, modifybtn);
         delbtn.setDisable(true);
         modifybtn.setDisable(true);
         addbtn.setOnAction(e -> {
@@ -82,7 +82,7 @@ public class goodsKindsManageUI {
         final VBox leftbox = new VBox();
         leftbox.setSpacing(5);
         leftbox.setPadding(new Insets(10, 0, 0, 10));
-        leftbox.getChildren().addAll(goodsTreeView,buttons);
+        leftbox.getChildren().addAll(goodsTreeView, buttons);
 
         vbox.getChildren().add(leftbox);
 
@@ -90,31 +90,28 @@ public class goodsKindsManageUI {
             if (newValue.isLeaf()) {
                 modifybtn.setDisable(false);
                 try {
-                    VBox vBox = goodsManageUI.start(newValue.getValue(),staff);
-                    if(((TableView)vBox.getChildren().get(1)).getItems().size() != 0){
+                    VBox vBox = goodsManageUI.start(newValue.getValue(), staff);
+                    if (((TableView) vBox.getChildren().get(1)).getItems().size() != 0) {
                         addbtn.setDisable(true);
                         delbtn.setDisable(true);
-                    }
-                    else{
+                    } else {
                         addbtn.setDisable(false);
                         delbtn.setDisable(false);
                     }
-                    if(vbox.getChildren().size() > 1)
+                    if (vbox.getChildren().size() > 1)
                         vbox.getChildren().remove(1);
                     vbox.getChildren().add(vBox);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 modifybtn.setDisable(false);
                 addbtn.setDisable(false);
-                if(vbox.getChildren().size() > 1)
+                if (vbox.getChildren().size() > 1)
                     vbox.getChildren().remove(1);
-                if(!newValue.getChildren().isEmpty()){
+                if (!newValue.getChildren().isEmpty()) {
                     delbtn.setDisable(true);
-                }
-                else
+                } else
                     delbtn.setDisable(false);
 
             }
@@ -126,17 +123,17 @@ public class goodsKindsManageUI {
 
 
     /**
-    *@author:pis
-    *@description: 商品分类的增删改
-    *@date: 16:42 2017/12/4
-    */
+     * @author:pis
+     * @description: 商品分类的增删改
+     * @date: 16:42 2017/12/4
+     */
     private void addkinds(String text) throws RemoteException, IntrospectionException, IllegalAccessException, InvocationTargetException {
         goodskindsPO goodskindsPO = new goodskindsPO();
         String no = NOgenerator.generate(1);
         String type = "SPFL";
         goodskindsPO.setKeyno(type + "-" + no);
         goodskindsPO.setKeyname(text);
-        if(goodsTreeView.getSelectionModel().getSelectedItem() != null) {
+        if (goodsTreeView.getSelectionModel().getSelectedItem() != null) {
             String father = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
             goodskindsPO.setFather(father);
             List temp = link.getRemoteHelper().getGoodsKinds().goodsKindsFind(father);
@@ -147,16 +144,15 @@ public class goodsKindsManageUI {
                 goodskindsPO1.setSon(text + ",");
             link.getRemoteHelper().getPub().modifyObject(goodskindsPO1, 1);
             goodsTreeView.getSelectionModel().getSelectedItem().getChildren().add(new TreeItem<>(text));
-        }
-        else
+        } else
             root.getChildren().add(new TreeItem<>(text));
-        link.getRemoteHelper().getPub().addObject(goodskindsPO,1);
+        link.getRemoteHelper().getPub().addObject(goodskindsPO, 1);
         logVO logVO = new logVO();
         logVO.setOpno("增加商品分类");
         logVO.setOperatorno(staff);
         logVO.setGoodsname(goodskindsPO.getKeyname());
         logVO.setKeyjob("库存管理");
-        link.getRemoteHelper().getLog().addObject(logVO,13);
+        link.getRemoteHelper().getLog().addObject(logVO, 13);
 
     }
 
@@ -165,31 +161,31 @@ public class goodsKindsManageUI {
         goodsTreeView.getSelectionModel().getSelectedItem().setValue(text);
         goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
         goodskindsPO.setKeyname(text);
-        link.getRemoteHelper().getPub().modifyObject(goodskindsPO,1);
+        link.getRemoteHelper().getPub().modifyObject(goodskindsPO, 1);
         String[] son = goodskindsPO.getSon().split(",");
-        for(String s : son){
+        for (String s : son) {
             goodskindsPO goodskindsPO1 = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(s).get(0);
             goodskindsPO1.setFather(text);
-            link.getRemoteHelper().getPub().modifyObject(goodskindsPO1,1);
+            link.getRemoteHelper().getPub().modifyObject(goodskindsPO1, 1);
         }
         goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(goodskindsPO.getFather()).get(0);
         StringBuilder modify = new StringBuilder();
         son = goodskindsPO.getSon().split(",");
-        for(String s : son){
-            if(s.equals(temp))
+        for (String s : son) {
+            if (s.equals(temp))
                 modify.append(text).append(",");
             else
                 modify.append(s).append(",");
         }
         goodskindsPO.setSon(modify.toString());
-        link.getRemoteHelper().getPub().modifyObject(goodskindsPO,1);
+        link.getRemoteHelper().getPub().modifyObject(goodskindsPO, 1);
 
         logVO logVO = new logVO();
         logVO.setOpno("修改商品分类");
         logVO.setOperatorno(staff);
         logVO.setGoodsname(goodskindsPO.getKeyname());
         logVO.setKeyjob("库存管理");
-        link.getRemoteHelper().getLog().addObject(logVO,13);
+        link.getRemoteHelper().getLog().addObject(logVO, 13);
 
     }
 
@@ -197,22 +193,22 @@ public class goodsKindsManageUI {
         String temp = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
         goodsTreeView.getSelectionModel().getSelectedItem().getParent().getChildren().remove(goodsTreeView.getSelectionModel().getSelectedItem());
         goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
-        link.getRemoteHelper().getPub().deleteObject(goodskindsPO,1);
+        link.getRemoteHelper().getPub().deleteObject(goodskindsPO, 1);
         goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(goodskindsPO.getFather()).get(0);
         StringBuilder modify = new StringBuilder();
         String[] son = goodskindsPO.getSon().split(",");
-        for(String s : son){
-            if(!s.equals(temp))
+        for (String s : son) {
+            if (!s.equals(temp))
                 modify.append(s).append(",");
         }
         goodskindsPO.setSon(modify.toString());
-        link.getRemoteHelper().getPub().modifyObject(goodskindsPO,1);
+        link.getRemoteHelper().getPub().modifyObject(goodskindsPO, 1);
         logVO logVO = new logVO();
         logVO.setOpno("删除商品分类");
         logVO.setOperatorno(staff);
         logVO.setGoodsname(goodskindsPO.getKeyname());
         logVO.setKeyjob("库存管理");
-        link.getRemoteHelper().getLog().addObject(logVO,13);
+        link.getRemoteHelper().getLog().addObject(logVO, 13);
     }
 
     /**
@@ -237,7 +233,7 @@ public class goodsKindsManageUI {
     private void showkinds(TreeItem<String> treeItem) throws RemoteException {
         goodskindsPO t = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(treeItem.getValue()).get(0);
         String[] temp;
-        if(t.getSon() != null && !t.getSon().equals("null")) {
+        if (t.getSon() != null && !t.getSon().equals("null")) {
             temp = t.getSon().split(",");
             for (String aTemp : temp) {
                 TreeItem<String> treeItem1 = new TreeItem<>(aTemp);

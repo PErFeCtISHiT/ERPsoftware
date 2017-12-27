@@ -6,8 +6,6 @@ import server.Dataservice.Financedataservice.moneyList;
 import server.Po.moneyListPO;
 import shared.copyclass;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,9 +20,9 @@ public class moneyListDB extends publicDB implements moneyList {
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from MoneylistEntity where keyno = ?";
         publicDB publicDB = new publicDB();
-        List Entities = hibtools.session.createQuery(hql).setParameter(0,no).list();
+        List Entities = hibtools.session.createQuery(hql).setParameter(0, no).list();
         hibtools.session.close();
-        for(Object i : Entities) {
+        for (Object i : Entities) {
             moneyListPO moneyListPO = new moneyListPO();
             copyclass.copy(i, moneyListPO);
             publicDB.deleteObject(moneyListPO, 18);

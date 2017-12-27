@@ -90,11 +90,11 @@ public class BaseGoods {
 
     public BaseGoods(String goodsName, String outNum, String inNum, String inSum, String outSum, String numAll) {
         this.goodsName = new SimpleStringProperty(goodsName);
-        this.outNum =  new SimpleStringProperty(outNum);
-        this.inNum =  new SimpleStringProperty(inNum);
+        this.outNum = new SimpleStringProperty(outNum);
+        this.inNum = new SimpleStringProperty(inNum);
 
-        this.inSum =  new SimpleStringProperty(inSum);
+        this.inSum = new SimpleStringProperty(inSum);
         this.outSum = new SimpleStringProperty(outSum);
-        this.numAll =  new SimpleStringProperty(numAll);
+        this.numAll = new SimpleStringProperty(numAll);
     }
 }

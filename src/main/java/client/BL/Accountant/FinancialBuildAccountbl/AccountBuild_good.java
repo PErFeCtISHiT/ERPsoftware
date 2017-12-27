@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * 期初建账——商品 领域对象
- *
+ * <p>
  * 包含商品ID，商品名称，商品类型，商品进货价，商品销售价，最近进货价，最近销售价
  */
 public class AccountBuild_good {
@@ -16,8 +16,8 @@ public class AccountBuild_good {
     public final SimpleStringProperty goodsType;
     public final SimpleStringProperty goodsInprice;
     public final SimpleStringProperty goodsOutprice;
-    public final SimpleStringProperty goodsReceinprice;
-    public final SimpleStringProperty goodsReceoutprice;
+    private final SimpleStringProperty goodsReceinprice;
+    private final SimpleStringProperty goodsReceoutprice;
 
     public AccountBuild_good(String goodsID, String goodsName, String goodsModel, String goodsType, String goodsInprice, String goodsOutprice, String goodsReceinprice, String goodsReceoutprice) {
         this.goodsID = new SimpleStringProperty(goodsID);
@@ -29,6 +29,7 @@ public class AccountBuild_good {
         this.goodsReceinprice = new SimpleStringProperty(goodsReceinprice);
         this.goodsReceoutprice = new SimpleStringProperty(goodsReceoutprice);
     }
+
     public AccountBuild_good() {
         this.goodsID = new SimpleStringProperty();
         this.goodsName = new SimpleStringProperty();

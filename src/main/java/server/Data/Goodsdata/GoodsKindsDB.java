@@ -1,17 +1,16 @@
 package server.Data.Goodsdata;
 
 import server.Data.pub.publicDB;
-import shared.copyclass;
 import server.Data.tools.hibtools;
 import server.Dataservice.Goodsdataservice.GoodsKinds;
 import server.Po.goodskindsPO;
-import server.hibernate.GoodskindsEntity;
+import server.hibernateEntities.GoodskindsEntity;
+import shared.copyclass;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodsKindsDB extends publicDB implements GoodsKinds{
-
+public class GoodsKindsDB extends publicDB implements GoodsKinds {
 
 
     @Override
@@ -19,12 +18,12 @@ public class GoodsKindsDB extends publicDB implements GoodsKinds{
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from GoodskindsEntity where keyno like ? or keyname like ?";
-        List<GoodskindsEntity> goodsEntities = (List<GoodskindsEntity>)hibtools.session.createQuery(hql)
-                .setParameter(0,keyword).setParameter(1,keyword).list();
-        List<goodskindsPO> goodskindsPOS = new ArrayList<>() ;
-        for(GoodskindsEntity i : goodsEntities){
+        List<GoodskindsEntity> goodsEntities = (List<GoodskindsEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, keyword).setParameter(1, keyword).list();
+        List<goodskindsPO> goodskindsPOS = new ArrayList<>();
+        for (GoodskindsEntity i : goodsEntities) {
             goodskindsPO temp = new goodskindsPO();
-            copyclass.copy(i,temp);
+            copyclass.copy(i, temp);
             goodskindsPOS.add(temp);
 
         }

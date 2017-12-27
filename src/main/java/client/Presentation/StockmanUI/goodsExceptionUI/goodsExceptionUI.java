@@ -33,13 +33,12 @@ public class goodsExceptionUI {
     private Stage stage = new Stage();
 
 
-
     /**
-    *@author:pis
-    *@description: 警告界面
-    *@date: 22:39 2017/12/5
-    */
-    public void systemWarning(goodsVO goods, String staff, Double addnum){
+     * @author:pis
+     * @description: 警告界面
+     * @date: 22:39 2017/12/5
+     */
+    public void systemWarning(goodsVO goods, String staff, Double addnum) {
         Stage systemWarning = new Stage();
         systemWarning.setTitle("警告");
         systemWarning.setAlwaysOnTop(true);
@@ -47,13 +46,12 @@ public class goodsExceptionUI {
         systemWarning.setWidth(1000);
         String mess;
         int type;
-        if(addnum > 0) {
+        if (addnum > 0) {
             type = 0;
-            mess = "您正准备向系统添加" + goods.getKeyname()+ " " + String.valueOf(addnum) + "件,是否创建库存报溢单";
-        }
-        else {
+            mess = "您正准备向系统添加" + goods.getKeyname() + " " + String.valueOf(addnum) + "件,是否创建库存报溢单";
+        } else {
             type = 1;
-            mess = "您正准备向系统减少" + goods.getKeyname() +" "+ String.valueOf(-addnum) + "件，是否创建库存报损单";
+            mess = "您正准备向系统减少" + goods.getKeyname() + " " + String.valueOf(-addnum) + "件，是否创建库存报损单";
         }
         Label message = new Label(mess);
         Button yes = new Button("确认");
@@ -62,7 +60,7 @@ public class goodsExceptionUI {
         yes.setOnAction(e -> {
             goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
             try {
-                goodsExceptionUI.start(goods,staff,type,addnum);
+                goodsExceptionUI.start(goods, staff, type, addnum);
                 systemWarning.close();
             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e1) {
                 e1.printStackTrace();
@@ -71,26 +69,25 @@ public class goodsExceptionUI {
         HBox hbox = new HBox();
         hbox.setSpacing(5);
         hbox.setPadding(new Insets(10, 0, 0, 10));
-        hbox.getChildren().addAll(message,yes,no);
+        hbox.getChildren().addAll(message, yes, no);
         Scene scene = new Scene(hbox);
         systemWarning.setScene(scene);
         systemWarning.show();
     }
 
     /**
-    *@author:pis
-    *@description: 单据界面
-    *@date: 22:39 2017/12/5
-    */
+     * @author:pis
+     * @description: 单据界面
+     * @date: 22:39 2017/12/5
+     */
     public void start(goodsVO goods, String staff, int billtype, Double addnum) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String nostr = NOgenerator.generate(7);
         String type;
         final Label Type = new Label();
-        if(billtype == 0) {
+        if (billtype == 0) {
             type = "KCBYD";
             Type.setText("库存报溢单");
-        }
-        else{
+        } else {
             type = "KCBSD";
             Type.setText("库存报损单");
         }
@@ -103,7 +100,6 @@ public class goodsExceptionUI {
         Staff.setText(staff);
 
 
-
         name.setText(goods.getKeyname());
         num.setText(String.valueOf(goods.getNum()));
         basenum.setText(String.valueOf(goods.getNum() + addnum));
@@ -111,7 +107,7 @@ public class goodsExceptionUI {
         SummitButton.setOnAction((ActionEvent e) -> {
             stockExceptionController stockExceptionController = new stockExceptionController();
             try {
-                stockExceptionController.ExceptionMake(goods,goods.getNum() + addnum,staff,text.getText(),no,billtype);
+                stockExceptionController.ExceptionMake(goods, goods.getNum() + addnum, staff, text.getText(), no, billtype);
             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e1) {
                 e1.printStackTrace();
             }

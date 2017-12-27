@@ -2,7 +2,7 @@ package client.Vo;
 
 import java.io.Serializable;
 
-public class AccountInitVO implements Serializable{
+public class AccountInitVO implements Serializable {
     private String keyno;
     private String keyyear;
     private String accountlist;

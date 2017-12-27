@@ -1,11 +1,6 @@
 package client.Presentation.AccountantUI.AccountMain;
 
 
-
-import client.BL.Stockman.StockmanGoodsbl.GoodsController;
-
-import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
-
 import client.Presentation.AccountantUI.AccountManagement.AccountManagementUI;
 import client.Presentation.AccountantUI.CashBill.CashUI;
 import client.Presentation.AccountantUI.CheckSell.CheckSellUI;
@@ -13,45 +8,23 @@ import client.Presentation.AccountantUI.InitAccount.AccountInitUI;
 import client.Presentation.AccountantUI.LogCheck.LogCheckUI;
 import client.Presentation.AccountantUI.ReceivePayBill.PayUI;
 import client.Presentation.AccountantUI.ReceivePayBill.ReceiveUI;
-import client.RMI.link;
-import client.Vo.goodsVO;
-
-import client.Vo.goodskindsVO;
-
-import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Label;
-
-import javafx.scene.control.TreeItem;
-
-import javafx.scene.control.TreeView;
-
-import javafx.scene.layout.GridPane;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import server.Po.userPO;
-
 
 import java.rmi.RemoteException;
 import java.text.ParseException;
-import java.util.ArrayList;
-
-import java.util.List;
-
 
 
 public class AccountantMain {
 
     String staff = "Yotta";
-    private VBox right ;
+    private VBox right;
 
-    public HBox start(userPO userPO)  {
+    public HBox start(userPO userPO) {
         staff = userPO.getKeyname();
         HBox finalBox = new HBox();
         VBox vBox = new VBox();
@@ -81,7 +54,7 @@ public class AccountantMain {
 
         Button checkSellBT = new Button("查看销售明细表");
         right = new VBox();
-        checkSellBT.setOnAction(e->{
+        checkSellBT.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
                 right = checkSellUI.start(staff);
@@ -93,7 +66,7 @@ public class AccountantMain {
 
         Button initAccountBT = new Button("期初建账");
         right = new VBox();
-        initAccountBT.setOnAction(e->{
+        initAccountBT.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
                 right = accountInitUI.start(staff);
@@ -106,7 +79,7 @@ public class AccountantMain {
 
         Button receiveBT = new Button("制定收款单");
         right = new VBox();
-        receiveBT.setOnAction(e->{
+        receiveBT.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
                 right = receiveUI.start(staff);
@@ -118,7 +91,7 @@ public class AccountantMain {
 
         Button payBT = new Button("制定付款单");
         right = new VBox();
-        payBT.setOnAction(e->{
+        payBT.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
                 right = payUI.start(staff);
@@ -130,7 +103,7 @@ public class AccountantMain {
 
         Button cashBT = new Button("制定现金费用单");
         right = new VBox();
-        cashBT.setOnAction(e->{
+        cashBT.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
                 right = cashUI.start(staff);
@@ -139,7 +112,6 @@ public class AccountantMain {
                 e1.printStackTrace();
             }
         });
-
 
 
         Button checkLog = new Button("查看日志");
@@ -158,12 +130,11 @@ public class AccountantMain {
         });
 
 
-
-        vBox.getChildren().addAll(work,accountManageBT,receiveBT,payBT,cashBT,checkSellBT,initAccountBT,checkLog);
+        vBox.getChildren().addAll(work, accountManageBT, receiveBT, payBT, cashBT, checkSellBT, initAccountBT, checkLog);
 
         finalBox.setSpacing(5);
         finalBox.setPadding(new Insets(10, 0, 0, 10));
-        finalBox.getChildren().addAll(vBox,right);
+        finalBox.getChildren().addAll(vBox, right);
 
         return finalBox;
     }

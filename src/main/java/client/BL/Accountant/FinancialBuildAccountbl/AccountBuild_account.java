@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * 期初建账——账户 领域对象
- *
+ * <p>
  * 包含账户ID，账户名称，金额
  */
 

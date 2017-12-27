@@ -6,6 +6,7 @@ import client.BL.Stockman.StockmanStockGlancebl.stockGlanceController;
 import client.RMI.link;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,7 @@ import java.util.List;
  * @description: good good study
  * @date: create in 16:49 2017/12/2
  */
-public class goodsGlanceUI{
+public class goodsGlanceUI {
     private stockGlanceController stockGlanceController = new stockGlanceController();
 
     private final ObservableList<BaseGoods> data1 = FXCollections.observableArrayList();
@@ -64,7 +65,7 @@ public class goodsGlanceUI{
         hbox1.setSpacing(5);
         hbox1.setPadding(new Insets(10, 0, 0, 10));
 
-        glance.setOnAction(e -> {
+        glance.setOnAction((ActionEvent e) -> {
             data1.clear();
             data2.clear();
             if (fromDate.getValue() != null && toDate.getValue() != null) {
@@ -126,7 +127,7 @@ public class goodsGlanceUI{
                         List<goodsPO> goods = new ArrayList<>();
                         if (i.getNum() >= 0) {
                             try {
-                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
+                                goods = link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
                             } catch (RemoteException e1) {
                                 e1.printStackTrace();
                             }
@@ -240,10 +241,10 @@ public class goodsGlanceUI{
         allCol2.setCellValueFactory(param -> param.getValue().numAll);
 
         table1.setItems(data1);
-        table1.getColumns().addAll(nameCol1,outnumCol1,outsumCol1,innumCol1,insumCol1,allCol1);
+        table1.getColumns().addAll(nameCol1, outnumCol1, outsumCol1, innumCol1, insumCol1, allCol1);
 
         table2.setItems(data2);
-        table2.getColumns().addAll(nameCol2,outnumCol2,outsumCol2,innumCol2,insumCol2,allCol2);
+        table2.getColumns().addAll(nameCol2, outnumCol2, outsumCol2, innumCol2, insumCol2, allCol2);
 
         VBox t1 = new VBox();
         t1.setSpacing(5);
@@ -255,16 +256,15 @@ public class goodsGlanceUI{
         t2.setPadding(new Insets(10, 0, 0, 10));
         t2.getChildren().addAll(label2, table2);
 
-        hbox1.getChildren().addAll(t1,t2);
+        hbox1.getChildren().addAll(t1, t2);
 
-        vbox.getChildren().addAll(hbox,hbox1);
+        vbox.getChildren().addAll(hbox, hbox1);
 
         HBox ret = new HBox();
         ret.setSpacing(5);
         ret.setPadding(new Insets(10, 0, 0, 10));
         ret.getChildren().add(vbox);
         return ret;
-
 
 
     }

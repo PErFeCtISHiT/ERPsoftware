@@ -37,12 +37,12 @@ public class goodsCheckUI {
 
         Callback<TableColumn<Goods, String>,
                 TableCell<Goods, String>> cellFactory
-                = (TableColumn<Goods, String> p) -> new goodsManageUI.EditingCell() ;
+                = (TableColumn<Goods, String> p) -> new goodsManageUI.EditingCell();
 
         List<goodsPO> originGoods = (List<goodsPO>) stockCheckController.StockCheck();
         for (goodsPO i : originGoods) {
             Goods newgoods;
-            if(i.getDat() != null) {
+            if (i.getDat() != null) {
                 newgoods = new Goods(i.getKeyno(),
                         i.getKeyname(),
                         i.getKeymodel(),
@@ -55,8 +55,7 @@ public class goodsCheckUI {
                         i.getKeybatch(),
                         i.getBatchno(),
                         i.getDat().toString());
-            }
-            else{
+            } else {
                 newgoods = new Goods(i.getKeyno(),
                         i.getKeyname(),
                         i.getKeymodel(),
@@ -73,8 +72,6 @@ public class goodsCheckUI {
             data.add(newgoods);
 
         }
-
-
 
 
         Label label = new Label();
@@ -133,21 +130,21 @@ public class goodsCheckUI {
         Button exportButton = new Button("导出到excel");
 
         exportButton.setOnAction(e -> {
-                FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = fileChooser.showSaveDialog(new Stage());
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(new Stage());
             try {
-                if(file != null)
-                stockCheckController.exportToExcel(0,file.toString());
-            } catch (IOException e1) {
+                if (file != null)
+                    stockCheckController.exportToExcel(0, file.toString());
+            } catch (IOException | InterruptedException e1) {
                 e1.printStackTrace();
             }
         });
         TableView<Goods> table = new TableView<>();
         table.setEditable(false);
         table.setItems(data);
-        table.getColumns().addAll(IDCol,NameCol,ModelCol,NumCol,priceCol,barchcol,batchnocol,datecol);
+        table.getColumns().addAll(IDCol, NameCol, ModelCol, NumCol, priceCol, barchcol, batchnocol, datecol);
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
