@@ -2,6 +2,7 @@ package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
 import client.Presentation.AccountantUI.AccountMain.AccountantMain;
+import client.Presentation.AdminUI.SetUI;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
 import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
@@ -80,6 +81,11 @@ public class StartUI extends Application {
                             newBillUI newBillUI = new newBillUI();
                             hBox = newBillUI.start(thisPO);
                             break;
+                        case "admin":
+                            SetUI setUI = new SetUI();
+                            hBox = new HBox();
+                            hBox.getChildren().add(setUI.start(thisPO.getKeyjob()));
+                            break;
 
                     }
                     assert hBox != null;
@@ -127,7 +133,6 @@ public class StartUI extends Application {
         grid.setAlignment(Pos.CENTER);
 
         scene = new Scene(grid, 10, 50);
-
         stage.setScene(scene);
         stage.show();
     }

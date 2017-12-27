@@ -194,7 +194,7 @@ public class SetUI {
         grid3.add(addName,0,0);
         TextField addJob = new TextField();
         addJob.setPromptText("用户职位");
-        grid3.add(addName,0,1);
+        grid3.add(addJob,0,1);
         TextField pass = new TextField();
         pass.setPromptText("登录密码");
         grid3.add(pass,0,2);
