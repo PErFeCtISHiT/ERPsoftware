@@ -8,18 +8,16 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 
-
 public class RemoteHelper {
 
-    public RemoteHelper(){
+    public RemoteHelper() {
 
         initServer();
 
     }
 
 
-
-    private void initServer(){
+    private void initServer() {
 
         DataRemoteObject dataRemoteObject;
 

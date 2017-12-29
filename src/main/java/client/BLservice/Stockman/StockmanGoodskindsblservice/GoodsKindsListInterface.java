@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface GoodsKindsListInterface {
     ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException;
+
     ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException;
+
     ResultMessage modify(goodskindsVO kind) throws RemoteException;
+
     List FindAll() throws RemoteException;
 }

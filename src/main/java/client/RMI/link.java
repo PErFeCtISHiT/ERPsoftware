@@ -12,10 +12,12 @@ import java.rmi.RemoteException;
  */
 public class link {
     private static RemoteHelper remoteHelper = RemoteHelper.getInstance();
-    public static RemoteHelper getRemoteHelper(){
+
+    public static RemoteHelper getRemoteHelper() {
         return remoteHelper;
     }
-    public static void linktoServer(){
+
+    public static void linktoServer() {
         try {
 
 

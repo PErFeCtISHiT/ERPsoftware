@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import shared.checkInTime;
 
-public class CheckProgressUI extends Application {
+public class CheckProgressUI  {
 
     private final TableView<Billgotten> table = new TableView<>();
     private DatePicker checkInDatePicker;
@@ -75,19 +75,10 @@ public class CheckProgressUI extends Application {
     Callback<TableColumn<Billgotten,String>,
             TableCell<Billgotten,String>> cellFactory
             =(TableColumn<Billgotten,String> p)->new CheckProgressUI.EditingCell();
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
-    @Override
-    public void start(Stage stage) {
+
+
+    public HBox start() {
         Locale.setDefault(Locale.CHINA);
-        Scene scene = new Scene(new Group());
-        stage.setTitle("经营历程表");
-
-        stage.setWidth(1550);
-        stage.setHeight(1150);
-
         table.setEditable(true);
 
         TableColumn<Billgotten, String> IdCol =
@@ -670,10 +661,7 @@ public class CheckProgressUI extends Application {
         vbox1.setPadding(new Insets(10, 0, 0, 10));
         vbox1.getChildren().addAll( table, hb,BillType,client,salesman,storehouse);
         hb2.getChildren().addAll(vbox1,gridTitlePane);
-        ((Group) scene.getRoot()).getChildren().addAll(hb2);
-
-        stage.setScene(scene);
-        stage.show();
+        return hb2;
     }
 
 

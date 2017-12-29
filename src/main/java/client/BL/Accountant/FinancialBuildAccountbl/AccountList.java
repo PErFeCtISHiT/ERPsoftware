@@ -2,13 +2,14 @@ package client.BL.Accountant.FinancialBuildAccountbl;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public  class AccountList {
+public class AccountList {
 
     public final SimpleStringProperty year;
 
-    public AccountList() {
+    AccountList() {
         this.year = new SimpleStringProperty();
     }
+
     public AccountList(String fName) {
         this.year = new SimpleStringProperty(fName);
     }

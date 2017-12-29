@@ -2,23 +2,16 @@ package client.BL.Accountant.FinancialBuildAccountbl;
 
 import client.BLservice.Accountant.FinancialBuildAccountblservice.FinancialBuildAccountInterface;
 import client.RMI.link;
-import client.Vo.coVO;
-import client.Vo.consumerVO;
-import client.Vo.goodsVO;
-import client.Vo.goodskindsVO;
 import server.Po.AccountInitPO;
 import server.Po.coPO;
 import server.Po.consumerPO;
 import server.Po.goodsPO;
-import shared.ResultMessage;
-import shared.praseDouble;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +20,7 @@ import java.util.List;
  * @date: modify in 18:20 2017/12/24
  */
 
-public class FinancialBuildController implements FinancialBuildAccountInterface{
+public class FinancialBuildController implements FinancialBuildAccountInterface {
 
 
     @Override
@@ -35,14 +28,12 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 //
         Calendar c = Calendar.getInstance();
         int yearint = c.get(Calendar.YEAR);
-        String year=yearint+"";
+        String year = yearint + "";
         ArrayList<AccountBuild_account> accountlist = getPastAccount(year);
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
 
-//        year="1997";
-//        System.out.println(year);
-        AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
+        AccountBuild newaccount = new AccountBuild(year, accountlist, consumerlist, goodslist);
 
         link.getRemoteHelper().getaccountInit().Build(year);
         return newaccount;
@@ -52,9 +43,9 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
     public ArrayList<AccountList> show() throws RemoteException {
         List<AccountInitPO> list = link.getRemoteHelper().getaccountInit().findAll(20);
         ArrayList<AccountList> showlist = new ArrayList<>();
-        for(int i=0;i<list.size();i++){
+        for (AccountInitPO aList : list) {
             AccountList acc = new AccountList();
-            acc.setYear(list.get(i).getKeyyear());
+            acc.setYear(aList.getKeyyear());
             showlist.add(acc);
         }
 
@@ -63,12 +54,11 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 
 
     @Override
-    public AccountBuild getPast(String year) throws RemoteException{
+    public AccountBuild getPast(String year) throws RemoteException {
         ArrayList<AccountBuild_account> accountlist = getPastAccount(year);
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
-        AccountBuild newaccount = new AccountBuild(year,accountlist,consumerlist,goodslist);
-        return newaccount;
+        return new AccountBuild(year, accountlist, consumerlist, goodslist);
     }
 
     @Override
@@ -76,8 +66,8 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_account> accountList = new ArrayList<>();
         List<coPO> polist = link.getRemoteHelper().getaccountInit().getPastAccount(year);
         System.out.println(polist.size());
-        for (int i=0;i<polist.size();i++){
-            AccountBuild_account account =  PoToAccount(polist.get(i));
+        for (coPO aPolist : polist) {
+            AccountBuild_account account = PoToAccount(aPolist);
             accountList.add(account);
         }
         return accountList;
@@ -86,11 +76,10 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
 
     @Override
     public AccountBuild_account PoToAccount(coPO po) throws RemoteException {
-        String id=po.getKeyno();
-        String name= po.getKeyname();
+        String id = po.getKeyno();
+        String name = po.getKeyname();
         Double money = po.getSumall();
-        AccountBuild_account account = new AccountBuild_account(id,name,money.toString());
-        return account;
+        return new AccountBuild_account(id, name, money.toString());
     }
 
 
@@ -99,8 +88,8 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_consumer> consumerList = new ArrayList<>();
         List<consumerPO> polist = link.getRemoteHelper().getaccountInit().getPastConsumer(year);
         System.out.println(polist.size());
-        for (int i=0;i<polist.size();i++){
-            AccountBuild_consumer consumer =  PoToConsumer(polist.get(i));
+        for (consumerPO aPolist : polist) {
+            AccountBuild_consumer consumer = PoToConsumer(aPolist);
             consumerList.add(consumer);
         }
         return consumerList;
@@ -112,7 +101,7 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         con.setconsumerID(po.getKeyno());
         con.setconsumerName(po.getKeyname());
         con.setconsumerType(String.valueOf(po.getKinds()));
-        con.setinOutGap(String.valueOf(po.getPay()-po.getReceive()));
+        con.setinOutGap(String.valueOf(po.getPay() - po.getReceive()));
         con.setdueIN(String.valueOf(po.getReceive()));
         con.setduePay(String.valueOf(po.getCapacit()));
         return con;
@@ -123,8 +112,8 @@ public class FinancialBuildController implements FinancialBuildAccountInterface{
         ArrayList<AccountBuild_good> goodList = new ArrayList<>();
         List<goodsPO> polist = link.getRemoteHelper().getaccountInit().getPastGoods(year);
         System.out.println(polist.size());
-        for (int i=0;i<polist.size();i++){
-            AccountBuild_good good =  PoToGood(polist.get(i));
+        for (goodsPO aPolist : polist) {
+            AccountBuild_good good = PoToGood(aPolist);
             goodList.add(good);
         }
         return goodList;

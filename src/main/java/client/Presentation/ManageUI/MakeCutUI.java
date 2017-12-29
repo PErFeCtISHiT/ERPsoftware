@@ -37,11 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MakeCutUI extends Application{
-    public static void main(String[] args) {
-        link.linktoServer();
-        launch(args);
-    }
+public class MakeCutUI {
+
     private final TableView<Cut> table = new TableView<>();
     private final TableView<Pack>packtable =new TableView<>();
     public CutController cutController =new CutController();
@@ -74,13 +71,10 @@ public class MakeCutUI extends Application{
     final HBox finalhb =new HBox();
 
 
-    public void start(Stage stage) {
+    public HBox start() {
         Locale.setDefault(Locale.CHINA);
 
-        Scene scene = new Scene(new Group());
-        stage.setTitle("制定促销策略");
-        stage.setWidth(1250);
-        stage.setHeight(850);
+
 
         //促销策略策略
         final ChoiceBox choiceBoxforthree= new ChoiceBox(FXCollections.observableArrayList("赠品","折扣","折扣包","代金券"));
@@ -332,10 +326,8 @@ public class MakeCutUI extends Application{
 
         final VBox finalvb =new VBox();
         finalvb.getChildren().addAll(finalhb,vbox1,vbox2,summit);
-        ((Group) scene.getRoot()).getChildren().addAll(finalvb);
-
-        stage.setScene(scene);
-        stage.show();
+        HBox hb =new HBox();
+        hb.getChildren().addAll(finalvb);
 
         summit.setOnAction((ActionEvent e) -> {
             if (true)
@@ -385,7 +377,7 @@ public class MakeCutUI extends Application{
 
 
 
-
+return hb;
 
 }
 public String getCutType(double cut){

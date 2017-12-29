@@ -3,8 +3,6 @@ package server.Data.Financedata;
 import server.Data.pub.publicDB;
 import server.Dataservice.Financedataservice.goodsoutList;
 
-import java.util.List;
-
 /**
  * @author: pis
  * @description: good good study

@@ -10,23 +10,22 @@ public class FinancialAccountList {
     /**
      * Add account
      *
-     *
-     * @param po
-     * @return
+     * @param： po
+     * @return result
      */
 
-    public ResultMessage addAccount(coVO po){
+    public ResultMessage addAccount(coVO po) {
         return null;
     }
 
     /**
      * Delete account
      *
-     * @param po
-     * @return
+     * @param： po
+     * @return result
      */
 
-    public boolean deleteAccount(coVO po){
+    public boolean deleteAccount(coVO po) {
         return false;
     }
 
@@ -34,22 +33,22 @@ public class FinancialAccountList {
     /**
      * Modify account
      *
-     * @param po
-     * @return
+     * @param： po
+     * @return result
      */
 
-    public coVO modifyAccount(coVO po){
+    public coVO modifyAccount(coVO po) {
         return null;
-   }
+    }
 
     /**
      * Find accounts
      *
-     * @param key
-     * @return
+     * @param： key
+     * @return result
      */
 
-    public ArrayList<coVO> findAccount(String key){
+    public ArrayList<coVO> findAccount(String key) {
         return null;
     }
 }

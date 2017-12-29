@@ -17,7 +17,7 @@ public interface FinancialCheckSellInterface {
 
     public List<Sale> search(String detail) throws RemoteException;
 
-    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException;
+    public ResultMessage getExcel(int type, String address) throws RemoteException, IOException, InterruptedException;
 
     public ArrayList<Sale> show() throws RemoteException;
 

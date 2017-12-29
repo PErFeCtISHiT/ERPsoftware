@@ -13,16 +13,9 @@ public class test {
         link.linktoServer();
         try {
             link.getRemoteHelper().getaccountInit().Build("2017");
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
             e.printStackTrace();
         }
-//        launch(args);
     }
 
 

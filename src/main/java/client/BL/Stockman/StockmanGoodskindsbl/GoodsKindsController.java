@@ -12,30 +12,30 @@ import java.util.List;
  * @author: pis
  * @description: good good study
  * @date: create in 19:52 2017/11/23
- *
  */
 public class GoodsKindsController implements GoodsKindsListInterface {
     @Override
-    public ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException{
-        return link.getRemoteHelper().getGoodsKinds().addObject(kind,1);
+    public ResultMessage addgoodskinds(goodskindsVO kind) throws RemoteException {
+        return link.getRemoteHelper().getGoodsKinds().addObject(kind, 1);
     }
 
     @Override
-    public ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException{
-        return link.getRemoteHelper().getGoodsKinds().deleteObject(kind,1);
+    public ResultMessage deletegoodskinds(goodskindsVO kind) throws RemoteException {
+        return link.getRemoteHelper().getGoodsKinds().deleteObject(kind, 1);
     }
 
     @Override
-    public ResultMessage modify(goodskindsVO kind) throws RemoteException{
-        return link.getRemoteHelper().getGoodsKinds().modifyObject(kind,1);
+    public ResultMessage modify(goodskindsVO kind) throws RemoteException {
+        return link.getRemoteHelper().getGoodsKinds().modifyObject(kind, 1);
     }
+
     /**
-    *@author:pis
-    *@description:查找所有商品分类，返回list
-    *@date: 19:53 2017/11/23
-    */
+     * @author:pis
+     * @description:查找所有商品分类，返回list
+     * @date: 19:53 2017/11/23
+     */
     @Override
-    public List FindAll()throws RemoteException {
+    public List FindAll() throws RemoteException {
         return link.getRemoteHelper().getGoodsKinds().findAll(1);
     }
 }

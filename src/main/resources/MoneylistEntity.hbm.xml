@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="server.hibernate.MoneylistEntity" table="MONEYLIST" schema="PIS">
+    <class name="server.hibernateEntities.MoneylistEntity" table="MONEYLIST" schema="PIS">
         <id name="keyid">
             <column name="KEYID" sql-type="varchar2(20)" length="20"/>
         </id>

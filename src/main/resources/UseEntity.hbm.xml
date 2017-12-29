@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="server.hibernate.UseEntity" table="USE" schema="PIS">
+    <class name="server.hibernateEntities.UseEntity" table="USE" schema="PIS">
         <id name="keyno">
             <column name="KEYNO" sql-type="varchar2(20)" length="20"/>
         </id>
