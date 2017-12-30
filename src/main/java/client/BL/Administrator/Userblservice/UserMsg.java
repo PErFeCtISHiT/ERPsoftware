@@ -11,7 +11,7 @@ public class UserMsg {
 
 
 
-    public UserMsg(String name, String num, String password, String job){
+    public UserMsg(String name, String job, String num, String password){
         this.Name = new SimpleStringProperty(name);
         this.No =new SimpleStringProperty(num);
         this.Password =new SimpleStringProperty(password);

@@ -107,7 +107,7 @@ public class SetUI {
 
         Passwards.setMinWidth(200);
         Passwards.setCellValueFactory(
-                param -> param.getValue().No);
+                param -> param.getValue().Password);
         Passwards.setCellFactory(cellFactory);
         Passwards.setOnEditCommit(
                 (TableColumn.CellEditEvent<UserMsg, String> t) -> {
@@ -149,9 +149,11 @@ public class SetUI {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             String delid = data.get(this.getIndex()).getNO();
+                            userPO po =new userPO();
+                            po.setKeyno(delid);
                             UserMsg msg =new UserMsg("liuyitong",delid,"haha","boss");
                             try {
-                                link.getRemoteHelper().getUser().deleteObject(msg,15);
+                                link.getRemoteHelper().getUser().deleteObject(po,15);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
@@ -194,9 +196,9 @@ public class SetUI {
         TextField addJob = new TextField();
         addJob.setPromptText("用户职位");
         grid3.add(addJob,0,1);
-        TextField pass = new TextField();
-        pass.setPromptText("登录密码");
-        grid3.add(pass,0,2);
+        TextField addpass = new TextField();
+        addpass.setPromptText("登录密码");
+        grid3.add(addpass,0,2);
 
 
         HBox newhb = new HBox();
@@ -210,10 +212,16 @@ public class SetUI {
             try {
                 String iD = "YH-"+nogenerator.generate(15);
                 UserMsg msg = new UserMsg(
-                        addName.getText(),iD,job.getText(),
-                        pass.getText());
+                        addName.getText(),addJob.getText(),iD,addpass.getText()
+                        );
                 data.add(msg);
 
+                userPO newpo =new userPO();
+                newpo.setKeyname(addName.getText());
+                newpo.setKeyno(iD);
+                newpo.setKeyjob(addJob.getText());
+                newpo.setPasswor(addpass.getText());
+                link.getRemoteHelper().getUser().addObject(newpo,15);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setOpno("增加账户");
@@ -232,7 +240,7 @@ public class SetUI {
 
             addName.clear();
             addJob.clear();
-            pass.clear();
+            addpass.clear();
         });
 
         Button refresh = new Button("刷新列表");
