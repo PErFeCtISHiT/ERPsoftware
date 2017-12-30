@@ -13,16 +13,14 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import server.Po.userPO;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -36,9 +34,9 @@ public class StartUI extends Application {
         launch(args);
     }
 
-    LoginController controller = new LoginController();
+    private LoginController controller = new LoginController();
 
-    public void start(Stage stage) {
+    public void start(Stage stage) throws RemoteException {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(12);
@@ -52,16 +50,31 @@ public class StartUI extends Application {
         hbButtons.setSpacing(10);
 
         Button btn1 = new Button("登录");
-        Button btn2 = new Button("注册");
 
-        TextField tfName = new TextField();
+        ComboBox<String> tfName = new ComboBox<>();
+        tfName.setEditable(true);
         tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
         pfPwd.setPromptText("密码");
 
+        List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
+        for(userPO userPO : userPOS){
+            String id = userPO.getKeyname();
+            tfName.getItems().add(id);
+        }
+
+        tfName.setOnAction(e -> {
+            String password = null;
+            try {
+                password = link.getRemoteHelper().getUser().getpasswordByName(tfName.getValue());
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+            pfPwd.setText(password);
+        });
 
         btn1.setOnAction((ActionEvent e) -> {
-            String username = tfName.getText();
+            String username = tfName.getValue();
             String password = pfPwd.getText();
             try {
                 List<userPO> userPOList;
@@ -72,11 +85,10 @@ public class StartUI extends Application {
                     HBox hBox = null;
                     switch (thisPO.getKeyjob()) {
                         case "stockman":
-                            ;
                             stockmanMainUI stockmanMainUI = new stockmanMainUI();
                             hBox = stockmanMainUI.start(thisPO);
                             break;
-                        case "accnoutant":
+                        case "accountant":
                             AccountantMain accountantMain = new AccountantMain();
                             hBox = accountantMain.start(thisPO);
                             break;
@@ -117,11 +129,8 @@ public class StartUI extends Application {
             }
         });
 
-        btn2.setOnAction((ActionEvent e) -> {
 
-        });
-
-        hbButtons.getChildren().addAll(btn1, btn2);
+        hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
         grid.add(tfName, 1, 0);
