@@ -23,10 +23,10 @@ public class AccountantMain {
 
     String staff = "Yotta";
     private VBox right;
+    HBox finalBox = new HBox();
 
     public HBox start(userPO userPO) {
         staff = userPO.getKeyname();
-        HBox finalBox = new HBox();
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
