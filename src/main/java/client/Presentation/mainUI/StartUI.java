@@ -49,6 +49,8 @@ public class StartUI extends Application {
         stage.setWidth(350);
         stage.setHeight(350);
 
+
+
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(10);
 
@@ -61,7 +63,7 @@ public class StartUI extends Application {
         pfPwd.setPromptText("密码");
 
         List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
-        for(userPO userPO : userPOS){
+        for (userPO userPO : userPOS) {
             String id = userPO.getKeyname();
             tfName.getItems().add(id);
         }
@@ -143,10 +145,10 @@ public class StartUI extends Application {
         imageView.setFitWidth(300);
         imageView.setFitHeight(200);
 
-        vBox.getChildren().addAll(imageView,tfName,pfPwd,btn1);
+        vBox.getChildren().addAll(imageView, tfName, pfPwd, btn1);
 
-        tfName.setMaxSize(150,20);
-        pfPwd.setMaxSize(150,20);
+        tfName.setMaxSize(150, 20);
+        pfPwd.setMaxSize(150, 20);
 
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
