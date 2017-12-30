@@ -154,6 +154,8 @@ public class SetUI {
                             UserMsg msg =new UserMsg("liuyitong",delid,"haha","boss");
                             try {
                                 link.getRemoteHelper().getUser().deleteObject(po,15);
+
+
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
