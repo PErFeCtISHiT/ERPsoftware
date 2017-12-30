@@ -9,14 +9,19 @@ import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import server.Po.userPO;
 
@@ -37,14 +42,12 @@ public class StartUI extends Application {
     private LoginController controller = new LoginController();
 
     public void start(Stage stage) throws RemoteException {
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(12);
+        VBox vBox = new VBox();
 
         Scene scene;
         stage.setTitle("登陆");
         stage.setWidth(350);
-        stage.setHeight(200);
+        stage.setHeight(350);
 
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(10);
@@ -108,6 +111,7 @@ public class StartUI extends Application {
 
                     assert hBox != null;
                     Scene scene1 = new Scene(hBox);
+                    stage.setResizable(true);
                     stage.setMaximized(true);
                     stage.setScene(scene1);
                 } else {
@@ -133,22 +137,22 @@ public class StartUI extends Application {
         hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
-        grid.add(tfName, 1, 0);
-        grid.add(pfPwd, 1, 1);
-        grid.add(hbButtons, 0, 2, 2, 1);
+        Image image = new Image("logo.png");
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.RIGHT);
-        grid.getColumnConstraints().add(column1);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(200);
 
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        grid.getColumnConstraints().add(column2);
+        vBox.getChildren().addAll(imageView,tfName,pfPwd,btn1);
 
-        grid.setAlignment(Pos.CENTER);
+        tfName.setMaxSize(100,20);
+        pfPwd.setMaxSize(100,20);
 
-        scene = new Scene(grid, 10, 50);
+        vBox.setSpacing(5);
+        vBox.setPadding(new Insets(10, 0, 0, 10));
 
+        scene = new Scene(vBox, 10, 50);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
