@@ -145,11 +145,12 @@ public class StartUI extends Application {
 
         vBox.getChildren().addAll(imageView,tfName,pfPwd,btn1);
 
-        tfName.setMaxSize(100,20);
-        pfPwd.setMaxSize(100,20);
+        tfName.setMaxSize(150,20);
+        pfPwd.setMaxSize(150,20);
 
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
+        vBox.setAlignment(Pos.CENTER);
 
         scene = new Scene(vBox, 10, 50);
         stage.setResizable(false);
