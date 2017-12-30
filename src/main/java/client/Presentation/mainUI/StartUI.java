@@ -20,7 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import server.Po.userPO;
 
 import java.util.List;
@@ -30,7 +33,6 @@ import java.util.List;
  */
 public class StartUI extends Application {
 
-
     public static void main(String[] args) {
         link.linktoServer();
         launch(args);
@@ -39,26 +41,74 @@ public class StartUI extends Application {
     LoginController controller = new LoginController();
 
     public void start(Stage stage) {
+
+//        Group root = new Group();
+//        Scene scene = new Scene(root, 800, 600, Color.BLACK);
+//        primaryStage.setScene(scene);
+//        Group circles = new Group();
+//        for (int i = 0; i < 30; i++) {
+//            Circle circle = new Circle(150, Color.web("white", 0.05));
+//            circle.setStrokeType(StrokeType.OUTSIDE);
+//            circle.setStroke(Color.web("white", 0.16));
+//            circle.setStrokeWidth(4);
+//            circles.getChildren().add(circle);
+//        }
+//        Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
+//                new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop[]{
+//                        new Stop(0, Color.web("#f8bd55")),
+//                        new Stop(0.14, Color.web("#c0fe56")),
+//                        new Stop(0.28, Color.web("#5dfbc1")),
+//                        new Stop(0.43, Color.web("#64c2f8")),
+//                        new Stop(0.57, Color.web("#be4af7")),
+//                        new Stop(0.71, Color.web("#ed5fc2")),
+//                        new Stop(0.85, Color.web("#ef504c")),
+//                        new Stop(1, Color.web("#f2660f")),}));
+//        Group blendModeGroup =
+//                new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
+//                        Color.BLACK), circles), colors);
+//        colors.setBlendMode(BlendMode.OVERLAY);
+//        root.getChildren().add(blendModeGroup);
+//        circles.setEffect(new BoxBlur(10, 10, 3));
+//        Timeline timeline = new Timeline();
+//        for (Node circle : circles.getChildren()) {
+//            timeline.getKeyFrames().addAll(
+//                    new KeyFrame(Duration.ZERO, // set start position at 0
+//                            new KeyValue(circle.translateXProperty(), random() * 800),
+//                            new KeyValue(circle.translateYProperty(), random() * 600)),
+//                    new KeyFrame(new Duration(40000), // set end position at 40s
+//                            new KeyValue(circle.translateXProperty(), random() * 800),
+//                            new KeyValue(circle.translateYProperty(), random() * 600)));
+//        }
+//        // play 40s of animation
+//        timeline.play();
+//
+//        primaryStage.show();
+
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
-        grid.setVgap(12);
+        grid.setVgap(40);
 
         Scene scene;
-        stage.setTitle("登陆");
-        stage.setWidth(350);
-        stage.setHeight(200);
+ //       stage.setTitle("登陆");
+        stage.setWidth(500);
+        stage.setHeight(657);
 
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(10);
 
         Button btn1 = new Button("登录");
-        Button btn2 = new Button("注册");
+//        Button btn2 = new Button("注册");
 
         TextField tfName = new TextField();
         tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
         pfPwd.setPromptText("密码");
 
+        tfName.setMinWidth(400);
+//        tfName.setMinHeight(200);
+        tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-background-color: white;-fx-border-color: darkgray");
 
         btn1.setOnAction((ActionEvent e) -> {
             String username = tfName.getText();
@@ -116,12 +166,9 @@ public class StartUI extends Application {
                 e1.printStackTrace();
             }
         });
+        btn1.setStyle("-fx-text-fill: #a9a6a5;-fx-font: 40;-fx-background-color: #e4e9ee");
 
-        btn2.setOnAction((ActionEvent e) -> {
-
-        });
-
-        hbButtons.getChildren().addAll(btn1, btn2);
+        hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
         grid.add(tfName, 1, 0);
@@ -137,10 +184,15 @@ public class StartUI extends Application {
         grid.getColumnConstraints().add(column2);
 
         grid.setAlignment(Pos.CENTER);
+        grid.setStyle("-fx-background-image: url(timg.jpeg)");
 
-        scene = new Scene(grid, 10, 50);
 
+        scene = new Scene(grid, 400, 500);
+//        scene.setFill(Color.CORNSILK);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+
+
         stage.show();
     }
 }
