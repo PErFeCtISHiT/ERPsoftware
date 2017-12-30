@@ -106,9 +106,10 @@ public class StartUI extends Application {
         pfPwd.setPromptText("密码");
 
         tfName.setMinWidth(400);
+        pfPwd.setMinWidth(400);
 //        tfName.setMinHeight(200);
         tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
-        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-background-color: white;-fx-border-color: darkgray");
+        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
         btn1.setOnAction((ActionEvent e) -> {
             String username = tfName.getText();

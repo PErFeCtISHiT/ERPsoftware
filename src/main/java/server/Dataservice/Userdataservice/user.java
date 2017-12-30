@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface user extends pub {
     List login(String username, String password) throws RemoteException;
-
+    String getpasswordByName(String username) throws RemoteException;
 }
