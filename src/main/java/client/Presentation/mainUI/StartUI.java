@@ -96,6 +96,7 @@ public class StartUI extends Application {
 
                     assert hBox != null;
                     Scene scene1 = new Scene(hBox);
+                    scene1.setUserAgentStylesheet("csscfg.css");
                     stage.setMaximized(true);
                     stage.setScene(scene1);
                 } else {
@@ -139,7 +140,7 @@ public class StartUI extends Application {
         grid.setAlignment(Pos.CENTER);
 
         scene = new Scene(grid, 10, 50);
-
+        scene.setUserAgentStylesheet("csscfg.css");
         stage.setScene(scene);
         stage.show();
     }
