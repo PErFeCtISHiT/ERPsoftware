@@ -1,6 +1,7 @@
 package client.Presentation.mainUI;
 
 import java.net.URLEncoder;
+import java.util.Objects;
 
 
 /**
@@ -12,11 +13,11 @@ public class Identify {
     public static final String SECRET_KEY = "FGSU13VGAshDB19ghIU2d6EGfGcG0IoH";
 
 
-    public static String identify() {
+    public String identify() {
 
         String url = "https://aip.baidubce.com/rest/2.0/face/v2/identify";
         try {
-            String filePath = "test.jpg";
+            String filePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath();
             byte[] imgData = FileUtil.readFileByBytes(filePath);
             String imgStr = Base64Util.encode(imgData);
             String imgParam = URLEncoder.encode(imgStr, "UTF-8");

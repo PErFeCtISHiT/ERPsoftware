@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author: pis
@@ -35,15 +36,21 @@ class SavePhotoMouseAdapter extends MouseAdapter {
         this.iplImage = iplImage;
     }
 
+    public SavePhotoMouseAdapter() {
+
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
         JFrame myFrame = new JFrame();
+        SavePhotoMouseAdapter savePhotoMouseAdapter = new SavePhotoMouseAdapter();
         try {
             if (iplImage != null) {
 
-                cvSaveImage(iplImage);
-                String s = Identify.identify();
+                savePhotoMouseAdapter.cvSaveImage(iplImage);
+                Identify identify = new Identify();
+                String s = identify.identify();
                 JsonObject obj = new JsonParser().parse(s).getAsJsonObject();
                 JsonArray body = obj.get("result").getAsJsonArray();
                 String name = "";
@@ -80,8 +87,9 @@ class SavePhotoMouseAdapter extends MouseAdapter {
     }
 
 
-    private static void cvSaveImage(opencv_core.IplImage image) throws IOException {
-        File file = new File("resource.test.jpg");
+    private void cvSaveImage(opencv_core.IplImage image) throws IOException {
+        System.out.println(this.getClass().getClassLoader().toString());
+        File file = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath());
 
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
