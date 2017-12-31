@@ -35,13 +35,25 @@ public class userDB extends publicDB implements user {
 
     @Override
     public String getpasswordByName(String username) throws RemoteException {
-            hibtools.session = hibtools.sessionFactory.getCurrentSession();
-            hibtools.tx = hibtools.session.beginTransaction();
-            String hql = "from UseEntity where keyname like ?";
-            List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
-                    .setParameter(0, username).list();
-            String password = useEntities.get(0).getPasswor();
-            hibtools.tx.commit();
-            return password;
-        }
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from UseEntity where keyname like ?";
+        List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, username).list();
+        String password = useEntities.get(0).getPasswor();
+        hibtools.tx.commit();
+        return password;
+    }
+
+    @Override
+    public String getJobByName(String username) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from UseEntity where keyjob like ?";
+        List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, username).list();
+        String password = useEntities.get(0).getPasswor();
+        hibtools.tx.commit();
+        return password;
+    }
 }
