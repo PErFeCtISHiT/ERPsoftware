@@ -56,7 +56,8 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
 
             if (iplImage != null) {
 
-                String fpath =picName+".jpg";
+
+                String fpath =this.getClass().getClassLoader().getResource(picName+".jpg").getPath();
 
                 cvSaveImage(fpath, iplImage);
 
