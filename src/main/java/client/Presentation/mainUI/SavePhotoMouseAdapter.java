@@ -1,11 +1,10 @@
 package client.Presentation.mainUI;
 
-import client.RMI.link;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.stage.Stage;
+import javafx.application.Platform;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
@@ -36,7 +35,7 @@ class SavePhotoMouseAdapter extends MouseAdapter {
         this.iplImage = iplImage;
     }
 
-    public SavePhotoMouseAdapter() {
+    private SavePhotoMouseAdapter() {
 
     }
 
@@ -62,14 +61,19 @@ class SavePhotoMouseAdapter extends MouseAdapter {
                     finalscore = score.get(0).getAsDouble();
 
                 }
+                final String finalname = name;
+                userPO thisPO = new userPO();
+
 
                 if (finalscore > 80) {
-                    String password = link.getRemoteHelper().getUser().getpasswordByName(name);
-                    userPO userPO = (server.Po.userPO) link.getRemoteHelper().getUser().login(name,password).get(0);
-                    Stage stage = new Stage();
-                    StartUI startUI = new StartUI();
-                    startUI.login(userPO,stage);
                     myFrame.dispose();
+                    Platform.runLater(() -> {
+                        try {
+                            fxlogin.login(finalname);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
 
                 } else {
                     JOptionPane.showMessageDialog(myFrame, "登录失败");
@@ -88,7 +92,6 @@ class SavePhotoMouseAdapter extends MouseAdapter {
 
 
     private void cvSaveImage(opencv_core.IplImage image) throws IOException {
-        System.out.println(this.getClass().getClassLoader().toString());
         File file = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath());
 
 
