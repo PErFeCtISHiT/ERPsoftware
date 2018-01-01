@@ -27,10 +27,12 @@ public class stockmanMainUI {
 
     public HBox start(userPO userPO) {
         staff = userPO.getKeyname();
+
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         Label work = new Label("工作目录");
+        work.setStyle("-fx-font-family: sans-serif");
         Button goods = new Button("商品管理");
         goods.setOnAction(e -> {
             try {
@@ -41,6 +43,7 @@ public class stockmanMainUI {
         });
 
         Button goodsGlance = new Button("库存查看");
+        
         goodsGlance.setOnAction(e -> {
             try {
                 generatefinalBox(1);

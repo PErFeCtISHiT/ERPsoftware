@@ -13,13 +13,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bytedeco.javacpp.opencv_core;
@@ -51,6 +53,9 @@ public class StartUI extends Application {
 
     public void start(Stage stage) throws RemoteException {
 
+//        Text title=new Text();
+//        title.setText("进销存管理系统");
+//        title.setStyle("-fx-text-fill: honeydew;-fx-font-family: sans-serif");
 
         VBox vBox = new VBox();
 
@@ -65,7 +70,9 @@ public class StartUI extends Application {
 
         Button btn1 = new Button("登录");
         Button btn2 = new Button("面部登陆");
-        ComboBox<String> tfName = new ComboBox<>();
+
+ //       ComboBox<String> tfName = new ComboBox<>();
+        TextField tfName=new TextField();
         tfName.setEditable(true);
         tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
@@ -73,28 +80,35 @@ public class StartUI extends Application {
 
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
-        tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
-        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        tfName.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        pfPwd.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
-        List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
-        for (userPO userPO : userPOS) {
-            String id = userPO.getKeyname();
-            tfName.getItems().add(id);
-        }
+        Line line1=new Line(0,100,400,100);
 
-        tfName.setOnAction(e -> {
-            String password = null;
-            try {
-                password = link.getRemoteHelper().getUser().getpasswordByName(tfName.getValue());
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
-            pfPwd.setText(password);
-        });
-        btn1.setStyle("-fx-text-fill: #a9a6a5;-fx-font: 40;-fx-background-color: #e4e9ee");
-        btn2.setStyle("-fx-text-fill: #a9a6a5;-fx-font: 40;-fx-background-color: #e4e9ee");
+        Line line2=new Line(0,100,400,100);
+
+
+//        List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
+//        for (userPO userPO : userPOS) {
+//            String id = userPO.getKeyname();
+//            tfName.getItems().add(id);
+//        }
+//
+//        tfName.setOnAction(e -> {
+//            String password = null;
+//            try {
+//                password = link.getRemoteHelper().getUser().getpasswordByName(tfName.getValue());
+//            } catch (RemoteException e1) {
+//                e1.printStackTrace();
+//            }
+//            pfPwd.setText(password);
+//        });
+
+        btn1.setStyle("-fx-text-fill: #a9a6a5;-fx-font-family:sans-serif;-fx-font: 40;-fx-background-color: #e4e9ee");
+        btn2.setStyle("-fx-text-fill: #a9a6a5;-fx-font-family:sans-serif;-fx-font: 40;-fx-background-color: #e4e9ee");
         btn1.setOnAction((ActionEvent e) -> {
-            String username = tfName.getValue();
+ //           String username = tfName.getValue();
+            String username=tfName.getText();
             String password = pfPwd.getText();
             try {
                 List<userPO> userPOList;
@@ -131,11 +145,12 @@ public class StartUI extends Application {
                 e1.printStackTrace();
             }
         });
+
         hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
 
-        vBox.getChildren().addAll(tfName, pfPwd, btn1,btn2);
+        vBox.getChildren().addAll(tfName,line1, pfPwd,line2, btn1,btn2);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
@@ -149,6 +164,7 @@ public class StartUI extends Application {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
+        
     }
 
     public void login(userPO thisPO,Stage stage) throws Exception {
@@ -189,6 +205,7 @@ public class StartUI extends Application {
         grabber.setImageWidth(500);
         grabber.setImageHeight(660);
         grabber.start();
+
 
 
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
