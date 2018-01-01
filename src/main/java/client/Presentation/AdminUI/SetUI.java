@@ -21,6 +21,7 @@ import javafx.util.Callback;
 import server.Po.userPO;
 
 import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -49,7 +50,7 @@ public class SetUI {
 
         Callback<TableColumn<UserMsg, String>,
                 TableCell<UserMsg, String>> cellFactory
-                = (TableColumn<UserMsg, String> p) -> new SetUI.EditingCell();
+                = (TableColumn<UserMsg, String> p) -> new EditingCell();
 
         TableColumn<UserMsg, String> name =
                 new TableColumn<>("用户名");
@@ -61,6 +62,8 @@ public class SetUI {
                 new TableColumn<>("密码");
         TableColumn<UserMsg, String> delete =
                 new TableColumn<>("删除");
+        TableColumn<UserMsg,String> face =
+                new TableColumn<>("人脸注册");
 
         name.setMinWidth(200);
         name.setCellValueFactory(
@@ -170,6 +173,35 @@ public class SetUI {
             return cell;
         });
 
+        face.setCellFactory((col) -> {
+            TableCell<UserMsg, String> cell = new TableCell<UserMsg, String>() {
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        Button faceBtn = new Button("人脸注册");
+                        this.setGraphic(faceBtn);
+                        faceBtn.setOnMouseClicked((me) -> {
+                            temp temp = new temp();
+                            try {
+                                temp.start(data.get((this.getIndex())).getName());
+                            } catch (IOException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
+
 //////////////////////////////////////////////////////////////////////////////////////开始获取数据
         try {
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
@@ -185,7 +217,7 @@ public class SetUI {
 
 
         table.setItems(data);
-        table.getColumns().addAll(name,job,ID,Passwards,delete);
+        table.getColumns().addAll(name,job,ID,Passwards,delete,face);
 
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);

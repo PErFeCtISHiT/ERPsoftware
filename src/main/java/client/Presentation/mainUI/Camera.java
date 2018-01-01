@@ -5,7 +5,7 @@ package client.Presentation.mainUI;
  * @description: good good study
  * @date: create in 9:18 2017/12/31
  */
-class Camera {
+public class Camera {
 
     private Boolean state = true;
 
