@@ -26,6 +26,7 @@ public class stockmanMainUI {
     private goodsCheckUI goodsCheckUI = new goodsCheckUI();
     private HBox finalBox = new HBox();
 
+
     public HBox start(userPO userPO) {
 
         GuideUI guide=new GuideUI();
