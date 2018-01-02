@@ -151,7 +151,7 @@ public class StartUI extends Application {
         stage.show();
     }
 
-    public void login(userPO thisPO,Stage stage) throws Exception {
+    private void login(userPO thisPO, Stage stage) throws Exception {
         HBox hBox = null;
         switch (thisPO.getKeyjob()) {
             case "stockman":
