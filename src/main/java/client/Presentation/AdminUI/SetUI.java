@@ -1,4 +1,5 @@
 package client.Presentation.AdminUI;
+
 import client.BL.Administrator.Userblservice.UserMsg;
 import client.Presentation.NOgenerator.NOgenerator;
 import client.RMI.link;
@@ -19,10 +20,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.userPO;
 
-
-
-
 import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -31,12 +30,13 @@ public class SetUI {
 
     private final ObservableList<UserMsg> data =
             FXCollections.observableArrayList();
-    final HBox hb = new HBox();
+     HBox hb = new HBox();
 
     private NOgenerator nogenerator = new NOgenerator();
 
 
-    public VBox start(String staff) throws Exception {
+    public HBox start(userPO po) throws Exception {
+        String staff =po.getKeyname();
         TableView<UserMsg> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -50,7 +50,7 @@ public class SetUI {
 
         Callback<TableColumn<UserMsg, String>,
                 TableCell<UserMsg, String>> cellFactory
-                = (TableColumn<UserMsg, String> p) -> new SetUI.EditingCell();
+                = (TableColumn<UserMsg, String> p) -> new EditingCell();
 
         TableColumn<UserMsg, String> name =
                 new TableColumn<>("用户名");
@@ -62,6 +62,8 @@ public class SetUI {
                 new TableColumn<>("密码");
         TableColumn<UserMsg, String> delete =
                 new TableColumn<>("删除");
+        TableColumn<UserMsg,String> face =
+                new TableColumn<>("人脸注册");
 
         name.setMinWidth(200);
         name.setCellValueFactory(
@@ -108,7 +110,7 @@ public class SetUI {
 
         Passwards.setMinWidth(200);
         Passwards.setCellValueFactory(
-                param -> param.getValue().No);
+                param -> param.getValue().Password);
         Passwards.setCellFactory(cellFactory);
         Passwards.setOnEditCommit(
                 (TableColumn.CellEditEvent<UserMsg, String> t) -> {
@@ -150,13 +152,46 @@ public class SetUI {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             String delid = data.get(this.getIndex()).getNO();
+                            userPO po =new userPO();
+                            po.setKeyno(delid);
                             UserMsg msg =new UserMsg("liuyitong",delid,"haha","boss");
                             try {
-                                link.getRemoteHelper().getUser().deleteObject(msg,15);
+                                link.getRemoteHelper().getUser().deleteObject(po,15);
+
+
                             } catch (RemoteException e) {
                                 e.printStackTrace();
                             }
                             data.remove(this.getIndex());
+
+
+                        });
+                    }
+                }
+
+            };
+            return cell;
+        });
+
+        face.setCellFactory((col) -> {
+            TableCell<UserMsg, String> cell = new TableCell<UserMsg, String>() {
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    this.setGraphic(null);
+
+                    if (!empty) {
+                        Button faceBtn = new Button("人脸注册");
+                        this.setGraphic(faceBtn);
+                        faceBtn.setOnMouseClicked((me) -> {
+                            temp temp = new temp();
+                            try {
+                                temp.start(data.get((this.getIndex())).getName());
+                            } catch (IOException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
 
                         });
@@ -182,7 +217,7 @@ public class SetUI {
 
 
         table.setItems(data);
-        table.getColumns().addAll(name,job,ID,Passwards,delete);
+        table.getColumns().addAll(name,job,ID,Passwards,delete,face);
 
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -194,10 +229,10 @@ public class SetUI {
         grid3.add(addName,0,0);
         TextField addJob = new TextField();
         addJob.setPromptText("用户职位");
-        grid3.add(addName,0,1);
-        TextField pass = new TextField();
-        pass.setPromptText("登录密码");
-        grid3.add(pass,0,2);
+        grid3.add(addJob,0,1);
+        TextField addpass = new TextField();
+        addpass.setPromptText("登录密码");
+        grid3.add(addpass,0,2);
 
 
         HBox newhb = new HBox();
@@ -211,11 +246,16 @@ public class SetUI {
             try {
                 String iD = "YH-"+nogenerator.generate(15);
                 UserMsg msg = new UserMsg(
-                        addName.getText(),iD,pass.getText(),
-                        pass.getText());
+                        addName.getText(),addJob.getText(),iD,addpass.getText()
+                        );
                 data.add(msg);
 
-
+                userPO newpo =new userPO();
+                newpo.setKeyname(addName.getText());
+                newpo.setKeyno(iD);
+                newpo.setKeyjob(addJob.getText());
+                newpo.setPasswor(addpass.getText());
+                link.getRemoteHelper().getUser().addObject(newpo,15);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setOpno("增加账户");
@@ -234,7 +274,7 @@ public class SetUI {
 
             addName.clear();
             addJob.clear();
-            pass.clear();
+            addpass.clear();
         });
 
         Button refresh = new Button("刷新列表");
@@ -250,12 +290,10 @@ public class SetUI {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
-        return vbox;
+        HBox hb5 =new HBox();
+        hb5.getChildren().addAll(vbox);
+        return hb5;
 
-//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-//
-//        stage.setScene(scene);
-//        stage.show();
     }
 
 

@@ -1,5 +1,6 @@
 package client.Presentation.StockmanUI.stockmanMainUI;
 
+import client.Presentation.GuideUI.GuideUI;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
@@ -25,12 +26,19 @@ public class stockmanMainUI {
     private goodsCheckUI goodsCheckUI = new goodsCheckUI();
     private HBox finalBox = new HBox();
 
+
     public HBox start(userPO userPO) {
+
+        GuideUI guide=new GuideUI();
+        right=guide.start();
+
         staff = userPO.getKeyname();
+
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         Label work = new Label("工作目录");
+        work.setStyle("-fx-font-family: sans-serif");
         Button goods = new Button("商品管理");
         goods.setOnAction(e -> {
             try {
@@ -41,6 +49,7 @@ public class stockmanMainUI {
         });
 
         Button goodsGlance = new Button("库存查看");
+        
         goodsGlance.setOnAction(e -> {
             try {
                 generatefinalBox(1);

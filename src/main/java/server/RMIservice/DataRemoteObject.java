@@ -174,6 +174,16 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
+    public String getpasswordByName(String username) throws RemoteException {
+        return user.getpasswordByName(username);
+    }
+
+    @Override
+    public String getJobByName(String username) throws RemoteException {
+        return user.getJobByName(username);
+    }
+
+    @Override
     public List getPastAccount(String year) throws RemoteException {
         return accountInit.getPastAccount(year);
     }

@@ -4,8 +4,10 @@ import server.Data.pub.publicDB;
 import server.Data.tools.hibtools;
 import server.Dataservice.Userdataservice.user;
 import server.Po.userPO;
+import server.hibernateEntities.UseEntity;
 import shared.copyclass;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,5 +31,29 @@ public class userDB extends publicDB implements user {
             POS.add(userPO);
         }
         return POS;
+    }
+
+    @Override
+    public String getpasswordByName(String username) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from UseEntity where keyname like ?";
+        List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, username).list();
+        String password = useEntities.get(0).getPasswor();
+        hibtools.tx.commit();
+        return password;
+    }
+
+    @Override
+    public String getJobByName(String username) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from UseEntity where keyjob like ?";
+        List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, username).list();
+        String password = useEntities.get(0).getPasswor();
+        hibtools.tx.commit();
+        return password;
     }
 }

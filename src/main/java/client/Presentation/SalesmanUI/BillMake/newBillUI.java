@@ -7,44 +7,29 @@ import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.BL.Saleman.SalemanSaleblservice.SelloutBillMakeController;
 import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import client.BL.Saleman.SalemanStockinblservice.StockinBillMakeController;
-import client.RMI.link;
+import client.Presentation.GuideUI.GuideUI;
 import client.Vo.buyinVO;
 import client.Vo.consumerVO;
 import client.Vo.selloutVO;
 import client.Vo.goodsOutListVO;
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Callback;
-import server.Po.consumerPO;
-import server.Po.buyinPO;
-import server.Po.selloutPO;
 import server.Po.userPO;
 
-import javax.security.auth.callback.LanguageCallback;
-import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -52,30 +37,32 @@ import java.util.Map;
  */
 public class newBillUI {
 
+    private HBox right=new HBox();
 
-    TreeItem<String> rootNode;
-    TreeItem<String> consumerNode;
-    TreeItem<String> buyinNode;
-    TreeItem<String> selloutNode;
-    TreeItem<String> in;
-    TreeItem<String> cancel;
-    TreeItem<String> selloutin;
-    TreeItem<String> selloutCancel;
+    private TreeItem<String> rootNode;
+    private TreeItem<String> consumerNode;
+    private TreeItem<String> buyinNode;
+    private TreeItem<String> selloutNode;
+    private TreeItem<String> in;
+    private TreeItem<String> cancel;
+    private TreeItem<String> selloutin;
+    private TreeItem<String> selloutCancel;
+    private TreeView<String> treeView;
 
-    TabPane tabs=new TabPane();
+    private TabPane tabs=new TabPane();
 
-    ConsumerManageController consumerManageController=new ConsumerManageController();
-    StockinBillMakeController stockinBillMakeController=new StockinBillMakeController();
-    SelloutBillMakeController selloutBillMakeController=new SelloutBillMakeController();
+    private ConsumerManageController consumerManageController=new ConsumerManageController();
+    private StockinBillMakeController stockinBillMakeController=new StockinBillMakeController();
+    private SelloutBillMakeController selloutBillMakeController=new SelloutBillMakeController();
 
-    ArrayList<Consumer> consumerList=new ArrayList<>();
+    private ArrayList<Consumer> consumerList=new ArrayList<>();
 
-    ArrayList<StockinBill> stockinList=new ArrayList<>();
+    private ArrayList<StockinBill> stockinList=new ArrayList<>();
 
-    ArrayList<SelloutBill> selloutBillList=new ArrayList<>();
+    private ArrayList<SelloutBill> selloutBillList=new ArrayList<>();
 
 
-    HBox hb=new HBox();
+    private HBox hb=new HBox();
 
 
     public newBillUI(){
@@ -122,8 +109,8 @@ public class newBillUI {
 
 
         buyinNode.setExpanded(true);
-        in=new TreeItem<>("进货单");;
-        cancel=new TreeItem<>("进货退货单");;
+        in=new TreeItem<>("进货单");
+        cancel=new TreeItem<>("进货退货单");
         for(StockinBill stockin:stockinList){
             TreeItem<String> empleaf=new TreeItem<>(stockin.getBuyinID());
             if((stockin.getBuyinKind()).equals("0")){
@@ -137,7 +124,7 @@ public class newBillUI {
 
 
         selloutNode.setExpanded(true);
-        selloutin=new TreeItem<String>("销售单");
+        selloutin=new TreeItem<>("销售单");
         selloutCancel=new TreeItem<>("销售退货单");
         for(SelloutBill sellout:selloutBillList){
             TreeItem<String> empleaf=new TreeItem<>(sellout.getSelloutID());
@@ -150,13 +137,56 @@ public class newBillUI {
         }
         selloutNode.getChildren().addAll(selloutin,selloutCancel);
 
-
-
-
         rootNode.getChildren().addAll(consumerNode,buyinNode,selloutNode);
 
+        GuideUI guide=new GuideUI();
+        right=guide.start();
 
+        treeView=new TreeView<>(rootNode);
+        hb.getChildren().addAll(treeView,right);
 
+//        TreeView<String> contree=new TreeView<>(consumerNode);
+//        TreeView<String> buytree=new TreeView<>(buyinNode);
+//        TreeView<String> selltree=new TreeView<>(selloutNode);
+
+        treeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
+            if(newValue.isLeaf()){
+
+                hb.getChildren().remove(right);
+
+                if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(BuyinBillPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(SelloutPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("客户列表")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(ConsumerPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }else{
+                }
+            }
+        });
 
         ContextMenu consumerMenu=new ContextMenu();
         MenuItem newMenuitem=new MenuItem("新建客户");
@@ -170,8 +200,9 @@ public class newBillUI {
         consumerMenu.getItems().add(newSelloutitem);
         consumerMenu.getItems().add(newSelloutCanceliten);
 
-        hb.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
+        treeView.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
             if(me.getButton()== MouseButton.SECONDARY||me.isControlDown()){
+                hb.getChildren().remove(right);
                 consumerMenu.show(hb,me.getScreenX(),me.getScreenY());
             }
             else{
@@ -223,56 +254,6 @@ public class newBillUI {
             newTab.setContent(newselloutCancelPane(b));
             tabs.getTabs().add(newTab);
         });
-
-
-
-
-
-
-        TreeView<String> treeView=new TreeView<>(rootNode);
-        hb.getChildren().add(treeView);
-
-
-        TreeView<String> contree=new TreeView<>(consumerNode);
-        TreeView<String> buytree=new TreeView<>(buyinNode);
-        TreeView<String> selltree=new TreeView<>(selloutNode);
-
-        treeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
-            if(newValue.isLeaf()){
-                if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(BuyinBillPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }
-                else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(SelloutPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }
-                else if(newValue.getParent().getValue().equals("客户列表")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(ConsumerPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }else{
-                }
-            }
-        });
-
 
 
         tabs.setTabMinHeight(30);
@@ -700,7 +681,7 @@ public class newBillUI {
             }
         }
 
-        buyinVO vo=stockinBillMakeController.billtovo(thisstockinbill);
+//        buyinVO vo=stockinBillMakeController.billtovo(thisstockinbill);
 
         GridPane gridPane=new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -1699,7 +1680,7 @@ public class newBillUI {
         Label operaterLabel=new Label("操作员：");
         TextField operater=new TextField();
 
-        
+
 
         gridPane.add(operaterLabel,0,3);
         gridPane.add(operater,1,3);

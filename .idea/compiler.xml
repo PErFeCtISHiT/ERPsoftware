@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="ERPsoftware" target="1.8" />
       <module name="ERPsoftware-master" target="1.8" />
     </bytecodeTargetLevel>
   </component>

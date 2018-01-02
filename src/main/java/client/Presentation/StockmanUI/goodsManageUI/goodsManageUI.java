@@ -246,6 +246,7 @@ public class goodsManageUI {
                     modifygoods(newgoods);
                 });
 
+
         delCol.setCellFactory((col) -> new TableCell<Goods, String>() {
 
             @Override
@@ -412,7 +413,7 @@ public class goodsManageUI {
             }
             String type = "SP";
             no = type + "-" + no;
-            String dat = "";
+            String dat ;
             if (makeDate.getValue() != null)
                 dat = makeDate.getValue().toString();
             else

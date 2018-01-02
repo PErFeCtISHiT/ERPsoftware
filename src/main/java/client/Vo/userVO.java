@@ -14,7 +14,11 @@ public class userVO implements Serializable{
 	private Double keyyear;
 	private String passwor;
 
-	public String getKeyjob() {
+    public userVO() {
+
+    }
+
+    public String getKeyjob() {
 		return keyjob;
 	}
 

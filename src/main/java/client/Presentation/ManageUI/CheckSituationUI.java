@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class CheckSituationUI extends Application {
+public class CheckSituationUI  {
 
 
     private final TableView<Situation> table = new TableView<>();
@@ -26,17 +26,8 @@ public class CheckSituationUI extends Application {
                     );
     final HBox hb = new HBox();
 
-    public static void main(String[] args) {
 
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        stage.setTitle("经营情况表");
-        stage.setWidth(1250);
-        stage.setHeight(850);
+    public HBox start() {
         final Label label = new Label("经营情况列表");
         label.setFont(new Font("Arial", 20));
 
@@ -111,11 +102,9 @@ public class CheckSituationUI extends Application {
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, table, hb);
-
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        HBox hb =new HBox();
+        hb.getChildren().addAll(vbox);
+        return hb;
     }
 
     public static class Situation {
