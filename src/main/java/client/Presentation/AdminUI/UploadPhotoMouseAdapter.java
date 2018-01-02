@@ -1,11 +1,13 @@
 package client.Presentation.AdminUI;
 
+import client.Presentation.mainUI.FaceAdd;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -13,6 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author: pis
@@ -22,31 +25,27 @@ import java.io.IOException;
 class UploadPhotoMouseAdapter extends MouseAdapter {
 
 
-
-
-
     private opencv_core.IplImage iplImage;
 
     private String picName;
 
-    UploadPhotoMouseAdapter(opencv_core.IplImage iplImage, String pic) {
+    private Frame frame;
+
+    UploadPhotoMouseAdapter(opencv_core.IplImage iplImage, String pic, Frame frame) {
 
         this.iplImage = iplImage;
 
-        this.picName =pic;
+        this.picName = pic;
+
+        this.frame = frame;
 
     }
-
-
-
 
 
     @Override
 
     public void mouseClicked(MouseEvent arg0) {
 
-
-        System.out.println("保存");
 
 
 
@@ -57,14 +56,12 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
             if (iplImage != null) {
 
 
-                String fpath =this.getClass().getClassLoader().getResource(picName+".jpg").getPath();
+                String fpath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath();
 
                 cvSaveImage(fpath, iplImage);
+                FaceAdd.add(picName);
 
-
-
-
-
+                frame.dispose();
 
 
             }
@@ -72,11 +69,9 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
         } catch (IOException e) {
 
 
-
             e.printStackTrace();
 
         } finally {
-
 
 
             myFrame.dispose();
@@ -87,15 +82,9 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
     }
 
 
-
-
-
     private static void cvSaveImage(String path, opencv_core.IplImage image) throws IOException {
 
         File file = new File(path);
-
-
-
 
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -105,7 +94,6 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
         byte[] bs = out.toByteArray();
 
 
-
         FileOutputStream fos = new FileOutputStream(file);
 
         fos.write(bs, 0, bs.length);
@@ -113,17 +101,12 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
         fos.close();
 
 
-
         out.close();
 
     }
 
 
-
-
-
 // 通过image获取bufferedImage
-
 
 
     private static BufferedImage toBufferedImage(opencv_core.IplImage image) {
@@ -135,7 +118,6 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
         return java2dConverter.convert(iplConverter.convert(image));
 
     }
-
 
 
 }

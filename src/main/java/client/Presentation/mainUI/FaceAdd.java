@@ -5,6 +5,7 @@ import com.baidu.aip.util.Base64Util;
 
 
 import java.net.URLEncoder;
+import java.util.Objects;
 
 /**
  * 人脸注册
@@ -21,11 +22,14 @@ public class FaceAdd {
         String url = "https://aip.baidubce.com/rest/2.0/face/v2/faceset/user/add";
         String access_token_url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials"
                 +"&client_id="+API_KEY +"&client_secret="+SECRET_KEY;
-        System.out.println(access_token_url);
         try {
             // 本地文件路径
 
-            String filePath = name+".jpg";
+            String filePath = new Object() {
+                String getPath() {
+                    return Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath();
+                }
+            }.getPath();
             byte[] imgData = FileUtil.readFileByBytes(filePath);
             String imgStr = Base64Util.encode(imgData);
             String imgParam = URLEncoder.encode(imgStr, "UTF-8");

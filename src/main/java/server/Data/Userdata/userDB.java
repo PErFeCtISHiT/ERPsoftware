@@ -56,4 +56,33 @@ public class userDB extends publicDB implements user {
         hibtools.tx.commit();
         return password;
     }
+
+    @Override
+    public void FaceService(String username) throws RemoteException {
+        hibtools.session = hibtools.sessionFactory.getCurrentSession();
+        hibtools.tx = hibtools.session.beginTransaction();
+        String hql = "from UseEntity where keyname like ?";
+        List<UseEntity> useEntities = (List<UseEntity>) hibtools.session.createQuery(hql)
+                .setParameter(0, username).list();
+        useEntities.get(0).setEmail("face");
+        hibtools hib = new hibtools();
+        hib.Modify(useEntities.get(0));
+        hib.tx.commit();
+        hibtools.tx.commit();
+    }
+
+    @Override
+    public String getNameByFaceTag() throws RemoteException {
+        publicDB publicDB = new publicDB();
+        List<userPO> userPOS = publicDB.findAll(15);
+        for(userPO i : userPOS){
+            if(i.getEmail() != null && i.getEmail().equals("face")) {
+                i.setEmail("");
+                hibtools hib = new hibtools();
+                publicDB.modifyObject(i,15);
+                return i.getKeyname();
+            }
+        }
+        return "false";
+    }
 }
