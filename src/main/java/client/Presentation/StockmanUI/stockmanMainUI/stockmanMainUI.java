@@ -1,5 +1,6 @@
 package client.Presentation.StockmanUI.stockmanMainUI;
 
+import client.Presentation.GuideUI.GuideUI;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
@@ -26,6 +27,10 @@ public class stockmanMainUI {
     private HBox finalBox = new HBox();
 
     public HBox start(userPO userPO) {
+
+        GuideUI guide=new GuideUI();
+        right=guide.start();
+
         staff = userPO.getKeyname();
 
         VBox vBox = new VBox();

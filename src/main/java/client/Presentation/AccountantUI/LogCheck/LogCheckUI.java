@@ -26,7 +26,7 @@ public class LogCheckUI {
     LogController controller  = new LogController();
 
 
-    public VBox start(String staff) throws Exception {
+    public VBox start() throws Exception {
         TableView<Log> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());

@@ -2,6 +2,7 @@ package client.Presentation.mainUI;
 
 import client.BL.LodinblService.LoginController;
 import client.Presentation.AccountantUI.AccountMain.AccountantMain;
+import client.Presentation.AccountantUI.LogCheck.LogCheckUI;
 import client.Presentation.AdminUI.SetUI;
 import client.Presentation.ManageUI.MainManageUI;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
@@ -16,7 +17,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -168,11 +174,53 @@ public class StartUI extends Application {
     }
 
     private void login(userPO thisPO, Stage stage) throws Exception {
+        stage.close();
+        Stage workStage=new Stage();
+
         HBox hBox = null;
+
+        MenuBar topBar=new MenuBar();
+        Menu nameMenu=new Menu(thisPO.getKeyname(),new ImageView(new Image("tou.png")));
+//        Menu messageMenu=new Menu("消息");
+        Menu helpMenu=new Menu("需要帮助");
+        topBar.getMenus().addAll(nameMenu,helpMenu);
+
+        MenuItem check=new MenuItem("查看资料");
+        MenuItem logcheck=new MenuItem("查看工作情况");
+        MenuItem exit=new MenuItem("退出");
+
+        nameMenu.getItems().addAll(check,logcheck,new SeparatorMenuItem(),exit);
+
+        exit.setOnAction((ActionEvent e)->{
+            workStage.close();
+            stage.show();
+        });
+
+        logcheck.setOnAction((ActionEvent e)->{
+
+            Stage logcheckStage=new Stage();
+
+            LogCheckUI logCheckUI=new LogCheckUI();
+            VBox box=new VBox();
+            try {
+                box=logCheckUI.start();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            Scene log=new Scene(box);
+            logcheckStage.setScene(log);
+            logcheckStage.show();
+        });
+
+        check.setOnAction((ActionEvent e)->{
+
+        });
+
         switch (thisPO.getKeyjob()) {
             case "stockman":
                 stockmanMainUI stockmanMainUI = new stockmanMainUI();
                 hBox = stockmanMainUI.start(thisPO);
+
                 break;
             case "accountant":
                 AccountantMain accountantMain = new AccountantMain();
@@ -193,10 +241,14 @@ public class StartUI extends Application {
         }
 
         assert hBox != null;
-        Scene scene1 = new Scene(hBox);
-        stage.setResizable(true);
-        stage.setMaximized(true);
-        stage.setScene(scene1);
+
+        Scene scene1 = new Scene(new VBox());
+        ((VBox)scene1.getRoot()).getChildren().addAll(topBar,hBox);
+
+        workStage.setResizable(true);
+        workStage.setMaximized(true);
+        workStage.setScene(scene1);
+        workStage.show();
     }
 
     private void Facelogin() throws IOException, InterruptedException {
