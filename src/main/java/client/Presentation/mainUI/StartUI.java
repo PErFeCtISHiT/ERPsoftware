@@ -185,7 +185,7 @@ public class StartUI extends Application {
 
     private void Facelogin() throws IOException, InterruptedException {
 
-        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(1);
+        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
         grabber.setImageWidth(500);
         grabber.setImageHeight(660);
         grabber.start();
