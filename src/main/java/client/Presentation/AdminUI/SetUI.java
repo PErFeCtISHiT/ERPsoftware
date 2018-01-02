@@ -30,13 +30,13 @@ public class SetUI {
 
     private final ObservableList<UserMsg> data =
             FXCollections.observableArrayList();
-     HBox hb = new HBox();
+    HBox hb = new HBox();
 
     private NOgenerator nogenerator = new NOgenerator();
 
 
     public HBox start(userPO po) throws Exception {
-        String staff =po.getKeyname();
+        String staff = po.getKeyname();
         TableView<UserMsg> table = new TableView<>();
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -62,7 +62,7 @@ public class SetUI {
                 new TableColumn<>("密码");
         TableColumn<UserMsg, String> delete =
                 new TableColumn<>("删除");
-        TableColumn<UserMsg,String> face =
+        TableColumn<UserMsg, String> face =
                 new TableColumn<>("人脸注册");
 
         name.setMinWidth(200);
@@ -95,7 +95,7 @@ public class SetUI {
                         logVO log = new logVO();
                         log.setOperatorno(staff);
                         log.setKeyjob("修改职位");
-                        link.getRemoteHelper().getLog().addObject(log,13);
+                        link.getRemoteHelper().getLog().addObject(log, 13);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -117,7 +117,7 @@ public class SetUI {
                     t.getTableView().getItems().get(t.getTablePosition().getRow()).setJob(t.getNewValue());
                     UserMsg acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     try {
-                        link.getRemoteHelper().getUser().modifyObject(acc,15);
+                        link.getRemoteHelper().getUser().modifyObject(acc, 15);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -125,7 +125,7 @@ public class SetUI {
                         logVO log = new logVO();
                         log.setOperatorno(staff);
                         log.setKeyjob("修改职位");
-                        link.getRemoteHelper().getLog().addObject(log,13);
+                        link.getRemoteHelper().getLog().addObject(log, 13);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -152,11 +152,11 @@ public class SetUI {
                         this.setGraphic(delBtn);
                         delBtn.setOnMouseClicked((me) -> {
                             String delid = data.get(this.getIndex()).getNO();
-                            userPO po =new userPO();
+                            userPO po = new userPO();
                             po.setKeyno(delid);
-                            UserMsg msg =new UserMsg("liuyitong",delid,"haha","boss");
+                            UserMsg msg = new UserMsg("liuyitong", delid, "haha", "boss");
                             try {
-                                link.getRemoteHelper().getUser().deleteObject(po,15);
+                                link.getRemoteHelper().getUser().deleteObject(po, 15);
 
 
                             } catch (RemoteException e) {
@@ -205,9 +205,9 @@ public class SetUI {
 //////////////////////////////////////////////////////////////////////////////////////开始获取数据
         try {
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
-            for (int i=0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
 
-                UserMsg newco = new UserMsg(list.get(i).getKeyname(),list.get(i).getKeyjob(),list.get(i).getKeyno(),list.get(i).getPasswor());
+                UserMsg newco = new UserMsg(list.get(i).getKeyname(), list.get(i).getKeyjob(), list.get(i).getKeyno(), list.get(i).getPasswor());
                 data.add(newco);
             }
         } catch (RemoteException e) {
@@ -215,9 +215,8 @@ public class SetUI {
         }
 
 
-
         table.setItems(data);
-        table.getColumns().addAll(name,job,ID,Passwards,delete,face);
+        table.getColumns().addAll(name, job, ID, Passwards, delete, face);
 
         GridPane grid3 = new GridPane();
         grid3.setVgap(4);
@@ -226,13 +225,13 @@ public class SetUI {
 
         TextField addName = new TextField();
         addName.setPromptText("用户名");
-        grid3.add(addName,0,0);
+        grid3.add(addName, 0, 0);
         TextField addJob = new TextField();
         addJob.setPromptText("用户职位");
-        grid3.add(addJob,0,1);
+        grid3.add(addJob, 0, 1);
         TextField addpass = new TextField();
         addpass.setPromptText("登录密码");
-        grid3.add(addpass,0,2);
+        grid3.add(addpass, 0, 2);
 
 
         HBox newhb = new HBox();
@@ -244,22 +243,22 @@ public class SetUI {
         final Button addButton = new Button("添加用户");
         addButton.setOnAction((ActionEvent e) -> {
             try {
-                String iD = "YH-"+nogenerator.generate(15);
+                String iD = "YH-" + nogenerator.generate(15);
                 UserMsg msg = new UserMsg(
-                        addName.getText(),addJob.getText(),iD,addpass.getText()
-                        );
+                        addName.getText(), addJob.getText(), iD, addpass.getText()
+                );
                 data.add(msg);
 
-                userPO newpo =new userPO();
+                userPO newpo = new userPO();
                 newpo.setKeyname(addName.getText());
                 newpo.setKeyno(iD);
                 newpo.setKeyjob(addJob.getText());
                 newpo.setPasswor(addpass.getText());
-                link.getRemoteHelper().getUser().addObject(newpo,15);
+                link.getRemoteHelper().getUser().addObject(newpo, 15);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setOpno("增加账户");
-                link.getRemoteHelper().getLog().addObject(log,13);
+                link.getRemoteHelper().getLog().addObject(log, 13);
 
 
             } catch (RemoteException e1) {
@@ -282,15 +281,15 @@ public class SetUI {
             refresh();
         });
 
-        hb.getChildren().addAll(grid3, addButton,refresh);//addID,
+        hb.getChildren().addAll(grid3, addButton, refresh);//addID,
         hb.setSpacing(3);
 
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
-        vbox.setMaxSize(1000,800);
-        HBox hb5 =new HBox();
+        vbox.setMaxSize(1000, 800);
+        HBox hb5 = new HBox();
         hb5.getChildren().addAll(vbox);
         return hb5;
 
@@ -298,11 +297,12 @@ public class SetUI {
 
 
     public void refresh() {
-        try {data.clear();
+        try {
+            data.clear();
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
-            for (int i=0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
 
-                UserMsg newco = new UserMsg(list.get(i).getKeyname(),list.get(i).getKeyjob(),list.get(i).getKeyno(),list.get(i).getPasswor());
+                UserMsg newco = new UserMsg(list.get(i).getKeyname(), list.get(i).getKeyjob(), list.get(i).getKeyno(), list.get(i).getPasswor());
                 data.add(newco);
             }
         } catch (RemoteException e) {
@@ -360,7 +360,7 @@ public class SetUI {
 
         private void createTextField() {
             textField = new TextField(getString());
-            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
             textField.focusedProperty().addListener(
                     (ObservableValue<? extends Boolean> arg0,
                      Boolean arg1, Boolean arg2) -> {

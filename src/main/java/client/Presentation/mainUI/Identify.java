@@ -28,7 +28,6 @@ public class Identify {
             String accessToken = "24.9352a81b8c30478d23ea1401ec8d48a4.2592000.1515922999.282335-10538552";
 
             String result = HttpUtil.post(url, accessToken, param);
-            System.out.println(result);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
