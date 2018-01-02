@@ -7,6 +7,7 @@ import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.BL.Saleman.SalemanSaleblservice.SelloutBillMakeController;
 import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import client.BL.Saleman.SalemanStockinblservice.StockinBillMakeController;
+import client.Presentation.GuideUI.GuideUI;
 import client.Vo.buyinVO;
 import client.Vo.consumerVO;
 import client.Vo.selloutVO;
@@ -36,6 +37,7 @@ import java.util.List;
  */
 public class newBillUI {
 
+    private HBox right=new HBox();
 
     private TreeItem<String> rootNode;
     private TreeItem<String> consumerNode;
@@ -45,6 +47,7 @@ public class newBillUI {
     private TreeItem<String> cancel;
     private TreeItem<String> selloutin;
     private TreeItem<String> selloutCancel;
+    private TreeView<String> treeView;
 
     private TabPane tabs=new TabPane();
 
@@ -134,13 +137,56 @@ public class newBillUI {
         }
         selloutNode.getChildren().addAll(selloutin,selloutCancel);
 
-
-
-
         rootNode.getChildren().addAll(consumerNode,buyinNode,selloutNode);
 
+        GuideUI guide=new GuideUI();
+        right=guide.start();
 
+        treeView=new TreeView<>(rootNode);
+        hb.getChildren().addAll(treeView,right);
 
+//        TreeView<String> contree=new TreeView<>(consumerNode);
+//        TreeView<String> buytree=new TreeView<>(buyinNode);
+//        TreeView<String> selltree=new TreeView<>(selloutNode);
+
+        treeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
+            if(newValue.isLeaf()){
+
+                hb.getChildren().remove(right);
+
+                if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(BuyinBillPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(SelloutPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }
+                else if(newValue.getParent().getValue().equals("客户列表")){
+                    Tab newTab=new Tab();
+                    newTab.setText(newValue.getValue());
+                    try {
+                        newTab.setContent(ConsumerPane(newValue.getValue()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    tabs.getTabs().add(newTab);
+                }else{
+                }
+            }
+        });
 
         ContextMenu consumerMenu=new ContextMenu();
         MenuItem newMenuitem=new MenuItem("新建客户");
@@ -154,8 +200,9 @@ public class newBillUI {
         consumerMenu.getItems().add(newSelloutitem);
         consumerMenu.getItems().add(newSelloutCanceliten);
 
-        hb.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
+        treeView.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent me)->{
             if(me.getButton()== MouseButton.SECONDARY||me.isControlDown()){
+                hb.getChildren().remove(right);
                 consumerMenu.show(hb,me.getScreenX(),me.getScreenY());
             }
             else{
@@ -207,56 +254,6 @@ public class newBillUI {
             newTab.setContent(newselloutCancelPane(b));
             tabs.getTabs().add(newTab);
         });
-
-
-
-
-
-
-        TreeView<String> treeView=new TreeView<>(rootNode);
-        hb.getChildren().add(treeView);
-
-
-//        TreeView<String> contree=new TreeView<>(consumerNode);
-//        TreeView<String> buytree=new TreeView<>(buyinNode);
-//        TreeView<String> selltree=new TreeView<>(selloutNode);
-
-        treeView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)->{
-            if(newValue.isLeaf()){
-                if(newValue.getParent().getValue().equals("进货单")||newValue.getParent().getValue().equals("进货退货单")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(BuyinBillPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }
-                else if(newValue.getParent().getValue().equals("销售单")||newValue.getParent().getValue().equals("销售退货单")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(SelloutPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }
-                else if(newValue.getParent().getValue().equals("客户列表")){
-                    Tab newTab=new Tab();
-                    newTab.setText(newValue.getValue());
-                    try {
-                        newTab.setContent(ConsumerPane(newValue.getValue()));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    tabs.getTabs().add(newTab);
-                }else{
-                }
-            }
-        });
-
 
 
         tabs.setTabMinHeight(30);
