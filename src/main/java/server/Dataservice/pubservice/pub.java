@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author: pis
- * @description: good good study
+ * @description: 数据层公共方法
  * @date: create in 13:55 2017/11/26
  */
 public interface pub extends Remote{
