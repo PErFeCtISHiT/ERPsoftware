@@ -58,7 +58,6 @@ public class fxlogin implements Runnable{
         stage.setMaximized(true);
         stage.setScene(scene1);
         stage.show();
-        System.out.println("i'm here");
     }
 
     /**
