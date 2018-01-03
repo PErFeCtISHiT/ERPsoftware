@@ -169,9 +169,6 @@ public class CheckSellUI {
                     }
                 };
 
-
-
-
         checkOutDatePicker.setDayCellFactory(dayCellFactory);
         checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
         GridPane gridPane = new GridPane();
