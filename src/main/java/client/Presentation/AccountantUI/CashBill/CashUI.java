@@ -44,10 +44,6 @@ public class CashUI {
 
 
 
-
-
-
-
     final HBox hb = new HBox();
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();

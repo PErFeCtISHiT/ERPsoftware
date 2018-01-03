@@ -53,7 +53,6 @@ public class AccountManagementUI {
             FXCollections.observableArrayList();
     final HBox hb = new HBox();
 
-
     FinancialAccountController controller  = new FinancialAccountController();
     private NOgenerator nogenerator = new NOgenerator();
 
@@ -84,9 +83,7 @@ public class AccountManagementUI {
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
 
-
-
-
+//        table.setStyle("-fx-font-family: serif;-fx-background-color: transparent");
 
 /////////////////////////////////////////////////////////////////////////////////修改传递
         IDCol.setMinWidth(200);
@@ -159,6 +156,7 @@ public class AccountManagementUI {
                     if (!empty) {
                         Button delBtn = new Button("删除");
                         this.setGraphic(delBtn);
+                        delBtn.setStyle("-fx-background-color: transparent;-fx-fill: black");
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
                             co.setKeyname("");
@@ -208,11 +206,8 @@ public class AccountManagementUI {
             e.printStackTrace();
         }
 
-
-
         table.setItems(data);
         table.getColumns().addAll(IDCol, NameCol, MoneyCol,delCol);
-
 //        final TextField addID= new TextField();
 //        addID.setEditable(false);
 //        addID.setPromptText("编号自动生成");
@@ -296,6 +291,8 @@ public class AccountManagementUI {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
+        vbox.getStylesheets().add(AccountManagementUI.class.getResource("AccoutManageCss.css").toExternalForm());
+        table.getStyleClass().add("table-view");
         return vbox;
 
 //        ((Group) scene.getRoot()).getChildren().addAll(vbox);
