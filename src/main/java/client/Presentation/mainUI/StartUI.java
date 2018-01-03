@@ -281,8 +281,7 @@ public class StartUI extends Application {
         JButton save_photo = new JButton("登录");
         JButton cancle = new JButton("关闭");
         Camera camera = new Camera();
-
-        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage));
+        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage,frame));
 
         cancle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent arg0) {

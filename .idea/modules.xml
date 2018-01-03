@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ERPsoftware.iml" filepath="$PROJECT_DIR$/ERPsoftware.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ERPsoftware-master.iml" filepath="$PROJECT_DIR$/ERPsoftware-master.iml" />
     </modules>
   </component>
 </project>

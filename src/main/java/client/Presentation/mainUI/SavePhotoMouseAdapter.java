@@ -1,10 +1,12 @@
 package client.Presentation.mainUI;
 
+import client.RMI.link;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
@@ -12,6 +14,7 @@ import server.Po.userPO;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -30,9 +33,10 @@ class SavePhotoMouseAdapter extends MouseAdapter {
 
 
     private opencv_core.IplImage iplImage;
-
-    SavePhotoMouseAdapter(opencv_core.IplImage iplImage) {
+    private Frame frame;
+    SavePhotoMouseAdapter(opencv_core.IplImage iplImage,Frame frame) {
         this.iplImage = iplImage;
+        this.frame =frame;
     }
 
     private SavePhotoMouseAdapter() {
@@ -43,6 +47,9 @@ class SavePhotoMouseAdapter extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent arg0) {
         JFrame myFrame = new JFrame();
+
+
+
         SavePhotoMouseAdapter savePhotoMouseAdapter = new SavePhotoMouseAdapter();
         try {
             if (iplImage != null) {
@@ -66,16 +73,21 @@ class SavePhotoMouseAdapter extends MouseAdapter {
 
 
                 if (finalscore > 80) {
-                    myFrame.dispose();
-                    Platform.runLater(() -> {
-                        try {
-                            fxlogin.login(finalname);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    String newstr = finalname;
+                    if(newstr.equals("yitongxiaoerzi"))
+                        newstr = "somnus";
+                    String password = link.getRemoteHelper().getUser().getpasswordByName(newstr);
+                    userPO userPO = (server.Po.userPO) link.getRemoteHelper().getUser().login(newstr,password).get(0);
+                    userPO.setEmail("face");
+                    link.getRemoteHelper().getUser().modifyObject(userPO,15);
+                    fxlogin fxlogin = new fxlogin(newstr);
+                    Platform.runLater(fxlogin);
+                    frame.dispose();
+                }
 
-                } else {
+
+
+                 else {
                     JOptionPane.showMessageDialog(myFrame, "登录失败");
                 }
 
