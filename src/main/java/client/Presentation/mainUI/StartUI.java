@@ -75,8 +75,11 @@ public class StartUI extends Application {
         hbButtons.setSpacing(5);
 
         Button btn1 = new Button("登录");
+        btn1.setMinSize(400,40);
+        btn1.setStyle("-fx-background-color: ButtonShadow;-fx-font: 100;-fx-text-fill: black");
         Button btn2 = new Button("面部登陆");
-
+        btn2.setMinSize(400,40);
+        btn2.setStyle("-fx-background-color: ButtonShadow;-fx-font: 100;-fx-text-fill: black");
  //       ComboBox<String> tfName = new ComboBox<>();
 
         TextField tfName=new TextField();
@@ -127,7 +130,7 @@ public class StartUI extends Application {
                 if (userPOList.size() == 1) {
                     userPO thisPO = userPOList.get(0);
                     login(thisPO,stage);
- //                   pfPwd.clear();
+                    pfPwd.clear();
                 } else {
                     pfPwd.clear();
                     Stage failstage = new Stage();
@@ -191,7 +194,7 @@ public class StartUI extends Application {
         MenuBar topBar=new MenuBar();
         Menu nameMenu=new Menu(thisPO.getKeyname(),new ImageView(new Image("tou1.png")));
 //        Menu messageMenu=new Menu("消息");
-        Menu helpMenu=new Menu("需要帮助");
+        Menu helpMenu=new Menu("需要帮助?");
         topBar.getMenus().addAll(nameMenu,helpMenu);
 
         MenuItem check=new MenuItem("查看资料");

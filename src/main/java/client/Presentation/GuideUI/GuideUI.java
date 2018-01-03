@@ -24,6 +24,7 @@ public class GuideUI {
         Text set=new Text("          公司设置帮助");
 
         setB.setOnAction((ActionEvent e)->{
+
         });
 
         Button buyinB=new Button();

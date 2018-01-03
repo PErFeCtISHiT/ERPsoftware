@@ -10,6 +10,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -252,7 +254,7 @@ public class CheckSellUI {
         table.setItems(data);
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol,DetailCol);
 
-        final Button OutputButton = new Button("导出表格");
+        final Button OutputButton = new Button("导出表格",new ImageView(new Image("导出.png")));
         OutputButton.setMinSize(50,20);
         OutputButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
         OutputButton.setOnAction((ActionEvent e) -> {
@@ -268,7 +270,7 @@ public class CheckSellUI {
             }
         });
 
-        final Button RefreshButton = new Button("刷新列表");
+        final Button RefreshButton = new Button("刷新列表",new ImageView(new Image("刷新.png")));
         RefreshButton.setMinSize(50,20);
         RefreshButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
         RefreshButton.setOnAction((ActionEvent e) -> {
