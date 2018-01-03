@@ -303,8 +303,9 @@ public class CheckSellUI {
         fvbox.getChildren().addAll(hbox);
         fvbox.setMaxSize(1200,800);
 
-        fvbox.getStylesheets().add(CheckSellUI.class.getResource("CheckSellCss.css").toExternalForm());
+        fvbox.getStylesheets().add("table.css");
         table.getStyleClass().add("table-view");
+
 
         return fvbox;
 //        Group root = (Group) scene.getRoot();

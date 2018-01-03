@@ -153,7 +153,7 @@ public class goodsCheckUI {
         ret.setPadding(new Insets(10, 0, 0, 10));
         ret.getChildren().add(vbox);
 
-        ret.getStylesheets().add(goodsCheckUI.class.getResource("goodscheck.css").toExternalForm());
+        ret.getStylesheets().add("table.css");
         table.getStyleClass().add("table-view");
 
         return ret;

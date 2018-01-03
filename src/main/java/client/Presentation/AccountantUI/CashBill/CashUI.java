@@ -444,9 +444,10 @@ public class CashUI {
         hbox.getChildren().setAll(refresh, newBill);
 
         VBox vb = new VBox();
-        vb.getChildren().setAll(hb, hbox);
+        vb.getChildren().addAll(hb, hbox);
         vb.setMaxSize(1200,800);
-        vb.getStylesheets().add(CashUI.class.getResource("CashBillCss.css").toExternalForm());
+
+        vb.getStylesheets().add("table.css");
         accounttable.getStyleClass().add("table-view");
         consumertable.getStyleClass().add("table-view");
         draftbilltable.getStyleClass().add("table-view");

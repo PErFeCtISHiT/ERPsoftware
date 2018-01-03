@@ -544,7 +544,7 @@ public class goodsManageUI {
 
         vbox.getChildren().addAll(hBox, table, hb);
 
-        vbox.getStylesheets().add(goodsManageUI.class.getResource("goodsmanage.css").toExternalForm());
+        vbox.getStylesheets().add("table.css");
         table.getStyleClass().add("table-view");
 
         return vbox;

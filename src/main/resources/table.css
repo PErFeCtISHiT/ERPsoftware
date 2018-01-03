@@ -1,4 +1,4 @@
-.table-view1{
+.table-view{
     -fx-base:transparent;
     -fx-control-inner-background:transparent;
     -fx-table-cell-border-color: transparent;
@@ -8,11 +8,11 @@
     -fx-background-color: transparent;
 }
 
-.table-view1 .column-header-background{
+.table-view .column-header-background{
     -fx-background-color: transparent;
 }
 
-.table-view1  .column-header .label{
+.table-view  .column-header .label{
     -fx-font-family: sans-serif;
     -fx-font-size: 12pt;
     -fx-text-fill: white;
@@ -21,7 +21,7 @@
     -fx-background-color: transparent;
 }
 
-.table-view1:focused   .table-row-cell:filled:focused:selected{
+.table-view:focused   .table-row-cell:filled:focused:selected{
     -fx-background-color: darkgrey;
     -fx-fill: black;
 }
