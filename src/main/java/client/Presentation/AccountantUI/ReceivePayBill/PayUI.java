@@ -16,6 +16,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -398,12 +400,8 @@ public class PayUI {
         gridTitlePane.setContent(grid);
 
 
-
-
-
-
-
-        final Button refresh = new Button("刷新列表");
+        final Button refresh = new Button("刷新列表",new ImageView(new Image("刷新.png")));
+        refresh.setStyle("-fx-background-color: blue;-fx-text-fill: white;-fx-font:40");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =PayController.getAllAccount();
@@ -455,6 +453,13 @@ public class PayUI {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
         vb.setMaxSize(1200,800);
+        vb.getStylesheets().add(PayUI.class.getResource("Receive.css").toExternalForm());
+        accounttable.getStyleClass().add("table-view");
+        consumertable.getStyleClass().add("table-view");
+        draftbilltable.getStyleClass().add("table-view");
+        AlreadyPromotionbilltable.getStyleClass().add("table-view");
+        UnderPromotionbilltable.getStyleClass().add("table-view");
+
         return vb;
 
 //        Group root = (Group)scene.getRoot();

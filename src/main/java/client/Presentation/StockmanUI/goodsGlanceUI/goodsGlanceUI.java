@@ -264,6 +264,11 @@ public class goodsGlanceUI {
         ret.setSpacing(5);
         ret.setPadding(new Insets(10, 0, 0, 10));
         ret.getChildren().add(vbox);
+
+        ret.getStylesheets().add(goodsGlanceUI.class.getResource("goodsglance.css").toExternalForm());
+        table1.getStyleClass().add("table-view");
+        table2.getStyleClass().add("table-view");
+
         return ret;
 
 
