@@ -453,7 +453,8 @@ public class PayUI {
         VBox vb = new VBox();
         vb.getChildren().setAll(hb,hbox);
         vb.setMaxSize(1200,800);
-        vb.getStylesheets().add(PayUI.class.getResource("Receive.css").toExternalForm());
+
+        vb.getStylesheets().add("table.css");
         accounttable.getStyleClass().add("table-view");
         consumertable.getStyleClass().add("table-view");
         draftbilltable.getStyleClass().add("table-view");

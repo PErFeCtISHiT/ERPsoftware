@@ -291,7 +291,8 @@ public class AccountManagementUI {
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
-        vbox.getStylesheets().add(AccountManagementUI.class.getResource("AccoutManageCss.css").toExternalForm());
+
+        vbox.getStylesheets().add("table.css");
         table.getStyleClass().add("table-view");
         return vbox;
 

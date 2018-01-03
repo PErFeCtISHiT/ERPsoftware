@@ -67,24 +67,25 @@ public class StartUI extends Application {
 
         Scene scene;
         stage.setTitle("登陆");
-        stage.setWidth(500);
-        stage.setHeight(657);
+        stage.setWidth(600);
+        stage.setHeight(390);
 
 
         HBox hbButtons = new HBox();
-        hbButtons.setSpacing(5);
+        hbButtons.setSpacing(10);
 
         Button btn1 = new Button("登录");
-        btn1.setMinSize(400,40);
-        btn1.setStyle("-fx-background-color: ButtonShadow;-fx-font: 100;-fx-text-fill: black");
+        btn1.setMinSize(100,40);
+        btn1.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
         Button btn2 = new Button("面部登陆");
-        btn2.setMinSize(400,40);
-        btn2.setStyle("-fx-background-color: ButtonShadow;-fx-font: 100;-fx-text-fill: black");
+        btn2.setMinSize(100,40);
+        btn2.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
  //       ComboBox<String> tfName = new ComboBox<>();
 
         TextField tfName=new TextField();
 
         tfName.setEditable(true);
+
 //        tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
 //        pfPwd.setPromptText("密码");
@@ -93,8 +94,8 @@ public class StartUI extends Application {
 //        ImageView pf=new ImageView(new Image("密码.png"));
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
-        tfName.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
-        pfPwd.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
         Line line1=new Line(0,100,400,100);
 
@@ -173,10 +174,10 @@ public class StartUI extends Application {
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
 
-        vBox.setSpacing(5);
+        vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.setAlignment(Pos.CENTER);
-        vBox.setStyle("-fx-background-image: url(timg.jpeg)");
+        vBox.setStyle("-fx-background-image: url(ba.png)");
         scene = new Scene(vBox, 400, 500);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -276,7 +277,7 @@ public class StartUI extends Application {
 
     private void Facelogin() throws IOException, InterruptedException {
 
-        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(1);
+        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
         grabber.setImageWidth(500);
         grabber.setImageHeight(660);
         grabber.start();
