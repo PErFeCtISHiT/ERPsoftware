@@ -1,5 +1,4 @@
 package client.Presentation.ManageUI;
-import client.Presentation.GuideUI.GuideUI;
 import  client.Presentation.ManageUI.CheckSellUI;
 import  client.Presentation.ManageUI.ExamineBillUI;
 import  client.Presentation.ManageUI.CheckProgressUI;
@@ -43,9 +42,7 @@ public class MainManageUI {
         Label work = new Label("工作目录");
 
         Button checkSell = new Button("审批单据");
-
-        GuideUI guide=new GuideUI();
-        right=guide.start();
+        right =new HBox();
 
         checkSell.setOnAction(e -> {
             try {

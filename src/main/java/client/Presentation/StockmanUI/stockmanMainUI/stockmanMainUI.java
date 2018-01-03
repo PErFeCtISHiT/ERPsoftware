@@ -1,12 +1,13 @@
 package client.Presentation.StockmanUI.stockmanMainUI;
 
-import client.Presentation.GuideUI.GuideUI;
 import client.Presentation.StockmanUI.goodsCheckUI.goodsCheckUI;
 import client.Presentation.StockmanUI.goodsGlanceUI.goodsGlanceUI;
 import client.Presentation.StockmanUI.goodsManageUI.goodsKindsManageUI;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import server.Po.userPO;
@@ -26,20 +27,19 @@ public class stockmanMainUI {
     private goodsCheckUI goodsCheckUI = new goodsCheckUI();
     private HBox finalBox = new HBox();
 
-
     public HBox start(userPO userPO) {
-
-        GuideUI guide=new GuideUI();
-        right=guide.start();
 
         staff = userPO.getKeyname();
 
         VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
-        Label work = new Label("工作目录");
-        work.setStyle("-fx-font-family: sans-serif");
-        Button goods = new Button("商品管理");
+
+        Label work = new Label("工作目录",new ImageView(new Image("menu.png")));
+        work.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-font-family: serif;-fx-font-family: sans-serif;-fx-font-size:20");
+
+        Button goods = new Button("商品管理",new ImageView(new Image("商品.png")));
+        goods.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goods.setOnAction(e -> {
             try {
                 generatefinalBox(0);
@@ -48,8 +48,8 @@ public class stockmanMainUI {
             }
         });
 
-        Button goodsGlance = new Button("库存查看");
-        
+        Button goodsGlance = new Button("库存查看",new ImageView(new Image("库存.png")));
+        goodsGlance.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goodsGlance.setOnAction(e -> {
             try {
                 generatefinalBox(1);
@@ -58,7 +58,8 @@ public class stockmanMainUI {
             }
         });
 
-        Button goodsCheck = new Button("库存盘点");
+        Button goodsCheck = new Button("库存盘点",new ImageView(new Image("盘点.png")));
+        goodsCheck.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goodsCheck.setOnAction(e -> {
                     try {
                         generatefinalBox(2);

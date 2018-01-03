@@ -480,6 +480,15 @@ public class ReceiveUI {
         vb.getChildren().setAll(hb,hbox);
         vb.setMaxSize(1200,800);
 
+        vb.getStylesheets().clear();
+
+        vb.getStylesheets().add("table.css");
+        accounttable.getStyleClass().add("table-view");
+        consumertable.getStyleClass().add("table-view");
+        draftbilltable.getStyleClass().add("table-view");
+        AlreadyPromotionbilltable.getStyleClass().add("table-view");
+        UnderPromotionbilltable.getStyleClass().add("table-view");
+
         return vb;
 
 //        Group root = (Group)scene.getRoot();

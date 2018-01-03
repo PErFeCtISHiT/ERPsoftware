@@ -242,6 +242,7 @@ public class goodsKindsManageUI {
                 showkinds(treeItem1);
             }
         }
-
     }
+
+
 }

@@ -13,9 +13,15 @@ import client.RMI.link;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.bytedeco.javacpp.presets.opencv_core;
 import server.Po.userPO;
 
 public class fxlogin implements Runnable{
+    String username;
+
+    public fxlogin(String finalname) {
+        username = finalname;
+    }
 
     public static void login(String str) throws Exception {
         userPO thisPO = new userPO();
@@ -51,6 +57,7 @@ public class fxlogin implements Runnable{
         stage.setResizable(true);
         stage.setMaximized(true);
         stage.setScene(scene1);
+        stage.show();
     }
 
     /**
@@ -67,7 +74,7 @@ public class fxlogin implements Runnable{
     @Override
     public void run() {
         try {
-            fxlogin.login("ferry");
+            fxlogin.login(username);
         } catch (Exception e) {
             e.printStackTrace();
         }

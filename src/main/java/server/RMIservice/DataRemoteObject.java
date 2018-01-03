@@ -184,6 +184,16 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
     }
 
     @Override
+    public void FaceService(String username) throws RemoteException {
+
+    }
+
+    @Override
+    public String getNameByFaceTag() throws RemoteException {
+        return user.getNameByFaceTag();
+    }
+
+    @Override
     public List getPastAccount(String year) throws RemoteException {
         return accountInit.getPastAccount(year);
     }

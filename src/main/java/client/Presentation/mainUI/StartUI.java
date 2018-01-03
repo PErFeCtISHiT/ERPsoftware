@@ -67,27 +67,35 @@ public class StartUI extends Application {
 
         Scene scene;
         stage.setTitle("登陆");
-        stage.setWidth(500);
-        stage.setHeight(657);
+        stage.setWidth(600);
+        stage.setHeight(390);
 
 
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(10);
 
         Button btn1 = new Button("登录");
+        btn1.setMinSize(100,40);
+        btn1.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
         Button btn2 = new Button("面部登陆");
-
+        btn2.setMinSize(100,40);
+        btn2.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
  //       ComboBox<String> tfName = new ComboBox<>();
-        TextField tfName=new TextField();
-        tfName.setEditable(true);
-        tfName.setPromptText("用户名");
-        PasswordField pfPwd = new PasswordField();
-        pfPwd.setPromptText("密码");
 
+        TextField tfName=new TextField();
+
+        tfName.setEditable(true);
+
+//        tfName.setPromptText("用户名");
+        PasswordField pfPwd = new PasswordField();
+//        pfPwd.setPromptText("密码");
+
+//        ImageView tf=new ImageView(new Image("用户名.png"));
+//        ImageView pf=new ImageView(new Image("密码.png"));
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
-        tfName.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
-        pfPwd.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
+        pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
         Line line1=new Line(0,100,400,100);
 
@@ -123,6 +131,7 @@ public class StartUI extends Application {
                 if (userPOList.size() == 1) {
                     userPO thisPO = userPOList.get(0);
                     login(thisPO,stage);
+                    pfPwd.clear();
                 } else {
                     pfPwd.clear();
                     Stage failstage = new Stage();
@@ -155,16 +164,20 @@ public class StartUI extends Application {
         hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
-
+//
+//        HBox b1=new HBox();
+//        b1.getChildren().addAll(tf,tfName);
+//        HBox b2=new HBox();
+//        b2.getChildren().addAll(pf,pfPwd);
         vBox.getChildren().addAll(tfName,line1, pfPwd,line2, btn1,btn2);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
 
-        vBox.setSpacing(5);
+        vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.setAlignment(Pos.CENTER);
-        vBox.setStyle("-fx-background-image: url(timg.jpeg)");
+        vBox.setStyle("-fx-background-image: url(ba.png)");
         scene = new Scene(vBox, 400, 500);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -174,25 +187,24 @@ public class StartUI extends Application {
     }
 
     private void login(userPO thisPO, Stage stage) throws Exception {
-        stage.close();
-        Stage workStage=new Stage();
 
-        HBox hBox = null;
+        stage.close();
+
+        Stage showstage=new Stage();
 
         MenuBar topBar=new MenuBar();
-        Menu nameMenu=new Menu(thisPO.getKeyname(),new ImageView(new Image("tou.png")));
+        Menu nameMenu=new Menu(thisPO.getKeyname(),new ImageView(new Image("tou1.png")));
 //        Menu messageMenu=new Menu("消息");
-        Menu helpMenu=new Menu("需要帮助");
+        Menu helpMenu=new Menu("需要帮助?");
         topBar.getMenus().addAll(nameMenu,helpMenu);
 
         MenuItem check=new MenuItem("查看资料");
         MenuItem logcheck=new MenuItem("查看工作情况");
         MenuItem exit=new MenuItem("退出");
-
         nameMenu.getItems().addAll(check,logcheck,new SeparatorMenuItem(),exit);
 
         exit.setOnAction((ActionEvent e)->{
-            workStage.close();
+            showstage.close();
             stage.show();
         });
 
@@ -207,15 +219,17 @@ public class StartUI extends Application {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+            logcheckStage.setWidth(200);
+            logcheckStage.setHeight(400);
             Scene log=new Scene(box);
             logcheckStage.setScene(log);
             logcheckStage.show();
         });
 
-        check.setOnAction((ActionEvent e)->{
 
-        });
-
+        HBox hBox=new HBox();
+        hBox.setMinWidth(1400);
+        hBox.setMinHeight(650);
         switch (thisPO.getKeyjob()) {
             case "stockman":
                 stockmanMainUI stockmanMainUI = new stockmanMainUI();
@@ -240,16 +254,26 @@ public class StartUI extends Application {
                 break;
         }
 
-        assert hBox != null;
+//        hBox.setStyle("-fx-background-image: url(background1final.png)");
 
-        Scene scene1 = new Scene(new VBox());
+//        assert hBox != null;
+        VBox fbox=new VBox();
+        fbox.setMinSize(1400,650);
+        Scene scene1 = new Scene(fbox,1400,650);
         ((VBox)scene1.getRoot()).getChildren().addAll(topBar,hBox);
-
-        workStage.setResizable(true);
-        workStage.setMaximized(true);
-        workStage.setScene(scene1);
-        workStage.show();
+        scene1.getStylesheets().add(StartUI.class.getResource("backgroundStyle.css").toExternalForm());
+        showstage.setResizable(true);
+        showstage.setMaximized(true);
+        showstage.setWidth(1400);
+        showstage.setHeight(650);
+        showstage.setScene(scene1);
+        showstage.show();
     }
+
+
+
+
+
 
     private void Facelogin() throws IOException, InterruptedException {
 
@@ -257,8 +281,6 @@ public class StartUI extends Application {
         grabber.setImageWidth(500);
         grabber.setImageHeight(660);
         grabber.start();
-
-
 
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         opencv_core.IplImage grabbedImage = converter.convertToIplImage(grabber.grab());
@@ -271,8 +293,7 @@ public class StartUI extends Application {
         JButton save_photo = new JButton("登录");
         JButton cancle = new JButton("关闭");
         Camera camera = new Camera();
-
-        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage));
+        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage,frame));
 
         cancle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent arg0) {
@@ -300,7 +321,6 @@ public class StartUI extends Application {
 
         grabber.stop();
         frame.dispose();
-
 
     }
 
