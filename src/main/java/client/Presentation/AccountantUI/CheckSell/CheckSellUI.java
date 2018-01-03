@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -209,6 +210,8 @@ public class CheckSellUI {
         basefield.setMaxSize(100,20);
         gridPane.add(basefield, 5, 1);
         Button search = new Button("搜索");
+        search.setMinSize(50,20);
+        search.setStyle("-fx-fill: white;-fx-background-color: blue;");
         gridPane.add(search, 6, 1);
 
         search.setOnAction((ActionEvent e) -> {
@@ -250,6 +253,8 @@ public class CheckSellUI {
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol,DetailCol);
 
         final Button OutputButton = new Button("导出表格");
+        OutputButton.setMinSize(50,20);
+        OutputButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
         OutputButton.setOnAction((ActionEvent e) -> {
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
@@ -264,6 +269,8 @@ public class CheckSellUI {
         });
 
         final Button RefreshButton = new Button("刷新列表");
+        RefreshButton.setMinSize(50,20);
+        RefreshButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
         RefreshButton.setOnAction((ActionEvent e) -> {
             try {
                 ArrayList<Sale> list =controller.show();
@@ -293,6 +300,9 @@ public class CheckSellUI {
         fvbox.setPadding(new Insets(10,0,0,10));
         fvbox.getChildren().addAll(hbox);
         fvbox.setMaxSize(1200,800);
+
+        fvbox.getStylesheets().add(CheckSellUI.class.getResource("CheckSellCss.css").toExternalForm());
+        table.getStyleClass().add("table-view");
 
         return fvbox;
 //        Group root = (Group) scene.getRoot();

@@ -72,18 +72,22 @@ public class StartUI extends Application {
 
 
         HBox hbButtons = new HBox();
-        hbButtons.setSpacing(10);
+        hbButtons.setSpacing(5);
 
         Button btn1 = new Button("登录");
         Button btn2 = new Button("面部登陆");
 
  //       ComboBox<String> tfName = new ComboBox<>();
+
         TextField tfName=new TextField();
+
         tfName.setEditable(true);
 //        tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
 //        pfPwd.setPromptText("密码");
 
+//        ImageView tf=new ImageView(new Image("用户名.png"));
+//        ImageView pf=new ImageView(new Image("密码.png"));
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
         tfName.setStyle("-fx-prompt-text-fill: honeydew;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
@@ -156,7 +160,11 @@ public class StartUI extends Application {
         hbButtons.getChildren().addAll(btn1);
         hbButtons.setAlignment(Pos.CENTER);
 
-
+//
+//        HBox b1=new HBox();
+//        b1.getChildren().addAll(tf,tfName);
+//        HBox b2=new HBox();
+//        b2.getChildren().addAll(pf,pfPwd);
         vBox.getChildren().addAll(tfName,line1, pfPwd,line2, btn1,btn2);
 
         tfName.setMaxSize(150, 20);

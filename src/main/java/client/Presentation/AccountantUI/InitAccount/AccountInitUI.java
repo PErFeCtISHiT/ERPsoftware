@@ -313,6 +313,10 @@ public class AccountInitUI{
         fvbox.setPadding(new Insets(10,0,0,10));
         fvbox.getChildren().addAll(hb);
         fvbox.setMaxSize(1200,800);
+        fvbox.getStylesheets().add(AccountInitUI.class.getResource("InitCss").toExternalForm());
+        accounttable.getStyleClass().add("table-view");
+        consumertable.getStyleClass().add("table-view");
+        goodstable.getStyleClass().add("table-view");
         return fvbox;
 
 
