@@ -82,6 +82,13 @@ public class StartUI extends Application {
         btn2.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
  //       ComboBox<String> tfName = new ComboBox<>();
 
+        Button exit=new Button("退出");
+        exit.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-text-fill: deepskyblue");
+        exit.setUnderline(true);
+        exit.setOnAction((ActionEvent v1)->{
+            stage.close();
+        });
+
         TextField tfName=new TextField();
 
         tfName.setEditable(true);
@@ -159,7 +166,7 @@ public class StartUI extends Application {
             }
         });
 
-        hbButtons.getChildren().addAll(btn1,btn2);
+        hbButtons.getChildren().addAll(btn1,btn2,exit);
         hbButtons.setAlignment(Pos.CENTER);
 
 //
