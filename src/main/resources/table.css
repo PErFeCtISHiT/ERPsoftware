@@ -6,22 +6,28 @@
     -fx-table-cell-background-color:transparent;
     -fx-table-header-background-color:transparent;
     -fx-background-color: transparent;
+    -fx-table-column-background-color:transparent;
+
 }
 
-.table-view .column-header-background{
+.table-view .column-header{
     -fx-background-color: transparent;
 }
 
 .table-view  .column-header .label{
-    -fx-font-family: sans-serif;
+    -fx-font-family: "Arial Black";
     -fx-font-size: 12pt;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-alignment: center;
-    -fx-opacity: 1;
     -fx-background-color: transparent;
 }
 
+.table-view .table-cell{
+    -fx-fill: black;
+    -fx-alignment: center;
+}
+
 .table-view:focused   .table-row-cell:filled:focused:selected{
-    -fx-background-color: darkgrey;
+    -fx-background-color: ButtonShadow;
     -fx-fill: black;
 }

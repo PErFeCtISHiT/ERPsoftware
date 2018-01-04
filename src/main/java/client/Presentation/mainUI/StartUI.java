@@ -72,15 +72,22 @@ public class StartUI extends Application {
 
 
         HBox hbButtons = new HBox();
-        hbButtons.setSpacing(10);
+        hbButtons.setSpacing(20);
 
         Button btn1 = new Button("登录");
-        btn1.setMinSize(100,40);
-        btn1.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
+        btn1.setMinSize(150,40);
+        btn1.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
         Button btn2 = new Button("面部登陆");
-        btn2.setMinSize(100,40);
-        btn2.setStyle("-fx-background-color: blue;-fx-font: 100;-fx-text-fill: black");
+        btn2.setMinSize(150,40);
+        btn2.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
  //       ComboBox<String> tfName = new ComboBox<>();
+
+        Button exit=new Button("退出");
+        exit.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-text-fill: deepskyblue");
+        exit.setUnderline(true);
+        exit.setOnAction((ActionEvent v1)->{
+            stage.close();
+        });
 
         TextField tfName=new TextField();
 
@@ -118,8 +125,6 @@ public class StartUI extends Application {
 //            pfPwd.setText(password);
 //        });
 
-        btn1.setStyle("-fx-text-fill: #a9a6a5;-fx-font-family:sans-serif;-fx-font: 40;-fx-background-color: #e4e9ee");
-        btn2.setStyle("-fx-text-fill: #a9a6a5;-fx-font-family:sans-serif;-fx-font: 40;-fx-background-color: #e4e9ee");
         btn1.setOnAction((ActionEvent e) -> {
  //           String username = tfName.getValue();
             String username=tfName.getText();
@@ -161,7 +166,7 @@ public class StartUI extends Application {
             }
         });
 
-        hbButtons.getChildren().addAll(btn1);
+        hbButtons.getChildren().addAll(btn1,btn2,exit);
         hbButtons.setAlignment(Pos.CENTER);
 
 //
@@ -169,12 +174,12 @@ public class StartUI extends Application {
 //        b1.getChildren().addAll(tf,tfName);
 //        HBox b2=new HBox();
 //        b2.getChildren().addAll(pf,pfPwd);
-        vBox.getChildren().addAll(tfName,line1, pfPwd,line2, btn1,btn2);
+        vBox.getChildren().addAll(tfName,line1, pfPwd,line2, hbButtons);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
 
-        vBox.setSpacing(10);
+        vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.setAlignment(Pos.CENTER);
         vBox.setStyle("-fx-background-image: url(ba.png)");
@@ -261,7 +266,7 @@ public class StartUI extends Application {
         fbox.setMinSize(1400,650);
         Scene scene1 = new Scene(fbox,1400,650);
         ((VBox)scene1.getRoot()).getChildren().addAll(topBar,hBox);
-        scene1.getStylesheets().add(StartUI.class.getResource("backgroundStyle.css").toExternalForm());
+        scene1.getStylesheets().add("background.css");
         showstage.setResizable(true);
         showstage.setMaximized(true);
         showstage.setWidth(1400);

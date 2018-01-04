@@ -343,8 +343,10 @@ public class CashUI {
         final Accordion accordion = new Accordion();
         for (int i = 0; i < imageNames.length; i++) {
             tps[i] = new TitledPane(imageNames[i], tablelist[i]);
+            tps[i].setStyle("-fx-background-color: transparent;-fx-border-color: transparent");
         }
         accordion.getPanes().addAll(tps);
+        accordion.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;");
 
 
         hb.getChildren().setAll(accordion,gridTitlePane);
