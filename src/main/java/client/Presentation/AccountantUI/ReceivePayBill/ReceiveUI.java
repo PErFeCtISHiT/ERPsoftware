@@ -489,6 +489,7 @@ public class ReceiveUI {
         AlreadyPromotionbilltable.getStyleClass().add("table-view");
         UnderPromotionbilltable.getStyleClass().add("table-view");
 
+
         return vb;
 
 //        Group root = (Group)scene.getRoot();

@@ -26,7 +26,8 @@
     -fx-alignment: center;
 }
 
+
+
 .table-view:focused   .table-row-cell:filled:focused:selected{
-    -fx-background-color: ButtonShadow;
-    -fx-fill: black;
+    -fx-background-color: black;
 }

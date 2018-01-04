@@ -30,6 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -97,6 +98,7 @@ public class AccountManagementUI {
         IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
+        IDCol.setCellFactory(cellFactory);
 
 /////////////////////////////////////////////////////////////////////////////////修改传递
         NameCol.setMinWidth(200);
@@ -278,8 +280,8 @@ public class AccountManagementUI {
         addButton.setStyle("-fx-background-color: transparent");
         addButton.setOnAction((ActionEvent e) -> {
             Stage stage1=new Stage();
-            stage1.setWidth(400);
-            stage1.setHeight(400);
+            stage1.setWidth(350);
+            stage1.setHeight(300);
             stage1.setX(230);
             stage1.setY(260);
             stage1.initStyle(StageStyle.UNDECORATED);
@@ -298,14 +300,14 @@ public class AccountManagementUI {
             HBox box2=new HBox();
             box2.setSpacing(1);
             Label money=new Label("账户金额:");
-            money.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;-fx-alignment: center;-fx-font-size: 20");
+            money.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;-fx-alignment: center;-fx-font-size:20");
             TextField addMoney = new TextField();
             addMoney.setMinWidth(90);
             addMoney.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
             box2.getChildren().addAll(money,addMoney);
 
-            Line line1=new Line(130,100,400,100);
-            Line line2=new Line(130,200,400,200);
+            Line line1=new Line(0,100,400,100);
+            Line line2=new Line(0,200,400,200);
 
             Button addb=new Button("增加账户");
             addb.setMinSize(150,30);
@@ -316,7 +318,7 @@ public class AccountManagementUI {
             vb.getChildren().addAll(box1,line1,box2,line2,addb,cancelb);
             vb.setSpacing(10);
             vb.setAlignment(Pos.CENTER);
-            //vb.setPadding(new Insets(10,10,10,10));
+            vb.setPadding(new Insets(10,10,10,10));
             Scene s=new Scene(vb,500,500);
             s.getStylesheets().add("background.css");
 
@@ -435,6 +437,7 @@ public class AccountManagementUI {
 
         @Override
         public void updateItem(String item, boolean empty) {
+            this.setTextFill(Color.BLACK);
             super.updateItem(item, empty);
 
             if (empty) {
