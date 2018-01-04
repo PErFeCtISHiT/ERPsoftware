@@ -77,7 +77,7 @@ public class StartUI extends Application {
         Button btn1 = new Button("登录");
         btn1.setMinSize(150,40);
         btn1.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
-        Button btn2 = new Button("面部登陆");
+        Button btn2 = new Button("刷脸登陆");
         btn2.setMinSize(150,40);
         btn2.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
  //       ComboBox<String> tfName = new ComboBox<>();

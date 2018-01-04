@@ -1,3 +1,19 @@
 .tree-view{
-
+    -fx-control-inner-background:transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-table-cell-background-color:transparent;
+    -fx-table-header-background-color:transparent;
+    -fx-background-color: transparent;
+    -fx-table-column-background-color:transparent;
 }
+
+.tree-view .table-view{
+    -fx-background-color: transparent;
+}
+
+.tree-view .tree-cell{
+    -fx-background-color: transparent;
+}
+
+

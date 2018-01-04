@@ -1,5 +1,4 @@
 .table-view{
-    -fx-base:transparent;
     -fx-control-inner-background:transparent;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
