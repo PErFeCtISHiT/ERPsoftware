@@ -21,7 +21,7 @@ public class GuideUI {
         setB.setGraphic(new ImageView(new Image("set.png")));
         setB.setStyle("-fx-font-family: sans-serif;-fx-font: 100;-fx-border-color: transparent;-fx-background-color: transparent");
         setB.setMinSize(100,100);
-        Text set=new Text("          公司设置帮助");
+        Text set=new Text("       公司设置帮助");
 
         setB.setOnAction((ActionEvent e)->{
 

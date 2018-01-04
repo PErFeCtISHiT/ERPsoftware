@@ -6,6 +6,8 @@ import client.RMI.link;
 import client.Vo.logVO;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import server.Po.goodskindsPO;
@@ -117,9 +119,23 @@ public class goodsKindsManageUI {
             }
         });
 
+        vbox.getStylesheets().add("treeview.css");
+        goodsTreeView.getStyleClass().add("tree-view");
+
         return vbox;
 
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -223,6 +239,7 @@ public class goodsKindsManageUI {
             t = goodskindsVO;
             if (t.getFather() == null) {
                 TreeItem<String> treeItem = new TreeItem<>(t.getKeyname());
+                treeItem.setGraphic(new ImageView(new Image("文件.png")));
                 root.getChildren().add(treeItem);
                 treeItem.setExpanded(true);
                 showkinds(treeItem);
@@ -237,6 +254,7 @@ public class goodsKindsManageUI {
             temp = t.getSon().split(",");
             for (String aTemp : temp) {
                 TreeItem<String> treeItem1 = new TreeItem<>(aTemp);
+                treeItem1.setGraphic(new ImageView(new Image("文件.png")));
                 treeItem1.setExpanded(true);
                 treeItem.getChildren().add(treeItem1);
                 showkinds(treeItem1);
