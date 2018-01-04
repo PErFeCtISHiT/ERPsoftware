@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class goodsKindsManageUI {
 
-    String staff = "core";
+    String staff;
 
 
     private GoodsKindsController goodsKindsController = new GoodsKindsController();

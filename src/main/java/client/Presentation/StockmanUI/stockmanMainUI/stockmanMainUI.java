@@ -35,10 +35,10 @@ public class stockmanMainUI {
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
 
-        Label work = new Label("工作目录",new ImageView(new Image("menu.png")));
+        Label work = new Label("工作目录", new ImageView(new Image("menu.png")));
         work.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-font-family: serif;-fx-font-family: sans-serif;-fx-font-size:20");
 
-        Button goods = new Button("商品管理",new ImageView(new Image("商品.png")));
+        Button goods = new Button("商品管理", new ImageView(new Image("商品.png")));
         goods.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goods.setOnAction(e -> {
             try {
@@ -48,7 +48,7 @@ public class stockmanMainUI {
             }
         });
 
-        Button goodsGlance = new Button("库存查看",new ImageView(new Image("库存.png")));
+        Button goodsGlance = new Button("库存查看", new ImageView(new Image("库存.png")));
         goodsGlance.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goodsGlance.setOnAction(e -> {
             try {
@@ -58,7 +58,7 @@ public class stockmanMainUI {
             }
         });
 
-        Button goodsCheck = new Button("库存盘点",new ImageView(new Image("盘点.png")));
+        Button goodsCheck = new Button("库存盘点", new ImageView(new Image("盘点.png")));
         goodsCheck.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goodsCheck.setOnAction(e -> {
                     try {
