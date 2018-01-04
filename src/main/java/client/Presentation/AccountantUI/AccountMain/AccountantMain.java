@@ -43,7 +43,7 @@ public class AccountantMain {
         LogCheckUI logcheckUI = new LogCheckUI();
 
         Label work = new Label("工作目录",new ImageView(new Image("menu.png")));
-        work.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-font-family: serif;-fx-font-family: sans-serif;-fx-font-size:20");
+        work.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-font-family:serif;-fx-font-size:20");
 
         GuideUI guideUI=new GuideUI();
         VBox r=new VBox();

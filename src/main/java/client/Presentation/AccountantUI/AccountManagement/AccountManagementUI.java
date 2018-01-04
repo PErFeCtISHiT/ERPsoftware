@@ -11,7 +11,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,10 +24,16 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.beans.IntrospectionException;
@@ -59,11 +67,11 @@ public class AccountManagementUI {
 
     public VBox start(String staff) throws Exception {
         TableView<Account> table = new TableView<>();
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-        stage.setTitle("账户管理");
-        stage.setWidth(750);
-        stage.setHeight(550);
+//        Stage stage = new Stage();
+//        Scene scene = new Scene(new Group());
+//        stage.setTitle("账户管理");
+//        stage.setWidth(750);
+//        stage.setHeight(550);
 //        Label work = new Label("工作目录");
 
         final Label label = new Label("账户列表");
@@ -154,9 +162,11 @@ public class AccountManagementUI {
                     this.setGraphic(null);
 
                     if (!empty) {
-                        Button delBtn = new Button("删除");
+                        Button delBtn = new Button();
+                        delBtn.setText("删除");
                         this.setGraphic(delBtn);
-                        delBtn.setStyle("-fx-background-color: transparent;-fx-fill: black");
+                        delBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: red");
+                        delBtn.setUnderline(true);
                         delBtn.setOnMouseClicked((me) -> {
                             coVO co = new coVO();
                             co.setKeyname("");
@@ -213,81 +223,160 @@ public class AccountManagementUI {
 //        addID.setPromptText("编号自动生成");
 //        addID.setMaxWidth(IDCol.getPrefWidth());
 //        final Label addID = new Label("编号自动生成");
-        TextField addName = new TextField();
-        addName.setMaxWidth(NameCol.getPrefWidth());
-        addName.setPromptText("账户名称");
-        TextField addMoney = new TextField();
-        addMoney.setMaxWidth(MoneyCol.getPrefWidth());
-        addMoney.setPromptText("账户余额");
 
+        Label space=new Label("                                                                                                           ");
+        space.setStyle("-fx-background-color: transparent;-fx-border-color: transparent");
 
         TextField search = new TextField();
-        search.setMaxWidth(NameCol.getPrefWidth());
-        search.setPromptText("搜索关键词");
-        Button searchButton = new Button("搜索账户");
-        searchButton.setOnAction((ActionEvent e) -> {
-            String accountInfor = search.getText();
-            ArrayList<Account> list = null;
-            try {
-                list = controller.findAccount(accountInfor);
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
+        search.setMinWidth(90);
+        search.setStyle("-fx-border-radius: 40;-fx-background-color: transparent;-fx-border-color: black");
+        search.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent event) {
+                if(event.getCode()== KeyCode.ENTER){
+                    String accountInfor = search.getText();
+                    ArrayList<Account> list = null;
+                    try {
+                        list = controller.findAccount(accountInfor);
+                    } catch (RemoteException e1) {
+                        e1.printStackTrace();
+                    }
+                    data.clear();
+                    data.addAll(list);
+                }
             }
-            data.clear();
-            data.addAll(list);
         });
+
+//        Button searchButton = new Button("搜索账户");
+//
+//        searchButton.setOnAction((ActionEvent e) -> {
+//            String accountInfor = search.getText();
+//            ArrayList<Account> list = null;
+//            try {
+//                list = controller.findAccount(accountInfor);
+//            } catch (RemoteException e1) {
+//                e1.printStackTrace();
+//            }
+//            data.clear();
+//            data.addAll(list);
+//        });
 
         HBox newhb = new HBox();
         newhb.setSpacing(5);
         newhb.setPadding(new Insets(10, 0, 0, 10));
-        newhb.getChildren().addAll(label, search, searchButton);
+        newhb.getChildren().addAll(label, space, search);
 
 
-        final Button addButton = new Button("添加账户");
+//        TextField addName = new TextField();
+//        addName.setMaxWidth(NameCol.getPrefWidth());
+//        addName.setPromptText("账户名称");
+//        TextField addMoney = new TextField();
+//        addMoney.setMaxWidth(MoneyCol.getPrefWidth());
+//        addMoney.setPromptText("账户余额");
+
+        final Button addButton = new Button();
+        addButton.setGraphic(new ImageView(new Image("添加.png")));
+        addButton.setStyle("-fx-background-color: transparent");
         addButton.setOnAction((ActionEvent e) -> {
-            try {
-                String ID = "YHZH-"+nogenerator.generate(10);
-                Account newaccount = new Account(
-                        ID,
-                        addName.getText(),
-                        addMoney.getText());
-                data.add(newaccount);
-                coVO co = new coVO();
-                co.setKeyno(newaccount.getaccountID());
-                co.setKeyname(newaccount.getaccountName());
-                co.setSumall(praseDouble.prase(newaccount.getmoney()));
-                controller.addAccount(co);
+            Stage stage1=new Stage();
+            stage1.setWidth(400);
+            stage1.setHeight(400);
+            stage1.setX(230);
+            stage1.setY(260);
+            stage1.initStyle(StageStyle.UNDECORATED);
 
-                logVO log = new logVO();
-                log.setOperatorno(staff);
-                log.setOpno("增加账户");
-                link.getRemoteHelper().getLog().addObject(log,13);
+            VBox vb=new VBox();
+
+            HBox box1=new HBox();
+            box1.setSpacing(1);
+            Label add=new Label("账户名称:");
+            add.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;-fx-alignment: center;-fx-font-size: 20");
+            TextField addName = new TextField();
+            addName.setMinWidth(90);
+            addName.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
+            box1.getChildren().addAll(add,addName);
+
+            HBox box2=new HBox();
+            box2.setSpacing(1);
+            Label money=new Label("账户金额:");
+            money.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;-fx-alignment: center;-fx-font-size: 20");
+            TextField addMoney = new TextField();
+            addMoney.setMinWidth(90);
+            addMoney.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
+            box2.getChildren().addAll(money,addMoney);
+
+            Line line1=new Line(130,100,400,100);
+            Line line2=new Line(130,200,400,200);
+
+            Button addb=new Button("增加账户");
+            addb.setMinSize(150,30);
+            addb.setStyle("-fx-text-fill: black;-fx-background-color: darkgray;-fx-border-color:transparent;-fx-alignment: center");
+            Button cancelb=new Button("取消");
+            cancelb.setMinSize(150,30);
+            cancelb.setStyle("-fx-text-fill: black;-fx-background-color: darkgray;-fx-border-color: transparent;-fx-alignment: center");
+            vb.getChildren().addAll(box1,line1,box2,line2,addb,cancelb);
+            vb.setSpacing(10);
+            vb.setAlignment(Pos.CENTER);
+            //vb.setPadding(new Insets(10,10,10,10));
+            Scene s=new Scene(vb,500,500);
+            s.getStylesheets().add("background.css");
+
+            stage1.setScene(s);
+            stage1.show();
+
+            addb.setOnAction((ActionEvent b1)->{
+                try {
+                    String ID = "YHZH-"+nogenerator.generate(10);
+                    Account newaccount = new Account(
+                            ID,
+                            addName.getText(),
+                            addMoney.getText());
+                    data.add(newaccount);
+                    coVO co = new coVO();
+                    co.setKeyno(newaccount.getaccountID());
+                    co.setKeyname(newaccount.getaccountName());
+                    co.setSumall(praseDouble.prase(newaccount.getmoney()));
+                    controller.addAccount(co);
+
+                    logVO log = new logVO();
+                    log.setOperatorno(staff);
+                    log.setOpno("增加账户");
+                    link.getRemoteHelper().getLog().addObject(log,13);
 
 
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            } catch (IntrospectionException e1) {
-                e1.printStackTrace();
-            } catch (InvocationTargetException e1) {
-                e1.printStackTrace();
-            } catch (IllegalAccessException e1) {
-                e1.printStackTrace();
-            }
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                } catch (IntrospectionException e1) {
+                    e1.printStackTrace();
+                } catch (InvocationTargetException e1) {
+                    e1.printStackTrace();
+                } catch (IllegalAccessException e1) {
+                    e1.printStackTrace();
+                }
 //            addID.clear();
-            addName.clear();
-            addMoney.clear();
+                addName.clear();
+                addMoney.clear();
+                stage1.close();
+            });
+
+            cancelb.setOnAction((ActionEvent b2)->{
+                stage1.close();
+            });
         });
 
-        Button refresh = new Button("刷新列表");
+
+
+        Button refresh = new Button();
+        refresh.setGraphic(new ImageView(new Image("大刷新.png")));
+        refresh.setStyle("-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             refresh();
         });
 
-        hb.getChildren().addAll(addName, addMoney, addButton,refresh);//addID,
+        hb.getChildren().addAll(addButton,refresh);//addID,
         hb.setSpacing(3);
 
         VBox vbox = new VBox();
-        vbox.setSpacing(5);
+        vbox.setSpacing(3);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(newhb, table, hb);
         vbox.setMaxSize(1000,800);
