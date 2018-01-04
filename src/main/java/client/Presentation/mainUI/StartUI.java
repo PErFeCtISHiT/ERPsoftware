@@ -224,7 +224,7 @@ public class StartUI extends Application {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            logcheckStage.setWidth(200);
+            logcheckStage.setWidth(630);
             logcheckStage.setHeight(400);
             Scene log=new Scene(box);
             logcheckStage.setScene(log);
