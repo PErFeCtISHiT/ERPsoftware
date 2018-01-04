@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import server.Po.userPO;
@@ -2178,6 +2179,7 @@ public class newBillUI {
 
 
         public void updateItem(String item, boolean empty) {
+            this.setTextFill(Color.BLACK);
             super.updateItem(item, empty);
 
             if (empty) {

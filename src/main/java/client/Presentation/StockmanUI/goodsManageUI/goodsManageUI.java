@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -579,6 +580,7 @@ public class goodsManageUI {
 
         @Override
         public void updateItem(String item, boolean empty) {
+            this.setTextFill(Color.BLACK);
             super.updateItem(item, empty);
 
             if (empty) {
