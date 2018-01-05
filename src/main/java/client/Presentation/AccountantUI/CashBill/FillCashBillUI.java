@@ -4,9 +4,7 @@ package client.Presentation.AccountantUI.CashBill;
 import client.BL.Accountant.FinancialCashbl.FinancialCash;
 import client.BL.Accountant.FinancialCashbl.FinancialCashController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
-import client.Presentation.NOgenerator.NOgenerator;
-import client.RMI.link;
-import javafx.application.Application;
+import client.Presentation.tools.NOgenerator;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +16,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import shared.ResultMessage;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -319,6 +316,7 @@ public class FillCashBillUI {
 
         @Override
         public void updateItem(String item, boolean empty) {
+            this.setTextFill(Color.BLACK);
             super.updateItem(item, empty);
 
             if (empty) {

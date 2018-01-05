@@ -2,7 +2,7 @@ package client.Presentation.StockmanUI.goodsExceptionUI;
 
 
 import client.BL.Stockman.StockmanExceptionbl.stockExceptionController;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.Vo.goodsVO;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;

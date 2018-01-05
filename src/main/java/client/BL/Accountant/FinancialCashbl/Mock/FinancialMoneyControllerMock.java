@@ -1,6 +1,7 @@
 package client.BL.Accountant.FinancialCashbl.Mock;
 
 import client.BL.Accountant.FinancialCashbl.FinancialCashController;
+import client.Vo.moneyListVO;
 import client.Vo.moneyVO;
 import shared.ResultMessage;
 
@@ -10,7 +11,7 @@ public class FinancialMoneyControllerMock extends FinancialCashController {
         return null;
     }
 
-    public moneyVO find(String iD){
+    public moneyListVO find(String iD){
         return null;
     }
 
@@ -18,7 +19,7 @@ public class FinancialMoneyControllerMock extends FinancialCashController {
         return null;
     }
 
-    public moneyVO summit(){
+    public moneyListVO summit(){
         return null;
     }
 

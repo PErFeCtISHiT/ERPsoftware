@@ -2,7 +2,7 @@ package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
 import client.RMI.link;
@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -413,7 +414,7 @@ public class goodsManageUI {
             }
             String type = "SP";
             no = type + "-" + no;
-            String dat ;
+            String dat;
             if (makeDate.getValue() != null)
                 dat = makeDate.getValue().toString();
             else
@@ -579,6 +580,7 @@ public class goodsManageUI {
 
         @Override
         public void updateItem(String item, boolean empty) {
+            this.setTextFill(Color.BLACK);
             super.updateItem(item, empty);
 
             if (empty) {

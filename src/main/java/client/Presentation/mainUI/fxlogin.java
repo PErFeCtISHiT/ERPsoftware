@@ -17,47 +17,20 @@ import org.bytedeco.javacpp.presets.opencv_core;
 import server.Po.userPO;
 
 public class fxlogin implements Runnable{
-    String username;
+    private String username;
+    private Stage stage;
 
-    public fxlogin(String finalname) {
-        username = finalname;
+    fxlogin(String finalname, Stage stage) {
+        this.username = finalname;
+        this.stage = stage;
     }
 
-    public static void login(String str) throws Exception {
-        userPO thisPO = new userPO();
-        Stage stage = new Stage();
+    private static void login(String str, Stage stage) throws Exception {
+        userPO thisPO ;
         String password = link.getRemoteHelper().getUser().getpasswordByName(str);
         thisPO = (server.Po.userPO) link.getRemoteHelper().getUser().login(str, password).get(0);
-        HBox hBox = null;
-        switch (thisPO.getKeyjob()) {
-            case "stockman":
-                stockmanMainUI stockmanMainUI = new stockmanMainUI();
-                hBox = stockmanMainUI.start(thisPO);
-                break;
-            case "accountant":
-                AccountantMain accountantMain = new AccountantMain();
-                hBox = accountantMain.start(thisPO);
-                break;
-            case "saleman":
-                newBillUI newBillUI = new newBillUI();
-                hBox = newBillUI.start(thisPO);
-                break;
-            case "manager":
-                MainManageUI mainManageUI = new MainManageUI();
-                hBox = mainManageUI.start(thisPO);
-                break;
-            case "admin":
-                SetUI setUI = new SetUI();
-                hBox = setUI.start(thisPO);
-                break;
-        }
-
-        assert hBox != null;
-        Scene scene1 = new Scene(hBox);
-        stage.setResizable(true);
-        stage.setMaximized(true);
-        stage.setScene(scene1);
-        stage.show();
+        StartUI startUI = new StartUI();
+        startUI.login(thisPO,stage);
     }
 
     /**
@@ -74,7 +47,7 @@ public class fxlogin implements Runnable{
     @Override
     public void run() {
         try {
-            fxlogin.login(username);
+            fxlogin.login(username,stage);
         } catch (Exception e) {
             e.printStackTrace();
         }

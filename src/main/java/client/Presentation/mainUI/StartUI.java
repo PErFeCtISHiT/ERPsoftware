@@ -14,20 +14,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bytedeco.javacpp.opencv_core;
@@ -35,6 +34,7 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import server.Po.userPO;
+import shared.Camera;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,9 +59,7 @@ public class StartUI extends Application {
 
     public void start(Stage stage) throws RemoteException {
 
-//        Text title=new Text();
-//        title.setText("进销存管理系统");
-//        title.setStyle("-fx-text-fill: honeydew;-fx-font-family: sans-serif");
+
 
         VBox vBox = new VBox();
 
@@ -75,59 +73,41 @@ public class StartUI extends Application {
         hbButtons.setSpacing(20);
 
         Button btn1 = new Button("登录");
-        btn1.setMinSize(150,40);
+        btn1.setMinSize(150, 40);
         btn1.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
-        Button btn2 = new Button("面部登陆");
-        btn2.setMinSize(150,40);
+        Button btn2 = new Button("刷脸登陆");
+        btn2.setMinSize(150, 40);
         btn2.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
- //       ComboBox<String> tfName = new ComboBox<>();
+        //       ComboBox<String> tfName = new ComboBox<>();
 
-        Button exit=new Button("退出");
+        Button exit = new Button("退出");
         exit.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-text-fill: deepskyblue");
         exit.setUnderline(true);
-        exit.setOnAction((ActionEvent v1)->{
+        exit.setOnAction((ActionEvent v1) -> {
             stage.close();
         });
 
-        TextField tfName=new TextField();
+        TextField tfName = new TextField();
 
         tfName.setEditable(true);
 
-//        tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
-//        pfPwd.setPromptText("密码");
 
-//        ImageView tf=new ImageView(new Image("用户名.png"));
-//        ImageView pf=new ImageView(new Image("密码.png"));
+
+
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
         tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
         pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
-        Line line1=new Line(0,100,400,100);
+        Line line1 = new Line(0, 100, 400, 100);
 
-        Line line2=new Line(0,100,400,100);
+        Line line2 = new Line(0, 100, 400, 100);
 
 
-//        List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
-//        for (userPO userPO : userPOS) {
-//            String id = userPO.getKeyname();
-//            tfName.getItems().add(id);
-//        }
-//
-//        tfName.setOnAction(e -> {
-//            String password = null;
-//            try {
-//                password = link.getRemoteHelper().getUser().getpasswordByName(tfName.getValue());
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            }
-//            pfPwd.setText(password);
-//        });
 
         btn1.setOnAction((ActionEvent e) -> {
- //           String username = tfName.getValue();
-            String username=tfName.getText();
+            String username = tfName.getText();
             String password = pfPwd.getText();
             try {
                 List<userPO> userPOList;
@@ -135,7 +115,7 @@ public class StartUI extends Application {
 
                 if (userPOList.size() == 1) {
                     userPO thisPO = userPOList.get(0);
-                    login(thisPO,stage);
+                    login(thisPO, stage);
                     pfPwd.clear();
                 } else {
                     pfPwd.clear();
@@ -159,22 +139,18 @@ public class StartUI extends Application {
         btn2.setOnAction(e -> {
             stage.setIconified(true);
             try {
-                Facelogin();
+                Facelogin(stage);
                 stage.close();
             } catch (InterruptedException | IOException e1) {
                 e1.printStackTrace();
             }
         });
 
-        hbButtons.getChildren().addAll(btn1,btn2,exit);
+        hbButtons.getChildren().addAll(btn1, btn2, exit);
         hbButtons.setAlignment(Pos.CENTER);
 
-//
-//        HBox b1=new HBox();
-//        b1.getChildren().addAll(tf,tfName);
-//        HBox b2=new HBox();
-//        b2.getChildren().addAll(pf,pfPwd);
-        vBox.getChildren().addAll(tfName,line1, pfPwd,line2, hbButtons);
+
+        vBox.getChildren().addAll(tfName, line1, pfPwd, line2, hbButtons);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
@@ -188,51 +164,53 @@ public class StartUI extends Application {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        
+
     }
 
-    private void login(userPO thisPO, Stage stage) throws Exception {
+    public void login(userPO thisPO, Stage stage) throws Exception {
 
-        stage.close();
+        if (stage != null)
+            stage.close();
 
-        Stage showstage=new Stage();
+        Stage showstage = new Stage();
 
-        MenuBar topBar=new MenuBar();
-        Menu nameMenu=new Menu(thisPO.getKeyname(),new ImageView(new Image("tou1.png")));
-//        Menu messageMenu=new Menu("消息");
-        Menu helpMenu=new Menu("需要帮助?");
-        topBar.getMenus().addAll(nameMenu,helpMenu);
+        MenuBar topBar = new MenuBar();
+        Menu nameMenu = new Menu(thisPO.getKeyname(), new ImageView(new Image("tou1.png")));
 
-        MenuItem check=new MenuItem("查看资料");
-        MenuItem logcheck=new MenuItem("查看工作情况");
-        MenuItem exit=new MenuItem("退出");
-        nameMenu.getItems().addAll(check,logcheck,new SeparatorMenuItem(),exit);
+        Menu helpMenu = new Menu("需要帮助?");
+        topBar.getMenus().addAll(nameMenu, helpMenu);
 
-        exit.setOnAction((ActionEvent e)->{
+        MenuItem check = new MenuItem("查看资料");
+        MenuItem logcheck = new MenuItem("查看工作情况");
+        MenuItem exit = new MenuItem("退出");
+        nameMenu.getItems().addAll(check, logcheck, new SeparatorMenuItem(), exit);
+
+        exit.setOnAction((ActionEvent e) -> {
             showstage.close();
+            assert stage != null;
             stage.show();
         });
 
-        logcheck.setOnAction((ActionEvent e)->{
+        logcheck.setOnAction((ActionEvent e) -> {
 
-            Stage logcheckStage=new Stage();
+            Stage logcheckStage = new Stage();
 
-            LogCheckUI logCheckUI=new LogCheckUI();
-            VBox box=new VBox();
+            LogCheckUI logCheckUI = new LogCheckUI();
+            VBox box = new VBox();
             try {
-                box=logCheckUI.start();
+                box = logCheckUI.start();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-            logcheckStage.setWidth(200);
+            logcheckStage.setWidth(630);
             logcheckStage.setHeight(400);
-            Scene log=new Scene(box);
+            Scene log = new Scene(box);
             logcheckStage.setScene(log);
             logcheckStage.show();
         });
 
 
-        HBox hBox=new HBox();
+        HBox hBox = new HBox();
         hBox.setMinWidth(1400);
         hBox.setMinHeight(650);
         switch (thisPO.getKeyjob()) {
@@ -259,13 +237,11 @@ public class StartUI extends Application {
                 break;
         }
 
-//        hBox.setStyle("-fx-background-image: url(background1final.png)");
 
-//        assert hBox != null;
-        VBox fbox=new VBox();
-        fbox.setMinSize(1400,650);
-        Scene scene1 = new Scene(fbox,1400,650);
-        ((VBox)scene1.getRoot()).getChildren().addAll(topBar,hBox);
+        VBox fbox = new VBox();
+        fbox.setMinSize(1400, 650);
+        Scene scene1 = new Scene(fbox, 1400, 650);
+        ((VBox) scene1.getRoot()).getChildren().addAll(topBar, hBox);
         scene1.getStylesheets().add("background.css");
         showstage.setResizable(true);
         showstage.setMaximized(true);
@@ -276,13 +252,9 @@ public class StartUI extends Application {
     }
 
 
+    private void Facelogin(Stage stage) throws IOException, InterruptedException {
 
-
-
-
-    private void Facelogin() throws IOException, InterruptedException {
-
-        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
+        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(1);
         grabber.setImageWidth(500);
         grabber.setImageHeight(660);
         grabber.start();
@@ -298,7 +270,7 @@ public class StartUI extends Application {
         JButton save_photo = new JButton("登录");
         JButton cancle = new JButton("关闭");
         Camera camera = new Camera();
-        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage,frame));
+        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage, frame,stage));
 
         cancle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent arg0) {

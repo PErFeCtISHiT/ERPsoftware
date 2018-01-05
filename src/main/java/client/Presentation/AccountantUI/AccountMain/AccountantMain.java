@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import server.Po.userPO;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 
@@ -29,7 +31,7 @@ public class AccountantMain {
     private VBox right;
     HBox finalBox = new HBox();
 
-    public HBox start(userPO userPO) {
+    public HBox start(userPO userPO) throws Exception {
         staff = userPO.getKeyname();
         VBox vBox = new VBox();
         vBox.setSpacing(10);
@@ -52,92 +54,29 @@ public class AccountantMain {
 
         Button accountManageBT = new Button("账户管理",new ImageView(new Image("manage.png")));
         accountManageBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        accountManageBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = accountManageUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(accountManageBT, accountManageUI.start(staff), receiveUI);
 
         Button checkSellBT = new Button("查看销售明细表",new ImageView(new Image("checksell.png")));
         checkSellBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        checkSellBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = checkSellUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(checkSellBT, checkSellUI.start(staff), receiveUI);
 
         Button initAccountBT = new Button("期初建账",new ImageView(new Image("build.png")));
         initAccountBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        initAccountBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = accountInitUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(initAccountBT, accountInitUI.start(staff), receiveUI);
 
 
         Button receiveBT = new Button("制定收款单",new ImageView(new Image("realreceive.png")));
         receiveBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        receiveBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = receiveUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(receiveBT, receiveUI.start(staff), receiveUI);
 
         Button payBT = new Button("制定付款单",new ImageView(new Image("pay.png")));
         payBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        payBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = payUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(payBT, payUI.start(staff), receiveUI);
 
         Button cashBT = new Button("制定现金费用单",new ImageView(new Image("money.png")));
         cashBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
-        cashBT.setOnAction(e -> {
-            try {
-                finalBox.getChildren().remove(right);
-                right = cashUI.start(staff);
-                finalBox.getChildren().add(right);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        Boxset(cashBT, cashUI.start(staff), receiveUI);
 
-
-//        Button checkLog = new Button("查看日志");
-//        checkLog.setOnAction(e -> {
-//            try {
-//                finalBox.getChildren().remove(right);
-//                right = logcheckUI.start();
-//                finalBox.getChildren().add(right);
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            } catch (ParseException e1) {
-//                e1.printStackTrace();
-//            } catch (Exception e1) {
-//                e1.printStackTrace();
-//            }
-//        });
 
         Line line1=new Line(0,100,100,100);
 
@@ -150,5 +89,17 @@ public class AccountantMain {
         finalBox.getChildren().addAll(vBox,slipLine, right);
 
         return finalBox;
+    }
+
+    private void Boxset(Button receiveBT, VBox start, ReceiveUI receiveUI) {
+        receiveBT.setOnAction(e -> {
+            try {
+                finalBox.getChildren().remove(right);
+                right = start;
+                finalBox.getChildren().add(right);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 }

@@ -2,10 +2,9 @@ package client.Presentation.AccountantUI.ReceivePayBill;
 
 import client.BL.Accountant.FinancialAccountbl.Account;
 import client.BL.Accountant.FinancialReceivebl.*;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.RMI.link;
 import client.Vo.logVO;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -488,6 +487,7 @@ public class ReceiveUI {
         draftbilltable.getStyleClass().add("table-view");
         AlreadyPromotionbilltable.getStyleClass().add("table-view");
         UnderPromotionbilltable.getStyleClass().add("table-view");
+
 
         return vb;
 

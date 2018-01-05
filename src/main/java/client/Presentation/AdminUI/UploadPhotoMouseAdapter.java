@@ -1,6 +1,6 @@
 package client.Presentation.AdminUI;
 
-import client.Presentation.mainUI.FaceAdd;
+import shared.FaceAdd;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;

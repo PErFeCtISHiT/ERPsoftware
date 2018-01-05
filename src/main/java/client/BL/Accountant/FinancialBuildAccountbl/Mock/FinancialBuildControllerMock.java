@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class FinancialBuildControllerMock extends FinancialBuildController {
 
     public ResultMessage accountbuild(ArrayList<goodsVO> goods,
-                                      ArrayList<consumerVO>consumer,
-                                      ArrayList<coVO> Account){
+                                      ArrayList<consumerVO> consumer,
+                                      ArrayList<coVO> Account) {
         return null;
     }
 
     public ResultMessage getPast(ArrayList<goodsVO> goods,
-                                  ArrayList<consumerVO>consumer,
-                                  ArrayList<coVO> Account){
+                                 ArrayList<consumerVO> consumer,
+                                 ArrayList<coVO> Account) {
         return null;
     }
 }

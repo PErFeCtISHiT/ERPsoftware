@@ -10,8 +10,8 @@ public class FinancialAccountList {
     /**
      * Add account
      *
-     * @param： po
      * @return result
+     * @param： po
      */
 
     public ResultMessage addAccount(coVO po) {
@@ -21,8 +21,8 @@ public class FinancialAccountList {
     /**
      * Delete account
      *
-     * @param： po
      * @return result
+     * @param： po
      */
 
     public boolean deleteAccount(coVO po) {
@@ -33,8 +33,8 @@ public class FinancialAccountList {
     /**
      * Modify account
      *
-     * @param： po
      * @return result
+     * @param： po
      */
 
     public coVO modifyAccount(coVO po) {
@@ -44,8 +44,8 @@ public class FinancialAccountList {
     /**
      * Find accounts
      *
-     * @param： key
      * @return result
+     * @param： key
      */
 
     public ArrayList<coVO> findAccount(String key) {
