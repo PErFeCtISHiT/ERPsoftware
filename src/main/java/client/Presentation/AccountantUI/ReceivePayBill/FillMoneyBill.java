@@ -5,9 +5,7 @@ import client.BL.Accountant.FinancialPaybl.FinancialPayController;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.FinancialReceiveController;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
-import client.Presentation.NOgenerator.NOgenerator;
-import client.RMI.link;
-import javafx.application.Application;
+import client.Presentation.tools.NOgenerator;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,8 +22,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import shared.ResultMessage;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 

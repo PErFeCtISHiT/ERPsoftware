@@ -25,8 +25,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * Add account
      *
-     * @param： vo
      * @return result
+     * @param： vo
      */
     @Override
     public ResultMessage addAccount(coVO vo) throws RemoteException {
@@ -37,8 +37,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * Delete account
      *
-     * @param： vo
      * @return result
+     * @param： vo
      */
     @Override
     public ResultMessage deleteAccount(coVO vo) throws RemoteException {
@@ -52,8 +52,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * Modify account
      *
-     * @param： vo
      * @return result
+     * @param： vo
      */
     @Override
     public ResultMessage modifyAccount(coVO vo) throws RemoteException {
@@ -64,8 +64,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * Find accounts
      *
-     * @param： key
      * @return result
+     * @param： key
      */
     @Override
     public ArrayList<Account> findAccount(String key) throws RemoteException {
@@ -93,8 +93,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * transform VO to Account
      *
-     * @param： co
      * @return Account
+     * @param： co
      */
 
     @Override
@@ -109,8 +109,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * transform Account to VO
      *
-     * @param： account
      * @return coVO
+     * @param： account
      */
 
     @Override
@@ -129,8 +129,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * transform PO to VO
      *
-     * @param： po
      * @return result
+     * @param： po
      */
 
     @Override
@@ -149,8 +149,8 @@ public class FinancialAccountController implements FinancialAccountInterface {
     /**
      * transform VO to PO
      *
-     * @param： vo
      * @return result
+     * @param： vo
      */
 
 

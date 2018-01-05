@@ -116,7 +116,7 @@ public class publicDB implements pub {
 
     /**
      * @author:pis
-     * @description: 产生Entity对象
+     * @description: 根据类型产生Entity对象
      * @date: 10:11 2017/11/28
      */
     private void generate(int type) {

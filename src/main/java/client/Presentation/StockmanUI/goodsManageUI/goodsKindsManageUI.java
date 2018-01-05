@@ -1,7 +1,7 @@
 package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodskindsbl.GoodsKindsController;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.RMI.link;
 import client.Vo.logVO;
 import javafx.geometry.Insets;

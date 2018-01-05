@@ -2,7 +2,7 @@ package client.Presentation.StockmanUI.goodsManageUI;
 
 import client.BL.Stockman.StockmanGoodsbl.Goods;
 import client.BL.Stockman.StockmanGoodsbl.GoodsController;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.Presentation.StockmanUI.goodsExceptionUI.goodsExceptionUI;
 import client.Presentation.StockmanUI.goodsWarningUI.goodsWarningUI;
 import client.RMI.link;

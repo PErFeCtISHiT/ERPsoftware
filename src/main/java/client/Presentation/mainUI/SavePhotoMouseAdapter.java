@@ -11,6 +11,7 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import server.Po.userPO;
+import shared.Identify;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

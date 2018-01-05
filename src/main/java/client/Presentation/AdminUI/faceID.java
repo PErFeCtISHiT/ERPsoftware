@@ -1,6 +1,6 @@
 package client.Presentation.AdminUI;
 
-import client.Presentation.mainUI.Camera;
+import shared.Camera;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 
-public class temp {
+public class faceID {
 
 
     public void start(String username) throws IOException, InterruptedException {

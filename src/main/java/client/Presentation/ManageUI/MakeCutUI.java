@@ -1,39 +1,27 @@
 package client.Presentation.ManageUI;
 
-import client.BL.Accountant.FinancialCashbl.FinancialCash;
-import client.BL.Accountant.FinancialReceivebl.MoneyList;
-import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import client.BL.Manager.ManagerMakeCutService.*;
-import client.RMI.link;
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import client.BL.Manager.ManagerMakeCutService.Pack;
 import client.BL.Manager.ManagerMakeCutService.Cut;
 import javafx.util.Callback;
 import server.Po.cutPO;
 import server.Po.packPO;
-import shared.ResultMessage;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

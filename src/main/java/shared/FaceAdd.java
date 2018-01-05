@@ -1,4 +1,4 @@
-package client.Presentation.mainUI;
+package shared;
 
 import com.baidu.aip.face.AipFace;
 import com.baidu.aip.util.Base64Util;

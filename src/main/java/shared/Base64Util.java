@@ -1,4 +1,4 @@
-package client.Presentation.mainUI;
+package shared;
 
 /**
  * Base64 工具类

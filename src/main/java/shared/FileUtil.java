@@ -1,4 +1,4 @@
-package client.Presentation.mainUI;
+package shared;
 
 import java.io.*;
 

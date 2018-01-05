@@ -34,6 +34,7 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import server.Po.userPO;
+import shared.Camera;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,9 +59,7 @@ public class StartUI extends Application {
 
     public void start(Stage stage) throws RemoteException {
 
-//        Text title=new Text();
-//        title.setText("进销存管理系统");
-//        title.setStyle("-fx-text-fill: honeydew;-fx-font-family: sans-serif");
+
 
         VBox vBox = new VBox();
 
@@ -92,12 +91,10 @@ public class StartUI extends Application {
 
         tfName.setEditable(true);
 
-//        tfName.setPromptText("用户名");
         PasswordField pfPwd = new PasswordField();
-//        pfPwd.setPromptText("密码");
 
-//        ImageView tf=new ImageView(new Image("用户名.png"));
-//        ImageView pf=new ImageView(new Image("密码.png"));
+
+
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
         tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
@@ -108,24 +105,8 @@ public class StartUI extends Application {
         Line line2 = new Line(0, 100, 400, 100);
 
 
-//        List<userPO> userPOS = link.getRemoteHelper().getUser().findAll(15);
-//        for (userPO userPO : userPOS) {
-//            String id = userPO.getKeyname();
-//            tfName.getItems().add(id);
-//        }
-//
-//        tfName.setOnAction(e -> {
-//            String password = null;
-//            try {
-//                password = link.getRemoteHelper().getUser().getpasswordByName(tfName.getValue());
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            }
-//            pfPwd.setText(password);
-//        });
 
         btn1.setOnAction((ActionEvent e) -> {
-            //           String username = tfName.getValue();
             String username = tfName.getText();
             String password = pfPwd.getText();
             try {
@@ -168,11 +149,7 @@ public class StartUI extends Application {
         hbButtons.getChildren().addAll(btn1, btn2, exit);
         hbButtons.setAlignment(Pos.CENTER);
 
-//
-//        HBox b1=new HBox();
-//        b1.getChildren().addAll(tf,tfName);
-//        HBox b2=new HBox();
-//        b2.getChildren().addAll(pf,pfPwd);
+
         vBox.getChildren().addAll(tfName, line1, pfPwd, line2, hbButtons);
 
         tfName.setMaxSize(150, 20);
@@ -199,7 +176,7 @@ public class StartUI extends Application {
 
         MenuBar topBar = new MenuBar();
         Menu nameMenu = new Menu(thisPO.getKeyname(), new ImageView(new Image("tou1.png")));
-//        Menu messageMenu=new Menu("消息");
+
         Menu helpMenu = new Menu("需要帮助?");
         topBar.getMenus().addAll(nameMenu, helpMenu);
 
@@ -260,9 +237,7 @@ public class StartUI extends Application {
                 break;
         }
 
-//        hBox.setStyle("-fx-background-image: url(background1final.png)");
 
-//        assert hBox != null;
         VBox fbox = new VBox();
         fbox.setMinSize(1400, 650);
         Scene scene1 = new Scene(fbox, 1400, 650);

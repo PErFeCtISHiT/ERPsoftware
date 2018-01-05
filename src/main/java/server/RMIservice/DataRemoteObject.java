@@ -53,47 +53,27 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
 
     private static final long serialVersionUID = 4029039744279087114L;
     private moneyList moneyList;
-    private buyinBill buyinBill;
-    private giftBill giftBill;
-    private moneyBill moneyBill;
-    private selloutBill selloutBill;
-    private stockOverflowBill stockOverflowBill;
-    private stockwarningBill stockwarningBill;
     private Coaccount coaccount;
     private Consumer consumer;
-    private cut cut;
     private Goods goods;
     private GoodsKinds goodsKinds;
     private log log;
-    private pack pack;
     private pub pub;
     private user user;
-    private goodsoutList goodsoutList;
     private sale sale;
-    private stockGoods stockGoods;
     private accountInit accountInit;
 
     DataRemoteObject() throws RemoteException {
 
         moneyList = new moneyListDB();
-        buyinBill = new BuyinBillDB();
-        giftBill = new giftBillDB();
-        moneyBill = new moneyBillDB();
-        selloutBill = new SelloutBillDB();
-        stockOverflowBill = new stockOverflowBillDB();
-        stockwarningBill = new stockwarningBillDB();
         coaccount = new CoaccountDB();
         consumer = new ConsumerDB();
-        cut = new cutDB();
         goods = new GoodsDB();
         goodsKinds = new GoodsKindsDB();
         log = new logDB();
-        pack = new packDB();
         pub = new publicDB();
         user = new userDB();
-        goodsoutList = new goodsoutListDB();
         sale = new saleDB();
-        stockGoods = new stockGoodsDB();
         accountInit = new accountInitDB();
 
 

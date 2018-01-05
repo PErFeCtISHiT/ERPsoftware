@@ -1,7 +1,7 @@
 package client.Presentation.AdminUI;
 
 import client.BL.Administrator.Userblservice.UserMsg;
-import client.Presentation.NOgenerator.NOgenerator;
+import client.Presentation.tools.NOgenerator;
 import client.RMI.link;
 import client.Vo.logVO;
 import javafx.beans.value.ObservableValue;
@@ -97,13 +97,7 @@ public class SetUI {
                         log.setOperatorno(staff);
                         log.setKeyjob("修改职位");
                         link.getRemoteHelper().getLog().addObject(log, 13);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IntrospectionException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (RemoteException | InvocationTargetException | IntrospectionException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
 
@@ -127,13 +121,7 @@ public class SetUI {
                         log.setOperatorno(staff);
                         log.setKeyjob("修改职位");
                         link.getRemoteHelper().getLog().addObject(log, 13);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IntrospectionException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
                         e.printStackTrace();
                     }
 
@@ -187,7 +175,7 @@ public class SetUI {
                         Button faceBtn = new Button("人脸注册");
                         this.setGraphic(faceBtn);
                         faceBtn.setOnMouseClicked((me) -> {
-                            temp temp = new temp();
+                            faceID temp = new faceID();
                             try {
                                 temp.start(data.get((this.getIndex())).getName());
                             } catch (IOException | InterruptedException e) {
@@ -206,9 +194,9 @@ public class SetUI {
 //////////////////////////////////////////////////////////////////////////////////////开始获取数据
         try {
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
-            for (int i = 0; i < list.size(); i++) {
+            for (userPO aList : list) {
 
-                UserMsg newco = new UserMsg(list.get(i).getKeyname(), list.get(i).getKeyjob(), list.get(i).getKeyno(), list.get(i).getPasswor());
+                UserMsg newco = new UserMsg(aList.getKeyname(), aList.getKeyjob(), aList.getKeyno(), aList.getPasswor());
                 data.add(newco);
             }
         } catch (RemoteException e) {
@@ -244,7 +232,7 @@ public class SetUI {
         final Button addButton = new Button("添加用户");
         addButton.setOnAction((ActionEvent e) -> {
             try {
-                String iD = "YH-" + nogenerator.generate(15);
+                String iD = "YH-" + NOgenerator.generate(15);
                 UserMsg msg = new UserMsg(
                         addName.getText(), addJob.getText(), iD, addpass.getText()
                 );
@@ -262,13 +250,7 @@ public class SetUI {
                 link.getRemoteHelper().getLog().addObject(log, 13);
 
 
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            } catch (IntrospectionException e1) {
-                e1.printStackTrace();
-            } catch (InvocationTargetException e1) {
-                e1.printStackTrace();
-            } catch (IllegalAccessException e1) {
+            } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
                 e1.printStackTrace();
             }
 
@@ -297,13 +279,13 @@ public class SetUI {
     }
 
 
-    public void refresh() {
+    private void refresh() {
         try {
             data.clear();
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
-            for (int i = 0; i < list.size(); i++) {
+            for (userPO aList : list) {
 
-                UserMsg newco = new UserMsg(list.get(i).getKeyname(), list.get(i).getKeyjob(), list.get(i).getKeyno(), list.get(i).getPasswor());
+                UserMsg newco = new UserMsg(aList.getKeyname(), aList.getKeyjob(), aList.getKeyno(), aList.getPasswor());
                 data.add(newco);
             }
         } catch (RemoteException e) {
@@ -311,12 +293,12 @@ public class SetUI {
         }
     }
 
-
     class EditingCell extends TableCell<UserMsg, String> {
 
         private TextField textField;
 
         public EditingCell() {
+
         }
 
         @Override
@@ -373,7 +355,7 @@ public class SetUI {
         }
 
         private String getString() {
-            return getItem() == null ? "" : getItem().toString();
+            return getItem() == null ? "" : getItem();
         }
     }
 

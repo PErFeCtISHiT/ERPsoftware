@@ -17,15 +17,15 @@ import org.bytedeco.javacpp.presets.opencv_core;
 import server.Po.userPO;
 
 public class fxlogin implements Runnable{
-    String username;
-    Stage stage;
+    private String username;
+    private Stage stage;
 
-    public fxlogin(String finalname,Stage stage) {
+    fxlogin(String finalname, Stage stage) {
         this.username = finalname;
         this.stage = stage;
     }
 
-    public static void login(String str,Stage stage) throws Exception {
+    private static void login(String str, Stage stage) throws Exception {
         userPO thisPO ;
         String password = link.getRemoteHelper().getUser().getpasswordByName(str);
         thisPO = (server.Po.userPO) link.getRemoteHelper().getUser().login(str, password).get(0);
