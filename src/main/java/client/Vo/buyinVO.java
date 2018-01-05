@@ -15,7 +15,11 @@ public class buyinVO implements Serializable{
 	private Double sumall;   //金额
 	private Double isDraft;
 
-	public Double getIsDraft() {
+    public buyinVO() {
+
+    }
+
+    public Double getIsDraft() {
 		return isDraft;
 	}
 
