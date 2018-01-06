@@ -341,10 +341,10 @@ public class CashUI {
         final Accordion accordion = new Accordion();
         for (int i = 0; i < imageNames.length; i++) {
             tps[i] = new TitledPane(imageNames[i], tablelist[i]);
-            tps[i].setStyle("-fx-background-color: transparent;-fx-border-color: transparent");
+            tps[i].getStylesheets().add("table.css");
         }
         accordion.getPanes().addAll(tps);
-        accordion.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;");
+//        accordion.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;");
 
 
         hb.getChildren().setAll(accordion,gridTitlePane);
@@ -448,6 +448,7 @@ public class CashUI {
         vb.setMaxSize(1200,800);
 
         vb.getStylesheets().add("table.css");
+        accordion.getStyleClass().add("table-view");
         accounttable.getStyleClass().add("table-view");
         consumertable.getStyleClass().add("table-view");
         draftbilltable.getStyleClass().add("table-view");
