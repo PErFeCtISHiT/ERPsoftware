@@ -137,8 +137,6 @@ public class newBillUI {
         rootNode.getChildren().addAll(consumerNode,buyinNode,selloutNode);
 
 
-
-
         ContextMenu consumerMenu=new ContextMenu();
         MenuItem newMenuitem=new MenuItem("新建客户");
         MenuItem newBuyinitem=new MenuItem("新建进货单");
@@ -254,7 +252,8 @@ public class newBillUI {
             }
         });
 
-
+        hb.getStylesheets().add("treeview.css");
+        treeView.getStyleClass().add("tree-view");
 
         tabs.setTabMinHeight(30);
         tabs.setTabMinWidth(70);
