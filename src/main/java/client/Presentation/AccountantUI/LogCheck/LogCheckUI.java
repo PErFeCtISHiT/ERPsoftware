@@ -75,6 +75,7 @@ public class LogCheckUI {
 
 
         final Button refresh = new Button("刷新列表");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             refresh();
         });

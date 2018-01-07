@@ -115,6 +115,7 @@ public class ExamineBillUI  {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("审批");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
@@ -287,14 +288,6 @@ public class ExamineBillUI  {
 
         });
 
-
-
-
-
-
-
-
-
         final TextField  client= new TextField();
         client.setPromptText("客户");
         client.setVisible(false);
@@ -365,6 +358,8 @@ public class ExamineBillUI  {
 
 
 
+        button1.setStyle("-fx-border-color: black;-fx-background-color: transparent");
+        button4.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         button4.setOnAction((ActionEvent e) -> {
             try {
                 data.clear();
