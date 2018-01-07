@@ -24,9 +24,14 @@ import shared.ResultMessage;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+/**
+ * @discription: UI for accountant, 制定现金费用单
+ * @author: yotta
+ */
+
 public class FillCashBillUI {
 
-
+//填写现金费用单的填写项
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList();
@@ -39,11 +44,11 @@ public class FillCashBillUI {
     final TextArea text = new TextArea ("");
     private final NOgenerator nogenerater = new NOgenerator();
 
-    final Tooltip tooltipForAccount = new Tooltip("输入账户编号");
-    final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
-    final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
-    FinancialCashController cashController = new FinancialCashController();
+    private final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
+    private final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
+    private FinancialCashController cashController = new FinancialCashController();
 
+//start函数
     public void start(String ID) {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
@@ -59,7 +64,7 @@ public class FillCashBillUI {
 
 
 
-
+//条目列表
         TableColumn<MoneyList,String> ItemCol = new TableColumn<>("条目名");
         ItemCol.setMinWidth(100);
         ItemCol.setCellFactory(cellFactory);
@@ -81,7 +86,7 @@ public class FillCashBillUI {
         table.setItems(data);
         table.getColumns().addAll(ItemCol,MoneyCol,CommentCol);
 
-
+//增加条目
         final TextField addID = new TextField();
         addID.setPromptText("条目名");
         addID.setMaxWidth(ItemCol.getPrefWidth());
@@ -99,8 +104,8 @@ public class FillCashBillUI {
             String comment = addComment.getText();
             MoneyList list = new MoneyList("","",acc,money,comment);
             data.add(list);
-            addID.clear();
             addMoney.clear();
+            addID.clear();
             addComment.clear();
         });
 
@@ -127,8 +132,8 @@ public class FillCashBillUI {
                 "A员工", "B员工"
         );
         StaffComboBox.setValue("A员工");
-
-
+        StaffComboBox.setEditable(true);
+//提交按钮
         SummitButton.setOnAction((ActionEvent e) -> {
             if (check())//checkMoney(money.getText())
             {
@@ -142,18 +147,14 @@ public class FillCashBillUI {
                 System.out.println(money.getText());
                 double sum = Double.parseDouble(money.getText());
                 System.out.println(sum);
-
-//                data.clear();
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
 
-//                System.out.println("Step 1");
                 FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
                 try {
-//                    System.out.println("Step 2");
                     if(billtype=="现金费用单"){
                         ResultMessage resultMessage = cashController.summit(financialCash);
                     }
@@ -162,13 +163,12 @@ public class FillCashBillUI {
                     e1.printStackTrace();
                 }
 
-//                System.out.println("Step 3");
                 notification.setText("The Bill was successfully sent" + " to " );
                 money.clear();
                 text.clear();
             }
         });
-
+//保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
 
             System.out.println(TypeComboBox.getValue());
@@ -182,17 +182,14 @@ public class FillCashBillUI {
             double sum = Double.parseDouble(money.getText());
             System.out.println(sum);
 
-//            data.clear();
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {
                 data.get(i).setlistNO(billID);
                 moneylist.add(data.get(i));
             }
 
-//                System.out.println("Step 1");
             FinancialCash financialCash = new FinancialCash(billID,billtype,operater,Account,moneylist,sum);
             try {
-//                    System.out.println("Step 2");
                 if(billtype=="现金费用单"){
                     ResultMessage resultMessage = cashController.saveAsDraft(financialCash);
                 }
@@ -200,15 +197,12 @@ public class FillCashBillUI {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-
-//                System.out.println("Step 3");
-//                notification.setText("The Bill was successfully sent" + " to " );
-
                 money.clear();
                 text.clear();
 
         });
 
+//版面设置
         GridPane grid = new GridPane();
         grid.setVgap(4);
         grid.setHgap(10);
@@ -219,11 +213,8 @@ public class FillCashBillUI {
         grid.add(billNum, 3, 0);
         grid.add(new Label("操作员："), 4, 0);
         grid.add(StaffComboBox, 5, 0);
-
         grid.add(new Label("账户编号:"), 0, 1);
         grid.add(account, 1, 1);
-
-
         grid.add(new Label("条目列表:"), 0, 2);
         grid.add(vb, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
@@ -239,17 +230,17 @@ public class FillCashBillUI {
         stage.show();
     }
 
-
+//格式检查
     public boolean check(){
         boolean re = true;
         String moneytext = money.getText();
-        if(moneytext == null || moneytext.isEmpty()){
-            re = false;
-            notification.setText("请输入总金额 !");
-        }
         if (!isNumeric(moneytext)){
             re = false;
             notification.setText("请检查输入金额的格式 !");
+        }
+        if(moneytext == null || moneytext.isEmpty()){
+            re = false;
+            notification.setText("请输入总金额 !");
         }
         if(account.getText()==null){
             re = false;
@@ -261,22 +252,22 @@ public class FillCashBillUI {
                 re = false;
                 notification.setText("请输入转账账户 !");
             }
-            if(data.get(i).getMoney()==null){
-                re = false;
-                notification.setText("请输入转账金额 !");
-            }
             if(!isNumeric(data.get(i).getMoney())){
                 re = false;
                 notification.setText("请检查转账金额格式 !");
             }
+            if(data.get(i).getMoney()==null){
+                re = false;
+                notification.setText("请输入转账金额 !");
+            }
+
         }
 
         return re;
     }
-
+//是否是数字
     public static boolean isNumeric(String str){
         for (int i = 0; i < str.length(); i++){
-//            System.out.println(str.charAt(i));
             if (!Character.isDigit(str.charAt(i))){
                 return false;
             }
@@ -286,8 +277,7 @@ public class FillCashBillUI {
 
 
 
-
-
+//设置可编辑
     class EditingCell extends TableCell<MoneyList, String> {
 
         private TextField textField;

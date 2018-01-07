@@ -29,6 +29,10 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * @discription: UI for accountant, 查看销售明细
+ * @author: yotta
+ */
 public class CheckSellUI {
 
 
@@ -40,14 +44,14 @@ public class CheckSellUI {
     private DatePicker checkOutDatePicker;
     FinancialCheckSellController controller = new FinancialCheckSellController();
 
-
+//start函数
     public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
         stage.setTitle("销售明细表");
         stage.setWidth(1250);
         stage.setHeight(850);
-
+//销售明细表格
         TableView<Sale> table = new TableView<>();
         ObservableList<Sale> data = FXCollections.observableArrayList();
         final Label label = new Label("销售列表");
@@ -56,7 +60,7 @@ public class CheckSellUI {
 
         table.setEditable(true);
 
-
+//销售明细表格 列
         TableColumn<Sale, String> TimeCol =
                 new TableColumn<>("操作时间");
         TableColumn<Sale, String> NameCol =
@@ -90,7 +94,7 @@ public class CheckSellUI {
         SumCol.setMinWidth(100);
         SumCol.setCellValueFactory(
                 param -> param.getValue().totalSum);
-
+//查看详细信息
         DetailCol.setCellFactory((col) -> {
             TableCell<Sale, String> cell = new TableCell<Sale, String>() {
 
@@ -150,7 +154,7 @@ public class CheckSellUI {
             return cell;
         });
 
-
+//搜索区域 搜索条件 日期
         checkInDatePicker = new DatePicker();
         checkOutDatePicker = new DatePicker();
         checkInDatePicker.setValue(LocalDate.now());
@@ -162,7 +166,6 @@ public class CheckSellUI {
                             @Override
                             public void updateItem(LocalDate item, boolean empty) {
                                 super.updateItem(item, empty);
-
                                 if (item.isBefore(
                                         checkInDatePicker.getValue().plusDays(1))
                                         ) {
@@ -174,6 +177,8 @@ public class CheckSellUI {
                     }
                 };
 
+
+        //时间 名称 客户 业务员 仓库
         checkOutDatePicker.setDayCellFactory(dayCellFactory);
         checkOutDatePicker.setValue(checkInDatePicker.getValue().plusDays(1));
         GridPane gridPane = new GridPane();
@@ -220,6 +225,8 @@ public class CheckSellUI {
         search.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         gridPane.add(search, 6, 1);
 
+
+        //搜索按钮
         search.setOnAction((ActionEvent e) -> {
             String detail="";
             detail+=checkInDatePicker.getValue();
@@ -257,7 +264,7 @@ public class CheckSellUI {
 
         table.setItems(data);
         table.getColumns().addAll(TimeCol,NameCol,TypeCol,NumCol,PriceCol,SumCol,DetailCol);
-
+//导出按钮
         final Button OutputButton = new Button("导出表格",new ImageView(new Image("导出.png")));
         OutputButton.setMinSize(50,20);
         OutputButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
@@ -273,7 +280,7 @@ public class CheckSellUI {
                 e1.printStackTrace();
             }
         });
-
+//刷新列表
         final Button RefreshButton = new Button("刷新列表",new ImageView(new Image("刷新.png")));
         RefreshButton.setMinSize(50,20);
         RefreshButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
@@ -287,7 +294,6 @@ public class CheckSellUI {
             }
 
         });
-
 
 
         final VBox vbox = new VBox();
@@ -312,10 +318,7 @@ public class CheckSellUI {
 
 
         return fvbox;
-//        Group root = (Group) scene.getRoot();
-//        root.getChildren().add(fvbox);
-//        stage.setScene(scene);
-//        stage.show();
+
     }
 
 }

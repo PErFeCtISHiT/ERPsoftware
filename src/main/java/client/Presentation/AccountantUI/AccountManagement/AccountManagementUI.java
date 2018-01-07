@@ -38,14 +38,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @discription: UI for accountant, doing the account management job
+ * @discription: UI for accountant, 账户管理
  * @author: yotta
  */
 
 
 public class AccountManagementUI {
 
-
+   //数据列表
     private final ObservableList<Account> data =
             FXCollections.observableArrayList();
     final HBox hb = new HBox();
@@ -54,13 +54,16 @@ public class AccountManagementUI {
     private NOgenerator nogenerator = new NOgenerator();
 
 
+    //start函数
+
     public VBox start(String staff) throws Exception {
         TableView<Account> table = new TableView<>();
 
         final Label label = new Label("账户列表");
         label.setFont(new Font("Arial", 20));
-        table.setEditable(true);
 
+        //账户列表及其列
+        table.setEditable(true);
         Callback<TableColumn<Account, String>,
                 TableCell<Account, String>> cellFactory
                 = (TableColumn<Account, String> p) -> new EditingCell();
@@ -75,13 +78,15 @@ public class AccountManagementUI {
                 new TableColumn<>("是否删除");
 
 
-/////////////////////////////////////////////////////////////////////////////////修改传递
+/////////////////////////////////////////////////////////////////////////////////
+        //ID列
         IDCol.setMinWidth(200);
         IDCol.setCellValueFactory(
                 param -> param.getValue().accountID);
         IDCol.setCellFactory(cellFactory);
 
-/////////////////////////////////////////////////////////////////////////////////修改传递
+/////////////////////////////////////////////////////////////////////////////////
+        //名称列
         NameCol.setMinWidth(200);
         NameCol.setCellValueFactory(
                 param -> param.getValue().accountName);
@@ -94,7 +99,8 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     logset(staff);
                 });
-/////////////////////////////////////////////////////////////////////////////////修改传递
+/////////////////////////////////////////////////////////////////////////////////
+        //金额列
         MoneyCol.setMinWidth(200);
         MoneyCol.setCellValueFactory(
                 param -> param.getValue().money);
@@ -108,7 +114,8 @@ public class AccountManagementUI {
 
                 });
 
-//////////////////////////////////////////////////////////////////////////////////删除传递
+//////////////////////////////////////////////////////////////////////////////////
+        //删除列
         delCol.setCellFactory((col) -> {
             TableCell<Account, String> cell = new TableCell<Account, String>() {
 
@@ -155,7 +162,8 @@ public class AccountManagementUI {
             return cell;
         });
 
-//////////////////////////////////////////////////////////////////////////////////////开始获取数据
+//////////////////////////////////////////////////////////////////////////////////////
+        //账户列表初始化
         try {
             List<coPO> list = controller.show();
             for (coPO aList : list) {
@@ -174,6 +182,7 @@ public class AccountManagementUI {
         Label space = new Label("                                                                                                           ");
         space.setStyle("-fx-background-color: transparent;-fx-border-color: transparent");
 
+        //搜索区域
         TextField search = new TextField();
         search.setMinWidth(90);
         search.setStyle("-fx-border-radius: 40;-fx-background-color: transparent;-fx-border-color: black");
@@ -199,7 +208,7 @@ public class AccountManagementUI {
         newhb.setPadding(new Insets(10, 0, 0, 10));
         newhb.getChildren().addAll(label, space, search);
 
-
+        //新增账户
         final Button addButton = new Button();
         addButton.setGraphic(new ImageView(new Image("添加.png")));
         addButton.setStyle("-fx-background-color: transparent");
@@ -249,7 +258,7 @@ public class AccountManagementUI {
 
             stage1.setScene(s);
             stage1.show();
-
+            //增加账户  监听
             addb.setOnAction((ActionEvent b1) -> {
                 try {
                     String ID = "YHZH-" + nogenerator.generate(10);
@@ -284,7 +293,7 @@ public class AccountManagementUI {
             });
         });
 
-
+        //刷新账户列表
         Button refresh = new Button();
         refresh.setGraphic(new ImageView(new Image("大刷新.png")));
         refresh.setStyle("-fx-background-color: transparent");
@@ -305,10 +314,6 @@ public class AccountManagementUI {
         table.getStyleClass().add("table-view");
         return vbox;
 
-//        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-//
-//        stage.setScene(scene);
-//        stage.show();
     }
 
     private void logset(String staff) {
@@ -322,7 +327,7 @@ public class AccountManagementUI {
         }
     }
 
-
+//刷新函数
     private void refresh() {
         try {
             List<coPO> list = controller.show();
@@ -337,7 +342,7 @@ public class AccountManagementUI {
         }
     }
 
-
+//修改函数
     private void modifyAccount(Account acc) {
         coVO vo = new coVO();
         vo.setKeyname(acc.getaccountName());
@@ -349,7 +354,7 @@ public class AccountManagementUI {
             e1.printStackTrace();
         }
     }
-
+//单元格可修改
     public class EditingCell extends TableCell<Account, String> {
 
         private TextField textField;

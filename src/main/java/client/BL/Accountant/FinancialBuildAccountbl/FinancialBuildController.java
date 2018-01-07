@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ *
+ *
  * @author: yotta
  * @description: controller for account build
  * @date: modify in 18:20 2017/12/24
@@ -22,6 +24,15 @@ import java.util.List;
 
 public class FinancialBuildController implements FinancialBuildAccountInterface {
 
+    /**
+     * 期初建账
+     *
+     * @return AccountBuild
+     * @throws RemoteException
+     * @throws IllegalAccessException
+     * @throws IntrospectionException
+     * @throws InvocationTargetException
+     */
 
     @Override
     public AccountBuild accountbuild() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
@@ -39,6 +50,13 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return newaccount;
     }
 
+    /**
+     * 展示期初建账
+     *
+     * @return ArrayList<AccountList>
+     * @throws RemoteException
+     */
+
     @Override
     public ArrayList<AccountList> show() throws RemoteException {
         List<AccountInitPO> list = link.getRemoteHelper().getaccountInit().findAll(20);
@@ -52,6 +70,13 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return showlist;
     }
 
+    /**
+     * 得到历史期初建账
+     *
+     * @param year
+     * @return AccountBuild
+     * @throws RemoteException
+     */
 
     @Override
     public AccountBuild getPast(String year) throws RemoteException {
@@ -60,6 +85,14 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
         return new AccountBuild(year, accountlist, consumerlist, goodslist);
     }
+
+    /**
+     * 得到历史期初建账 账户列表
+     *
+     * @param year
+     * @return ArrayList<AccountBuild_account>
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException {
@@ -73,6 +106,13 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return accountList;
     }
 
+    /**
+     * Po转换
+     *
+     * @param po
+     * @return AccountBuild_account
+     * @throws RemoteException
+     */
 
     @Override
     public AccountBuild_account PoToAccount(coPO po) throws RemoteException {
@@ -82,6 +122,14 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return new AccountBuild_account(id, name, money.toString());
     }
 
+
+    /**
+     * 得到历史期初建账 客户列表
+     *
+     * @param year
+     * @return ArrayList<AccountBuild_consumer>
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<AccountBuild_consumer> getPastConsumer(String year) throws RemoteException {
@@ -95,6 +143,14 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return consumerList;
     }
 
+    /**
+     * PO转换
+     *
+     * @param po
+     * @return AccountBuild_consumer
+     * @throws RemoteException
+     */
+
     @Override
     public AccountBuild_consumer PoToConsumer(consumerPO po) throws RemoteException {
         AccountBuild_consumer con = new AccountBuild_consumer();
@@ -106,6 +162,15 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         con.setduePay(String.valueOf(po.getCapacit()));
         return con;
     }
+
+    /**
+     * 得到历史期初建账 商品列表
+     *
+     * @param year
+     * @return ArrayList<AccountBuild_good>
+     * @throws RemoteException
+     */
+
 
     @Override
     public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException {
@@ -119,6 +184,13 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         return goodList;
     }
 
+    /**
+     * PO转换
+     *
+     * @param po
+     * @return AccountBuild_good
+     * @throws RemoteException
+     */
 
     @Override
     public AccountBuild_good PoToGood(goodsPO po) throws RemoteException {
@@ -131,7 +203,6 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
         good.setGoodsOutprice(String.valueOf(po.getOutprice()));
         good.setGoodsReceinprice(String.valueOf(po.getReceprice()));
         good.setGoodsReceoutprice(String.valueOf(po.getReceoutprice()));
-
         return good;
     }
 
