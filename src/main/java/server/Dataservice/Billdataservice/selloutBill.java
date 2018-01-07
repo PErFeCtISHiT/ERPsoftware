@@ -1,11 +1,6 @@
 package server.Dataservice.Billdataservice;
 
-import server.Dataservice.pubservice.pub;
-import server.Po.selloutPO;
-import shared.ResultMessage;
-
-import java.rmi.RemoteException;
-import java.util.List;
+import server.Dataservice.Pubservice.pub;
 
 /**
  * @author: pis

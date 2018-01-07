@@ -15,7 +15,7 @@ import server.Dataservice.Goodsdataservice.stockGoods;
 import server.Dataservice.Logdataservice.log;
 import server.Dataservice.Packdataservice.pack;
 import server.Dataservice.Userdataservice.user;
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 
 import java.rmi.Remote;
 

@@ -1,8 +1,7 @@
-package server.Dataservice.pubservice;
+package server.Dataservice.Pubservice;
 
 import shared.ResultMessage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

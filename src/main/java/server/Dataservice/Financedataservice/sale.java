@@ -1,7 +1,7 @@
 package server.Dataservice.Financedataservice;
 
 import client.Vo.saleVO;
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 
 import java.rmi.RemoteException;
 import java.util.List;

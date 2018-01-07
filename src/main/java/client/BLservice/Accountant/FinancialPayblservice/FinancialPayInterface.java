@@ -5,8 +5,6 @@ import client.BL.Accountant.FinancialReceivebl.AccountBill;
 import client.BL.Accountant.FinancialReceivebl.Consumer;
 import client.BL.Accountant.FinancialReceivebl.FinancialBill;
 import client.BL.Accountant.FinancialReceivebl.MoneyList;
-import client.Vo.moneyVO;
-import server.Po.coPO;
 import server.Po.consumerPO;
 import server.Po.moneyListPO;
 import server.Po.moneyPO;
@@ -22,13 +20,13 @@ public interface FinancialPayInterface {
 
     public ResultMessage resummit(FinancialBill financialBill) throws RemoteException;
 
-    public ResultMessage saveAsDraft (FinancialBill financialBill) throws RemoteException;
+    public ResultMessage saveAsDraft(FinancialBill financialBill) throws RemoteException;
 
     public FinancialBill ReEditBill(String Keyno) throws RemoteException;
 
-    public FinancialBill PoToFinancialBill( moneyPO po) throws RemoteException;
+    public FinancialBill PoToFinancialBill(moneyPO po) throws RemoteException;
 
-    public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException;
+    public ArrayList<MoneyList> PoToMoneyLists(List<moneyListPO> list) throws RemoteException;
 
     public ArrayList<AccountBill> getAllPromotedPay() throws RemoteException;
 

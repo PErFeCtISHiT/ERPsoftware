@@ -1,7 +1,7 @@
 package server.Data.pub;
 
 import server.Data.tools.hibtools;
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 import server.Po.*;
 import server.hibernateEntities.*;
 import shared.ResultMessage;

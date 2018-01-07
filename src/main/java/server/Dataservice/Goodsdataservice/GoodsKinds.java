@@ -1,10 +1,8 @@
 package server.Dataservice.Goodsdataservice;
 
-import server.Dataservice.pubservice.pub;
-import server.Po.goodskindsPO;
+import server.Dataservice.Pubservice.pub;
 import shared.ResultMessage;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
