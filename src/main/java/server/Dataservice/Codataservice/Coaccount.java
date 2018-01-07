@@ -1,6 +1,6 @@
 package server.Dataservice.Codataservice;
 
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 
 import java.rmi.RemoteException;
 import java.util.List;

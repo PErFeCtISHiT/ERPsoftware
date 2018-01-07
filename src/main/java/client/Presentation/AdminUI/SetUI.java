@@ -127,71 +127,63 @@ public class SetUI {
 
                 });
 
-        delete.setCellFactory((col) -> {
-            TableCell<UserMsg, String> cell = new TableCell<UserMsg, String>() {
+        delete.setCellFactory((col) -> new TableCell<UserMsg, String>() {
 
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
 
-                    if (!empty) {
-                        Button delBtn = new Button("删除");
-                        this.setGraphic(delBtn);
-                        delBtn.setOnMouseClicked((me) -> {
-                            String delid = data.get(this.getIndex()).getNO();
-                            userPO po = new userPO();
-                            po.setKeyno(delid);
-                            UserMsg msg = new UserMsg("liuyitong", delid, "haha", "boss");
-                            try {
-                                link.getRemoteHelper().getUser().deleteObject(po, 15);
+                if (!empty) {
+                    Button delBtn = new Button("删除");
+                    this.setGraphic(delBtn);
+                    delBtn.setOnMouseClicked((me) -> {
+                        String delid = data.get(this.getIndex()).getNO();
+                        userPO po1 = new userPO();
+                        po1.setKeyno(delid);
+                        try {
+                            link.getRemoteHelper().getUser().deleteObject(po1, 15);
 
 
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-                            data.remove(this.getIndex());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                        data.remove(this.getIndex());
 
 
-                        });
-                    }
+                    });
                 }
+            }
 
-            };
-            return cell;
         });
 
-        face.setCellFactory((col) -> {
-            TableCell<UserMsg, String> cell = new TableCell<UserMsg, String>() {
+        face.setCellFactory((col) -> new TableCell<UserMsg, String>() {
 
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    this.setText(null);
-                    this.setGraphic(null);
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                this.setText(null);
+                this.setGraphic(null);
 
-                    if (!empty) {
-                        Button faceBtn = new Button("人脸注册");
-                        this.setGraphic(faceBtn);
-                        faceBtn.setOnMouseClicked((me) -> {
-                            faceID temp = new faceID();
-                            try {
-                                temp.start(data.get((this.getIndex())).getName());
+                if (!empty) {
+                    Button faceBtn = new Button("人脸注册");
+                    this.setGraphic(faceBtn);
+                    faceBtn.setOnMouseClicked((me) -> {
+                        faceID temp = new faceID();
+                        try {
+                            temp.start(data.get((this.getIndex())).getName());
                             } catch (IOException | InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            e.printStackTrace();
+                        }
 
 
-                        });
-                    }
+                    });
                 }
+            }
 
-            };
-            return cell;
         });
-
-//////////////////////////////////////////////////////////////////////////////////////开始获取数据
+//开始获取数据
         try {
             List<userPO> list = link.getRemoteHelper().getUser().findAll(15);
             for (userPO aList : list) {

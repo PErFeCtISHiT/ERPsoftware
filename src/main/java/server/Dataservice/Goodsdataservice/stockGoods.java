@@ -1,6 +1,6 @@
 package server.Dataservice.Goodsdataservice;
 
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 
 /**
  * @author: pis

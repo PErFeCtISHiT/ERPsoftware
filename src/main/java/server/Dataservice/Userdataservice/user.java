@@ -1,7 +1,6 @@
 package server.Dataservice.Userdataservice;
 
-import server.Dataservice.pubservice.pub;
-import server.Po.userPO;
+import server.Dataservice.Pubservice.pub;
 
 import java.rmi.RemoteException;
 import java.util.List;

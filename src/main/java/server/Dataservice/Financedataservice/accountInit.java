@@ -1,6 +1,6 @@
 package server.Dataservice.Financedataservice;
 
-import server.Dataservice.pubservice.pub;
+import server.Dataservice.Pubservice.pub;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
