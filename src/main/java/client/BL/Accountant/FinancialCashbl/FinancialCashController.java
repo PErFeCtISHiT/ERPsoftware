@@ -345,7 +345,7 @@ public class FinancialCashController implements FinancialCashInterface {
     }
 
     /**
-     * 客户列表
+     * 账户列表
      *
      * @return
      * @throws RemoteException

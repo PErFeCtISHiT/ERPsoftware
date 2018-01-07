@@ -335,7 +335,7 @@ public class FinancialPayController implements FinancialPayInterface {
         return moneypo;
     }
     /**
-     * 客户列表
+     * 账户列表
      *
      * @return
      * @throws RemoteException

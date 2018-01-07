@@ -24,20 +24,17 @@ import shared.ResultMessage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+/**
+ * @discription: UI for accountant, 制定收付款单
+ * @author: yotta
+ */
 public class FillMoneyBill{
 
-//    public static void main(String[] args) {
-//        link.linktoServer();
-//        launch(args);
-//    }
 
+//填写收付款单的填写项
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
-            FXCollections.observableArrayList(
-//                    new MoneyList("1","1","123", "12.5", "C"),
-//                    new MoneyList("2","2","456", "17.6", "E")
-            );
+            FXCollections.observableArrayList(            );
     final Button SummitButton = new Button ("提交单据");
     final Button DraftButton = new Button("保存草稿");
     final Label notification = new Label ();
@@ -52,6 +49,7 @@ public class FillMoneyBill{
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
     FinancialPayController payController = new FinancialPayController();
+    //start函数
     public void start(String ID) {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
@@ -68,7 +66,7 @@ public class FillMoneyBill{
 
 
 
-
+//转账列表
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
         AccountCol.setMinWidth(100);
         AccountCol.setCellFactory(cellFactory);
@@ -90,7 +88,7 @@ public class FillMoneyBill{
         table.setItems(data);
         table.getColumns().addAll(AccountCol,MoneyCol,CommentCol);
 
-
+//增加条目
         final TextField addID = new TextField();
         addID.setPromptText("账户编号");
         addID.setMaxWidth(AccountCol.getPrefWidth());
@@ -134,8 +132,10 @@ public class FillMoneyBill{
                 "A员工", "B员工"
         );
         StaffComboBox.setValue("A员工");
+        StaffComboBox.setEditable(true);
 
 
+//提交按钮
         final ComboBox<String> ConsumerTypeComboBox = new ComboBox<String>();
         ConsumerTypeComboBox.getItems().addAll(
                 "供应商", "销售商"
@@ -178,7 +178,7 @@ public class FillMoneyBill{
             }
         });
 
-
+//保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
             String billtype = TypeComboBox.getValue().toString();
             String billID = billNum.getText();
@@ -215,6 +215,7 @@ public class FillMoneyBill{
 
 
         });
+//版面设置
 
         GridPane grid = new GridPane();
         grid.setVgap(4);
@@ -247,14 +248,12 @@ public class FillMoneyBill{
         stage.show();
     }
 
+//格式检查
 
     public boolean check(){
         boolean re = true;
         String moneytext = money.getText();
-        if(moneytext == null || moneytext.isEmpty()){
-            re = false;
-            notification.setText("请输入总金额 !");
-        }
+
         if (!isNumeric(moneytext)){
             re = false;
             notification.setText("请检查输入金额的格式 !");
@@ -263,12 +262,13 @@ public class FillMoneyBill{
             re = false;
             notification.setText("请输入客户类型 !");
         }
+        if(moneytext == null || moneytext.isEmpty()){
+            re = false;
+            notification.setText("请输入总金额 !");
+        }
 
         for(int i=0;i<data.size();i++){
-            if(data.get(i).getAccount()==null){
-                re = false;
-                notification.setText("请输入转账账户 !");
-            }
+
             if(data.get(i).getMoney()==null){
                 re = false;
                 notification.setText("请输入转账金额 !");
@@ -277,11 +277,15 @@ public class FillMoneyBill{
                 re = false;
                 notification.setText("请检查转账金额格式 !");
             }
+            if(data.get(i).getAccount()==null){
+                re = false;
+                notification.setText("请输入转账账户 !");
+            }
         }
 
         return re;
     }
-
+//是否是数字
     public static boolean isNumeric(String str){
         for (int i = 0; i < str.length(); i++){
             System.out.println(str.charAt(i));
@@ -294,7 +298,7 @@ public class FillMoneyBill{
 
 
 
-
+//设置可编辑
 
     class EditingCell extends TableCell<MoneyList, String> {
 

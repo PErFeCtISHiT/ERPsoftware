@@ -25,9 +25,12 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+/**
+ * @discription: UI for accountant, 重新 制定收付款单
+ * @author: yotta
+ */
 public class ReEditMoneyBill {
-
+//填写收付款单的填写项
     private final TableView<MoneyList> table = new TableView<>();
     private final ObservableList<MoneyList> data =
             FXCollections.observableArrayList();
@@ -45,6 +48,7 @@ public class ReEditMoneyBill {
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
     FinancialPayController payController = new FinancialPayController();
+//start函数
 
     public void start(FinancialBill bill) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
@@ -57,7 +61,7 @@ public class ReEditMoneyBill {
                 = (TableColumn<MoneyList, String> p) -> new ReEditMoneyBill.EditingCell();
         consumer.setTooltip(tooltipForConsumer);
         money.setTooltip(tooltipForMoney);
-
+//转账列表
 
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("银行账户");
         AccountCol.setMinWidth(100);
@@ -80,7 +84,7 @@ public class ReEditMoneyBill {
         table.setItems(data);
         table.getColumns().addAll(AccountCol,MoneyCol,CommentCol);
 
-
+//增加条目
         final TextField addID = new TextField();
         addID.setPromptText("账户编号");
         addID.setMaxWidth(AccountCol.getPrefWidth());
@@ -124,6 +128,7 @@ public class ReEditMoneyBill {
                 "A员工", "B员工"
         );
         StaffComboBox.setValue("A员工");
+        StaffComboBox.setEditable(true);
 
 
         final ComboBox<String> ConsumerTypeComboBox = new ComboBox<String>();
@@ -134,7 +139,7 @@ public class ReEditMoneyBill {
         ConsumerTypeComboBox.setEditable(false);
 
 
-
+//提交按钮
         String ID = bill.getID();
         String Type = bill.getBillType();
         if (Type.equals("0.0")){
@@ -157,10 +162,9 @@ public class ReEditMoneyBill {
         consumer.setText(consumerID);
         data.clear();
         data.addAll(moneylist);
-//        System.out.println("fir"+data.get(0).getkeyid());
         money.setText(sum);
 
-
+//提交按钮
         SummitButton.setOnAction((ActionEvent e) -> {
             if (check())//checkMoney(money.getText())
             {
@@ -181,17 +185,13 @@ public class ReEditMoneyBill {
 
 
                 for (int i=0;i<data.size();i++) {
-//                    String listID = "ZZLB-" + i;
-//                    data.get(i).setKeyid(listID);
                     data.get(i).setlistNO(billID);
                     System.out.println("sec"+data.get(0).getkeyid());
                     moneylist1.add(data.get(i));
                 }
                 System.out.println(" List size 2: "+data.size());
-//                System.out.println("Step 1");
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
                 try {
-//                    System.out.println("Step 2");
                     if(billtype.equals("收款单")){
                         ResultMessage resultMessage = receiveController.resummit(financialBill);
                     }
@@ -209,7 +209,7 @@ public class ReEditMoneyBill {
                 text.clear();
             }
         });
-
+//保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
             String billtype = TypeComboBox.getValue().toString();
             String billID = billNum.getText();
@@ -218,17 +218,13 @@ public class ReEditMoneyBill {
             String consumerID1 = consumer.getText();
             double sum1 = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
-//            data.clear();
 
             System.out.println(" List size 3: "+data.size());
             for (int i=0;i<data.size();i++) {
-//                String listID = "ZZLB-" + i;
-//                data.get(i).setKeyid(listID);
                 data.get(i).setlistNO(billID);
                 System.out.println("sec"+data.get(0).getkeyid());
                 moneylist1.add(data.get(i));
             }
-//            System.out.println("thi"+data.get(0).getkeyid());
             System.out.println(" List size 4: "+data.size());
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
             try {
@@ -245,6 +241,7 @@ public class ReEditMoneyBill {
             text.clear();
         });
 
+//版面设置
 
         GridPane grid = new GridPane();
         grid.setVgap(4);
@@ -281,6 +278,7 @@ public class ReEditMoneyBill {
         stage.show();
     }
 
+//格式检查
 
     public boolean check(){
         boolean re = true;
@@ -299,22 +297,25 @@ public class ReEditMoneyBill {
         }
 
         for(int i=0;i<data.size();i++){
-            if(data.get(i).getAccount()==null){
+
+            if(!isNumeric(data.get(i).getMoney())){
                 re = false;
-                notification.setText("请输入转账账户 !");
+                notification.setText("请检查转账金额格式 !");
             }
             if(data.get(i).getMoney()==null){
                 re = false;
                 notification.setText("请输入转账金额 !");
             }
-            if(!isNumeric(data.get(i).getMoney())){
+            if(data.get(i).getAccount()==null){
                 re = false;
-                notification.setText("请检查转账金额格式 !");
+                notification.setText("请输入转账账户 !");
             }
+
         }
 
         return re;
     }
+//是否是数字
 
     public static boolean isNumeric(String str){
         for (int i = 0; i < str.length(); i++){
@@ -328,6 +329,7 @@ public class ReEditMoneyBill {
 
 
 
+//设置可编辑
 
 
     class EditingCell extends TableCell<MoneyList, String> {
