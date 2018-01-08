@@ -35,7 +35,7 @@ import java.text.ParseException;
 
 public class AccountantMain {
 
-    String staff = "Yotta";
+    String staff = "";
     private VBox right;
     HBox finalBox = new HBox();
 
