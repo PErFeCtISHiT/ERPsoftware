@@ -55,6 +55,7 @@ public class CheckSellUI {
         TableView<Sale> table = new TableView<>();
         ObservableList<Sale> data = FXCollections.observableArrayList();
         final Label label = new Label("销售列表");
+        label.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
@@ -104,6 +105,7 @@ public class CheckSellUI {
                     this.setGraphic(null);
                     if (!empty) {
                         Button DetailBtn = new Button("详细信息");
+                        DetailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(DetailBtn);
                         DetailBtn.setOnMouseClicked((me) -> {
                             //跳转详细信息
@@ -216,9 +218,11 @@ public class CheckSellUI {
         TextField basefield = new TextField();
         basefield.setMaxSize(100,20);
         gridPane.add(basefield, 5, 1);
+
+
         Button search = new Button("搜索");
         search.setMinSize(50,20);
-        search.setStyle("-fx-fill: white;-fx-background-color: blue;");
+        search.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         gridPane.add(search, 6, 1);
 
 
@@ -263,7 +267,7 @@ public class CheckSellUI {
 //导出按钮
         final Button OutputButton = new Button("导出表格",new ImageView(new Image("导出.png")));
         OutputButton.setMinSize(50,20);
-        OutputButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
+        OutputButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         OutputButton.setOnAction((ActionEvent e) -> {
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("EXCEL files (*.xls)", "*.xls");
@@ -279,7 +283,7 @@ public class CheckSellUI {
 //刷新列表
         final Button RefreshButton = new Button("刷新列表",new ImageView(new Image("刷新.png")));
         RefreshButton.setMinSize(50,20);
-        RefreshButton.setStyle("-fx-fill: white;-fx-background-color: blue;");
+        RefreshButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         RefreshButton.setOnAction((ActionEvent e) -> {
             try {
                 ArrayList<Sale> list =controller.show();

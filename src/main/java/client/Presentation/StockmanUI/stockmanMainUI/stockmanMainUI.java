@@ -58,6 +58,7 @@ public class stockmanMainUI {
             }
         });
 
+
         Button goodsCheck = new Button("库存盘点", new ImageView(new Image("盘点.png")));
         goodsCheck.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         goodsCheck.setOnAction(e -> {

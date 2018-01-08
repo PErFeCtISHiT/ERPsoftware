@@ -193,6 +193,7 @@ public class PayUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button editBtn = new Button("编辑收款单");
+                        editBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");;
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             ReEditMoneyBill reeditmoneybill= new ReEditMoneyBill();
@@ -250,6 +251,7 @@ public class PayUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -310,6 +312,7 @@ public class PayUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");;
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = UnderPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -407,7 +410,7 @@ public class PayUI {
 //刷新列表
 
         final Button refresh = new Button("刷新列表",new ImageView(new Image("刷新.png")));
-        refresh.setStyle("-fx-background-color: blue;-fx-text-fill: white;-fx-font:40");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =PayController.getAllAccount();
@@ -431,6 +434,7 @@ public class PayUI {
         });
 //新建付款单
         final Button newBill = new Button("新建付款单");
+        newBill.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         newBill.setOnAction(e -> {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {

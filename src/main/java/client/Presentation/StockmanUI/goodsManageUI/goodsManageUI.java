@@ -258,6 +258,8 @@ public class goodsManageUI {
 
                 if (!empty) {
                     Button delBtn = new Button("删除商品");
+                    delBtn.setStyle("-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: red");
+                    delBtn.setUnderline(true);
                     this.setGraphic(delBtn);
                     delBtn.setOnMouseClicked((me) -> {
                         goodsVO vo = createGoodsVO(this);
@@ -319,6 +321,8 @@ public class goodsManageUI {
                 if (!empty) {
                     goodsVO goodsVO = createGoodsVO(this);
                     Button warninglBtn = new Button("报警");
+                    warninglBtn.setStyle("-fx-border-color: transparent;-fx-background-color: red;-fx-text-fill: black");
+                    warninglBtn.setUnderline(true);
                     if (goodsVO.getWarningnum() < goodsVO.getNum())
                         warninglBtn.setDisable(true);
                     this.setGraphic(warninglBtn);
@@ -513,6 +517,7 @@ public class goodsManageUI {
         TextField inputField = new TextField();
         inputField.setPromptText("搜索内容");
         Button button = new Button("搜索");
+        button.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         button.setOnAction(e -> {
             try {
                 data.clear();

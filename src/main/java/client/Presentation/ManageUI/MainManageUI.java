@@ -11,6 +11,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,7 +43,8 @@ public class MainManageUI {
 
         Label work = new Label("工作目录");
 
-        Button checkSell = new Button("审批单据");
+        Button checkSell = new Button("审批单据",new ImageView(new Image("审批.png")));
+        checkSell.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         right =new HBox();
 
         checkSell.setOnAction(e -> {
@@ -54,7 +57,8 @@ public class MainManageUI {
             }
         });
 
-        Button checkmingxi = new Button("查看销售明细表");
+        Button checkmingxi = new Button("查看销售明细表",new ImageView(new Image("查看.png")));
+        checkSell.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         checkmingxi.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
@@ -65,7 +69,8 @@ public class MainManageUI {
             }
         });
 
-        Button checkprocess = new Button("查看经营历程表");
+        Button checkprocess = new Button("查看经营历程表",new ImageView(new Image("查看.png")));
+        checkprocess.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");;
         checkprocess.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
@@ -77,7 +82,8 @@ public class MainManageUI {
         });
 
 
-        Button checksituation = new Button("查看经营情况表");
+        Button checksituation = new Button("查看经营情况表",new ImageView(new Image("查看.png")));
+        checksituation.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         checksituation.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
@@ -89,7 +95,8 @@ public class MainManageUI {
         });
 
 
-        Button makecut = new Button("制定促销策略");
+        Button makecut = new Button("制定促销策略",new ImageView(new Image("定制.png")));
+        makecut.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         makecut.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);

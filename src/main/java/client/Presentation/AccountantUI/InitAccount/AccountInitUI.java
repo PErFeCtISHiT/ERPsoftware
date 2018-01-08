@@ -50,6 +50,7 @@ public class AccountInitUI{
         ObservableList<AccountList> data =
                 FXCollections.observableArrayList();
         final Label label = new Label("期初信息");
+        label.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
@@ -80,6 +81,7 @@ public class AccountInitUI{
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("查看详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String year = data.get(this.getIndex()).getYear();
@@ -243,6 +245,7 @@ public class AccountInitUI{
         vbx.getChildren().addAll(detaillabel,accordion);
 
         final Button RefreshButton = new Button("刷新列表");
+        RefreshButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         RefreshButton.setOnAction((ActionEvent e) -> {
             try {
                 ArrayList<AccountList> list1 =builder.show();
@@ -257,6 +260,7 @@ public class AccountInitUI{
 
 
         final Button InitButton = new Button("期初建账");
+        InitButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         InitButton.setOnAction((ActionEvent e) -> {
             try {
 

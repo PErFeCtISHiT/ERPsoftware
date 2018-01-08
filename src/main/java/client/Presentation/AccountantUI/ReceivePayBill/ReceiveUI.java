@@ -189,6 +189,7 @@ public class ReceiveUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button editBtn = new Button("编辑收款单");
+                        editBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             ReEditMoneyBill reeditmoneybill= new ReEditMoneyBill();
@@ -248,6 +249,7 @@ public class ReceiveUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -433,6 +435,7 @@ public class ReceiveUI {
 
 //刷新列表
         final Button refresh = new Button("刷新列表");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =receiveController.getAllAccount();
@@ -456,6 +459,7 @@ public class ReceiveUI {
         });
 //新建收款单
         final Button newBill = new Button("新建收款单");
+        newBill.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         newBill.setOnAction(e -> {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {

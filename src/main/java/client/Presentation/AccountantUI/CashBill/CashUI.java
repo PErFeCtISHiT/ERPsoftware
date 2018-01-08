@@ -184,6 +184,7 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button editBtn = new Button("编辑现金费用单");
+                        editBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             ReEditCashBill reEditCashBill = new ReEditCashBill();
@@ -240,6 +241,7 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -297,6 +299,7 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = UnderPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -399,6 +402,7 @@ public class CashUI {
 
 //刷新列表
         final Button refresh = new Button("刷新列表");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =cashController.getAllAccount();
@@ -423,6 +427,7 @@ public class CashUI {
 
 //新建现金费用单
         final Button newBill = new Button("新建现金费用单");
+        newBill.setStyle("-fx-border-color: black;-fx-background-color: transparent");;
         newBill.setOnAction(e -> {
             FillCashBillUI fillbill = new FillCashBillUI();
             try {
