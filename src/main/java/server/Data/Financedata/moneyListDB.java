@@ -21,7 +21,6 @@ public class moneyListDB extends publicDB implements moneyList {
         String hql = "from MoneylistEntity where keyno = ?";
         publicDB publicDB = new publicDB();
         List Entities = hibtools.session.createQuery(hql).setParameter(0, no).list();
-        hibtools.session.close();
         for (Object i : Entities) {
             moneyListPO moneyListPO = new moneyListPO();
             copyclass.copy(i, moneyListPO);

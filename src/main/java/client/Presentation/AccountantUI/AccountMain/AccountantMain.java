@@ -9,6 +9,8 @@ import client.Presentation.AccountantUI.LogCheck.LogCheckUI;
 import client.Presentation.AccountantUI.ReceivePayBill.PayUI;
 import client.Presentation.AccountantUI.ReceivePayBill.ReceiveUI;
 import client.Presentation.GuideUI.GuideUI;
+import client.Presentation.ManageUI.CheckProgressUI;
+import client.Presentation.ManageUI.CheckSituationUI;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +25,13 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.text.ParseException;
-
+/**
+ *
+ *
+ * @author: yotta
+ * @description: 财务人员主界面
+ * @date: modify in 18:20 2017/12/24
+ */
 
 public class AccountantMain {
 
@@ -36,6 +44,8 @@ public class AccountantMain {
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10, 0, 0, 10));
+
+        //跳转的界面
         AccountManagementUI accountManageUI = new AccountManagementUI();
         CheckSellUI checkSellUI = new CheckSellUI();
         AccountInitUI accountInitUI = new AccountInitUI();
@@ -52,6 +62,8 @@ public class AccountantMain {
         r.getChildren().add(guideUI.start());
         right=r;
 
+
+        //跳转按钮设置
         Button accountManageBT = new Button("账户管理",new ImageView(new Image("manage.png")));
         accountManageBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         Boxset(accountManageBT, accountManageUI.start(staff), receiveUI);
@@ -77,12 +89,40 @@ public class AccountantMain {
         cashBT.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         Boxset(cashBT, cashUI.start(staff), receiveUI);
 
+        CheckProgressUI checkProgressUI=new CheckProgressUI();
+        HBox subright = new HBox() ;
+        Button checkprocess = new Button("查看经营历程表",new ImageView(new Image("查看.png")));
+        checkprocess.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
+        checkprocess.setOnAction(e -> {
+            try {
+                finalBox.getChildren().remove(right);
+                subright.getChildren().add(checkProgressUI.start());
+                right.getChildren().add(subright);
+                finalBox.getChildren().add(right);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        CheckSituationUI checkSituationUI=new CheckSituationUI();
+        Button checksituation = new Button("查看经营情况表",new ImageView(new Image("查看.png")));
+        checksituation.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
+        checksituation.setOnAction(e -> {
+            try {
+                finalBox.getChildren().remove(right);
+                subright.getChildren().add(checkSituationUI.start());
+                right.getChildren().add(subright);
+                finalBox.getChildren().add(right);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         Line line1=new Line(0,100,100,100);
 
         Line slipLine=new Line(200,0,200,650);
 
-        vBox.getChildren().addAll(work, line1, accountManageBT, receiveBT, payBT, cashBT, checkSellBT, initAccountBT);
+        vBox.getChildren().addAll(work, line1, accountManageBT, receiveBT, payBT, cashBT, checkSellBT, initAccountBT,checkprocess,checksituation);
 
         finalBox.setSpacing(10);
         finalBox.setPadding(new Insets(10, 0, 0, 10));

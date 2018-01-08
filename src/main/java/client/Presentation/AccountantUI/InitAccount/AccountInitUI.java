@@ -22,9 +22,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+/**
+ * @discription: UI for accountant, 期初建账
+ * @author: yotta
+ */
 public class AccountInitUI{
-
 
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "商品列表"};
@@ -32,17 +34,10 @@ public class AccountInitUI{
     final TableView[] tablelist = new TableView[3];
     TitledPane gridTitlePane = new TitledPane();
 
-
-
     private FinancialBuildController builder= new FinancialBuildController();
-
-
-
-
-
     final HBox hb = new HBox();
 
-
+//start函数
     public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         Scene scene = new Scene(new Group());
@@ -50,40 +45,32 @@ public class AccountInitUI{
         stage.setWidth(800);
         stage.setHeight(550);
 
-
+//期初建账表格
         TableView<AccountList> table = new TableView<>();
         ObservableList<AccountList> data =
                 FXCollections.observableArrayList();
         final Label label = new Label("期初信息");
+        label.setStyle("-fx-border-color: transparent;-fx-background-color: transparent");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
 
         TableView<AccountBuild_account> accounttable = new TableView<>();
         ObservableList<AccountBuild_account> accountdata =
-                FXCollections.observableArrayList(
-                        new AccountBuild_account("123","A", "B"),
-                        new AccountBuild_account("234","Q", "W"));
+                FXCollections.observableArrayList();
         TableView<AccountBuild_consumer> consumertable = new TableView<>();
         ObservableList<AccountBuild_consumer> consumerdata =
-                FXCollections.observableArrayList(
-                        new AccountBuild_consumer("A", "B", "C","A", "B", "C"),
-                        new AccountBuild_consumer("b", "B", "C","A", "B", "C"));
+                FXCollections.observableArrayList();
         TableView<AccountBuild_good> goodstable = new TableView<>();
         ObservableList<AccountBuild_good> goodsdata =
-                FXCollections.observableArrayList(
-                        new AccountBuild_good("A", "B", "C","A", "B", "C","B", "C"),
-                        new AccountBuild_good("b", "B", "C","A", "B", "C", "B", "C"));
-
-
-
+                FXCollections.observableArrayList();
 
 
         TableColumn<AccountList,String> YearCol = new TableColumn<>("账单年份");
         YearCol.setMinWidth(100);
         YearCol.setCellValueFactory(
                 param -> param.getValue().year);
-
+//查看详细信息
         TableColumn<AccountList, String> DetailCol =
                 new TableColumn<>("详细内容");
         DetailCol.setMinWidth(200);
@@ -94,6 +81,7 @@ public class AccountInitUI{
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("查看详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String year = data.get(this.getIndex()).getYear();
@@ -122,7 +110,7 @@ public class AccountInitUI{
         table.setItems(data);
         table.getColumns().addAll(YearCol, DetailCol);
 
-
+//账户表格
         accounttable.setEditable(true);
         TableColumn<AccountBuild_account, String> IDCol =
                 new TableColumn<>("账户编号");
@@ -149,6 +137,7 @@ public class AccountInitUI{
         accounttable.setItems(accountdata);
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
 
+//客户表格
         TableColumn<AccountBuild_consumer, String> ConsumerIDCol =
                 new TableColumn<>("客户编号");
         ConsumerIDCol.setMinWidth(100);
@@ -189,7 +178,7 @@ public class AccountInitUI{
         consumertable.setItems(consumerdata);
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerTypeCol,InOutGapCol,DueINCol,DuePayCol);
 
-
+//商品表格
         TableColumn<AccountBuild_good, String> GoodsIDCol =
                 new TableColumn<>("编号");
         GoodsIDCol.setMinWidth(200);
@@ -256,6 +245,7 @@ public class AccountInitUI{
         vbx.getChildren().addAll(detaillabel,accordion);
 
         final Button RefreshButton = new Button("刷新列表");
+        RefreshButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         RefreshButton.setOnAction((ActionEvent e) -> {
             try {
                 ArrayList<AccountList> list1 =builder.show();
@@ -270,6 +260,7 @@ public class AccountInitUI{
 
 
         final Button InitButton = new Button("期初建账");
+        InitButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         InitButton.setOnAction((ActionEvent e) -> {
             try {
 
@@ -319,10 +310,6 @@ public class AccountInitUI{
         goodstable.getStyleClass().add("table-view");
         return fvbox;
 
-
-//        ((Group) scene.getRoot()).getChildren().addAll(hb);
-//        stage.setScene(scene);
-//        stage.show();
     }
 
 

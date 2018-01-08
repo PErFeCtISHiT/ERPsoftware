@@ -9,6 +9,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Account {
 
+    //ID 名称 金额
+
     public final SimpleStringProperty accountID;
     public final SimpleStringProperty accountName;
     public final SimpleStringProperty money;

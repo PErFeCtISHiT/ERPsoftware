@@ -55,7 +55,9 @@ public class goodsExceptionUI {
         }
         Label message = new Label(mess);
         Button yes = new Button("确认");
+        yes.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         Button no = new Button("取消");
+        no.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         no.setOnAction(e -> systemWarning.close());
         yes.setOnAction(e -> {
             goodsExceptionUI goodsExceptionUI = new goodsExceptionUI();
@@ -104,6 +106,7 @@ public class goodsExceptionUI {
         num.setText(String.valueOf(goods.getNum()));
         basenum.setText(String.valueOf(goods.getNum() + addnum));
 
+        SummitButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         SummitButton.setOnAction((ActionEvent e) -> {
             stockExceptionController stockExceptionController = new stockExceptionController();
             try {

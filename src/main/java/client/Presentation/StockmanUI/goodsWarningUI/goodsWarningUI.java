@@ -50,6 +50,7 @@ public class goodsWarningUI {
         num.setText(String.valueOf(goods.getNum()));
         warningnum.setText(String.valueOf(goods.getWarningnum()));
 
+        SummitButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         SummitButton.setOnAction((ActionEvent e) -> {
             StockWarningController stockWarningController = new StockWarningController();
             try {

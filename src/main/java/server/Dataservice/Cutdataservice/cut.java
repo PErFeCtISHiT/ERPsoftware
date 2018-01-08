@@ -1,9 +1,6 @@
 package server.Dataservice.Cutdataservice;
 
-import server.Dataservice.pubservice.pub;
-
-import java.rmi.RemoteException;
-import java.util.List;
+import server.Dataservice.Pubservice.pub;
 
 /**
  * @author: pis

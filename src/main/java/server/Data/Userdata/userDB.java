@@ -67,7 +67,6 @@ public class userDB extends publicDB implements user {
         useEntities.get(0).setEmail("face");
         hibtools hib = new hibtools();
         hib.Modify(useEntities.get(0));
-        hib.tx.commit();
         hibtools.tx.commit();
     }
 
@@ -78,7 +77,6 @@ public class userDB extends publicDB implements user {
         for(userPO i : userPOS){
             if(i.getEmail() != null && i.getEmail().equals("face")) {
                 i.setEmail("");
-                hibtools hib = new hibtools();
                 publicDB.modifyObject(i,15);
                 return i.getKeyname();
             }

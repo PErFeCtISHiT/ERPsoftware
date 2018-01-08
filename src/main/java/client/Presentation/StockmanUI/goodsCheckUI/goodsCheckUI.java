@@ -127,6 +127,7 @@ public class goodsCheckUI {
         datecol.setCellValueFactory(
                 param -> param.getValue().outdate);
         Button exportButton = new Button("导出到excel");
+        exportButton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
 
         exportButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();

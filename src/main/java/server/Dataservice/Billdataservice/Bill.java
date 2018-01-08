@@ -1,9 +1,5 @@
 package server.Dataservice.Billdataservice;
 
-import server.Dataservice.pubservice.pub;
-
-import java.util.List;
-
 /**
  * @author: pis
  * @description: good good study

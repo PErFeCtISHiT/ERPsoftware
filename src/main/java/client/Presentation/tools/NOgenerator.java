@@ -29,7 +29,6 @@ public class NOgenerator {
         if (POS.isEmpty())
             no = new StringBuilder("00001");
         else {
-            String temp;
             int maxint = 0;
             BeanInfo fromBean = Introspector.getBeanInfo(POS.get(POS.size() - 1).getClass(), Object.class);
             PropertyDescriptor[] fromProperty = fromBean.getPropertyDescriptors();

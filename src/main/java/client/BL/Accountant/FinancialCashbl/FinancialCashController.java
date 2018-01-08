@@ -20,12 +20,25 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.*;
 
-public class FinancialCashController implements FinancialCashInterface {
 
+/**
+ *
+ *
+ * @author: yotta
+ * @description: controller for Cash（现金费用）
+ * @date: modify in 18:20 2017/12/24
+ */
+public class FinancialCashController implements FinancialCashInterface {
 
     FinancialAccountController Accountcontroller  = new FinancialAccountController();
 
-
+    /**
+     * 提交单据
+     *
+     * @param financialCash
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public ResultMessage summit(FinancialCash financialCash) throws RemoteException{
@@ -38,6 +51,14 @@ public class FinancialCashController implements FinancialCashInterface {
         return null;
     }
 
+    /**
+     * 再次提交
+     *
+     * @param financialCash
+     * @return
+     * @throws RemoteException
+     */
+
     @Override
     public ResultMessage resummit(FinancialCash financialCash) throws RemoteException {
         moneyPO moneypo = FinancialCashToMoneyPO(financialCash);
@@ -49,6 +70,14 @@ public class FinancialCashController implements FinancialCashInterface {
         return null;
     }
 
+    /**
+     * 保存草稿
+     *
+     * @param financialCash
+     * @return
+     * @throws RemoteException
+     */
+
     @Override
     public ResultMessage saveAsDraft (FinancialCash financialCash) throws RemoteException{
         ArrayList<MoneyList> moneyLists = financialCash.getMoneyList();
@@ -59,7 +88,12 @@ public class FinancialCashController implements FinancialCashInterface {
         return null;
     }
 
-
+    /**
+     * 保存条目列表
+     *
+     * @param moneyLists
+     * @throws RemoteException
+     */
     @Override
     public void saveMoneyList(ArrayList<MoneyList> moneyLists) throws RemoteException{
         for (int i=0; i< moneyLists.size();i++){
@@ -76,7 +110,6 @@ public class FinancialCashController implements FinancialCashInterface {
                 NOgenerator generater = new NOgenerator();
                 String listID = "ZZLB-" + generater.generateMoneyList(18);
                 moneylist.setKeyid(listID);
-                System.out.println("List Size: "+moneylist.getKeyid());
                 link.getRemoteHelper().getmoneyList().addObject(moneylist,18);
             } catch (IntrospectionException e) {
                 e.printStackTrace();
@@ -89,6 +122,13 @@ public class FinancialCashController implements FinancialCashInterface {
         }
     }
 
+    /**
+     * 编辑草稿
+     *
+     * @param Keyno
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public FinancialCash ReEditBill(String Keyno) throws RemoteException{
 
@@ -103,6 +143,13 @@ public class FinancialCashController implements FinancialCashInterface {
 
     }
 
+    /**
+     * PO转换
+     *
+     * @param po
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public FinancialCash PoToFinancialCash( moneyPO po) throws RemoteException{
         String ID = po.getKeyno();
@@ -118,23 +165,38 @@ public class FinancialCashController implements FinancialCashInterface {
         return bill;
     }
 
+    /**
+     * PO转换
+     *
+     * @param list
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<MoneyList> PoToMoneyLists (List<moneyListPO> list) throws RemoteException{
         ArrayList<MoneyList> newlist= new ArrayList<>();
         for (int i=0; i<list.size(); i++){
             MoneyList newml= new MoneyList();
-            newml.setKeyid(list.get(i).getKeyid());
-            newml.setlistNO(list.get(i).getKeyno());
             newml.setAccount(list.get(i).getAccountname());
             newml.setMoney(String.valueOf(list.get(i).getSumall()));
             newml.setComment(list.get(i).getNote());
+            newml.setKeyid(list.get(i).getKeyid());
+            newml.setlistNO(list.get(i).getKeyno());
+
             newlist.add(newml);
 
         }
         return newlist;
     }
 
+
+    /**
+     * 所有已经审批的单据
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<AccountBill> getAllPromotedCash() throws RemoteException{
         List<moneyPO>  moneyPOList = link.getRemoteHelper().getMoneyBill().findAll(5);
@@ -148,6 +210,11 @@ public class FinancialCashController implements FinancialCashInterface {
         return accountBills;
     }
 
+    /**
+     * 正在审批的单据
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<AccountBill> getAllUnderPromotedCash() throws RemoteException{
@@ -165,6 +232,12 @@ public class FinancialCashController implements FinancialCashInterface {
     }
 
 
+    /**
+     * 草稿单据
+     *
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<AccountBill> getAllDraftCash() throws RemoteException{
@@ -178,34 +251,50 @@ public class FinancialCashController implements FinancialCashInterface {
 
         return accountBills;
     }
+
+    /**
+     * PO转换
+     * @param po
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public AccountBill PoToAccountBill(moneyPO po) throws RemoteException{
-        AccountBill bill = new AccountBill();
+        AccountBill billcash = new AccountBill();
 
         if (po.getKind()==0.0){
-            bill.setKind("收款单");
+            billcash.setKind("收款单");
         }
         else if (po.getKind() ==1.0){
-            bill.setKind("付款单");
+            billcash.setKind("付款单");
         }
         else {
-            bill.setKind("现金费用单");
+            billcash.setKind("现金费用单");
         }
-        bill.setKeyno(po.getKeyno());
-        bill.setConsumertype(po.getConsumertype());
-        bill.setOper(po.getOper());
-        bill.setConsumer(po.getConsumer());
-        bill.setAccoun(po.getAccoun());
-        bill.setMoneyList(po.getMoneyList());
 
-        bill.setIscheck(String.valueOf(po.getIscheck()));
-        bill.setIsDraft(String.valueOf(po.getIsDraft()));
-        bill.setIsred(String.valueOf(po.getIsred()));
-        bill.setSumall(String.valueOf(po.getSumall()));
+        billcash.setIscheck(String.valueOf(po.getIscheck()));
+        billcash.setIsDraft(String.valueOf(po.getIsDraft()));
+        billcash.setIsred(String.valueOf(po.getIsred()));
+        billcash.setSumall(String.valueOf(po.getSumall()));
+        billcash.setKeyno(po.getKeyno());
+        billcash.setConsumertype(po.getConsumertype());
+        billcash.setOper(po.getOper());
+        billcash.setConsumer(po.getConsumer());
+        billcash.setAccoun(po.getAccoun());
+        billcash.setMoneyList(po.getMoneyList());
 
-        return bill;
+
+
+        return billcash;
     }
 
+    /**
+     * 筛选草稿
+     *
+     * @param pos
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public ArrayList<moneyPO> PickDraftCash(List<moneyPO> pos) throws RemoteException{
@@ -217,6 +306,14 @@ public class FinancialCashController implements FinancialCashInterface {
         }
         return draftReceive;
     }
+
+    /**
+     * 类型转换
+     *
+     * @param financialCash
+     * @return
+     * @throws RemoteException
+     */
 
     @Override
     public moneyPO FinancialCashToMoneyPO(FinancialCash financialCash) throws RemoteException {
@@ -247,7 +344,12 @@ public class FinancialCashController implements FinancialCashInterface {
         return moneypo;
     }
 
-
+    /**
+     * 账户列表
+     *
+     * @return
+     * @throws RemoteException
+     */
 
 
     @Override
@@ -264,6 +366,14 @@ public class FinancialCashController implements FinancialCashInterface {
         return colist;
     }
 
+    /**
+     *
+     * 客户列表
+     *
+     * @return
+     * @throws RemoteException
+     */
+
     @Override
     public ArrayList<Consumer> getAllConsumer() throws RemoteException {
 
@@ -277,17 +387,25 @@ public class FinancialCashController implements FinancialCashInterface {
         return consumer;
     }
 
+
+    /**
+     * 类型转化
+     *
+     * @param po
+     * @return
+     */
+
     @Override
     public Consumer PoToConsumer(consumerPO po) {
         Consumer con = new Consumer();
         con.setconsumerID(po.getKeyno());
-        con.setconsumerName(po.getKeyname());
-        con.setconsumerLevel(String.valueOf(po.getLev()));
         con.setstaff(po.getServer());
         con.setinOutGap(String.valueOf(po.getPay()-po.getReceive()));
         con.setactualIN(String.valueOf(po.getPay()));
         con.setdueIN(String.valueOf(po.getReceive()));
         con.setduePay(String.valueOf(po.getCapacit()));
+        con.setconsumerName(po.getKeyname());
+        con.setconsumerLevel(String.valueOf(po.getLev()));
         return con;
     }
 
