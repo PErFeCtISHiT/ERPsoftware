@@ -196,7 +196,7 @@ public class ReceiveUI {
                             try {
 
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
-                                reeditmoneybill.start(bill);
+                                reeditmoneybill.start(bill,staff);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
@@ -460,7 +460,7 @@ public class ReceiveUI {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {
                 String ID = "SFKD-"+nogenerater.generate(5);
-                fillbill.start(ID);
+                fillbill.start(ID,staff);
 
                 logVO log = new logVO();
                 log.setOperatorno(staff);

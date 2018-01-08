@@ -36,6 +36,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @discription: UI for accountant, 账户管理
@@ -77,6 +78,7 @@ public class AccountManagementUI {
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
 
+        Alert modifyConfir = new Alert(Alert.AlertType.CONFIRMATION,"确认修改此账户?");
 
 /////////////////////////////////////////////////////////////////////////////////
         //ID列
@@ -99,6 +101,10 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     logset(staff);
                 });
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
         //金额列
         MoneyCol.setMinWidth(200);
@@ -129,32 +135,72 @@ public class AccountManagementUI {
                         Button delBtn = new Button();
                         delBtn.setText("删除");
                         this.setGraphic(delBtn);
+
+
+
+                        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,"确认删除此账户?");
+
+
+
+
                         delBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: red");
                         delBtn.setUnderline(true);
-                        delBtn.setOnMouseClicked((me) -> {
-                            coVO co = new coVO();
-                            co.setKeyname("");
-                            co.setSumall((double) 0.0);
-                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
-                            System.out.println(data.get(this.getIndex()).getaccountID().toString());
-                            data.remove(this.getIndex());
-                            try {
-                                logVO log = new logVO();
-                                log.setOperatorno(staff);
-                                log.setOpno("删除账户");
-                                link.getRemoteHelper().getLog().addObject(log, 13);
-                            } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
-                                e.printStackTrace();
-                            }
+                        delBtn.setOnAction((ActionEvent)->{
+                            Optional<ButtonType> result = confirmation.showAndWait();
+                            if(result.isPresent() && result.get() == ButtonType.OK){
 
-                            System.out.println("删除成功");
-                            FinancialAccountController financialAccountController = new FinancialAccountController();
-                            try {
-                                financialAccountController.deleteAccount(co);
-                            } catch (RemoteException e3) {
-                                e3.printStackTrace();
+                                coVO co = new coVO();
+                                co.setKeyname("");
+                                co.setSumall((double) 0.0);
+                                co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
+                                System.out.println(data.get(this.getIndex()).getaccountID().toString());
+                                data.remove(this.getIndex());
+                                try {
+                                    logVO log = new logVO();
+                                    log.setOperatorno(staff);
+                                    log.setOpno("删除账户");
+                                    link.getRemoteHelper().getLog().addObject(log, 13);
+                                } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                System.out.println("删除成功");
+                                FinancialAccountController financialAccountController = new FinancialAccountController();
+                                try {
+                                    financialAccountController.deleteAccount(co);
+                                } catch (RemoteException e3) {
+                                    e3.printStackTrace();
+                                }
+                                System.out.println("弹窗测试！");
                             }
+                            //其他Optional<ButtonType>参数：ButtonType.CANCEL
+
                         });
+//                        delBtn.setOnMouseClicked((me) -> {
+//
+//                            coVO co = new coVO();
+//                            co.setKeyname("");
+//                            co.setSumall((double) 0.0);
+//                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
+//                            System.out.println(data.get(this.getIndex()).getaccountID().toString());
+//                            data.remove(this.getIndex());
+//                            try {
+//                                logVO log = new logVO();
+//                                log.setOperatorno(staff);
+//                                log.setOpno("删除账户");
+//                                link.getRemoteHelper().getLog().addObject(log, 13);
+//                            } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            System.out.println("删除成功");
+//                            FinancialAccountController financialAccountController = new FinancialAccountController();
+//                            try {
+//                                financialAccountController.deleteAccount(co);
+//                            } catch (RemoteException e3) {
+//                                e3.printStackTrace();
+//                            }
+//                        });
                     }
                 }
 
