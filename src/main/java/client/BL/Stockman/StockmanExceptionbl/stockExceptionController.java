@@ -43,6 +43,7 @@ public class stockExceptionController implements stockException {
         stockOverflow.setNuminbase(actualNum);
         stockOverflow.setNuminsys(goods.getNum());
         stockOverflow.setOper(operator);
+        assert stockOverflow.getGoodsname() != null;
 
 
         logVO.setGoodsname(goods.getKeyname());

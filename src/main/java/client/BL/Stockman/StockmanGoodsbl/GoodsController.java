@@ -61,7 +61,7 @@ public class GoodsController implements GoodsListInterface {
      */
     @Override
     public List findGoods(String keyword) throws RemoteException {
-        return link.getRemoteHelper().getGoods().goodsfindGoods(keyword);
+        return link.getRemoteHelper().getGoods().goodsFindGoodsByKeyword(keyword);
     }
 
     /**
@@ -72,7 +72,7 @@ public class GoodsController implements GoodsListInterface {
     @Override
     public List findByKind(String kind) throws RemoteException {
 
-        return link.getRemoteHelper().getGoods().goodsfindByKind(kind);
+        return link.getRemoteHelper().getGoods().goodsFindByKind(kind);
     }
 
     /**

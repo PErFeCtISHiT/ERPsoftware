@@ -21,7 +21,7 @@ public class link {
         try {
 
 
-            remoteHelper.setRemote(Naming.lookup("rmi://127.0.0.1:8885/DataRemoteObject"));
+            remoteHelper.setRemote(Naming.lookup("rmi://172.26.71.52:8886/DataRemoteObject"));
 
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
 

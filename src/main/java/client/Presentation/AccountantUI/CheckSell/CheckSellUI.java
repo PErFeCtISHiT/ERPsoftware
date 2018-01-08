@@ -225,7 +225,8 @@ public class CheckSellUI {
         search.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         gridPane.add(search, 6, 1);
 
-
+        Alert warning = new Alert(Alert.AlertType.WARNING,"");
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,"");
         //搜索按钮
         search.setOnAction((ActionEvent e) -> {
             String detail="";
@@ -240,16 +241,33 @@ public class CheckSellUI {
             detail+=operaterfield.getText();
             detail+=",";
             detail+=basefield.getText();
-            System.out.println(detail);
 
-            ArrayList<Sale> list = null;
-            try {
-                list = controller.search(detail);
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
+            if(!checkInDatePicker.getValue().isBefore(checkOutDatePicker.getValue())){
+                warning.setContentText("时间段前后时间错误！");
+                warning.showAndWait();
             }
-            data.clear();
-            data.addAll(list);
+            else if (
+                    goodfield.getText().isEmpty()&&
+                    consumerfield.getText().isEmpty()&&
+                    operaterfield.getText().isEmpty()&&
+                    basefield.getText().isEmpty()){
+
+                warning.setContentText("无条件，无法搜索，请输入搜索条件！");
+                warning.showAndWait();
+
+            }
+            else{
+                ArrayList<Sale> list = null;
+                try {
+                    list = controller.search(detail);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.clear();
+                data.addAll(list);
+            }
+
+
         });
 
 /////////////////////////////////////////////////////////////////////开始的数据获取

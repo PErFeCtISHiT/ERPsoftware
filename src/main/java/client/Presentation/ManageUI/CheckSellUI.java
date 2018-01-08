@@ -86,7 +86,6 @@ public class CheckSellUI  {
         final Button OutputButton = new Button("导出表格");
         OutputButton.setOnAction((ActionEvent e) -> {
 
-
         });
 
         hb.getChildren().addAll(DetailButton,OutputButton);

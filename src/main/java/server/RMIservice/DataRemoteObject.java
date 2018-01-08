@@ -38,7 +38,7 @@ import java.util.List;
 
 public class DataRemoteObject extends UnicastRemoteObject implements accountInit,
         moneyBill, selloutBill, stockOverflowBill, stockwarningBill, moneyList, stockGoods,
-        Coaccount, Consumer, Goods, GoodsKinds, log, cut, pack, user, buyinBill, giftBill, pub, sale, goodsoutList {
+        Coaccount, Consumer, Goods, GoodsKinds, log, cut, pack, user, buyinBill, giftBill, server.Dataservice.Pubservice.pub, sale, goodsoutList {
 
     /**
 
@@ -76,19 +76,19 @@ public class DataRemoteObject extends UnicastRemoteObject implements accountInit
 
 
     @Override
-    public List goodsfindGoods(String keyword) throws RemoteException {
-        return goods.goodsfindGoods(keyword);
+    public List goodsFindGoodsByKeyword(String keyword) throws RemoteException {
+        return goods.goodsFindGoodsByKeyword(keyword);
     }
 
     @Override
-    public List goodsfindByKind(String kind) throws RemoteException {
-        return goods.goodsfindByKind(kind);
+    public List goodsFindByKind(String kind) throws RemoteException {
+        return goods.goodsFindByKind(kind);
     }
 
 
     @Override
-    public List goodsKindsFind(String keyword) throws RemoteException {
-        return goodsKinds.goodsKindsFind(keyword);
+    public List goodsKindsFindByKeyWord(String keyword) throws RemoteException {
+        return goodsKinds.goodsKindsFindByKeyWord(keyword);
     }
 
 
