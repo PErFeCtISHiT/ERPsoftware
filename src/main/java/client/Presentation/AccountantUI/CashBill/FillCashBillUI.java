@@ -134,18 +134,16 @@ public class FillCashBillUI {
         StaffComboBox.setEditable(false);
 //提交按钮
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (check())//checkMoney(money.getText())
+            if (check())
             {
-                System.out.println(TypeComboBox.getValue());
-
                 String billtype = TypeComboBox.getValue();
                 String billID = ID;
                 String operater = StaffComboBox.getValue();
                 String Account = account.getText();
-
-                System.out.println(money.getText());
+//断言
+                assert !account.getText().isEmpty();
+                assert !money.getText().isEmpty();
                 double sum = Double.parseDouble(money.getText());
-                System.out.println(sum);
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
                     data.get(i).setlistNO(billID);
@@ -162,24 +160,18 @@ public class FillCashBillUI {
                     e1.printStackTrace();
                 }
 
-                notification.setText("The Bill was successfully sent" + " to " );
+                notification.setText("The Bill was successfully sent");
                 money.clear();
                 text.clear();
             }
         });
 //保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
-
-            System.out.println(TypeComboBox.getValue());
-
             String billtype = TypeComboBox.getValue();
             String billID = ID;
             String operater = StaffComboBox.getValue();
             String Account = account.getText();
-
-            System.out.println(money.getText());
             double sum = Double.parseDouble(money.getText());
-            System.out.println(sum);
 
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {

@@ -216,14 +216,13 @@ public class ReEditMoneyBill {
             String consumerID1 = consumer.getText();
             double sum1 = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
-
-            System.out.println(" List size 3: "+data.size());
             for (int i=0;i<data.size();i++) {
                 data.get(i).setlistNO(billID);
-                System.out.println("sec"+data.get(0).getkeyid());
                 moneylist1.add(data.get(i));
             }
-            System.out.println(" List size 4: "+data.size());
+//断言
+            assert !consumer.getText().isEmpty();
+            assert !money.getText().isEmpty();
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
             try {
                 if(billtype=="收款单"){

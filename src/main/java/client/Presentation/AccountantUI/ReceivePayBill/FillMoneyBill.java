@@ -154,7 +154,9 @@ public class FillMoneyBill{
                     data.get(i).setlistNO(billID);
                     moneylist.add(data.get(i));
                 }
-
+//断言
+                assert !consumer.getText().isEmpty();
+                assert !money.getText().isEmpty();
                 FinancialBill financialBill = new FinancialBill(billID,billtype,operater,consumerType,consumerID,moneylist,sum);
                 try {
                     if(billtype.equals("收款单")){
