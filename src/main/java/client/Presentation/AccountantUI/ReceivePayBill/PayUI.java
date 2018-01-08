@@ -200,7 +200,7 @@ public class PayUI {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialBill bill = PayController.ReEditBill(keyno);
-                                reeditmoneybill.start(bill);
+                                reeditmoneybill.start(bill,staff);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
@@ -439,7 +439,7 @@ public class PayUI {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {
                 String ID = "SFKD-"+nogenerater.generate(5);
-                fillbill.start(ID);
+                fillbill.start(ID,staff);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setKeyjob("新建付款单");

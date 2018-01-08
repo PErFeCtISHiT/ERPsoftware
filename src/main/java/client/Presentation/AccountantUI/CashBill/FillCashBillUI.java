@@ -49,7 +49,7 @@ public class FillCashBillUI {
     private FinancialCashController cashController = new FinancialCashController();
 
 //start函数
-    public void start(String ID) {
+    public void start(String ID,String staff) {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -128,11 +128,8 @@ public class FillCashBillUI {
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
-        StaffComboBox.getItems().addAll(
-                "A员工", "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-        StaffComboBox.setEditable(true);
+        StaffComboBox.setValue(staff);
+        StaffComboBox.setEditable(false);
 //提交按钮
         SummitButton.setOnAction((ActionEvent e) -> {
             if (check())//checkMoney(money.getText())

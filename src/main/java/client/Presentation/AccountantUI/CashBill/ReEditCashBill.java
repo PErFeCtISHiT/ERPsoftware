@@ -48,7 +48,7 @@ public class ReEditCashBill {
     FinancialCashController cashController = new FinancialCashController();
 
 //start函数
-    public void start(FinancialCash bill) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void start(FinancialCash bill,String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -127,11 +127,8 @@ public class ReEditCashBill {
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
-        StaffComboBox.getItems().addAll(
-                "A员工", "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-        StaffComboBox.setEditable(true);
+        StaffComboBox.setValue(staff);
+        StaffComboBox.setEditable(false);
 
 
         String Type = "现金费用单";

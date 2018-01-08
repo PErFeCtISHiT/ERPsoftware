@@ -7,7 +7,7 @@ import server.Dataservice.Pubservice.pub;
  * @description: good good study
  * @date: create in 15:48 2017/11/26
  */
-public interface stockOverflowBill extends pub ,Bill{
+public interface stockOverflowBill extends pub,Bill{
 
 
 

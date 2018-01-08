@@ -14,7 +14,7 @@ public class GoodsDB extends publicDB implements Goods {
 
 
     @Override
-    public List goodsfindGoods(String keyword) {
+    public List goodsFindGoodsByKeyword(String keyword) {
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from GoodsEntity y where y.keyname like '%" + keyword + "%'" + "or y.keyno like '%" + keyword + "%'";
@@ -31,7 +31,7 @@ public class GoodsDB extends publicDB implements Goods {
     }
 
     @Override
-    public List goodsfindByKind(String kind) {
+    public List goodsFindByKind(String kind) {
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
         String hql = "from GoodsEntity where kinds like ?";

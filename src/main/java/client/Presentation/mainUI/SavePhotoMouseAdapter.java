@@ -26,9 +26,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author: pis
- * @description: good good study
- * @date: create in 9:18 2017/12/31
+ * @author: ferrycore
+ * @description: nullptr
  */
 class SavePhotoMouseAdapter extends MouseAdapter {
 
