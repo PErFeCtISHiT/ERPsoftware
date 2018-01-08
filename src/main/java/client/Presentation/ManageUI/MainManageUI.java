@@ -58,7 +58,7 @@ public class MainManageUI {
         });
 
         Button checkmingxi = new Button("查看销售明细表",new ImageView(new Image("查看.png")));
-        checkSell.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
+        checkmingxi.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         checkmingxi.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);
