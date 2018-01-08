@@ -7,5 +7,5 @@ import server.Dataservice.Pubservice.pub;
  * @description: good good study
  * @date: create in 18:53 2017/11/27
  */
-public interface moneyBill extends pub ,Bill{
+public interface moneyBill extends pub,Bill{
 }

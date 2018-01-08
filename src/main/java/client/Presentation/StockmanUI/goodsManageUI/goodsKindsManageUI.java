@@ -152,7 +152,7 @@ public class goodsKindsManageUI {
         if (goodsTreeView.getSelectionModel().getSelectedItem() != null) {
             String father = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
             goodskindsPO.setFather(father);
-            List temp = link.getRemoteHelper().getGoodsKinds().goodsKindsFind(father);
+            List temp = link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(father);
             goodskindsPO goodskindsPO1 = ((goodskindsPO) temp.get(0));
             if (goodskindsPO1.getSon() != null)
                 goodskindsPO1.setSon(goodskindsPO1.getSon() + text + ",");
@@ -175,16 +175,16 @@ public class goodsKindsManageUI {
     private void modifykinds(String text) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String temp = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
         goodsTreeView.getSelectionModel().getSelectedItem().setValue(text);
-        goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
+        goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(temp).get(0);
         goodskindsPO.setKeyname(text);
         link.getRemoteHelper().getPub().modifyObject(goodskindsPO, 1);
         String[] son = goodskindsPO.getSon().split(",");
         for (String s : son) {
-            goodskindsPO goodskindsPO1 = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(s).get(0);
+            goodskindsPO goodskindsPO1 = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(s).get(0);
             goodskindsPO1.setFather(text);
             link.getRemoteHelper().getPub().modifyObject(goodskindsPO1, 1);
         }
-        goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(goodskindsPO.getFather()).get(0);
+        goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(goodskindsPO.getFather()).get(0);
         StringBuilder modify = new StringBuilder();
         son = goodskindsPO.getSon().split(",");
         for (String s : son) {
@@ -208,9 +208,9 @@ public class goodsKindsManageUI {
     private void delkinds() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         String temp = goodsTreeView.getSelectionModel().getSelectedItem().getValue();
         goodsTreeView.getSelectionModel().getSelectedItem().getParent().getChildren().remove(goodsTreeView.getSelectionModel().getSelectedItem());
-        goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(temp).get(0);
+        goodskindsPO goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(temp).get(0);
         link.getRemoteHelper().getPub().deleteObject(goodskindsPO, 1);
-        goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(goodskindsPO.getFather()).get(0);
+        goodskindsPO = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(goodskindsPO.getFather()).get(0);
         StringBuilder modify = new StringBuilder();
         String[] son = goodskindsPO.getSon().split(",");
         for (String s : son) {
@@ -248,7 +248,7 @@ public class goodsKindsManageUI {
     }
 
     private void showkinds(TreeItem<String> treeItem) throws RemoteException {
-        goodskindsPO t = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFind(treeItem.getValue()).get(0);
+        goodskindsPO t = (server.Po.goodskindsPO) link.getRemoteHelper().getGoodsKinds().goodsKindsFindByKeyWord(treeItem.getValue()).get(0);
         String[] temp;
         if (t.getSon() != null && !t.getSon().equals("null")) {
             temp = t.getSon().split(",");
