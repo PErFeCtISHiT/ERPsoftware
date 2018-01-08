@@ -1,240 +1,117 @@
 package client.Presentation.ManageUI;
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+
 
 public class CheckSituationUI  {
 
 
-    private final TableView<Situation> table = new TableView<>();
-    private final ObservableList<Situation> data =
-            FXCollections.observableArrayList(
-                    new Situation("1", "2", "3","4", "5", "7","8","9","12","13","14")
-                    );
     final HBox hb = new HBox();
 
-
     public HBox start() {
-        final Label label = new Label("经营情况列表");
-        label.setFont(new Font("Arial", 20));
+        TitledPane gridTitlePane = new TitledPane();
+        gridTitlePane.setText("详细信息");
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("销售类收入", 13),
+                        new PieChart.Data("商品类收入", 25),
+                        new PieChart.Data("销售支出", 10),
+                        new PieChart.Data("商品支出", 22)
+                      );
 
-        table.setEditable(true);
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("经营情况");
 
+        for (final PieChart.Data data : chart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    new EventHandler<MouseEvent>() {
+                        @Override public void handle(MouseEvent e) {
 
-        TableColumn<CheckSituationUI.Situation, String> Col1 =
-                new TableColumn<>("销售收入");
-        TableColumn<CheckSituationUI.Situation, String> Col2 =
-                new TableColumn<>("商品报溢收入");
-        TableColumn<CheckSituationUI.Situation, String> Col3 =
-                new TableColumn<>("成本调整收入");
-        TableColumn<CheckSituationUI.Situation, String> Col4 =
-                new TableColumn<>("进退货差价收入");
-        TableColumn<CheckSituationUI.Situation, String> Col5 =
-                new TableColumn<>("代金券与实际收款差额收入");
-        TableColumn<CheckSituationUI.Situation, String> Col6 =
-                new TableColumn<>("商品报损支出");
-        TableColumn<CheckSituationUI.Situation, String> Col7=
-                new TableColumn<>("商品赠送支出");
-
-        Col1.setMinWidth(100);
-        Col1.setCellValueFactory(
-        param -> param.getValue().saleMoney);
-
-        Col2.setMinWidth(100);
-        Col2.setCellValueFactory(
-                param -> param.getValue().baoyiMoney);
-
-        Col3.setMinWidth(100);
-        Col3.setCellValueFactory(
-                param -> param.getValue().chengbentiaozhengMoney);
-
-        Col4.setMinWidth(100);
-        Col4.setCellValueFactory(
-                param -> param.getValue().jintuihuochajiaMoney);
-
-        Col5.setMinWidth(100);
-        Col5.setCellValueFactory(
-                param -> param.getValue().daijinquanandchaeMoney);
-
-        Col6.setMinWidth(100);
-        Col6.setCellValueFactory(
-                param -> param.getValue().commodityloss);
-
-        Col7.setMinWidth(100);
-        Col7.setCellValueFactory(
-                param -> param.getValue().commoditygiven);
+                            String s =data.getName();
+                            switch (s){
+                                case"商品类收入":
+                                    gridTitlePane.setVisible(true);
+                                    GridPane grid3 = new GridPane();
+                                    grid3.setVgap(4);
+                                    grid3.setHgap(10);
+                                        grid3.setPadding(new Insets(5, 5, 5, 5));
+                                        grid3.add(new Label("报溢收入 "), 0, 0);
+                                        grid3.add(new Label("400"), 1, 0);
+                                        grid3.add(new Label("成本调价"), 0, 1);
+                                        grid3.add(new Label("400"), 1, 1);
+                                        grid3.add(new Label("进货退货差价"), 0, 2);
+                                        grid3.add(new Label("400"), 1, 2);
+                                        grid3.add(new Label("未使用的代金券:"), 0, 3);
+                                        grid3.add(new Label("400"), 1, 3);
 
 
+                                        gridTitlePane.setContent(grid3);
+                                    break;
+                                case"销售类收入":
+
+                                    gridTitlePane.setVisible(false);
+                                    break;
+                                case"销售支出":
+                                    gridTitlePane.setVisible(false);
+                                    break;
+                                case"商品支出":
+                                    gridTitlePane.setVisible(true);
+                                    GridPane grid5 = new GridPane();
+                                    grid5.setVgap(4);
+                                    grid5.setHgap(10);
+                                    grid5.setPadding(new Insets(5, 5, 5, 5));
+                                    grid5.add(new Label("商品报损 "), 0, 0);
+                                    grid5.add(new Label("400"), 1, 0);
+                                    grid5.add(new Label("商品支出"), 0, 1);
+                                    grid5.add(new Label("400"), 1, 1);
+                                    gridTitlePane.setContent(grid5);
+                                    break;
+
+                            }
+
+                        }
+                    });
+        }
 
 
-        table.setItems(data);
-        table.getColumns().addAll(Col1,Col2,Col3,Col4,Col5,Col6,Col7);
 
-
-        final Button DetailButton = new Button("查看详细信息");
-        DetailButton.setOnAction((ActionEvent e) -> {
-
-
-        });
-        final Button OutputButton = new Button("导出表格");
-        OutputButton.setOnAction((ActionEvent e) -> {
-
-
-        });
-
-        hb.getChildren().addAll(DetailButton,OutputButton);
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setHgap(10);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.add(new Label("折让后总收入 "), 0, 0);
+        grid.add(new Label("400"), 0, 1);
+        grid.add(new Label("折让后总支出"), 1, 0);
+        grid.add(new Label("400"), 1, 1);
+        grid.add(new Label("利润"), 2, 0);
+        grid.add(new Label("400"), 2, 1);
+        grid.setAlignment(Pos.CENTER);
+        hb.getChildren().addAll(grid);
         hb.setSpacing(3);
+        hb.setAlignment(Pos.CENTER);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table, hb);
+        vbox.getChildren().addAll(hb);
         HBox hb =new HBox();
-        hb.getChildren().addAll(vbox);
+        VBox vb1 =new VBox();
+        vb1.getChildren().addAll(chart,vbox);
+        hb.getChildren().addAll(vb1,gridTitlePane);
         return hb;
     }
 
-    public static class Situation {
 
-        private final SimpleStringProperty saleMoney;
-        private final SimpleStringProperty baoyiMoney;
-        private final SimpleStringProperty chengbentiaozhengMoney;
-        private final SimpleStringProperty jintuihuochajiaMoney;
-        private final SimpleStringProperty daijinquanandchaeMoney;
-
-        private final SimpleStringProperty commodityloss;
-        private final SimpleStringProperty commoditygiven;
-
-        private final SimpleStringProperty takeinwithcut;
-        private final SimpleStringProperty cut;
-        private final SimpleStringProperty pay;
-        private final SimpleStringProperty profit;
-
-
-        private Situation(String saleMoney,String baoyiMoney,String chengbentiaozhengMoney,String jintuihuochajiaMoney,String daijinquandchaeMoney,String
-                          commodityloss,String commoditygiven,String takeinwithcut,String cut,String pay,String profit){
-            this.saleMoney =new SimpleStringProperty(saleMoney);
-            this.baoyiMoney =new SimpleStringProperty(baoyiMoney);
-            this.chengbentiaozhengMoney =new SimpleStringProperty(chengbentiaozhengMoney);
-            this.jintuihuochajiaMoney =new SimpleStringProperty(jintuihuochajiaMoney);
-            this.daijinquanandchaeMoney =new SimpleStringProperty(daijinquandchaeMoney);
-            this.commoditygiven =new SimpleStringProperty(commoditygiven);
-            this.commodityloss =new SimpleStringProperty(commodityloss);
-            this.takeinwithcut =new SimpleStringProperty(takeinwithcut);
-            this.cut =new SimpleStringProperty(cut);
-            this.pay =new SimpleStringProperty(pay);
-            this.profit =new SimpleStringProperty(profit);
-        }
-
-        public String getSaleMoney() {
-            return saleMoney.get();
-        }
-        public void setSaleMoney(String salemoney){
-            saleMoney.set(salemoney);
-        }
-
-
-        public String getBaoyiMoney() {
-            return baoyiMoney.get();
-        }
-        public void setBaoyiMoney(String baoyimoney ){
-            baoyiMoney.set(baoyimoney);
-
-        }
-
-
-        public String getChengbentiaozhengMoney() {
-            return chengbentiaozhengMoney.get();
-        }
-        public void setChengbentiaozhengMoney(String chengbentiaozhengmoney ){
-            chengbentiaozhengMoney.set(chengbentiaozhengmoney);
-
-        }
-
-
-        public String getJintuihuochajiaMoney() {
-            return jintuihuochajiaMoney.get();
-        }
-        public void setJintuihuochajiaMoney(String jintuihuochajiamoney ){
-            jintuihuochajiaMoney.set(jintuihuochajiamoney);
-
-        }
-
-
-        public String getDaijinquanandchaeMoney() {
-            return daijinquanandchaeMoney.get();
-        }
-
-        public void  setDaijinquanandchaeMoney(String daijinquanandchaemoney){
-            daijinquanandchaeMoney.set(daijinquanandchaemoney);
-        }
-
-        public String getCommodityloss() {
-            return commodityloss.get();
-        }
-        public void setCommodityloss(String commodityloss){
-            commoditygiven.set(commodityloss);
-        }
-
-
-        public String getCommoditygiven() {
-            return commoditygiven.get();
-        }
-
-        public void setCommoditygiven(String commoditygiven){
-            commodityloss.set(commoditygiven);
-
-        }
-
-
-
-        public String getTakeinwithcut() {
-            return takeinwithcut.get();
-        }
-
-        public void setTakeinwithcut(String Takeinwithcut){
-            takeinwithcut.set(Takeinwithcut);
-
-        }
-
-
-        public String getCut() {
-            return cut.get();
-        }
-
-        public void setCut(String Cut){
-            cut.set(Cut);
-        }
-
-        public String getPay() {
-            return pay.get();
-        }
-
-        public void setPay(String Pay){
-            pay.set(Pay);
-        }
-        public String getProfit() {
-            return profit.get();
-        }
-
-        public void setProfit(String Profit){
-            profit.set(Profit);
-        }
-
-
-    }
 
 }
