@@ -1,25 +1,13 @@
 package client.Presentation.ManageUI;
-import  client.Presentation.ManageUI.CheckSellUI;
-import  client.Presentation.ManageUI.ExamineBillUI;
-import  client.Presentation.ManageUI.CheckProgressUI;
-import  client.Presentation.ManageUI.CheckSituationUI;
-import  client.Presentation.ManageUI.MakeCutUI;
 
-import client.RMI.link;
-import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import server.Po.userPO;
-
-import java.rmi.RemoteException;
-import java.text.ParseException;
 
 public class MainManageUI {
     private HBox right ;
