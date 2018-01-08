@@ -18,9 +18,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author: pis
- * @description: good good study
- * @date: create in 20:34 2017/12/31
+ * @author: ferrycore
+ * @description: nullptr
  */
 class UploadPhotoMouseAdapter extends MouseAdapter {
 

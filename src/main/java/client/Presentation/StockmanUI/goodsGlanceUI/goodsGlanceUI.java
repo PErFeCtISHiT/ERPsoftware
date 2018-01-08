@@ -54,6 +54,7 @@ public class goodsGlanceUI {
         toDate.setPromptText("末");
 
         Button glance = new Button("查看");
+        glance.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         hbox.getChildren().addAll(fromDate, toDate, glance);
 
         vbox.setSpacing(5);

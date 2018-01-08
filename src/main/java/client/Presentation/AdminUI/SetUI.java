@@ -79,7 +79,16 @@ public class SetUI {
                     t.getTableView().getItems().get(
                             t.getTablePosition().getRow()).setName(t.getNewValue());
                     UserMsg acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
-
+                    userPO po1 =new userPO();
+                    po1.setPasswor(acc.getPassward());
+                    po1.setKeyno(acc.getNO());
+                    po1.setKeyjob(acc.getJob());
+                    po1.setKeyname(acc.getName());
+                    try {
+                        link.getRemoteHelper().getUser().modifyObject(po1,15);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 });
 
 
@@ -89,9 +98,18 @@ public class SetUI {
         ID.setCellFactory(cellFactory);
         ID.setOnEditCommit(
                 (TableColumn.CellEditEvent<UserMsg, String> t) -> {
-                    t.getTableView().getItems().get(t.getTablePosition().getRow()).setJob(t.getNewValue());
+                    t.getTableView().getItems().get(t.getTablePosition().getRow()).setNo(t.getNewValue());
                     UserMsg acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
-
+                    userPO po1 =new userPO();
+                    po1.setPasswor(acc.getPassward());
+                    po1.setKeyno(acc.getNO());
+                    po1.setKeyjob(acc.getJob());
+                    po1.setKeyname(acc.getName());
+                    try {
+                        link.getRemoteHelper().getUser().modifyObject(po1,15);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         logVO log = new logVO();
                         log.setOperatorno(staff);
@@ -109,10 +127,15 @@ public class SetUI {
         Passwards.setCellFactory(cellFactory);
         Passwards.setOnEditCommit(
                 (TableColumn.CellEditEvent<UserMsg, String> t) -> {
-                    t.getTableView().getItems().get(t.getTablePosition().getRow()).setJob(t.getNewValue());
+                    t.getTableView().getItems().get(t.getTablePosition().getRow()).setPassword(t.getNewValue());
                     UserMsg acc = t.getTableView().getItems().get(t.getTablePosition().getRow());
                     try {
-                        link.getRemoteHelper().getUser().modifyObject(acc, 15);
+                        userPO po1 =new userPO();
+                        po1.setPasswor(acc.getPassward());
+                        po1.setKeyno(acc.getNO());
+                        po1.setKeyjob(acc.getJob());
+                        po1.setKeyname(acc.getName());
+                        link.getRemoteHelper().getUser().modifyObject(po1,15);
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

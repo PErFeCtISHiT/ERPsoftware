@@ -24,7 +24,10 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+/**
+ * @discription: UI for accountant, 现金费用单
+ * @author: yotta
+ */
 public class CashUI {
     final String[] imageNames = new String[]{"账户列表", "客户列表", "现金费用单草稿","已审批","正在审批"};
     final TitledPane[] tps = new TitledPane[imageNames.length];
@@ -41,45 +44,44 @@ public class CashUI {
     final Label money = new Label("");
 
 
-
     final HBox hb = new HBox();
     final VBox vb1 = new VBox();
     final VBox vb2 = new VBox();
 
     FinancialCashController cashController  = new FinancialCashController();
 
+//start函数
     public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         stage.setTitle("制定现金费用单");
         Scene scene = new Scene(new Group(), 1350, 850);
 
-
+//转账列表
         TableView<MoneyList> table = new TableView<>();
         ObservableList<MoneyList> data =
                 FXCollections.observableArrayList();
+//账户列表
         TableView<Account> accounttable = new TableView<>();
         ObservableList<Account> accountdata =
-                FXCollections.observableArrayList(
-                        new Account("A", "B", "C"),
-                        new Account("Q", "W", "E"));
+                FXCollections.observableArrayList();
+//客户列表
         TableView<Consumer> consumertable = new TableView<>();
         ObservableList<Consumer> consumerdata =
-                FXCollections.observableArrayList(
-                        new Consumer("A", "B", "C","A", "B", "C","B", "C"),
-                        new Consumer("b", "B", "C","A", "B", "C","B", "C"));
-
+                FXCollections.observableArrayList();
+//草稿列表
         TableView<AccountBill> draftbilltable = new TableView<>();
         ObservableList<AccountBill> draftbilldata =
                 FXCollections.observableArrayList();
-
+//正在审批列表
         TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
         ObservableList<AccountBill> UnderPromotionbilldata =
                 FXCollections.observableArrayList();
-
+//已经审批列表
         TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
         ObservableList<AccountBill> AlreadyPromotionbilldata =
                 FXCollections.observableArrayList();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //账户列表
         accounttable.setEditable(true);
         TableColumn<Account, String> IDCol =
                 new TableColumn<>("账户编号");
@@ -108,6 +110,7 @@ public class CashUI {
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //客户列表
         TableColumn<Consumer, String> ConsumerIDCol =
                 new TableColumn<>("客户编号");
         ConsumerIDCol.setMinWidth(100);
@@ -160,7 +163,7 @@ public class CashUI {
         consumertable.getColumns().addAll(ConsumerIDCol, ConsumerNameCol, ConsumerLevelCol, StaffCol, InOutGapCol, DueINCol, ActualINCol, DuePayCol);
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-
+        //草稿列表
         TableColumn<AccountBill, String> BillIDCol =
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol =
@@ -181,13 +184,14 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button editBtn = new Button("编辑现金费用单");
+                        editBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             ReEditCashBill reEditCashBill = new ReEditCashBill();
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
-                                reEditCashBill.start(bill);
+                                reEditCashBill.start(bill,staff);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
@@ -216,7 +220,7 @@ public class CashUI {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        //已经审批列表
         TableColumn<AccountBill, String> BillIDCol1 =
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol1 =
@@ -237,6 +241,7 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -273,7 +278,7 @@ public class CashUI {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        //正在审批列表
         TableColumn<AccountBill, String> BillIDCol2 =
                 new TableColumn<>("单据编号");
         TableColumn<AccountBill, String> BillTypeCol2 =
@@ -294,6 +299,7 @@ public class CashUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = UnderPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -346,9 +352,10 @@ public class CashUI {
         accordion.getPanes().addAll(tps);
 //        accordion.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;");
 
-
         hb.getChildren().setAll(accordion,gridTitlePane);
         table.setEditable(true);
+
+        //条目列表
         TableColumn<MoneyList,String> AccountCol = new TableColumn<>("条目名称");
         AccountCol.setMinWidth(200);
         AccountCol.setCellValueFactory(
@@ -387,14 +394,15 @@ public class CashUI {
         grid.add(table, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
         grid.add(money, 1, 3, 4, 1);
-        grid.add(OutputButton, 3, 4);
+//        grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
 
 
 
-
+//刷新列表
         final Button refresh = new Button("刷新列表");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =cashController.getAllAccount();
@@ -417,12 +425,14 @@ public class CashUI {
             }
         });
 
+//新建现金费用单
         final Button newBill = new Button("新建现金费用单");
+        newBill.setStyle("-fx-border-color: black;-fx-background-color: transparent");;
         newBill.setOnAction(e -> {
             FillCashBillUI fillbill = new FillCashBillUI();
             try {
                 String ID = "XJFYD-"+nogenerater.generate(5);
-                fillbill.start(ID);
+                fillbill.start(ID,staff);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setKeyjob("新建现金费用单");
@@ -456,10 +466,6 @@ public class CashUI {
         UnderPromotionbilltable.getStyleClass().add("table-view");
         return vb;
 
-//        Group root = (Group) scene.getRoot();
-//        root.getChildren().add(vb);
-//        stage.setScene(scene);
-//        stage.show();
 
     }
 

@@ -53,8 +53,11 @@ public class goodsKindsManageUI {
         final TextField kindsname = new TextField();
         kindsname.setPromptText("种类名称");
         final Button addbtn = new Button("增加");
+        addbtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         final Button modifybtn = new Button("修改");
+        modifybtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         final Button delbtn = new Button("删除");
+        delbtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         buttons.getChildren().addAll(kindsname, addbtn, delbtn, modifybtn);
         delbtn.setDisable(true);
         modifybtn.setDisable(true);

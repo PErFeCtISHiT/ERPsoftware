@@ -20,7 +20,10 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+/**
+ * @discription: UI for accountant, 收款单
+ * @author: yotta
+ */
 public class ReceiveUI {
 
     final String[] imageNames = new String[]{"账户列表", "客户列表", "收款单草稿","已审批","正在审批"};
@@ -47,39 +50,41 @@ public class ReceiveUI {
     final VBox vb2 = new VBox();
 
     FinancialReceiveController receiveController  = new FinancialReceiveController();
-
+//start函数
     public VBox start(String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         stage.setTitle("制定收款单");
         Scene scene = new Scene(new Group(), 1350, 750);
-
+//转账列表
         TableView<MoneyList> table = new TableView<>();
         ObservableList<MoneyList> data =
                 FXCollections.observableArrayList();
-
+//账户列表
         TableView<Account> accounttable = new TableView<>();
         ObservableList<Account> accountdata =
                 FXCollections.observableArrayList(
                         new Account("A", "B", "C"),
                         new Account("Q", "W", "E"));
+//客户列表
         TableView<Consumer> consumertable = new TableView<>();
         ObservableList<Consumer> consumerdata =
                 FXCollections.observableArrayList(
                         new Consumer("A", "B", "C","A", "B", "C","B", "C"),
                         new Consumer("b", "B", "C","A", "B", "C","B", "C"));
-
+//草稿列表
         TableView<AccountBill> draftbilltable = new TableView<>();
         ObservableList<AccountBill> draftbilldata =
                 FXCollections.observableArrayList();
-
+//正在审批列表
         TableView<AccountBill> UnderPromotionbilltable = new TableView<>();
         ObservableList<AccountBill> UnderPromotionbilldata =
                 FXCollections.observableArrayList();
-
+//已经审批列表
         TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
         ObservableList<AccountBill> AlreadyPromotionbilldata =
                 FXCollections.observableArrayList();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //账户列表
         accounttable.setEditable(true);
         TableColumn<Account, String> IDCol =
                 new TableColumn<>("账户编号");
@@ -108,6 +113,8 @@ public class ReceiveUI {
         accounttable.getColumns().addAll(IDCol, NameCol, MoneyCol);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //客户列表
         TableColumn<Consumer, String> ConsumerIDCol =
                 new TableColumn<>("客户编号");
         ConsumerIDCol.setMinWidth(100);
@@ -160,6 +167,7 @@ public class ReceiveUI {
         consumertable.getColumns().addAll(ConsumerIDCol,ConsumerNameCol,ConsumerLevelCol,StaffCol,InOutGapCol,DueINCol,ActualINCol,DuePayCol);
 
 ////////////////////////////////////////////////////////////////////////////////////////////
+        //草稿列表
 
         TableColumn<AccountBill, String> BillIDCol =
                 new TableColumn<>("单据编号");
@@ -181,6 +189,7 @@ public class ReceiveUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button editBtn = new Button("编辑收款单");
+                        editBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(editBtn);
                         editBtn.setOnMouseClicked((me) -> {
                             ReEditMoneyBill reeditmoneybill= new ReEditMoneyBill();
@@ -188,7 +197,7 @@ public class ReceiveUI {
                             try {
 
                                 FinancialBill bill = receiveController.ReEditBill(keyno);
-                                reeditmoneybill.start(bill);
+                                reeditmoneybill.start(bill,staff);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
@@ -216,6 +225,7 @@ public class ReceiveUI {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+        //已经审批列表
 
 
 
@@ -239,6 +249,7 @@ public class ReceiveUI {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = AlreadyPromotionbilldata.get(this.getIndex()).getKeyno().toString();
@@ -278,6 +289,7 @@ public class ReceiveUI {
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+        //正在审批列表
 
         TableColumn<AccountBill, String> BillIDCol2 =
                 new TableColumn<>("单据编号");
@@ -417,12 +429,13 @@ public class ReceiveUI {
         grid.add(table, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
         grid.add(money, 1, 3, 4, 1);
-        grid.add(OutputButton, 3, 4);
+//        grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
 
-
+//刷新列表
         final Button refresh = new Button("刷新列表");
+        refresh.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         refresh.setOnAction(e -> {
             try {
                 ArrayList<Account> list1 =receiveController.getAllAccount();
@@ -444,13 +457,14 @@ public class ReceiveUI {
                 e1.printStackTrace();
             }
         });
-
+//新建收款单
         final Button newBill = new Button("新建收款单");
+        newBill.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         newBill.setOnAction(e -> {
             FillMoneyBill fillbill = new FillMoneyBill();
             try {
                 String ID = "SFKD-"+nogenerater.generate(5);
-                fillbill.start(ID);
+                fillbill.start(ID,staff);
 
                 logVO log = new logVO();
                 log.setOperatorno(staff);

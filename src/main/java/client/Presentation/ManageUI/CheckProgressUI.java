@@ -106,6 +106,7 @@ public class CheckProgressUI  {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button detailBtn = new Button("详细信息");
+                        detailBtn.setStyle("-fx-border-color: black;-fx-background-color: transparent");;
                         this.setGraphic(detailBtn);
                         detailBtn.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
@@ -171,6 +172,7 @@ public class CheckProgressUI  {
 
                     if (!empty) {
                         Button isredbutton = new Button("红冲");
+                        isredbutton.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(isredbutton);
                         isredbutton.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
@@ -272,6 +274,7 @@ public class CheckProgressUI  {
                     super.updateItem(item, empty);
                     if (!empty) {
                         Button isredbutton2 = new Button("红冲复制");
+                        isredbutton2.setStyle("-fx-border-color: black;-fx-background-color: transparent");
                         this.setGraphic(isredbutton2);
                         isredbutton2.setOnMouseClicked((me) -> {
                             String keyno = data.get(this.getIndex()).getId();
@@ -464,28 +467,21 @@ public class CheckProgressUI  {
         vbox.getChildren().add(gridPane);
 //type
 
-        final Button button1 = new Button("红冲操作");
-        button1.setOnAction((ActionEvent e) -> {
-
-        });
-        final Button button2 = new Button("红冲复制");
-        button2.setOnAction((ActionEvent e) -> {
-
-
-        });
-        final Button button3 = new Button("导出经营情况表");
-        button3.setOnAction((ActionEvent e) -> {
-
-
-        });
+//        final Button button1 = new Button("红冲操作");
+//        button1.setOnAction((ActionEvent e) -> {
+//
+//        });
+//        final Button button2 = new Button("红冲复制");
+//        button2.setOnAction((ActionEvent e) -> {
+//
+//
+//        });
+//        final Button button3 = new Button("导出经营情况表");
+//        button3.setOnAction((ActionEvent e) -> {
+//
+//        });
 
         final Button button4 = new Button("查询");
-
-
-
-
-
-
 
         final TextField  client= new TextField();
         client.setPromptText("客户");
@@ -651,7 +647,7 @@ public class CheckProgressUI  {
 
         });
 
-        hb.getChildren().addAll(button1,button2,button3,button4);
+        hb.getChildren().addAll(button4);
         hb.setSpacing(3);
 
         hb2.getChildren().addAll(vbox);
