@@ -1,5 +1,6 @@
 package client.Presentation.AdminUI;
 
+import org.hibernate.validator.constraints.URL;
 import shared.FaceAdd;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Java2DFrameConverter;
@@ -18,9 +19,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author: pis
- * @description: good good study
- * @date: create in 20:34 2017/12/31
+ * @author: ferrycore
+ * @description: nullptr
  */
 class UploadPhotoMouseAdapter extends MouseAdapter {
 
@@ -56,8 +56,8 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
             if (iplImage != null) {
 
 
-                String fpath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath();
-
+                java.net.URL path =this.getClass().getClassLoader().getResource("test.jpg");
+                String fpath =path.toString();
                 cvSaveImage(fpath, iplImage);
                 FaceAdd.add(picName);
 

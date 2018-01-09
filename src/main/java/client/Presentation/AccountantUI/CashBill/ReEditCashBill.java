@@ -46,9 +46,11 @@ public class ReEditCashBill {
     final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialCashController cashController = new FinancialCashController();
+    private Alert warning = new Alert(Alert.AlertType.WARNING,"");
 
-//start函数
-    public void start(FinancialCash bill) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+
+    //start函数
+    public void start(FinancialCash bill,String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -127,11 +129,8 @@ public class ReEditCashBill {
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
-        StaffComboBox.getItems().addAll(
-                "A员工", "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-        StaffComboBox.setEditable(true);
+        StaffComboBox.setValue(staff);
+        StaffComboBox.setEditable(false);
 
 
         String Type = "现金费用单";
@@ -165,6 +164,9 @@ public class ReEditCashBill {
                     data.get(i).setlistNO(billID);
                     moneylist1.add(data.get(i));
                 }
+//断言
+                assert !account.getText().isEmpty();
+                assert !money.getText().isEmpty();
                 FinancialCash financialCash = new FinancialCash(billID,billtype,operater1,Account,moneylist1,sum1);
                 try {
                     if(billtype=="现金费用单"){
@@ -184,7 +186,7 @@ public class ReEditCashBill {
 //保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
 
-            System.out.println(TypeComboBox.getValue());
+
 
             String billtype = TypeComboBox.getValue();
             String billID = bill.getID();//billNum.getText();
@@ -245,36 +247,52 @@ public class ReEditCashBill {
     }
 
 //检查内容
+
     public boolean check(){
         boolean re = true;
         String moneytext = money.getText();
-        if(account.getText()==null){
-            re = false;
-            notification.setText("请输入客户类型 !");
-        }
-        if(moneytext == null || moneytext.isEmpty()){
-            re = false;
-            notification.setText("请输入总金额 !");
-        }
         if (!isNumeric(moneytext)){
             re = false;
-            notification.setText("请检查输入金额的格式 !");
+            warning.setContentText("请检查输入金额的格式 !");
+            warning.showAndWait();
         }
+        else if(moneytext == null || moneytext.isEmpty()){
+            re = false;
+            warning.setContentText("请输入总金额 !");
+            warning.showAndWait();
+        }
+        else if(account.getText()==null||account.getText().isEmpty()){
+            re = false;
+            warning.setContentText("请输入银行账户 !");
+            warning.showAndWait();
+        }
+        else if (data.size()==0){
+            re = false;
+            warning.setContentText("请输入条目列表 !");
+            warning.showAndWait();
+        }
+        else{
+            for(int i=0;i<data.size();i++){
+                if(data.get(i).getAccount()==null||data.get(i).getAccount().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账账户 !");
+                    warning.showAndWait();
+                }
+                else if(!isNumeric(data.get(i).getMoney())||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请检查转账金额格式 !");
+                    warning.showAndWait();
+                }
+                else if(data.get(i).getMoney()==null||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账金额 !");
+                    warning.showAndWait();
+                }
+
+            }
 
 
-        for(int i=0;i<data.size();i++){
-            if(data.get(i).getMoney()==null){
-                re = false;
-                notification.setText("请输入转账金额 !");
-            }
-            if(data.get(i).getAccount()==null){
-                re = false;
-                notification.setText("请输入转账账户 !");
-            }
-            if(!isNumeric(data.get(i).getMoney())){
-                re = false;
-                notification.setText("请检查转账金额格式 !");
-            }
+
         }
 
         return re;

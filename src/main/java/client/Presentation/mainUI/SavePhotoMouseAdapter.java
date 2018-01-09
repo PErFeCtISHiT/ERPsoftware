@@ -26,9 +26,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author: pis
- * @description: good good study
- * @date: create in 9:18 2017/12/31
+ * @author: ferrycore
+ * @description: nullptr
  */
 class SavePhotoMouseAdapter extends MouseAdapter {
 
@@ -103,7 +102,7 @@ class SavePhotoMouseAdapter extends MouseAdapter {
 
 
     private void cvSaveImage(opencv_core.IplImage image) throws IOException {
-        File file = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath());
+        File file = new File(this.getClass().getClassLoader().getResource("test.jpg").toString());
 
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

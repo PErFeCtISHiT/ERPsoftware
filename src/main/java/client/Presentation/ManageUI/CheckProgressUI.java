@@ -1,30 +1,26 @@
 package client.Presentation.ManageUI;
 
+import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import client.BL.Manager.ManagerCheckProcessService.BillgottenController;
 import client.RMI.link;
-import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import javafx.util.Callback;
 import server.Po.*;
+import shared.checkInTime;
+
 import java.rmi.RemoteException;
-import java.security.cert.TrustAnchor;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
-import shared.checkInTime;
 
 public class CheckProgressUI  {
 

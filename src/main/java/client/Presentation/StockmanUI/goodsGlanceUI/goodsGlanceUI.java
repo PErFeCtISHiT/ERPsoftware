@@ -84,7 +84,7 @@ public class goodsGlanceUI {
                         List<goodsPO> goods = new ArrayList<>();
                         if (i.getKeynum() >= 0) {
                             try {
-                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
+                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsFindGoodsByKeyword(i.getGoodsname());
                             } catch (RemoteException e1) {
                                 e1.printStackTrace();
                             }
@@ -103,7 +103,7 @@ public class goodsGlanceUI {
                             data1.add(baseGoods);
                         } else {
                             try {
-                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
+                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsFindGoodsByKeyword(i.getGoodsname());
                             } catch (RemoteException e1) {
                                 e1.printStackTrace();
                             }
@@ -128,7 +128,7 @@ public class goodsGlanceUI {
                         List<goodsPO> goods = new ArrayList<>();
                         if (i.getNum() >= 0) {
                             try {
-                                goods = link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
+                                goods = link.getRemoteHelper().getGoods().goodsFindGoodsByKeyword(i.getGoodsname());
                             } catch (RemoteException e1) {
                                 e1.printStackTrace();
                             }
@@ -147,7 +147,7 @@ public class goodsGlanceUI {
                             data2.add(consumerGoods);
                         } else {
                             try {
-                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsfindGoods(i.getGoodsname());
+                                goods = (List<goodsPO>) link.getRemoteHelper().getGoods().goodsFindGoodsByKeyword(i.getGoodsname());
                             } catch (RemoteException e1) {
                                 e1.printStackTrace();
                             }

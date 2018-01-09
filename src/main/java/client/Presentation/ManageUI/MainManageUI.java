@@ -1,25 +1,13 @@
 package client.Presentation.ManageUI;
-import  client.Presentation.ManageUI.CheckSellUI;
-import  client.Presentation.ManageUI.ExamineBillUI;
-import  client.Presentation.ManageUI.CheckProgressUI;
-import  client.Presentation.ManageUI.CheckSituationUI;
-import  client.Presentation.ManageUI.MakeCutUI;
 
-import client.RMI.link;
-import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import server.Po.userPO;
-
-import java.rmi.RemoteException;
-import java.text.ParseException;
 
 public class MainManageUI {
     private HBox right ;
@@ -58,7 +46,7 @@ public class MainManageUI {
         });
 
         Button checkmingxi = new Button("查看销售明细表",new ImageView(new Image("查看.png")));
-        checkSell.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
+        checkmingxi.setStyle("-fx-font-size: 14;-fx-border-color: transparent;-fx-background-color: transparent;-fx-text-fill: black;-fx-font-family: serif");
         checkmingxi.setOnAction(e -> {
             try {
                 finalBox.getChildren().remove(right);

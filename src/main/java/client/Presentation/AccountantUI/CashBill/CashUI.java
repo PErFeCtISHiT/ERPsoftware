@@ -191,7 +191,7 @@ public class CashUI {
                             String keyno = draftbilldata.get(this.getIndex()).getKeyno().toString();
                             try {
                                 FinancialCash bill = cashController.ReEditBill(keyno);
-                                reEditCashBill.start(bill);
+                                reEditCashBill.start(bill,staff);
                             } catch (RemoteException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
                                 e.printStackTrace();
                             }
@@ -432,7 +432,7 @@ public class CashUI {
             FillCashBillUI fillbill = new FillCashBillUI();
             try {
                 String ID = "XJFYD-"+nogenerater.generate(5);
-                fillbill.start(ID);
+                fillbill.start(ID,staff);
                 logVO log = new logVO();
                 log.setOperatorno(staff);
                 log.setKeyjob("新建现金费用单");

@@ -47,9 +47,11 @@ public class FillCashBillUI {
     private final Tooltip tooltipForConsumer = new Tooltip("输入客户编号");
     private final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     private FinancialCashController cashController = new FinancialCashController();
+    private Alert warning = new Alert(Alert.AlertType.WARNING,"");
 
-//start函数
-    public void start(String ID) {
+
+    //start函数
+    public void start(String ID,String staff) {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -128,25 +130,20 @@ public class FillCashBillUI {
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
-        StaffComboBox.getItems().addAll(
-                "A员工", "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-        StaffComboBox.setEditable(true);
+        StaffComboBox.setValue(staff);
+        StaffComboBox.setEditable(false);
 //提交按钮
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (check())//checkMoney(money.getText())
+            if (check())
             {
-                System.out.println(TypeComboBox.getValue());
-
                 String billtype = TypeComboBox.getValue();
                 String billID = ID;
                 String operater = StaffComboBox.getValue();
                 String Account = account.getText();
-
-                System.out.println(money.getText());
+//断言
+                assert !account.getText().isEmpty();
+                assert !money.getText().isEmpty();
                 double sum = Double.parseDouble(money.getText());
-                System.out.println(sum);
                 ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
                 for (int i=0;i<data.size();i++) {
                     data.get(i).setlistNO(billID);
@@ -163,24 +160,18 @@ public class FillCashBillUI {
                     e1.printStackTrace();
                 }
 
-                notification.setText("The Bill was successfully sent" + " to " );
+                notification.setText("The Bill was successfully sent");
                 money.clear();
                 text.clear();
             }
         });
 //保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
-
-            System.out.println(TypeComboBox.getValue());
-
             String billtype = TypeComboBox.getValue();
             String billID = ID;
             String operater = StaffComboBox.getValue();
             String Account = account.getText();
-
-            System.out.println(money.getText());
             double sum = Double.parseDouble(money.getText());
-            System.out.println(sum);
 
             ArrayList<MoneyList> moneylist = new ArrayList<MoneyList>();
             for (int i=0;i<data.size();i++) {
@@ -236,30 +227,47 @@ public class FillCashBillUI {
         String moneytext = money.getText();
         if (!isNumeric(moneytext)){
             re = false;
-            notification.setText("请检查输入金额的格式 !");
+            warning.setContentText("请检查输入金额的格式 !");
+            warning.showAndWait();
         }
-        if(moneytext == null || moneytext.isEmpty()){
+        else if (data.size()==0){
             re = false;
-            notification.setText("请输入总金额 !");
+            warning.setContentText("请输入条目列表 !");
+            warning.showAndWait();
         }
-        if(account.getText()==null){
+        else if(account.getText()==null||account.getText().isEmpty()){
             re = false;
-            notification.setText("请输入客户类型 !");
+            warning.setContentText("请输入银行账户 !");
+            warning.showAndWait();
+        }
+        else if(moneytext == null || moneytext.isEmpty()){
+            re = false;
+            warning.setContentText("请输入总金额 !");
+            warning.showAndWait();
         }
 
-        for(int i=0;i<data.size();i++){
-            if(data.get(i).getAccount()==null){
-                re = false;
-                notification.setText("请输入转账账户 !");
+        else{
+            for(int i=0;i<data.size();i++){
+                if(data.get(i).getMoney()==null||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账金额 !");
+                    warning.showAndWait();
+                }
+                else if(!isNumeric(data.get(i).getMoney())||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请检查转账金额格式 !");
+                    warning.showAndWait();
+                }
+                else if(data.get(i).getAccount()==null||data.get(i).getAccount().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账账户 !");
+                    warning.showAndWait();
+                }
+
+
             }
-            if(!isNumeric(data.get(i).getMoney())){
-                re = false;
-                notification.setText("请检查转账金额格式 !");
-            }
-            if(data.get(i).getMoney()==null){
-                re = false;
-                notification.setText("请输入转账金额 !");
-            }
+
+
 
         }
 

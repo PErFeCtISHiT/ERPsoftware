@@ -36,6 +36,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @discription: UI for accountant, 账户管理
@@ -77,6 +78,7 @@ public class AccountManagementUI {
         TableColumn<Account, String> delCol =
                 new TableColumn<>("是否删除");
 
+        Alert modifyConfir = new Alert(Alert.AlertType.CONFIRMATION,"确认修改此账户?");
 
 /////////////////////////////////////////////////////////////////////////////////
         //ID列
@@ -99,6 +101,10 @@ public class AccountManagementUI {
                     modifyAccount(acc);
                     logset(staff);
                 });
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
         //金额列
         MoneyCol.setMinWidth(200);
@@ -129,32 +135,46 @@ public class AccountManagementUI {
                         Button delBtn = new Button();
                         delBtn.setText("删除");
                         this.setGraphic(delBtn);
+
+
+
+                        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,"确认删除此账户?");
+
+
+
+
                         delBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: red");
                         delBtn.setUnderline(true);
-                        delBtn.setOnMouseClicked((me) -> {
-                            coVO co = new coVO();
-                            co.setKeyname("");
-                            co.setSumall((double) 0.0);
-                            co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
-                            System.out.println(data.get(this.getIndex()).getaccountID().toString());
-                            data.remove(this.getIndex());
-                            try {
-                                logVO log = new logVO();
-                                log.setOperatorno(staff);
-                                log.setOpno("删除账户");
-                                link.getRemoteHelper().getLog().addObject(log, 13);
-                            } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
-                                e.printStackTrace();
-                            }
+                        delBtn.setOnAction((ActionEvent)->{
+                            Optional<ButtonType> result = confirmation.showAndWait();
+                            if(result.isPresent() && result.get() == ButtonType.OK){
 
-                            System.out.println("删除成功");
-                            FinancialAccountController financialAccountController = new FinancialAccountController();
-                            try {
-                                financialAccountController.deleteAccount(co);
-                            } catch (RemoteException e3) {
-                                e3.printStackTrace();
+                                coVO co = new coVO();
+                                co.setKeyname("");
+                                co.setSumall((double) 0.0);
+                                co.setKeyno(data.get(this.getIndex()).getaccountID().toString());
+                                System.out.println(data.get(this.getIndex()).getaccountID().toString());
+                                data.remove(this.getIndex());
+                                try {
+                                    logVO log = new logVO();
+                                    log.setOperatorno(staff);
+                                    log.setOpno("删除账户");
+                                    link.getRemoteHelper().getLog().addObject(log, 13);
+                                } catch (RemoteException | InvocationTargetException | IllegalAccessException | IntrospectionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                System.out.println("删除成功");
+                                FinancialAccountController financialAccountController = new FinancialAccountController();
+                                try {
+                                    financialAccountController.deleteAccount(co);
+                                } catch (RemoteException e3) {
+                                    e3.printStackTrace();
+                                }
+                                System.out.println("弹窗测试！");
                             }
                         });
+
                     }
                 }
 
@@ -259,33 +279,50 @@ public class AccountManagementUI {
             stage1.setScene(s);
             stage1.show();
             //增加账户  监听
+
+            Alert warning = new Alert(Alert.AlertType.WARNING,"");
             addb.setOnAction((ActionEvent b1) -> {
-                try {
-                    String ID = "YHZH-" + nogenerator.generate(10);
-                    Account newaccount = new Account(
-                            ID,
-                            addName.getText(),
-                            addMoney.getText());
-                    data.add(newaccount);
-                    coVO co = new coVO();
-                    co.setKeyno(newaccount.getaccountID());
-                    co.setKeyname(newaccount.getaccountName());
-                    co.setSumall(praseDouble.prase(newaccount.getmoney()));
-                    controller.addAccount(co);
-
-                    logVO log = new logVO();
-                    log.setOperatorno(staff);
-                    log.setOpno("增加账户");
-                    link.getRemoteHelper().getLog().addObject(log, 13);
-
-
-                } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
-                    e1.printStackTrace();
+                if(addName.getText()==null||addMoney.getText()==null||
+                        addName.getText().isEmpty()||addMoney.getText().isEmpty()){
+                    warning.setContentText("内容不能为空！");
+                    warning.showAndWait();
                 }
-//            addID.clear();
-                addName.clear();
-                addMoney.clear();
-                stage1.close();
+                else if(!isNumeric(addMoney.getText())){
+                    warning.setContentText("输入金额应为数字！");
+                    warning.showAndWait();
+                }
+                else{
+                    try {
+                        String ID = "YHZH-" + nogenerator.generate(10);
+                        Account newaccount = new Account(
+                                ID,
+                                addName.getText(),
+                                addMoney.getText());
+                        data.add(newaccount);
+                        coVO co = new coVO();
+                        co.setKeyno(newaccount.getaccountID());
+                        co.setKeyname(newaccount.getaccountName());
+                        co.setSumall(praseDouble.prase(newaccount.getmoney()));
+//断言
+                        assert co.getKeyname()!=null;
+                        assert co.getSumall()!=null;
+                        controller.addAccount(co);
+
+                        logVO log = new logVO();
+                        log.setOperatorno(staff);
+                        log.setOpno("增加账户");
+                        link.getRemoteHelper().getLog().addObject(log, 13);
+
+
+                    } catch (RemoteException | IntrospectionException | IllegalAccessException | InvocationTargetException e1) {
+                        e1.printStackTrace();
+                    }
+                    addName.clear();
+                    addMoney.clear();
+                    stage1.close();
+                }
+
+
             });
 
             cancelb.setOnAction((ActionEvent b2) -> {
@@ -354,6 +391,16 @@ public class AccountManagementUI {
             e1.printStackTrace();
         }
     }
+//是否为数字
+    public static boolean isNumeric(String str){
+        for (int i = 0; i < str.length(); i++){
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
 //单元格可修改
     public class EditingCell extends TableCell<Account, String> {
 

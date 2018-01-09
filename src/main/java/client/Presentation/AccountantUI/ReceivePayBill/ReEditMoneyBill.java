@@ -48,9 +48,11 @@ public class ReEditMoneyBill {
     final Tooltip tooltipForMoney = new Tooltip("金额（数字）");
     FinancialReceiveController receiveController = new FinancialReceiveController();
     FinancialPayController payController = new FinancialPayController();
+    private Alert warning = new Alert(Alert.AlertType.WARNING,"");
+
 //start函数
 
-    public void start(FinancialBill bill) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public void start(FinancialBill bill,String staff) throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         Stage stage = new Stage();
         stage.setTitle("填写单据");
         Scene scene = new Scene(new Group(), 700, 850);
@@ -124,11 +126,8 @@ public class ReEditMoneyBill {
         TypeComboBox.setEditable(false);
 
         final ComboBox<String> StaffComboBox = new ComboBox<String>();
-        StaffComboBox.getItems().addAll(
-                "A员工", "B员工"
-        );
-        StaffComboBox.setValue("A员工");
-        StaffComboBox.setEditable(true);
+        StaffComboBox.setValue(staff);
+        StaffComboBox.setEditable(false);
 
 
         final ComboBox<String> ConsumerTypeComboBox = new ComboBox<String>();
@@ -139,7 +138,6 @@ public class ReEditMoneyBill {
         ConsumerTypeComboBox.setEditable(false);
 
 
-//提交按钮
         String ID = bill.getID();
         String Type = bill.getBillType();
         if (Type.equals("0.0")){
@@ -218,14 +216,13 @@ public class ReEditMoneyBill {
             String consumerID1 = consumer.getText();
             double sum1 = Double.parseDouble(money.getText());
             ArrayList<MoneyList> moneylist1 = new ArrayList<MoneyList>();
-
-            System.out.println(" List size 3: "+data.size());
             for (int i=0;i<data.size();i++) {
                 data.get(i).setlistNO(billID);
-                System.out.println("sec"+data.get(0).getkeyid());
                 moneylist1.add(data.get(i));
             }
-            System.out.println(" List size 4: "+data.size());
+//断言
+            assert !consumer.getText().isEmpty();
+            assert !money.getText().isEmpty();
             FinancialBill financialBill = new FinancialBill(billID,billtype,operater1,consumerType1,consumerID1,moneylist1,sum1);
             try {
                 if(billtype=="收款单"){
@@ -283,33 +280,47 @@ public class ReEditMoneyBill {
     public boolean check(){
         boolean re = true;
         String moneytext = money.getText();
-        if(moneytext == null || moneytext.isEmpty()){
-            re = false;
-            notification.setText("请输入总金额 !");
-        }
         if (!isNumeric(moneytext)){
             re = false;
-            notification.setText("请检查输入金额的格式 !");
+            warning.setContentText("请检查输入金额的格式 !");
+            warning.showAndWait();
         }
-        if(consumer.getText()==null){
+        else if(moneytext == null || moneytext.isEmpty()){
             re = false;
-            notification.setText("请输入客户类型 !");
+            warning.setContentText("请输入总金额 !");
+            warning.showAndWait();
         }
+        else if(consumer.getText()==null||consumer.getText().isEmpty()){
+            re = false;
+            warning.setContentText("请输入客户编号 !");
+            warning.showAndWait();
+        }
+        else if (data.size()==0){
+            re = false;
+            warning.setContentText("请输入条目列表 !");
+            warning.showAndWait();
+        }
+        else{
+            for(int i=0;i<data.size();i++){
+                if(data.get(i).getAccount()==null||data.get(i).getAccount().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账账户 !");
+                    warning.showAndWait();
+                }
+                else if(data.get(i).getMoney()==null||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请输入转账金额 !");
+                    warning.showAndWait();
+                }
+                else if(!isNumeric(data.get(i).getMoney())||data.get(i).getMoney().isEmpty()){
+                    re = false;
+                    warning.setContentText("请检查转账金额格式 !");
+                    warning.showAndWait();
+                }
 
-        for(int i=0;i<data.size();i++){
+            }
 
-            if(!isNumeric(data.get(i).getMoney())){
-                re = false;
-                notification.setText("请检查转账金额格式 !");
-            }
-            if(data.get(i).getMoney()==null){
-                re = false;
-                notification.setText("请输入转账金额 !");
-            }
-            if(data.get(i).getAccount()==null){
-                re = false;
-                notification.setText("请输入转账账户 !");
-            }
+
 
         }
 
