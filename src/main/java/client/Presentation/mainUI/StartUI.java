@@ -8,6 +8,8 @@ import client.Presentation.ManageUI.MainManageUI;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
 import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -25,6 +27,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import com.jfoenix.controls.JFXButton;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -72,26 +76,26 @@ public class StartUI extends Application {
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(20);
 
-        Button btn1 = new Button("登录");
+        JFXButton btn1 = new JFXButton("登录");
         btn1.setMinSize(150, 40);
         btn1.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
-        Button btn2 = new Button("刷脸登陆");
+        JFXButton btn2 = new JFXButton("刷脸登陆");
         btn2.setMinSize(150, 40);
         btn2.setStyle("-fx-background-color: deepskyblue;-fx-font: 100;-fx-text-fill: white");
         //       ComboBox<String> tfName = new ComboBox<>();
 
-        Button exit = new Button("退出");
+        JFXButton exit = new JFXButton("退出");
         exit.setStyle("-fx-background-color: transparent;-fx-border-color: transparent;-fx-text-fill: deepskyblue");
         exit.setUnderline(true);
         exit.setOnAction((ActionEvent v1) -> {
             stage.close();
         });
 
-        TextField tfName = new TextField();
+        JFXTextField tfName = new JFXTextField();
 
         tfName.setEditable(true);
 
-        PasswordField pfPwd = new PasswordField();
+        JFXPasswordField pfPwd = new JFXPasswordField();
 
 
 
@@ -100,9 +104,7 @@ public class StartUI extends Application {
         tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
         pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
 
-        Line line1 = new Line(0, 100, 400, 100);
 
-        Line line2 = new Line(0, 100, 400, 100);
 
 
 
@@ -150,7 +152,7 @@ public class StartUI extends Application {
         hbButtons.setAlignment(Pos.CENTER);
 
 
-        vBox.getChildren().addAll(tfName, line1, pfPwd, line2, hbButtons);
+        vBox.getChildren().addAll(tfName,  pfPwd,  hbButtons);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
