@@ -214,7 +214,6 @@ public class ReceiveUI {
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllDraftReceive();
-//            System.out.println("Draft "+list.size()+" "+list.get(0).getKeyno());
             draftbilldata.clear();
             draftbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -278,7 +277,6 @@ public class ReceiveUI {
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllPromotedReceive();
-//            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -350,7 +348,6 @@ public class ReceiveUI {
 
         try {
             ArrayList<AccountBill> list =receiveController.getAllUnderPromotedReceive();
-//            System.out.println("Under "+list.size()+" "+list.get(0).getKeyno());
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -393,22 +390,6 @@ public class ReceiveUI {
 
         table.setItems(data);
         table.getColumns().addAll(AccountCol,MoneyListCol,CommentCol);
-
-
-//        try {
-//            FinancialBill bill= receiveController.getDetailInfor();
-//            System.out.println(bill.getID());
-//            //TypeComboBox.setValue(bill.getBillType());
-//            billNum.setText(bill.getID());
-//            StaffComboBox.setText(bill.getOperater());
-//            ConsumerTypeComboBox.setText(bill.getConsumerType());
-//            consumer.setText(bill.getConsumerID());
-//            data.clear();
-//            data.addAll(bill.getMoneyList());
-//            money.setText(String.valueOf(bill.getSum()));
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        }
 
 
         GridPane grid = new GridPane();
@@ -505,10 +486,6 @@ public class ReceiveUI {
 
         return vb;
 
-//        Group root = (Group)scene.getRoot();
-//        root.getChildren().add(vb);
-//        stage.setScene(scene);
-//        stage.show();
     }
 
 }

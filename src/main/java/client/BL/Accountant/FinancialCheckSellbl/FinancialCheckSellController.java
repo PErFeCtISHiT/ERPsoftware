@@ -37,6 +37,7 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
         for (int i=0;i<list.size();i++){
             salePO salepo = list.get(i);
             saleVO salevo = PoToVo(salepo);
+
             String[] str = salevo.getGoodsoutlist().split(",");
             for (int k=0;k<str.length;k++){
                 String keyno = str[k];
@@ -61,7 +62,6 @@ public class FinancialCheckSellController implements FinancialCheckSellInterface
      */
     @Override
     public ResultMessage getExcel(int type, String address) throws RemoteException, IOException, InterruptedException {
-
         return link.getRemoteHelper().getSale().exportToExcel(type,address);
     }
 

@@ -36,14 +36,13 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
 
     @Override
     public AccountBuild accountbuild() throws RemoteException, IllegalAccessException, IntrospectionException, InvocationTargetException {
-//
+
         Calendar c = Calendar.getInstance();
         int yearint = c.get(Calendar.YEAR);
         String year = yearint + "";
         ArrayList<AccountBuild_account> accountlist = getPastAccount(year);
         ArrayList<AccountBuild_consumer> consumerlist = getPastConsumer(year);
         ArrayList<AccountBuild_good> goodslist = getPastGoods(year);
-
         AccountBuild newaccount = new AccountBuild(year, accountlist, consumerlist, goodslist);
 
         link.getRemoteHelper().getaccountInit().Build(year);
@@ -98,7 +97,6 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
     public ArrayList<AccountBuild_account> getPastAccount(String year) throws RemoteException {
         ArrayList<AccountBuild_account> accountList = new ArrayList<>();
         List<coPO> polist = link.getRemoteHelper().getaccountInit().getPastAccount(year);
-        System.out.println(polist.size());
         for (coPO aPolist : polist) {
             AccountBuild_account account = PoToAccount(aPolist);
             accountList.add(account);
@@ -135,7 +133,6 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
     public ArrayList<AccountBuild_consumer> getPastConsumer(String year) throws RemoteException {
         ArrayList<AccountBuild_consumer> consumerList = new ArrayList<>();
         List<consumerPO> polist = link.getRemoteHelper().getaccountInit().getPastConsumer(year);
-        System.out.println(polist.size());
         for (consumerPO aPolist : polist) {
             AccountBuild_consumer consumer = PoToConsumer(aPolist);
             consumerList.add(consumer);
@@ -176,7 +173,6 @@ public class FinancialBuildController implements FinancialBuildAccountInterface 
     public ArrayList<AccountBuild_good> getPastGoods(String year) throws RemoteException {
         ArrayList<AccountBuild_good> goodList = new ArrayList<>();
         List<goodsPO> polist = link.getRemoteHelper().getaccountInit().getPastGoods(year);
-        System.out.println(polist.size());
         for (goodsPO aPolist : polist) {
             AccountBuild_good good = PoToGood(aPolist);
             goodList.add(good);

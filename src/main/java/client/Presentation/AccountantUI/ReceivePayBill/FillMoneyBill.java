@@ -141,7 +141,7 @@ public class FillMoneyBill{
         ConsumerTypeComboBox.setEditable(false);
 
         SummitButton.setOnAction((ActionEvent e) -> {
-            if (check())//checkMoney(money.getText())
+            if (check())
             {
                 String billtype = TypeComboBox.getValue();
                 String billID = billNum.getText();
@@ -169,9 +169,8 @@ public class FillMoneyBill{
                     e1.printStackTrace();
                 }
 
-                System.out.println("Step 3");
-                notification.setText("The Bill was successfully sent"
-                        + " to " );
+
+                notification.setText("The Bill was successfully sent");
                 money.clear();
                 text.clear();
             }
