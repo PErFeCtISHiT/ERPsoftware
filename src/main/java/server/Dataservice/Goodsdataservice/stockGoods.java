@@ -8,4 +8,5 @@ import server.Dataservice.Pubservice.pub;
  * @date: create in 15:30 2017/12/8
  */
 public interface stockGoods extends pub {
+
 }

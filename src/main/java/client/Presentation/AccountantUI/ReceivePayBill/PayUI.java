@@ -88,6 +88,7 @@ public class PayUI {
         TableView<AccountBill> AlreadyPromotionbilltable = new TableView<>();
         ObservableList<AccountBill> AlreadyPromotionbilldata =
                 FXCollections.observableArrayList();
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
         //账户列表
         accounttable.setEditable(true);
@@ -216,7 +217,6 @@ public class PayUI {
 
         try {
             ArrayList<AccountBill> list =PayController.getAllDraftPay();
-//            System.out.println("Draft "+list.size()+" "+list.get(0).getKeyno());
             draftbilldata.clear();
             draftbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -279,7 +279,6 @@ public class PayUI {
 
         try {
             ArrayList<AccountBill> list =PayController.getAllPromotedPay();
-//            System.out.println("AlR "+list.size()+" "+list.get(0).getKeyno());
             AlreadyPromotionbilldata.clear();
             AlreadyPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -341,7 +340,6 @@ public class PayUI {
 
         try {
             ArrayList<AccountBill> list =PayController.getAllUnderPromotedPay();
-//            System.out.println("Under "+list.size()+" "+list.get(0).getKeyno());
             UnderPromotionbilldata.clear();
             UnderPromotionbilldata.addAll(list);
         } catch (RemoteException e) {
@@ -403,7 +401,6 @@ public class PayUI {
         grid.add(table, 1, 2, 3, 1);
         grid.add(new Label("总金额:"), 0, 3);
         grid.add(money, 1, 3, 4, 1);
-//        grid.add(OutputButton, 3, 4);
         gridTitlePane.setText("详细信息");
         gridTitlePane.setContent(grid);
 
@@ -473,10 +470,6 @@ public class PayUI {
 
         return vb;
 
-//        Group root = (Group)scene.getRoot();
-//        root.getChildren().add(vb);
-//        stage.setScene(scene);
-//        stage.show();
     }
 
 }
