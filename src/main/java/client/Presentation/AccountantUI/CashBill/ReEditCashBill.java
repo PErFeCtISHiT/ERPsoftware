@@ -164,6 +164,9 @@ public class ReEditCashBill {
                     data.get(i).setlistNO(billID);
                     moneylist1.add(data.get(i));
                 }
+//断言
+                assert !account.getText().isEmpty();
+                assert !money.getText().isEmpty();
                 FinancialCash financialCash = new FinancialCash(billID,billtype,operater1,Account,moneylist1,sum1);
                 try {
                     if(billtype=="现金费用单"){
@@ -183,7 +186,7 @@ public class ReEditCashBill {
 //保存草稿按钮
         DraftButton.setOnAction((ActionEvent e) -> {
 
-            System.out.println(TypeComboBox.getValue());
+
 
             String billtype = TypeComboBox.getValue();
             String billID = bill.getID();//billNum.getText();

@@ -13,7 +13,7 @@ public class checkInTime {
     public static Boolean checkIsInTime(String beginTime, String endTime, String id) {
         int begintime = Integer.parseInt(beginTime);
         int endtime = Integer.parseInt(endTime);
-        int beginindex = id.charAt('-');
+        int beginindex = id.indexOf('-');
         int detectedtime = Integer.parseInt(id.substring(beginindex + 1, beginindex + 9));
         return detectedtime >= begintime && detectedtime <= endtime;
 
