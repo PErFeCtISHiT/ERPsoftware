@@ -18,7 +18,11 @@ public class saleVO implements Serializable{
 	private String consumer;
 	private String operater;
 
-	public String getConsumer() {
+    public saleVO() {
+
+    }
+
+    public String getConsumer() {
 		return consumer;
 	}
 

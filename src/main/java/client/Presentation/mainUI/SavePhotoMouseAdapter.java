@@ -102,7 +102,7 @@ class SavePhotoMouseAdapter extends MouseAdapter {
 
 
     private void cvSaveImage(opencv_core.IplImage image) throws IOException {
-        File file = new File(this.getClass().getClassLoader().getResource("test.jpg").toString());
+        File file = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath());
 
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

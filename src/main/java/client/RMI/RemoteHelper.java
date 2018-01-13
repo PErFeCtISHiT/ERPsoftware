@@ -33,7 +33,7 @@ public class RemoteHelper {
     }
 
 
-    private RemoteHelper() {
+    public RemoteHelper() {
 
     }
 

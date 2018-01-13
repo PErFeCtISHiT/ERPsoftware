@@ -29,5 +29,5 @@
 
 
 .table-view:focused   .table-row-cell:filled:focused:selected{
-    -fx-background-color: black;
+    -fx-background-color: white;
 }

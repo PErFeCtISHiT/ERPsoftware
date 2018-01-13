@@ -331,8 +331,8 @@ public class CheckSellUI {
         fvbox.getChildren().addAll(hbox);
         fvbox.setMaxSize(1200,800);
 
-        fvbox.getStylesheets().add("table.css");
-        table.getStyleClass().add("table-view");
+//        fvbox.getStylesheets().add("table.css");
+//        table.getStyleClass().add("table-view");
 
 
         return fvbox;

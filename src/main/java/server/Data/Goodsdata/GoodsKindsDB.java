@@ -17,9 +17,8 @@ public class GoodsKindsDB extends publicDB implements GoodsKinds {
     public List goodsKindsFindByKeyWord(String keyword) {
         hibtools.session = hibtools.sessionFactory.getCurrentSession();
         hibtools.tx = hibtools.session.beginTransaction();
-        String hql = "from GoodskindsEntity where keyno like ? or keyname like ?";
-        List<GoodskindsEntity> goodsEntities = (List<GoodskindsEntity>) hibtools.session.createQuery(hql)
-                .setParameter(0, keyword).setParameter(1, keyword).list();
+        String hql = "from GoodskindsEntity y where y.keyname like '%" + keyword + "%'" + "or y.keyno like '%" + keyword + "%'";
+        List<GoodskindsEntity> goodsEntities = (List<GoodskindsEntity>) hibtools.session.createQuery(hql).list();
         List<goodskindsPO> goodskindsPOS = new ArrayList<>();
         for (GoodskindsEntity i : goodsEntities) {
             goodskindsPO temp = new goodskindsPO();

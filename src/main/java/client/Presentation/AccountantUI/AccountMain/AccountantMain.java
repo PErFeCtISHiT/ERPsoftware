@@ -97,6 +97,7 @@ public class AccountantMain {
             try {
                 finalBox.getChildren().remove(right);
                 subright.getChildren().add(checkProgressUI.start());
+                right.getChildren().clear();
                 right.getChildren().add(subright);
                 finalBox.getChildren().add(right);
             } catch (Exception e1) {
@@ -111,6 +112,7 @@ public class AccountantMain {
             try {
                 finalBox.getChildren().remove(right);
                 subright.getChildren().add(checkSituationUI.start());
+                right.getChildren().clear();
                 right.getChildren().add(subright);
                 finalBox.getChildren().add(right);
             } catch (Exception e1) {

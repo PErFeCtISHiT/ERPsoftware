@@ -56,8 +56,8 @@ class UploadPhotoMouseAdapter extends MouseAdapter {
             if (iplImage != null) {
 
 
-                java.net.URL path =this.getClass().getClassLoader().getResource("test.jpg");
-                String fpath =path.toString();
+                String fpath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("test.jpg")).getPath();
+
                 cvSaveImage(fpath, iplImage);
                 FaceAdd.add(picName);
 

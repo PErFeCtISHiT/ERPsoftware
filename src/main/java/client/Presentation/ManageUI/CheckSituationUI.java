@@ -1,107 +1,25 @@
 package client.Presentation.ManageUI;
-import client.RMI.link;
-import client.Vo.selloutVO;
-import com.sun.org.apache.regexp.internal.RE;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
-import javafx.scene.input.MouseEvent;
-import org.bytedeco.javacpp.presets.opencv_core;
-import server.Po.stockexceptionPO;
-import server.Po.selloutPO;
-import server.Po.goodsPO;
-import server.Po.buyinPO;
-import server.Po.giftPO;
 
-import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
+import client.RMI.link;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
+import server.Po.*;
+import client.BL.Manager.ManagerCheckSituationService.ManagerCheckSituationController;
 import java.rmi.RemoteException;
 import java.util.List;
 
 public class CheckSituationUI  {
 
-//    final HBox hb = new HBox();
-    //public HBox start() {
-//        GridPane pane=new GridPane();
-//
-//        Button search=new Button("搜索");
-//
-//        DatePicker checkin=new DatePicker();
-//        DatePicker checkout=new DatePicker();
-//
-//        pane.add(checkin,1,0);
-//        pane.add(checkout,2,0);
-//        pane.add(search,3,0);
-//
-//        search.setOnAction((ActionEvent e)->{
-//            Label shourulei=new Label("收入类");
-//            pane.add(shourulei,1,1);
-//
-//            Text zheranghoushouru=new Text();
-//            try {
-//                zheranghoushouru.setText("折让后总收入："+getzherang());
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            }
-//            pane.add(zheranghoushouru,2,2);
-//
-//            Text xiaoshoushouru=new Text();
-//            try {
-//                xiaoshoushouru.setText("销售收入："+getxiaoshou());
-//            } catch (RemoteException e1) {
-//                e1.printStackTrace();
-//            }
-//            pane.add(xiaoshoushouru,3,2);
-//
-//            Text shangpinleishuru=new Text();
-//            shangpinleishuru.setText("商品收入：");
-//            pane.add(shangpinleishuru,4,2);
-//
-//            Text chengbentiaojia=new Text();
-//            chengbentiaojia.setText("成本调价：");
-//            pane.add(chengbentiaojia,5,2);
-//
-//            Text jintuihuochajia=new Text();
-//            jintuihuochajia.setText("进退货差价：");
-//            pane.add(jintuihuochajia,6,2);
-//
-//            Label zhichulei=new Label("支出类");
-//            pane.add(zhichulei,1,3);
-//
-//            Text xiaoshouzhichu=new Text();
-//            xiaoshouzhichu.setText("销售支出：");
-//            pane.add(xiaoshouzhichu,2,4);
-//
-//            Text shangpinzhichu=new Text();
-//            shangpinzhichu.setText("商品支出：");
-//            pane.add(shangpinzhichu,3,4);
-//
-//            Text shangpinbaosun=new Text("商品报损：");
-//            shangpinbaosun.setText("商品报损：");
-//            pane.add(shangpinbaosun,4,4);
-//
-//            Text shangpinzengchu=new Text();
-//            shangpinzengchu.setText("商品赠出：");
-//            pane.add(shangpinzengchu,5,4);
-//
-//        });
-//
-//        hb.getChildren().add(pane);
-//        return hb;
         final HBox hb = new HBox();
 
         public HBox start() throws RemoteException {
@@ -109,10 +27,10 @@ public class CheckSituationUI  {
             gridTitlePane.setText("详细信息");
             ObservableList<PieChart.Data> pieChartData =
                     FXCollections.observableArrayList(
-                            new PieChart.Data("销售类收入", Double.parseDouble(getxiaoshou())),
-                            new PieChart.Data("商品类收入", Double.parseDouble(getshangpin())),
-                            new PieChart.Data("销售支出", Double.parseDouble(getxiaoshouzhichu())),
-                            new PieChart.Data("商品支出", Double.parseDouble(getshangpinzhichu()))
+                            new PieChart.Data("销售类收入", Double.parseDouble((getSalesIncome()))),
+                            new PieChart.Data("商品类收入", Double.parseDouble(getCommodity())),
+                            new PieChart.Data("销售支出", Double.parseDouble(getExpenditure())),
+                            new PieChart.Data("商品支出", Double.parseDouble(getAllCommodity()))
                     );
 
             final PieChart chart = new PieChart(pieChartData);
@@ -133,19 +51,19 @@ public class CheckSituationUI  {
                                         grid3.setPadding(new Insets(5, 5, 5, 5));
                                         grid3.add(new Label("报溢收入 "), 0, 0);
                                         try {
-                                            grid3.add(new Label(getbaoyi()), 1, 0);
+                                            grid3.add(new Label(getStockOverflow()), 1, 0);
                                         } catch (RemoteException e1) {
                                             e1.printStackTrace();
                                         }
                                         grid3.add(new Label("成本调价"), 0, 1);
                                         try {
-                                            grid3.add(new Label(getchengben()), 1, 1);
+                                            grid3.add(new Label(getCost()), 1, 1);
                                         } catch (RemoteException e1) {
                                             e1.printStackTrace();
                                         }
                                         grid3.add(new Label("进货退货差价"), 0, 2);
                                         try {
-                                            grid3.add(new Label(getjinhuo()), 1, 2);
+                                            grid3.add(new Label(getStockDifferBetweenTwice()), 1, 2);
                                         } catch (RemoteException e1) {
                                             e1.printStackTrace();
                                         }
@@ -170,13 +88,13 @@ public class CheckSituationUI  {
                                         grid5.setPadding(new Insets(5, 5, 5, 5));
                                         grid5.add(new Label("商品报损 "), 0, 0);
                                         try {
-                                            grid5.add(new Label(getbaosun()), 1, 0);
+                                            grid5.add(new Label(getReportedLoss()), 1, 0);
                                         } catch (RemoteException e1) {
                                             e1.printStackTrace();
                                         }
                                         grid5.add(new Label("商品支出"), 0, 1);
                                         try {
-                                            grid5.add(new Label(getshangpinzhichu()), 1, 1);
+                                            grid5.add(new Label(getAllCommodity()), 1, 1);
                                         } catch (RemoteException e1) {
                                             e1.printStackTrace();
                                         }
@@ -196,11 +114,11 @@ public class CheckSituationUI  {
             grid.setHgap(10);
             grid.setPadding(new Insets(5, 5, 5, 5));
             grid.add(new Label("折让后总收入 "), 0, 0);
-            grid.add(new Label(getzherang()), 0, 1);
+            grid.add(new Label(getCut()), 0, 1);
             grid.add(new Label("折让后总支出"), 1, 0);
-            grid.add(new Label(getzhichu()), 1, 1);
+            grid.add(new Label(getAfterCut()), 1, 1);
             grid.add(new Label("利润"), 2, 0);
-            grid.add(new Label("400"), 2, 1);
+            grid.add(new Label(getProfit()), 2, 1);
             grid.setAlignment(Pos.CENTER);
             hb.getChildren().addAll(grid);
             hb.setSpacing(3);
@@ -219,9 +137,24 @@ public class CheckSituationUI  {
 
  //   }
 
+    /**
+     *   String getSalesIncome() throws RemoteException;   //销售收入
+     String getStockOverflow() throws RemoteException;    //报溢收入
+     String getCost() throws RemoteException;   //成本调价
+     String getStockDifferBetweenTwice() throws RemoteException;
+     String getCommodity() throws RemoteException;    //商品类收入
+     String getCut() throws RemoteException;     //折让后总收入
+     String getAfterCut() throws RemoteException;    //销售支出
+     String getReportedLoss() throws RemoteException;   //商品报损支出
+     String getGoodsGiven() throws RemoteException;   //商品增送支出
+     String getAllCommodity() throws RemoteException;    //商品类支出
+     String getExpenditure() throws RemoteException;   //折让后总支出
+     String getProfit() throws RemoteException;   //利润
+     * @return
+     * @throws RemoteException
+     */
 
-
-    String getxiaoshou() throws RemoteException {
+    String getSalesIncome() throws RemoteException {
         double result=0;
         List a=link.getRemoteHelper().getSelloutBill().findAll(4);
         int length=a.size();
@@ -235,7 +168,7 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getbaoyi() throws RemoteException{
+    String getStockOverflow() throws RemoteException{
         double result=0;
         List a=link.getRemoteHelper().getStockOverflowBill().findAll(7);
         int length=a.size();
@@ -244,10 +177,6 @@ public class CheckSituationUI  {
             stockexceptionPO stock=(stockexceptionPO)link.getRemoteHelper().getStockOverflowBill().findAll(7) .get(i);
             double l=Math.abs(stock.getNuminsys()-stock.getNuminbase());
             String name=stock.getGoodsno();
- //           goodsPO good=(goodsPO)link.getRemoteHelper().getGoods().findbyNO(0,name).get(0);
- //           double price=good.getOutprice();
-
-//            result=result+l*price;
             result=result+l*1;
         }
 
@@ -255,7 +184,7 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getchengben() throws RemoteException{
+    String getCost() throws RemoteException{
         double result=0;
         List a=link.getRemoteHelper().getGoods().findAll(0);
         int length=a.size();
@@ -272,7 +201,7 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getjinhuo() throws RemoteException{
+    String getStockDifferBetweenTwice() throws RemoteException{
         double result=0;
         List a=link.getRemoteHelper().getBuyinBill().findAll(3);
         int length=a.size();
@@ -294,17 +223,17 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getshangpin() throws RemoteException{
-        double result=Double.parseDouble(getbaoyi())+Double.parseDouble(getchengben())+Double.parseDouble(getjinhuo());
+    String getCommodity() throws RemoteException{
+        double result=Double.parseDouble(getStockOverflow())+Double.parseDouble(getCost())+Double.parseDouble(getStockDifferBetweenTwice());
         return String.valueOf(result);
     }
 
-    String getzherang() throws RemoteException{
-        double result=Double.parseDouble(getshangpin())+Double.parseDouble(getxiaoshou());
+    String getCut() throws RemoteException{
+        double result=Double.parseDouble(getCommodity())+Double.parseDouble(getSalesIncome());
         return String.valueOf(result);
     }
 
-    String getxiaoshouzhichu() throws RemoteException {
+    String getExpenditure() throws RemoteException {
         double result=0;
         List a=link.getRemoteHelper().getBuyinBill().findAll(3);
         int length=a.size();
@@ -318,7 +247,7 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getbaosun() throws RemoteException{
+    String getReportedLoss() throws RemoteException{
         double result=0;
         List a=link.getRemoteHelper().getStockOverflowBill().findAll(7);
         int length=a.size();
@@ -327,9 +256,6 @@ public class CheckSituationUI  {
             stockexceptionPO stock=(stockexceptionPO)link.getRemoteHelper().getStockOverflowBill().findAll(7) .get(i);
             double l=Math.abs(stock.getNuminsys()-stock.getNuminbase());
             String name=stock.getGoodsno();
-//            goodsPO good=(goodsPO)link.getRemoteHelper().getGoods().findbyNO(0,name).get(0);
-//            double price=good.getOutprice();
-
             result=result+l*10;
         }
 
@@ -337,7 +263,7 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getzengchu() throws RemoteException{
+    String getGoodsGiven() throws RemoteException{
         double result=0;
         List a=link.getRemoteHelper().getGiftBill().findAll(6);
         int length=a.size();
@@ -356,18 +282,18 @@ public class CheckSituationUI  {
         return re;
     }
 
-    String getshangpinzhichu() throws RemoteException{
-        double result=Double.parseDouble(getbaosun())+Double.parseDouble(getzengchu());
+    String getAllCommodity() throws RemoteException{
+        double result=Double.parseDouble((getReportedLoss()))+Double.parseDouble(getGoodsGiven());
         return String.valueOf(result);
     }
 
-    String getzhichu() throws RemoteException {
-        double result=Double.parseDouble(getshangpinzhichu())+Double.parseDouble(getxiaoshouzhichu());
+    String getAfterCut() throws RemoteException {
+        double result=Double.parseDouble(getAllCommodity())+Double.parseDouble(getExpenditure());
         return String.valueOf(result);
     }
 
-    String getlirui() throws RemoteException {
-        double result=Double.parseDouble(getzherang())-Double.parseDouble(getzhichu());
+    String getProfit() throws RemoteException {
+        double result=Double.parseDouble(getCut())-Double.parseDouble(getAfterCut());
         return String.valueOf(result);
     }
 }

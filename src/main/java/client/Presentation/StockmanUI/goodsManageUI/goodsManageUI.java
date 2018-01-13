@@ -550,8 +550,8 @@ public class goodsManageUI {
 
         vbox.getChildren().addAll(hBox, table, hb);
 
-        vbox.getStylesheets().add("table.css");
-        table.getStyleClass().add("table-view");
+//        vbox.getStylesheets().add("table.css");
+//        table.getStyleClass().add("table-view");
 
         return vbox;
     }

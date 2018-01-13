@@ -457,13 +457,13 @@ public class CashUI {
         vb.getChildren().addAll(hb, hbox);
         vb.setMaxSize(1200,800);
 
-        vb.getStylesheets().add("table.css");
-        accordion.getStyleClass().add("table-view");
-        accounttable.getStyleClass().add("table-view");
-        consumertable.getStyleClass().add("table-view");
-        draftbilltable.getStyleClass().add("table-view");
-        AlreadyPromotionbilltable.getStyleClass().add("table-view");
-        UnderPromotionbilltable.getStyleClass().add("table-view");
+//        vb.getStylesheets().add("table.css");
+//        accordion.getStyleClass().add("table-view");
+//        accounttable.getStyleClass().add("table-view");
+//        consumertable.getStyleClass().add("table-view");
+//        draftbilltable.getStyleClass().add("table-view");
+//        AlreadyPromotionbilltable.getStyleClass().add("table-view");
+//        UnderPromotionbilltable.getStyleClass().add("table-view");
         return vb;
 
 

@@ -8,6 +8,7 @@ import client.Presentation.ManageUI.MainManageUI;
 import client.Presentation.SalesmanUI.BillMake.newBillUI;
 import client.Presentation.StockmanUI.stockmanMainUI.stockmanMainUI;
 import client.RMI.link;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
@@ -16,21 +17,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import com.jfoenix.controls.JFXButton;
-
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bytedeco.javacpp.opencv_core;
@@ -62,7 +58,6 @@ public class StartUI extends Application {
     private LoginController controller = new LoginController();
 
     public void start(Stage stage) throws RemoteException {
-
 
 
         VBox vBox = new VBox();
@@ -98,14 +93,10 @@ public class StartUI extends Application {
         JFXPasswordField pfPwd = new JFXPasswordField();
 
 
-
         tfName.setMinWidth(400);
         pfPwd.setMinWidth(400);
         tfName.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
         pfPwd.setStyle("-fx-prompt-text-fill: darkgray;-fx-border-color: transparent;-fx-font-size: 35;-fx-background-color: transparent");
-
-
-
 
 
         btn1.setOnAction((ActionEvent e) -> {
@@ -152,7 +143,7 @@ public class StartUI extends Application {
         hbButtons.setAlignment(Pos.CENTER);
 
 
-        vBox.getChildren().addAll(tfName,  pfPwd,  hbButtons);
+        vBox.getChildren().addAll(tfName, pfPwd, hbButtons);
 
         tfName.setMaxSize(150, 20);
         pfPwd.setMaxSize(150, 20);
@@ -272,7 +263,7 @@ public class StartUI extends Application {
         JButton save_photo = new JButton("登录");
         JButton cancle = new JButton("关闭");
         Camera camera = new Camera();
-        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage, frame,stage));
+        save_photo.addMouseListener(new SavePhotoMouseAdapter(grabbedImage, frame, stage));
 
         cancle.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent arg0) {

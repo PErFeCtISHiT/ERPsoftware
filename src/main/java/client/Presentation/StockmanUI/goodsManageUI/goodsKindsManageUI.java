@@ -122,8 +122,8 @@ public class goodsKindsManageUI {
             }
         });
 
-        vbox.getStylesheets().add("treeview.css");
-        goodsTreeView.getStyleClass().add("tree-view");
+//        vbox.getStylesheets().add("treeview.css");
+//        goodsTreeView.getStyleClass().add("tree-view");
 
         return vbox;
 
