@@ -228,6 +228,7 @@ public class StartUI extends Application {
                 SetUI setUI = new SetUI();
                 hBox = setUI.start(thisPO);
                 break;
+
         }
 
 

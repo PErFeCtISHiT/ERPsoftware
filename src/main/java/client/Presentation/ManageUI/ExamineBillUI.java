@@ -3,6 +3,8 @@ package client.Presentation.ManageUI;
 import client.BL.Manager.ManagerCheckProcessService.Billgotten;
 import client.BL.Manager.ManagerExamineBillService.ManagerExamineController;
 import client.RMI.link;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import server.Po.*;
+import org.terracotta.statistics.Time;
 import shared.checkInTime;
+import server.Po.*;
 
 import java.rmi.RemoteException;
 import java.time.LocalDate;
@@ -26,30 +29,30 @@ import java.util.Locale;
 
 public class ExamineBillUI  {
 
-    private final TableView<Billgotten> table = new TableView<>();
+    private  TableView<Billgotten> table = new TableView<>();
     private DatePicker checkInDatePicker;
     private DatePicker checkOutDatePicker;
     TitledPane gridTitlePane = new TitledPane();
-    final Button button1 = new Button("提交审批");
-    final HBox fhb =new HBox();
+     JFXButton button1 = new JFXButton("提交审批");
+     HBox fhb =new HBox();
     //所有单据共有属性
-    final Label Type =new Label();
-    final Label Id =new Label();
-    final Label Operator =new Label();
-    final Label IsHongChong =new Label();
-    final Label state =new Label();
+     Label Type =new Label();
+     Label Id =new Label();
+     Label Operator =new Label();
+     Label IsHongChong =new Label();
+     Label state =new Label();
     //
     //buyingPO 属性
-    final Label kind =new Label();
-    final Label note =new Label();
-    final Label ischeck =new Label();
-    final Label provider =new Label();
-    final Label base =new Label();
-    final Label goodsoutlist =new Label();
-    final Label sumall =new Label();
+     Label kind =new Label();
+     Label note =new Label();
+     Label ischeck =new Label();
+     Label provider =new Label();
+     Label base =new Label();
+     Label goodsoutlist =new Label();
+     Label sumall =new Label();
 
     //审核按钮
-    final Button button4 = new Button("查询");
+     JFXButton button4 = new JFXButton("驳回");
 
     //search 属性
     int searchcode = -1;
@@ -65,14 +68,14 @@ public class ExamineBillUI  {
 
     ManagerExamineController controller = new ManagerExamineController();
 
-    private final ObservableList<Billgotten> data =
+    private  ObservableList<Billgotten> data =
             FXCollections.observableArrayList(
 
             );
 
 
-    final HBox hb = new HBox();
-    final HBox hb2 =new HBox();
+     HBox hb = new HBox();
+     HBox hb2 =new HBox();
 
     Callback<TableColumn<Billgotten,String>,
             TableCell<Billgotten,String>> cellFactory
@@ -119,7 +122,9 @@ public class ExamineBillUI  {
                             int  kind =data.get(this.getIndex()).getPrecisetype();
                             int  index =this.getIndex();
                             try {
+                                data.clear();
                                 switch (kind){
+
                                     case 3:{
                                         buyinPO buying =  (buyinPO)link.getRemoteHelper().getBuyinBill().findbyNO(3,keyno).get(0);
                                         detail3(keyno,index);
@@ -129,6 +134,7 @@ public class ExamineBillUI  {
                                     case 4:{
                                         selloutPO sellout =  (selloutPO) link.getRemoteHelper().getSelloutBill().findbyNO(4,keyno).get(0);
                                         detail4(keyno,index);
+
                                     }
                                     case 5:{
                                         moneyPO money =  (moneyPO) link.getRemoteHelper().getMoneyBill().findbyNO(5,keyno).get(0);
@@ -240,13 +246,13 @@ public class ExamineBillUI  {
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
 
-        checkInDatePicker = new DatePicker();
-        checkOutDatePicker = new DatePicker();
+        checkInDatePicker = new JFXDatePicker();
+        checkOutDatePicker = new JFXDatePicker();
         checkInDatePicker.setValue(LocalDate.now());
-        final Callback<DatePicker, DateCell> dayCellFactory =
+         Callback<DatePicker, DateCell> dayCellFactory =
                 new Callback<DatePicker, DateCell>() {
                     @Override
-                    public DateCell call(final DatePicker datePicker) {
+                    public DateCell call( DatePicker datePicker) {
                         return new DateCell() {
                             @Override
                             public void updateItem(LocalDate item, boolean empty) {
@@ -285,181 +291,136 @@ public class ExamineBillUI  {
 
         });
 
-        final TextField  client= new TextField();
-        client.setPromptText("客户");
-        client.setVisible(false);
-        client.setOnAction((ActionEvent e) -> {
-            kehu =client.getText();
-            //System.out.println(kehu);
-            if((!yewuyuan.equals(""))&&(!cangku.equals(""))&&(!kehu.equals(""))&&(!TimeBegin.equals(""))&&(!TimeEnd.equals(""))){
-                kehu =client.getText();
-                button4.setDisable(false);
-            }
 
-        });
-        final TextField salesman = new TextField();
-        salesman.setPromptText("业务员");
-        yewuyuan =salesman.getText();
-        salesman.setOnAction((ActionEvent e) -> {
-            yewuyuan =salesman.getText();
-            if((!yewuyuan.equals(""))&&(!cangku.equals(""))&&(!kehu.equals(""))&&(!TimeBegin.equals(""))&&(!TimeEnd.equals(""))){
-                button4.setDisable(false);
-            }
-
-        });
-        final TextField storehouse = new TextField();
-        storehouse.setPromptText("仓库");
-        storehouse.setVisible(false);
-        cangku =storehouse.getText();
-        storehouse.setOnAction((ActionEvent e) -> {
-            cangku =storehouse.getText();
-            if((!yewuyuan.equals(""))&&(!cangku.equals(""))&&(!kehu.equals(""))&&(!TimeBegin.equals(""))&&(!TimeEnd.equals(""))){
-                button4.setDisable(false);
-            }
-
-        });
         checkInDatePicker.setOnAction((ActionEvent e) -> {
             TimeBegin =checkInDatePicker.getValue().toString();
             TimeBegin =TimeBegin.substring(0,4)+TimeBegin.substring(5,7)+TimeBegin.substring(8,10);
             System.out.println(TimeBegin);
-            if((!yewuyuan.equals(""))&&(!cangku.equals(""))&&(!kehu.equals(""))&&(!TimeBegin.equals(""))&&(!TimeEnd.equals(""))){
-                button4.setDisable(false);
-            }
+
 
 
         });
         checkOutDatePicker.setOnAction((ActionEvent e) -> {
             TimeEnd =checkOutDatePicker.getValue().toString();
             TimeEnd =TimeEnd.substring(0,4)+TimeEnd.substring(5,7)+TimeEnd.substring(8,10);
-            if((!yewuyuan.equals(""))&&(!cangku.equals(""))&&(!kehu.equals(""))&&(!TimeBegin.equals(""))&&(!TimeEnd.equals(""))){
-                button4.setDisable(false);
+            data.clear();
+            try {
+                List<selloutPO> list2 =controller.showselloutPO();
+                for (int i=0;i<list2.size();i++){
+                    if(list2.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list2.get(i).getKeyno()))
+                        data.add(new Billgotten(4, "销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
+                }
+                List<buyinPO> list =controller.showbyingPO();
+                for (int i=0;i<list.size();i++){
+                    if(list.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list.get(i).getKeyno()))
+                        data.add(new Billgotten(3, "进货类单据",list.get(i).getKeyno(),list.get(i).getOper(),getState(list.get(i).getIscheck()),getIsRed(list.get(i).getIsred())));
+                }
+                List<moneyPO> list3 =controller.showmoneyPO();
+                for (int i=0;i<list3.size();i++){
+                    if(list3.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list3.get(i).getKeyno()))
+                        data.add(new Billgotten(5, "财务类单据",list3.get(i).getKeyno(),list3.get(i).getOper(),getState(list3.get(i).getIscheck()),getIsRed(list3.get(i).getIsred())));
+                }
+                List<stockexceptionPO> list4 =controller.showstockexceptionPO();
+                for (int i=0;i<list4.size();i++){
+                    if(list4.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list4.get(i).getKeyno()))
+                        data.add(new Billgotten(7, "库存类单据",list4.get(i).getKeyno(),list4.get(i).getOper(),getState(list4.get(i).getIscheck()),getIsRed(list4.get(i).getIsred())));
+                }
+                List<WarningPO> list5 =controller.showwarningPO();
+                for (int i=0;i<list5.size();i++){
+                    if(list5.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list5.get(i).getKeyno()))
+                        data.add(new Billgotten(9, "库存类单据",list5.get(i).getKeyno(),list5.get(i).getOper(),getState(list5.get(i).getIscheck()),getIsRed(list5.get(i).getIsred())));
+                }
+                List<giftPO> list6 =controller.showgiftPO();
+                for (int i=0;i<list6.size();i++){
+                    if(list6.get(i).getIscheck()==0&&checkInTime.checkIsInTime(TimeBegin, TimeEnd,list6.get(i).getKeyno()))
+                        data.add(new Billgotten(6, "库存类单据",list6.get(i).getKeyno(),list6.get(i).getOper(),getState(list6.get(i).getIscheck()),getIsRed(list6.get(i).getIsred())));
+                }
+
+
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
             }
+
+            table.setItems(data);
 
 
         });
-        final ChoiceBox BillType= new ChoiceBox(FXCollections.observableArrayList("进货/进货退货单","销售/销售退货单","收款单/付款单","库存赠送单","库存报溢/损单","库存报警单"));
+
+         ChoiceBox BillType= new ChoiceBox(FXCollections.observableArrayList("进货/进货退货单","销售/销售退货单","收款单/付款单","库存赠送单","库存报溢/损单","库存报警单"));
         BillType.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->{
+            data.clear();
             searchcode =newv.intValue();
-            if(searchcode==0||searchcode==1){
-                storehouse.setVisible(true);
-            }else{
-                storehouse.setVisible(false);
-            }
-            if(searchcode==2||searchcode==3){
-                client.setVisible(true);
-            }else{
-                client.setVisible(false);
+            try {
+                switch (searchcode){
+                    case 0:
+                    List<selloutPO> list2 =controller.showselloutPO();
+                    for (int i=0;i<list2.size();i++){
+                        if(list2.get(i).getIscheck()==0)
+                            data.add(new Billgotten(4, "销售类单据",list2.get(i).getKeyno(),list2.get(i).getOper(),getState(list2.get(i).getIscheck()),getIsRed(list2.get(i).getIsred())));
+                    }
+                    break;
+                    case 1:
+                    List<buyinPO> list =controller.showbyingPO();
+                    for (int i=0;i<list.size();i++){
+                        if(list.get(i).getIscheck()==0)
+                            data.add(new Billgotten(3, "进货类单据",list.get(i).getKeyno(),list.get(i).getOper(),getState(list.get(i).getIscheck()),getIsRed(list.get(i).getIsred())));
+                    }
+                    break;
+                    case 2:
+                    List<moneyPO> list3 =controller.showmoneyPO();
+                    for (int i=0;i<list3.size();i++){
+                        if(list3.get(i).getIscheck()==0)
+                            data.add(new Billgotten(5, "财务类单据",list3.get(i).getKeyno(),list3.get(i).getOper(),getState(list3.get(i).getIscheck()),getIsRed(list3.get(i).getIsred())));
+                    }
+                    break;
+                    case 3:
+                    List<stockexceptionPO> list4 =controller.showstockexceptionPO();
+                    for (int i=0;i<list4.size();i++){
+                        if(list4.get(i).getIscheck()==0)
+                            data.add(new Billgotten(7, "库存类单据",list4.get(i).getKeyno(),list4.get(i).getOper(),getState(list4.get(i).getIscheck()),getIsRed(list4.get(i).getIsred())));
+                    }
+                    break;
+                    case 4:
+                    List<WarningPO> list5 =controller.showwarningPO();
+                    for (int i=0;i<list5.size();i++){
+                        if(list5.get(i).getIscheck()==0)
+                            data.add(new Billgotten(9, "库存类单据",list5.get(i).getKeyno(),list5.get(i).getOper(),getState(list5.get(i).getIscheck()),getIsRed(list5.get(i).getIsred())));
+                    }
+                    break;
+                    case 5:
+                    List<giftPO> list6 =controller.showgiftPO();
+                    for (int i=0;i<list6.size();i++){
+                        if(list6.get(i).getIscheck()==0)
+                            data.add(new Billgotten(6, "库存类单据",list6.get(i).getKeyno(),list6.get(i).getOper(),getState(list6.get(i).getIscheck()),getIsRed(list6.get(i).getIsred())));
+                    }
+                    break;
+
+                }
+
+
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
 
+            table.setItems(data);
         });
 
 
 
         button1.setStyle("-fx-border-color: black;-fx-background-color: transparent");
         button4.setStyle("-fx-border-color: black;-fx-background-color: transparent");
-        button4.setOnAction((ActionEvent e) -> {
-            try {
-                data.clear();
 
-                /**
-                 *  根据searchco选用方法 返回相应的列表
-                 *  再根据其他四个条件一一进行筛选
-                 *  0,1含有仓库
-                 *  2,3含有客户
-                 *  其他均只可以查找operator
-                 */
-                switch (searchcode) {
-                    case 1:
-                        List<selloutPO> list2 = controller.showselloutPO();
-                        if(list2.size()==0){break;}
-                        for (int i = 0; i < list2.size(); i++) {
-                            String key1 =list2.get(i).getKeyno();
-                            String opertor1 =list2.get(i).getOper();
-                            String base1 =list2.get(i).getBase();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(kehu)&&base1.equals(cangku)&&IsInTime)
-                                data.add(new Billgotten(4, "销售类单据", list2.get(i).getKeyno(), list2.get(i).getOper(), getState(list2.get(i).getIscheck()), getIsRed(list2.get(i).getIsred())));
-                        }
-                        break;
-                    case 0:
-                        List<buyinPO> list = controller.showbyingPO();
-                        if(list.size()==0){break;}
-                        for (int i = 0; i < list.size(); i++) {
-                            String key1 =list.get(i).getKeyno();
-                            String opertor1 =list.get(i).getOper();
-                            String base1 =list.get(i).getBase();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(kehu)&&base1.equals(cangku)&&IsInTime)
-                                data.add(new Billgotten(3, "进货类单据", list.get(i).getKeyno(), list.get(i).getOper(), getState(list.get(i).getIscheck()), getIsRed(list.get(i).getIsred())));
-                        }
-                        break;
-                    case 2:
-                        List<moneyPO> list3 = controller.showmoneyPO();
-
-                        for (int i = 0; i < list3.size(); i++) {
-                            String key1 =list3.get(i).getKeyno();
-                            String opertor1 =list3.get(i).getOper();
-                            String consumer =list3.get(i).getConsumer();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(opertor1)&&consumer.equals(kehu)&&IsInTime)
-                                data.add(new Billgotten(5, "财务类单据", list3.get(i).getKeyno(), list3.get(i).getOper(), getState(list3.get(i).getIscheck()), getIsRed(list3.get(i).getIsred())));
-                        }
-                        break;
-                    case 4:
-                        List<stockexceptionPO> list4 = controller.showstockexceptionPO();
-                        for (int i = 0; i < list4.size(); i++) {
-                            String key1 =list4.get(i).getKeyno();
-                            String opertor1 =list4.get(i).getOper();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(opertor1)&&IsInTime)
-                                data.add(new Billgotten(7, "库存类单据", list4.get(i).getKeyno(), list4.get(i).getOper(), getState(list4.get(i).getIscheck()), getIsRed(list4.get(i).getIsred())));
-                        }
-                        break;
-                    case 5:
-                        List<WarningPO> list5 = controller.showwarningPO();
-                        for (int i = 0; i < list5.size(); i++) {
-                            String key1 =list5.get(i).getKeyno();
-                            String opertor1 =list5.get(i).getOper();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(opertor1)&&IsInTime)
-                                data.add(new Billgotten(9, "库存类单据", list5.get(i).getKeyno(), list5.get(i).getOper(), getState(list5.get(i).getIscheck()), getIsRed(list5.get(i).getIsred())));
-                        }
-                    case 3:
-                        List<giftPO> list6 = controller.showgiftPO();
-                        for (int i = 0; i < list6.size(); i++) {
-                            String key1 =list6.get(i).getKeyno();
-                            String opertor1 =list6.get(i).getOper();
-                            String consumer =list6.get(i).getComsumername();
-
-                            Boolean IsInTime =checkInTime.checkIsInTime(TimeBegin,TimeEnd,key1);
-                            if(opertor1.equals(opertor1)&&consumer.equals(kehu)&&IsInTime)
-                                data.add(new Billgotten(6, "库存类单据", list6.get(i).getKeyno(), list6.get(i).getOper(), getState(list6.get(i).getIscheck()), getIsRed(list6.get(i).getIsred())));
-                        }
-                        break;
-
-                }
-            } catch(RemoteException e1){
-                e1.printStackTrace();
-            }
-
-
-
-        });
 
         hb.getChildren().addAll(button1,button4);
         hb.setSpacing(3);
 
         hb2.getChildren().addAll(vbox);
 
-        final VBox vbox1 = new VBox();
+         VBox vbox1 = new VBox();
         vbox1.setSpacing(5);
         vbox1.setPadding(new Insets(10, 0, 0, 10));
-        vbox1.getChildren().addAll( table, hb,BillType,client,salesman,storehouse);
+        vbox1.getChildren().addAll( table, hb,BillType);
         hb2.getChildren().addAll(vbox1,gridTitlePane);
         return hb2;
     }
@@ -537,6 +498,9 @@ public class ExamineBillUI  {
         }
         else if(number ==1){
             return "已审批";
+        }
+        else if(number ==233){
+            return"被驳回";
         }
         else{
             return "草稿";
@@ -717,6 +681,15 @@ public class ExamineBillUI  {
                 }
                 data.remove(index);
             });
+            button4.setOnAction((ActionEvent e)->{
+                po.setIscheck(233.0);
+                try {
+                    link.getRemoteHelper().getMoneyBill().modifyObject(po,5);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -732,7 +705,7 @@ public class ExamineBillUI  {
         grid3.setHgap(10);
         try {
 
-            giftPO po = (giftPO) link.getRemoteHelper().getMoneyBill().findbyNO(6,keyno).get(0);
+            giftPO po = (giftPO) link.getRemoteHelper().getGiftBill().findbyNO(6,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
             if(po.getKind()==0){Type.setText("库存赠送单");}else{Type.setText("库存赠送单");}
@@ -771,6 +744,15 @@ public class ExamineBillUI  {
                 }
                 data.remove(index);
             });
+            button4.setOnAction((ActionEvent e)->{
+                po.setNum(Double.parseDouble(numforit.getText()));
+                po.setIscheck(233.0); try {
+                    link.getRemoteHelper().getMoneyBill().modifyObject(po,6);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -786,7 +768,7 @@ public class ExamineBillUI  {
         grid3.setHgap(10);
         try {
 
-            stockexceptionPO po = (stockexceptionPO) link.getRemoteHelper().getMoneyBill().findbyNO(7,keyno).get(0);
+            stockexceptionPO po = (stockexceptionPO) link.getRemoteHelper().getStockOverflowBill().findbyNO(7,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
             if(po.getKind()==0){Type.setText("库存报溢单");}else{Type.setText("库存报损单");}
@@ -821,6 +803,15 @@ public class ExamineBillUI  {
                 }
                 data.remove(index);
             });
+            button4.setOnAction((ActionEvent e)->{
+                po.setIscheck(233.0);
+                try {
+                    link.getRemoteHelper().getStockOverflowBill().modifyObject(po,7);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+            });
 
 
         } catch (RemoteException e) {
@@ -838,7 +829,7 @@ public class ExamineBillUI  {
         grid3.setHgap(10);
         try {
 
-            WarningPO po = (WarningPO) link.getRemoteHelper().getMoneyBill().findbyNO(9,keyno).get(0);
+            WarningPO po = (WarningPO) link.getRemoteHelper().getStockwarningBill().findbyNO(9,keyno).get(0);
             grid3.setPadding(new Insets(5, 5, 5, 5));
             grid3.add(new Label("单据类型："), 0, 0);
             if(po.getKind()==0){Type.setText("库存报警单");}else{Type.setText("库存报警单");}
@@ -869,6 +860,17 @@ public class ExamineBillUI  {
             button1.setOnAction((ActionEvent e)->{
                 po.setWarningnum(Double.parseDouble(warning.getText()));
                 po.setIscheck(1.0);
+                try {
+                    link.getRemoteHelper().getStockwarningBill().modifyObject(po,9);
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                data.remove(index);
+
+            });
+            button4.setOnAction((ActionEvent e)->{
+                po.setWarningnum(Double.parseDouble(warning.getText()));
+                po.setIscheck(233.0);
                 try {
                     link.getRemoteHelper().getStockwarningBill().modifyObject(po,9);
                 } catch (RemoteException e1) {
