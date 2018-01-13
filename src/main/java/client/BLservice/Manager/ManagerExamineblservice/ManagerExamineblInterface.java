@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public interface ManagerExamineblInterface {
-  public List<buyinPO> showbyingPO() throws RemoteException;
+  List<buyinPO> showbyingPO() throws RemoteException;
 
   List<selloutPO> showselloutPO() throws RemoteException;
 

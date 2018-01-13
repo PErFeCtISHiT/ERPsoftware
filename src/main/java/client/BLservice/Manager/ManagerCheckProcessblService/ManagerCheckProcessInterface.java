@@ -20,27 +20,5 @@ public interface ManagerCheckProcessInterface {
 
     List<WarningPO> showwarningPO() throws RemoteException;
 
-    List<buyinPO> searchbyingPO();
 
-    List<selloutPO> searchselloutPO();
-
-    List<moneyPO> searchmoneyPO();
-
-    List<giftPO> searchgiftPO();
-
-    List<stockexceptionPO> serachstockexceptionPO();
-
-    List<WarningPO> searchwarningPO();
-
-    ResultMessage hongchong(buyinVO buyinVO);
-
-    ResultMessage hongchong(selloutVO selloutVO);
-
-    ResultMessage hongchong(moneyVO moneyVO);
-
-    ResultMessage hongchong(giftVO giftVO);
-
-    ResultMessage hongchong(stockexceptionVO stockexceptionVO);
-
-    ResultMessage hongchong(WarningVO warningVO);
 }
