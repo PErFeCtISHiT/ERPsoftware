@@ -219,6 +219,8 @@ public class CheckSituationUI  {
 
  //   }
 
+
+
     String getxiaoshou() throws RemoteException {
         double result=0;
         List a=link.getRemoteHelper().getSelloutBill().findAll(4);

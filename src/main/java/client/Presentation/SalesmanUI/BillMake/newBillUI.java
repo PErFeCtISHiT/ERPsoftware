@@ -7,6 +7,7 @@ import client.BL.Saleman.SalemanSaleblservice.SelloutBill;
 import client.BL.Saleman.SalemanSaleblservice.SelloutBillMakeController;
 import client.BL.Saleman.SalemanStockinblservice.StockinBill;
 import client.BL.Saleman.SalemanStockinblservice.StockinBillMakeController;
+import client.RMI.link;
 import client.Vo.buyinVO;
 import client.Vo.consumerVO;
 import client.Vo.selloutVO;
@@ -24,9 +25,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import server.Po.userPO;
 
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -364,6 +369,7 @@ public class newBillUI {
 
         Button edit=new Button("编辑");
         Button delete=new Button("删除");
+        Button toexcel=new Button("导出");
 
         gridPane.add(edit,3,12);
         gridPane.add(delete,4,12);
@@ -422,6 +428,7 @@ public class newBillUI {
 
             gridPane.add(confirm,3,12);
             gridPane.add(cancel,4,12);
+
 
             confirm.setOnAction((ActionEvent e1)->{
                 double finalKinds;
